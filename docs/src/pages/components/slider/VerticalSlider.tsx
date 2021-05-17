@@ -41,7 +41,6 @@ export default function VerticalSlider() {
         disabled
       />
       <Slider
-        aria-label="Temperature"
         orientation="vertical"
         getAriaValueText={valuetext}
         defaultValue={[20, 37]}
