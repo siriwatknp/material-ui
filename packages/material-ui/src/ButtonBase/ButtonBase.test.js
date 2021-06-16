@@ -237,7 +237,7 @@ describe('<ButtonBase />', () => {
 
   describe('ripple', () => {
     describe('interactions', () => {
-      it('should not have a focus ripple by default', () => {
+      it('should not have a focus ripple by default', async () => {
         const { getByRole } = render(
           <ButtonBase
             TouchRippleProps={{
@@ -250,7 +250,7 @@ describe('<ButtonBase />', () => {
         const button = getByRole('button');
         simulatePointerDevice();
 
-        focusVisible(button);
+        await focusVisible(button);
 
         expect(button.querySelectorAll('.ripple-pulsate')).to.have.lengthOf(0);
       });
@@ -572,14 +572,12 @@ describe('<ButtonBase />', () => {
       const button = getByRole('button');
 
       simulatePointerDevice();
-      await act(async () => {
-        focusVisible(button);
-      });
+      await focusVisible(button);
 
       expect(button.querySelectorAll('.ripple-pulsate')).to.have.lengthOf(1);
     });
 
-    it('should not stop the ripple when the mouse leaves', () => {
+    it('should not stop the ripple when the mouse leaves', async () => {
       const { getByRole } = render(
         <ButtonBase
           focusRipple
@@ -593,7 +591,7 @@ describe('<ButtonBase />', () => {
       const button = getByRole('button');
 
       simulatePointerDevice();
-      focusVisible(button);
+      await focusVisible(button);
       fireEvent.mouseLeave(button);
 
       expect(button.querySelectorAll('.ripple-pulsate')).to.have.lengthOf(1);
@@ -615,9 +613,7 @@ describe('<ButtonBase />', () => {
       const button = getByRole('button');
 
       simulatePointerDevice();
-      await act(async () => {
-        focusVisible(button);
-      });
+      await focusVisible(button);
       fireEvent.keyDown(button, { key: ' ' });
 
       expect(button.querySelectorAll('.ripple-pulsate .child-leaving')).to.have.lengthOf(1);
@@ -640,9 +636,7 @@ describe('<ButtonBase />', () => {
       const button = getByRole('button');
 
       simulatePointerDevice();
-      await act(async () => {
-        focusVisible(button);
-      });
+      await focusVisible(button);
       fireEvent.keyDown(button, { key: ' ' });
       fireEvent.keyUp(button, { key: ' ' });
 
@@ -665,9 +659,7 @@ describe('<ButtonBase />', () => {
       );
       const button = getByRole('button');
       simulatePointerDevice();
-      await act(async () => {
-        focusVisible(button);
-      });
+      await focusVisible(button);
 
       act(() => {
         button.blur();
@@ -698,9 +690,7 @@ describe('<ButtonBase />', () => {
       const button = getByText('Hello');
       simulatePointerDevice();
 
-      await act(async () => {
-        focusVisible(button);
-      });
+      await focusVisible(button);
 
       expect(button).to.have.class(classes.focusVisible);
 
@@ -778,14 +768,12 @@ describe('<ButtonBase />', () => {
         expect(button).not.to.have.class(classes.focusVisible);
       }
 
-      await act(async () => {
-        focusVisible(button);
-      });
+      await focusVisible(button);
 
       expect(button).to.have.class(classes.focusVisible);
     });
 
-    it('removes foucs-visible if focus is re-targetted', () => {
+    it('removes foucs-visible if focus is re-targetted', async () => {
       /**
        * @type {string[]}
        */
@@ -823,14 +811,14 @@ describe('<ButtonBase />', () => {
       const focusRetarget = getByText('you cannot escape me');
       simulatePointerDevice();
 
-      focusVisible(buttonBase);
+      await focusVisible(buttonBase);
 
       expect(focusRetarget).toHaveFocus();
       expect(eventLog).to.deep.equal(['focus-visible', 'focus', 'blur']);
       expect(buttonBase).not.to.have.class(classes.focusVisible);
     });
 
-    it('onFocusVisibleHandler() should propagate call to onFocusVisible prop', () => {
+    it('onFocusVisibleHandler() should propagate call to onFocusVisible prop', async () => {
       const onFocusVisibleSpy = spy();
       const { getByRole } = render(
         <ButtonBase component="span" onFocusVisible={onFocusVisibleSpy}>
@@ -839,7 +827,7 @@ describe('<ButtonBase />', () => {
       );
       simulatePointerDevice();
 
-      focusVisible(getByRole('button'));
+      await focusVisible(getByRole('button'));
 
       expect(onFocusVisibleSpy.calledOnce).to.equal(true);
       expect(onFocusVisibleSpy.firstCall.args).to.have.lengthOf(1);
