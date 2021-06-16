@@ -558,7 +558,7 @@ describe('<ButtonBase />', () => {
   });
 
   describe('focusRipple', () => {
-    it('should pulsate the ripple when focusVisible', () => {
+    it('should pulsate the ripple when focusVisible', async () => {
       const { getByRole } = render(
         <ButtonBase
           focusRipple
@@ -572,7 +572,9 @@ describe('<ButtonBase />', () => {
       const button = getByRole('button');
 
       simulatePointerDevice();
-      focusVisible(button);
+      await act(async () => {
+        focusVisible(button);
+      });
 
       expect(button.querySelectorAll('.ripple-pulsate')).to.have.lengthOf(1);
     });
@@ -597,7 +599,7 @@ describe('<ButtonBase />', () => {
       expect(button.querySelectorAll('.ripple-pulsate')).to.have.lengthOf(1);
     });
 
-    it('should stop pulsate and start a ripple when the space button is pressed', () => {
+    it('should stop pulsate and start a ripple when the space button is pressed', async () => {
       const { getByRole } = render(
         <ButtonBase
           focusRipple
@@ -613,14 +615,16 @@ describe('<ButtonBase />', () => {
       const button = getByRole('button');
 
       simulatePointerDevice();
-      focusVisible(button);
+      await act(async () => {
+        focusVisible(button);
+      });
       fireEvent.keyDown(button, { key: ' ' });
 
       expect(button.querySelectorAll('.ripple-pulsate .child-leaving')).to.have.lengthOf(1);
       expect(button.querySelectorAll('.ripple-visible')).to.have.lengthOf(0);
     });
 
-    it('should stop and re-pulsate when space bar is released', () => {
+    it('should stop and re-pulsate when space bar is released', async () => {
       const { getByRole } = render(
         <ButtonBase
           focusRipple
@@ -636,7 +640,9 @@ describe('<ButtonBase />', () => {
       const button = getByRole('button');
 
       simulatePointerDevice();
-      focusVisible(button);
+      await act(async () => {
+        focusVisible(button);
+      });
       fireEvent.keyDown(button, { key: ' ' });
       fireEvent.keyUp(button, { key: ' ' });
 
@@ -645,7 +651,7 @@ describe('<ButtonBase />', () => {
       expect(button.querySelectorAll('.ripple-visible')).to.have.lengthOf(3);
     });
 
-    it('should stop on blur and set focusVisible to false', () => {
+    it('should stop on blur and set focusVisible to false', async () => {
       const { getByRole } = render(
         <ButtonBase
           focusRipple
@@ -659,11 +665,14 @@ describe('<ButtonBase />', () => {
       );
       const button = getByRole('button');
       simulatePointerDevice();
-      focusVisible(button);
+      await act(async () => {
+        focusVisible(button);
+      });
 
       act(() => {
         button.blur();
       });
+      await null;
 
       expect(button.querySelectorAll('.ripple-visible .child-leaving')).to.have.lengthOf(1);
     });
@@ -684,12 +693,14 @@ describe('<ButtonBase />', () => {
       expect(getByText('Hello')).to.have.property('disabled', true);
     });
 
-    it('should reset the focused state', () => {
+    it('should reset the focused state', async () => {
       const { getByText, setProps } = render(<ButtonBase>Hello</ButtonBase>);
       const button = getByText('Hello');
       simulatePointerDevice();
 
-      focusVisible(button);
+      await act(async () => {
+        focusVisible(button);
+      });
 
       expect(button).to.have.class(classes.focusVisible);
 
@@ -752,7 +763,7 @@ describe('<ButtonBase />', () => {
       expect(onFocusSpy.callCount).to.equal(1);
     });
 
-    it('has a focus-visible polyfill', () => {
+    it('has a focus-visible polyfill', async () => {
       const { getByText } = render(<ButtonBase>Hello</ButtonBase>);
       const button = getByText('Hello');
       simulatePointerDevice();
@@ -767,7 +778,9 @@ describe('<ButtonBase />', () => {
         expect(button).not.to.have.class(classes.focusVisible);
       }
 
-      focusVisible(button);
+      await act(async () => {
+        focusVisible(button);
+      });
 
       expect(button).to.have.class(classes.focusVisible);
     });
@@ -1082,7 +1095,7 @@ describe('<ButtonBase />', () => {
   });
 
   describe('prop: action', () => {
-    it('should be able to focus visible the button', () => {
+    it('should be able to focus visible the button', async () => {
       /**
        * @type {React.RefObject<import('./ButtonBase').ButtonBaseActions>}
        */
@@ -1100,6 +1113,7 @@ describe('<ButtonBase />', () => {
         // @ts-ignore
         buttonActionsRef.current.focusVisible();
       });
+      await null;
 
       expect(getByText('Hello')).toHaveFocus();
       expect(getByText('Hello')).to.match('.focusVisible');
