@@ -55,9 +55,13 @@ describe('ThemeProvider', () => {
     const text = () => ref.current.textContent;
     function Test() {
       const theme = useTheme();
+      const themeRef = React.useRef(); // needed due to double-invokes effect in StrictMode
       React.useEffect(() => {
-        themes.push(theme);
-      });
+        if (themeRef.current !== theme) {
+          themes.push(theme);
+        }
+        themeRef.current = theme;
+      }, [theme]);
 
       return (
         <span ref={ref}>
@@ -66,7 +70,6 @@ describe('ThemeProvider', () => {
         </span>
       );
     }
-    const MemoTest = React.memo(Test);
 
     const outerTheme = { bar: 'bar' };
     const innerTheme = { foo: 'foo' };
@@ -75,7 +78,7 @@ describe('ThemeProvider', () => {
       return (
         <ThemeProvider theme={outerTheme}>
           <ThemeProvider theme={innerTheme}>
-            <MemoTest />
+            <Test />
           </ThemeProvider>
         </ThemeProvider>
       );
