@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { expect } from 'chai';
-import { createClientRender } from 'test/utils';
+import { createClientRender, RenderCounter } from 'test/utils';
 import useTheme from '../useTheme';
 import ThemeProvider from './ThemeProvider';
 
@@ -49,25 +49,18 @@ describe('ThemeProvider', () => {
   });
 
   it('should memoize the merged output', () => {
-    const themes = [];
-
     const ref = React.createRef();
+    const getRenderCountRef = React.createRef();
     const text = () => ref.current.textContent;
     function Test() {
       const theme = useTheme();
-      const themeRef = React.useRef(); // needed due to double-invokes effect in StrictMode
-      React.useEffect(() => {
-        if (themeRef.current !== theme) {
-          themes.push(theme);
-        }
-        themeRef.current = theme;
-      }, [theme]);
-
       return (
-        <span ref={ref}>
-          {theme.foo}
-          {theme.bar}
-        </span>
+        <RenderCounter ref={getRenderCountRef}>
+          <span ref={ref}>
+            {theme.foo}
+            {theme.bar}
+          </span>
+        </RenderCounter>
       );
     }
 
@@ -88,7 +81,7 @@ describe('ThemeProvider', () => {
     expect(text()).to.equal('foobar');
     setProps({});
     expect(text()).to.equal('foobar');
-    expect(themes).to.have.length(1);
+    expect(getRenderCountRef.current()).to.equal(2);
   });
 
   describe('warnings', () => {
