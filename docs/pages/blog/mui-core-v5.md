@@ -540,7 +540,7 @@ We have started the [discussion](https://github.com/mui-org/material-ui/discussi
 
 This new design system, codename `Joy`, will be built on top of our strong foundation packages (`unstyled` and `system`) to provide better DX eg. built-in css variables generated from theme, perfect dark mode API, etc.
 
-The plan is to release each set of components (ordered by most browse) until it has the same amount of components as `@mui/material`, so that the developers only have to pick a package between material-design and Joy based on the design they want to get started with. Most functionalities and APIs of components will be the same because both design systems are built on top of `@mui/core`. The differences will be the theme structure that we want to acheive the right amount of flexibility and great design out of the box.
+The plan is to release a set of components in each milestone (ordered by most browse) until it has the same amount of components as `@mui/material`, so that the developers only have to pick a package between material-design and Joy based on the design they want to get started with. Most functionalities and APIs of components will be the same because both design systems are built on top of `@mui/core`. The differences will be the theme structure that we want to acheive the right amount of flexibility and great design out of the box.
 
 We will keep you posted about the progress, stay tuned.
 
