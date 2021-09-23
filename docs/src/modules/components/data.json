@@ -1,1 +1,149 @@
-{}
+{
+  "palette": {
+    "divider": "rgba(0, 0, 0, 0.12)",
+    "text": {
+      "primary": "rgba(0, 0, 0, 0.87)",
+      "secondary": "rgba(0, 0, 0, 0.60)",
+      "disabled": "rgba(0, 0, 0, 0.38)",
+      "icon": "rgba(255, 255, 255, 0.50)"
+    },
+    "primary": {
+      "main": "rgba(33, 150, 243, 1)",
+      "dark": "rgba(23, 105, 170, 1)",
+      "light": "rgba(77, 171, 245, 1)",
+      "contrast": "rgba(255, 255, 255, 1)"
+    },
+    "secondary": {
+      "main": "rgba(213, 0, 249, 1)",
+      "dark": "rgba(149, 0, 174, 1)",
+      "light": "rgba(221, 51, 250, 1)",
+      "contrast": "rgba(255, 255, 255, 1)"
+    },
+    "action": {
+      "active": "rgba(0, 0, 0, 0.54)",
+      "hover": "rgba(0, 0, 0, 0.04)",
+      "selected": "rgba(0, 0, 0, 0.08)",
+      "disabled": "rgba(0, 0, 0, 0.26)",
+      "disabled background": "rgba(0, 0, 0, 0.12)",
+      "focus": "rgba(0, 0, 0, 0.12)",
+      "hoveropacity": {},
+      "selectedopacity": {},
+      "disabledbackground": "rgba(0, 0, 0, 0.12)",
+      "disabledopacity": {},
+      "focusopacity": {},
+      "activatedopacity": {}
+    },
+    "error": {
+      "main": "rgba(211, 47, 47, 1)",
+      "dark": "rgba(198, 40, 40, 1)",
+      "light": "rgba(239, 83, 80, 1)",
+      "contrast": "rgba(255, 255, 255, 1)"
+    },
+    "warning": {
+      "main": "rgba(237, 108, 2, 1)",
+      "dark": "rgba(230, 81, 0, 1)",
+      "light": "rgba(255, 152, 0, 1)",
+      "contrast": "rgba(255, 255, 255, 1)"
+    },
+    "info": {
+      "main": "rgba(2, 136, 209, 1)",
+      "dark": "rgba(1, 87, 155, 1)",
+      "light": "rgba(3, 169, 244, 1)",
+      "contrast": "rgba(255, 255, 255, 1)"
+    },
+    "success": {
+      "main": "rgba(46, 125, 50, 1)",
+      "dark": "rgba(27, 94, 32, 1)",
+      "light": "rgba(76, 175, 80, 1)",
+      "contrast": "rgba(255, 255, 255, 1)"
+    },
+    "background": {
+      "paper": "rgba(255, 255, 255, 1)",
+      "default": "rgba(255, 255, 255, 1)"
+    },
+    "common": {
+      "white": "rgba(255, 255, 255, 1)",
+      "black": "rgba(0, 0, 0, 1)"
+    },
+    "grey": {
+      "50": "rgba(250, 250, 250, 1)",
+      "100": "rgba(245, 245, 245, 1)",
+      "200": "rgba(238, 238, 238, 1)",
+      "300": "rgba(224, 224, 224, 1)",
+      "400": "rgba(189, 189, 189, 1)",
+      "500": "rgba(158, 158, 158, 1)",
+      "600": "rgba(117, 117, 117, 1)",
+      "700": "rgba(97, 97, 97, 1)",
+      "800": "rgba(66, 66, 66, 1)",
+      "900": "rgba(33, 33, 33, 1)",
+      "grey 50": "rgba(250, 250, 250, 1)",
+      "grey 100": "rgba(245, 245, 245, 1)",
+      "grey 200": "rgba(238, 238, 238, 1)",
+      "grey 300": "rgba(224, 224, 224, 1)",
+      "grey 400": "rgba(189, 189, 189, 1)",
+      "grey 500": "rgba(158, 158, 158, 1)",
+      "grey 600": "rgba(117, 117, 117, 1)",
+      "grey 700": "rgba(97, 97, 97, 1)",
+      "grey 800": "rgba(66, 66, 66, 1)",
+      "grey 900": "rgba(33, 33, 33, 1)",
+      "grey a100": "rgba(213, 213, 213, 1)",
+      "grey a200": "rgba(170, 170, 170, 1)",
+      "grey a400": "rgba(97, 97, 97, 1)",
+      "grey a700": "rgba(48, 48, 48, 1)",
+      "a100": "rgba(245, 245, 245, 1)",
+      "a200": "rgba(238, 238, 238, 1)",
+      "a400": "rgba(189, 189, 189, 1)",
+      "a700": "rgba(97, 97, 97, 1)"
+    }
+  },
+  "typography": {
+    "h1": {
+      "letterSpacing": "-0.24991999566555023px",
+      "fontSize": "64px",
+      "fontWeight": 400,
+      "fontFamily": "Roboto Slab"
+    },
+    "h2": {
+      "letterSpacing": "-0.13327999413013458px",
+      "fontSize": "36px",
+      "fontWeight": 700,
+      "fontFamily": "IBM Plex Sans"
+    },
+    "h3": {
+      "letterSpacing": "0px",
+      "fontSize": "28px",
+      "fontWeight": 400,
+      "fontFamily": "IBM Plex Sans"
+    },
+    "h4": {
+      "letterSpacing": "0.11760000139474869px",
+      "fontSize": "28px",
+      "fontWeight": 400,
+      "fontFamily": "IBM Plex Sans"
+    },
+    "h5": {
+      "letterSpacing": "0px",
+      "fontSize": "24px",
+      "fontWeight": 400,
+      "fontFamily": "IBM Plex Sans"
+    },
+    "h6": {
+      "letterSpacing": "0.11999999731779099px",
+      "fontSize": "20px",
+      "fontWeight": 500,
+      "fontFamily": "IBM Plex Sans"
+    },
+    "caption": {
+      "letterSpacing": "0.5332800149917603px",
+      "fontSize": "12px",
+      "fontWeight": 400,
+      "fontFamily": "IBM Plex Sans"
+    },
+    "overline": {
+      "letterSpacing": "1.3332799673080444px",
+      "fontSize": "12px",
+      "fontWeight": 400,
+      "fontFamily": "IBM Plex Sans"
+    }
+  }
+}
