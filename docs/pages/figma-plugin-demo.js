@@ -34,6 +34,8 @@ import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
 import Pagination from '@mui/material/Pagination';
 import Slider from '@mui/material/Slider';
 import RadioGroup from '@mui/material/RadioGroup';
@@ -47,6 +49,11 @@ import FormatAlignLeftIcon from '@mui/icons-material/FormatAlignLeft';
 import FormatAlignCenterIcon from '@mui/icons-material/FormatAlignCenter';
 import FormatAlignRightIcon from '@mui/icons-material/FormatAlignRight';
 import FormatAlignJustifyIcon from '@mui/icons-material/FormatAlignJustify';
+import FavoriteBorderRounded from '@mui/icons-material/FavoriteBorderRounded';
+import ShareRounded from '@mui/icons-material/ShareRounded';
+import RateReviewOutlined from '@mui/icons-material/RateReviewOutlined';
+import PhoneIcon from '@mui/icons-material/Phone';
+import PersonPinIcon from '@mui/icons-material/PersonPin';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareIcon from '@mui/icons-material/Share';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -509,6 +516,49 @@ const Content = () => {
               ))}
             </Stepper>
           </Box>
+        </MasonryItem>
+        <MasonryItem>
+          <Tabs aria-label="icon label tabs example" value={2}>
+            <Tab icon={<PhoneIcon />} label="RECENTS" />
+            <Tab icon={<FavoriteIcon />} label="FAVORITES" />
+            <Tab icon={<PersonPinIcon />} label="NEARBY" />
+          </Tabs>
+        </MasonryItem>
+        <MasonryItem>
+          <Card sx={{ maxWidth: 345 }}>
+            <CardHeader
+              avatar={
+                <Avatar sx={{ bgcolor: 'primary.main', color: '#fff', fontWeight: 'bold' }}>
+                  YN
+                </Avatar>
+              }
+              title="Yosemite National Park"
+              subheader="California, United States"
+            />
+            <CardMedia
+              height={125}
+              alt=""
+              component="img"
+              image="/static/images/cards/yosemite.jpeg"
+            />
+            <CardContent sx={{ pb: 0 }}>
+              <Typography variant="body2" color="text.secondary">
+                Not just a great valley, but a shrine to human foresight, the strength of granite,
+                the power of glaciers.
+              </Typography>
+            </CardContent>
+            <CardActions disableSpacing>
+              <IconButton aria-label="add to favorites">
+                <FavoriteBorderRounded fontSize="small" />
+              </IconButton>
+              <IconButton aria-label="share">
+                <ShareRounded fontSize="small" />
+              </IconButton>
+              <IconButton aria-label="share" sx={{ ml: 'auto' }}>
+                <RateReviewOutlined fontSize="small" />
+              </IconButton>
+            </CardActions>
+          </Card>
         </MasonryItem>
       </Masonry>
     </ThemeProvider>
