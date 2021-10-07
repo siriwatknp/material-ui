@@ -53,6 +53,24 @@ const variantsResolver = (props, styles, theme, name) => {
   return variantsStyles;
 };
 
+function createNonForwardedProps() {
+  const nonForwardedProps = {};
+  return {
+    set(componentName, props) {
+      nonForwardedProps[componentName] = props;
+    },
+    get(componentName, prop) {
+      const list = nonForwardedProps[componentName];
+      if (!list) {
+        return true;
+      }
+      return !list.includes(prop);
+    },
+  };
+}
+
+export const NonForwardedProps = createNonForwardedProps();
+
 export function shouldForwardProp(prop) {
   return prop !== 'ownerState' && prop !== 'theme' && prop !== 'sx' && prop !== 'as';
 }
@@ -76,6 +94,7 @@ export default function createStyled(input = {}) {
       skipVariantsResolver: inputSkipVariantsResolver,
       skipSx: inputSkipSx,
       overridesResolver,
+      shouldForwardProp: shouldForwardPropOption,
       ...options
     } = inputOptions;
 
@@ -95,17 +114,20 @@ export default function createStyled(input = {}) {
       }
     }
 
-    let shouldForwardPropOption = shouldForwardProp;
+    let finalShouldForwardProp = shouldForwardPropOption || shouldForwardProp;
 
-    if (componentSlot === 'Root') {
-      shouldForwardPropOption = rootShouldForwardProp;
-    } else if (componentSlot) {
-      // any other slot specified
-      shouldForwardPropOption = slotShouldForwardProp;
+    if (!shouldForwardPropOption) {
+      if (componentSlot === 'Root') {
+        finalShouldForwardProp = rootShouldForwardProp;
+      } else if (componentSlot) {
+        // any other slot specified
+        finalShouldForwardProp = slotShouldForwardProp;
+      }
     }
 
     const defaultStyledResolver = styledEngineStyled(tag, {
-      shouldForwardProp: shouldForwardPropOption,
+      shouldForwardProp: (prop) =>
+        finalShouldForwardProp(prop) && NonForwardedProps.get(componentName, prop),
       label,
       ...options,
     });

@@ -12,6 +12,8 @@ export interface ButtonPropsColorOverrides {}
 
 export interface ButtonPropsSizeOverrides {}
 
+export interface ButtonExtraProps {}
+
 export type ButtonTypeMap<
   P = {},
   D extends React.ElementType = 'button',
@@ -84,7 +86,7 @@ export type ButtonTypeMap<
       'text' | 'outlined' | 'contained',
       ButtonPropsVariantOverrides
     >;
-  };
+  } & ButtonExtraProps;
   defaultComponent: D;
 }>;
 
