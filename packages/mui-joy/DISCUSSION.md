@@ -222,39 +222,39 @@ export const red = {
 
 On the semantic side of things, we'd have the following structure: 
 
-```jsx
-palette: {
-  brand: blue, 
-  highlight: gray,
-  danger: red,
-  warning: ...,
-  success: ...,
-	text: {
-    headings: '',
-    mainContent: '',
-    blockquote: '',
-	},
-	bgBrand: {
-    subtle: 'var(--palette-brand-500)',
-    plain: 'var(--palette-brand-200)',
-    strong: 'var(--palette-brand-700)',
-  },
-	bgNeutral: {
-		suble: ...,
-    plain: ...,
-    strong: ...,
-	},
-	bgHighlight: {
-		suble: ...,
-    plain: ...,
-    strong: ...,
-	},
-	bgDanger: {
-		suble: ...,
-	  plain: ...,
-	  strong: ...,
-	}
-}
+```js
+  palette: {
+    brand: blue, 
+    highlight: gray,
+    danger: red,
+    warning: ...,
+    success: ...,
+    text: {
+      headings: '',
+      mainContent: '',
+      blockquote: '',
+    },
+    bgBrand: {
+      subtle: 'var(--palette-brand-500)',
+      plain: 'var(--palette-brand-200)',
+      strong: 'var(--palette-brand-700)',
+    },
+    bgNeutral: {
+      suble: ...,
+      plain: ...,
+      strong: ...,
+    },
+    bgHighlight: {
+      suble: ...,
+      plain: ...,
+      strong: ...,
+    },
+    bgDanger: {
+      suble: ...,
+      plain: ...,
+      strong: ...,
+    }
+  }
 ```
 
 Instead of having primary and secondary, which can cause confusion as to where to use which, we'd have instead only a brand color, the one that is the defining color for your product and company. Also, instead of having a light, main and dark value for each color, we'd have only one that defines each semantic variant: 
