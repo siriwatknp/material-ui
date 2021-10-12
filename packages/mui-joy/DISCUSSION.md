@@ -55,7 +55,7 @@ Sometimes, we use the word *theme* referring to the whole design language (speci
 
 To get rid of the confusion, we think that an application should have one theme at a time. For example, you can theme Joy components to look like material and call it material-design theme. Any theme can one or many `colorSchemes` (different set of palettes that you can define at the beginning) which is way clearer than having `lightTheme` or `darkTheme` separated. We have tested this concept and we think that it is more intuitive when you have to customize multiple color schemes. We will talk about what's the code looks like in the [Unlimited color schemes](#unlimited-color-schemes) section.
 
-![Group 42](https://user-images.githubusercontent.com/18292247/136911050-6107eac6-36ad-4491-bd0d-cd1c70868ffe.jpg)
+<img src="https://user-images.githubusercontent.com/18292247/136911050-6107eac6-36ad-4491-bd0d-cd1c70868ffe.jpg" style="width: 700px; max-width: 100%;" />
 
 ### 2. Adopting CSS variables
 
@@ -67,28 +67,28 @@ The flashy dark mode problem is one we've been aware of for some time now. With 
 
 ![Group 43](https://user-images.githubusercontent.com/18292247/136911533-7eefc155-5813-4f21-b057-5d1dac668540.jpg)
 
-> This picture above illustrate the terms `design system`, `theme` and `colorSchemes`. It does not mean that Joy will provide Material & iOS Theme by default.
+> This picture above illustrate the terms `design system`, `theme` and `colorSchemes`. This does not mean that Joy will provide Material & iOS Theme by default.
 
 #### 2.2 Component customization via variables
 
 As we've said, Joy components will be built on top of the unstyled. To visualize how CSS variables actually provide a better customization experience, let's use one of the [unstyled components already available: the switch](https://mui.com/components/switches/#unstyled). A switch basically has two parts: the track and the thumb.
 
-![Group 27](https://user-images.githubusercontent.com/18292247/136911706-00565fd5-a31c-47bd-858c-413547ef5f51.png)
+<img src="https://user-images.githubusercontent.com/18292247/136911706-00565fd5-a31c-47bd-858c-413547ef5f51.png" style="width: 240px; max-width: 100%;" />
 
 Let's say we want to do something basic such as reducing the size of the thumb to be a little smaller. On `@mui/material`  v5 this is how we'd normally do that:
 
-```js
-  <Switch
-    sx={{
-      '& .MuiSwitch-thumb': {
-        size: '12px',
-        height: '12px',
-      }
-    }}
-  />
+```jsx
+<Switch
+  sx={{
+    '& .MuiSwitch-thumb': {
+      size: '12px',
+      height: '12px',
+    }
+  }}
+/>
 ```
 
-![Group 29](https://user-images.githubusercontent.com/18292247/136911763-7ed8d2ee-074b-4923-a652-0e737e5968e2.png)
+<img src="https://user-images.githubusercontent.com/18292247/136911763-7ed8d2ee-074b-4923-a652-0e737e5968e2.png" style="width: 360px; max-width: 100%;" />
 
 Unfortunately, the result is not really that good. Only changing the thumb size actually messes up its positioning and makes the overall component disproportionate. To fix that, we'd also have to change the track width and fix the position. But with CSS variables, we can compose the styling of each part of the component so they actually change accordingly - or synchronized. We couldn't do that before using JavaScript. Here's a [proof of concept](https://deploy-preview-28637--material-ui.netlify.app/joy/) using CSS variables to compose the Switch component. You can play around with the properties values in the panel. You'll see that as you change one, the other follows. 
 
@@ -98,14 +98,14 @@ We also used [this POC](https://deploy-preview-28637--material-ui.netlify.app/jo
 
 ```jsx
 <Switch
-	sx={{
-		--switch-track-width: '106px',
-		--switch-track-height: '16px',
-		--switch-track-radius: '26px',
-		--switch-thumb-size: '51px',
-		--switch-thumb-offset: '-18px',
-	}}
-/> 
+  sx={{
+    --switch-track-width: '106px',
+    --switch-track-height: '16px',
+    --switch-track-radius: '26px',
+    --switch-thumb-size: '51px',
+    --switch-thumb-offset: '-18px',
+  }}
+/>
 ```
 
 #### 2.3 Improved debugging experience
@@ -160,7 +160,8 @@ From the POC, we found that css variables provide some side benefits that we get
   />
   ```
 
-  But with css variables, you can just refer to a variable via `var(--{variable-name})` . This is the [native syntax](https://developer.mozilla.org/en-US/docs/Web/CSS/--*) for using other variable in CSS.
+  But with css variables, you can just refer to a variable via `var(--{variable-name})`. This is the [native syntax](https://developer.mozilla.org/en-US/docs/Web/CSS/--*) for using other variable in CSS.
+
 
   ```jsx
   <CssVarsProvider
@@ -178,15 +179,12 @@ From the POC, we found that css variables provide some side benefits that we get
       shadow: {
         md: '0 0 12px 0 rgba(0,0,0,0.12)',
       },
-      opacity: {
-        active: 0.2
-      },
       components: {
         MuiButton: {
           styleOverrides: {
             color: 'var(--palette-primary-main)',
+            border: '1px solid var(--palette-primary-main)',
             boxShadow: 'var(--shadow-md)',
-            backgroundColor: 'rgba(var(--palette-primary-mainAlpha) / var(--opacity-active))',
           }
         }
       }
@@ -226,9 +224,9 @@ On the semantic side of things, we'd have the following structure:
 
 ```jsx
 palette: {
-  brand: blue, // example
-  highlight: gray, // example,
-  danger: red, // example,
+  brand: blue, 
+  highlight: gray,
+  danger: red,
   warning: ...,
   success: ...,
 	text: {
