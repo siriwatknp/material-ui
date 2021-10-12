@@ -390,35 +390,35 @@ There were some properties that didn't need to be changed from Material Design, 
 
 Light and dark will be built-in color schemes but it really won't be any limitation to add more custom ones. On the [Switch demo mentioned above](https://deploy-preview-28637--material-ui.netlify.app/joy/), there's already a proof of concept of this working.
 
-```tsx
+```ts
 // NOT available on npm yet, just for demonstration purpose.
 import { CssVarsProvider, useColorScheme } from '@mui/joy/styles';
 
 declare module "@mui/joy/styles" {
-	interface JoyColorSchemesOverrides {
-		// extend two more color schemes to your application
-		comfort: true,
-		trueDark: true,
-	}
+  interface JoyColorSchemesOverrides {
+    // extend two more color schemes to your application
+    comfort: true,
+    trueDark: true,
+  }
 }
 
 <CssVarsProvider
-	theme={{
-		colorSchemes: { // light & dark are built-in
-			comfort: {
-				palette: {
-					brand: '#888',
-				}
-			},
-			trueDark: {
-				palette: {
-					brand: '#000',
-				}
-			}
-		}
-	}}
+  theme={{
+    colorSchemes: { // light & dark are built-in
+      comfort: {
+        palette: {
+          brand: '#888',
+        }
+      },
+      trueDark: {
+        palette: {
+          brand: '#000',
+        }
+      }
+    }
+  }}
 />
-	{children}
+  {children}
 </CssVarsProvider>
 
 // somewhere in your application
