@@ -4,7 +4,7 @@
 **Table of Contents**
 
 - [Introduction](#introduction)
-- [Objective](#objective)
+- [Objectives](#objective)
 - [Non-objectives](#non-objectives)
 - [Rethinking the Theme](#rethinking-the-theme)
   - [Color schemes](#color-schemes)
