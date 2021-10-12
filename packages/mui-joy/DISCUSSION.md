@@ -1,5 +1,28 @@
 # Second design system and theme structure
 
+
+**Table of Contents**
+
+- [Introduction](#introduction)
+- [Objective](#objective)
+- [Non-objectives](#non-objectives)
+- [Rethinking the Theme](#rethinking-the-theme)
+  - [Color schemes](#color-schemes)
+  - [Adopting CSS variables](#adopting-css-variables)
+    - [Perfect dark mode](#perfect-dark-mode)
+    - [Component customization via variables](#component-customization-via-variables)
+    - [Improved debugging experience](#improved-debugging-experience)
+    - [Side benefits](#side-benefits)
+- [The default theme structure](#the-default-theme-structure)
+  - [Colors](#colors)
+  - [Typography](#typography)
+  - [Shadow](#shadow)
+  - [Shape properties](#shape-properties)
+  - [Other properties](#other-properties)
+- [Unlimited color schemes](#unlimited-color-schemes)
+- [Next steps](#next-steps)
+- [Closed feedback group](#closed-feedback-group)
+
 ## Introduction
 
 We've mentioned on the v5 release blog post, a previous GitHub discussion, and on some issues here and there, that we were planning on developing a second design system (code name "Joy"). Our main purpose is to offer a different design apart from Material Design to expand the audience. We have a conclusion that this product will be a design system with its own design language and principle, instead of being a theme of `@mui/material`. It will be built on top of the our developing unstyled components - which will also be very convenient since it's an opportunity to stress both packages at the same time. We hope to create a feedback loop that increases the speed of evolution of both.
@@ -405,10 +428,10 @@ const { allColorSchemes } = useColorScheme();
 console.log(allColorSchemes); // ["light", "dark", "comfort", "trueDark"]
 ```
 
-# Next steps
+## Next steps
 
 We hope that with his write-up we can gather as much feedback as we can to refine the overall idea and to start development with a clearer design in mind. As the development of the unstyled component progresses (you can help out with that!), we'll be getting them into Joy. Meanwhile, we're also evolving with designs explorations.
 
-# Closed feedback group
+## Closed feedback group
 
 For this project, we're considering forming a closed group of contributors willing to test Joy and provide quick feedback. We're aiming to have the first iteration, with the first set of components, available still in this quarter so the folks in it would be of immense help to achieve this deadline. There's a comment in this discussion where you can leave a "hey! I'm interested in being a part of the feedback group" message as a thread. Let us know ways to contact you as well. We appreciate anyone that is available to help us with that :]
