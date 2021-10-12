@@ -13,13 +13,13 @@
     - [Component customization via variables](#component-customization-via-variables)
     - [Improved debugging experience](#improved-debugging-experience)
     - [Side benefits](#side-benefits)
-- [The default theme structure](#the-default-theme-structure)
-  - [Colors](#colors)
-  - [Typography](#typography)
-  - [Shadow](#shadow)
-  - [Shape properties](#shape-properties)
-  - [Other properties](#other-properties)
-- [Unlimited color schemes](#unlimited-color-schemes)
+  - [The default theme structure](#the-default-theme-structure)
+    - [Colors](#colors)
+    - [Typography](#typography)
+    - [Shadow](#shadow)
+    - [Shape properties](#shape-properties)
+    - [Other properties](#other-properties)
+  - [Unlimited color schemes](#unlimited-color-schemes)
 - [Next steps](#next-steps)
 - [Closed feedback group](#closed-feedback-group)
 
@@ -192,11 +192,11 @@ From the POC, we found that css variables provide some side benefits that we get
   />
   ```
 
-## The default theme structure
+### The default theme structure
 
 When looking for opportunities we could bring to the 2nd DS theme structure, in comparison to the Material default, we noticed that it could benefit from the usage of more low-level tokens as it enforces even more consistency on the components while providing a set of opinionated values. Low-level implies that we'll have different layers of abstraction for given properties of the theme. A lower level token would be descriptive, holding the hard value of a given property and a high level would be semantic, holding indication info for how to use it. There will be instances where it's good to have it and others where not necessarily. We'll dive into the examples but keep in mind that this is all regarding the default structure - what comes out of the box for you. If these don't make sense to you, you'll be able to change them to fit whatever structure design you wish. 
 
-### Colors
+#### Colors
 
 Colors are probably the most illustrative example of the separation between descriptive and semantic tokens. At first, we'd have colors declared descriptively in a 50 to 900 value range. For example:
 
@@ -265,7 +265,7 @@ Instead of having primary and secondary, which can cause confusion as to where t
 - Text: instead of having a primary and secondary text color variants, we'd have variants for a specific type of text like heading, main content (body page paragraphs), blockquotes, etc.
 - Background: we'd have a three intensity scale of background for every semantic variant.
 
-### Typography
+#### Typography
 
 Similar to colors, the idea is to have every low-level property defined in a descriptive way and then use them for semantic variations. The descriptive values structure:
 
@@ -323,7 +323,7 @@ You'll notice that we're also using an `xs` to `xl6` scale for font sizes. This 
   overline
 ```
 
-### Shadow
+#### Shadow
 
 We're planning on having only 4 levels, ranging from extra small to large. In addition, since shadow can have multiple layer, we plan to add `ring` property for convenient customization. The ring property acts as an inner shadow to make the element standout from rest. We are still working on the conclusion about making it visible/invisible in the default theme.
 
@@ -340,7 +340,7 @@ shadow: {
 
 ![Rectangle 40](https://user-images.githubusercontent.com/18292247/136915558-b96f259a-fd57-436a-b30a-5a075af3fe41.jpg)
 
-### Shape properties
+#### Shape properties
 
 We're also planning on tokenizing properties that are usually applied to shapes (your everyday `div` or `<Box>`) to enforce consistency. The idea is to have extra-small to extra-large scale for them:
 
@@ -354,7 +354,7 @@ borderRadius: {
 },
 ```
 
-### Other properties
+#### Other properties
 
 There were some properties that didn't need to be changed from Material Design, we believe them to be good enough already.
 
@@ -386,7 +386,7 @@ There were some properties that didn't need to be changed from Material Design, 
   },
 ```
 
-## Unlimited color schemes
+### Unlimited color schemes
 
 Light and dark will be built-in color schemes but it really won't be any limitation to add more custom ones. On the [Switch demo mentioned above](https://deploy-preview-28637--material-ui.netlify.app/joy/), there's already a proof of concept of this working.
 
