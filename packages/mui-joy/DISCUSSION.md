@@ -7,7 +7,7 @@
 - [Objectives](#objective)
 - [Non-objectives](#non-objectives)
 - [Rethinking the Theme](#rethinking-the-theme)
-  - [Color schemes](#1-color-schemes)
+  - [Color schemes](#1-theme-color-schemes-definition)
   - [Adopting CSS variables](#2-adopting-css-variables)
     - [Perfect dark mode](#21-perfect-dark-mode)
     - [Component customization via variables](#22-component-customization-via-variables)
@@ -49,7 +49,7 @@ If you are ready, let's dive in.
 
 Customizability will be a huge part of Joy. Even though we're focusing on having sensible and opinionated defaults that act as a great starting point for your projects, we'll still optimize it for extensive customizability. To do so, we have been studying ways to add improvements to the current theming approach in `@mui/material` v5. We'll first introduce them on Joy to get early feedback and iterate until they are solid, later on, bring back to the `@mui/material` as well. Among them are:
 
-### 1. Color schemes
+### 1. Theme & Color schemes definition
 
 Sometimes, we use the word *theme* referring to the whole design language (specific values for each styling property) of an application (Material Design, iOS, Microsoft's Fluent, etc). Other times, we use *theme* referring only to the color scheme currently selected (light or dark). This can get confusing especially if you have an API where, on your ThemeProvider component, you pass to the `theme` prop a `lightTheme` or `darkTheme` value. Most often, this means that only colors are changing, all other properties remain intact.
 
