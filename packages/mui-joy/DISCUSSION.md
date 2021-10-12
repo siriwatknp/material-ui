@@ -26,7 +26,7 @@ Let's dive in.
 
 Customizability will be a huge part of Joy. Even though we're focusing on having sensible and opinionated defaults that act as a great starting point for your projects, we'll still optimize it for extensive customizability. To do so, we have been studying ways to add improvements to the current theming approach in `@mui/material` v5. We'll first introduce them on Joy to get early feedback and iterate until they are solid, later on, bring to the `@mui/material` as well. Among them:
 
-## Color schemes
+### Color schemes
 
 Sometimes, we use the word *theme* referring to the whole design language (specific values for each styling property) of an application (Material Design, iOS, Microsoft's Fluent, etc). Other times, we use *theme* referring only to the color scheme currently selected (light or dark). This can get confusing especially if you have an API where, on your ThemeProvider component, you pass to the `theme` prop a `lightTheme` or `darkTheme` value. Most often, this means that only colors are changing, all other properties remain intact.
 
@@ -34,17 +34,17 @@ To get rid of the confusion, we think that an application should have one theme 
 
 ![Group 42](https://user-images.githubusercontent.com/18292247/136911050-6107eac6-36ad-4491-bd0d-cd1c70868ffe.jpg)
 
-## Adopting CSS variables
+### Adopting CSS variables
 
 CSS variables will play an important role in Joy. It allows for building APIs that provide a much better customization experience and with a [high percentage of browsers](https://caniuse.com/css-variables) supporting it already, we are confident to bring it on. Some highlights of things we can do with it:
 
-### Perfect dark mode
+#### Perfect dark mode
 
 The flashy dark mode problem is one we've been aware of for some time now. With CSS variables, we can create a stylesheet that contains all of the color schemes at build time and then pick the right color when users enter the website. To understand more details about it, check [the dedicated RFC](https://github.com/mui-org/material-ui/issues/27651).
 
 ![Group 43](https://user-images.githubusercontent.com/18292247/136911533-7eefc155-5813-4f21-b057-5d1dac668540.jpg)
 
-### Component customization via variables
+#### Component customization via variables
 
 As we've said, Joy components will be built on top of the unstyled. To visualize how CSS variables actually provide a better customization experience, let's use one of the [unstyled components already available: the switch](https://mui.com/components/switches/#unstyled). A switch basically has two parts: the track and the thumb.
 
@@ -83,13 +83,13 @@ We also used [this POC](https://deploy-preview-28637--material-ui.netlify.app/jo
 /> 
 ```
 
-### Improved debugging experience
+#### Improved debugging experience
 
 The CSS variables help developers and also designers to understand the token structure of a given element without even touching the codebase. It's way easier to read and to play around with values for reaching the desired design.
 
 https://user-images.githubusercontent.com/18292247/136912044-ad763b1c-b552-4ee7-8248-4aa08c3a466d.mov
 
-### Side benefits
+#### Side benefits
 
 From the POC, we found that css variables provide some side benefits that we get for free!
 
@@ -300,7 +300,7 @@ You'll notice that we're also using an `xs` to `xl6` scale for font sizes. This 
   overline
 ```
 
-## Shadow
+### Shadow
 
 We're planning on having only 4 levels, ranging from extra small to large. In addition, since shadow can have multiple layer, we plan to add `ring` property for convenient customization. The ring property acts as an inner shadow to make the element standout from rest. We are still working on the conclusion about making it visible/invisible in the default theme.
 
@@ -317,7 +317,7 @@ shadow: {
 
 ![Rectangle 40](https://user-images.githubusercontent.com/18292247/136915558-b96f259a-fd57-436a-b30a-5a075af3fe41.jpg)
 
-## Shape properties
+### Shape properties
 
 We're also planning on tokenizing properties that are usually applied to shapes (your everyday `div` or `<Box>`) to enforce consistency. The idea is to have extra-small to extra-large scale for them:
 
@@ -331,7 +331,7 @@ borderRadius: {
 },
 ```
 
-## Other properties
+### Other properties
 
 There were some properties that didn't need to be changed from Material Design, we believe them to be good enough already.
 
