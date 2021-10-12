@@ -31,9 +31,9 @@ One of the main benefits of thinking of it as a design system is that it can be 
 
 > From now on, we will use "Joy" to refer to the second design system.
 
-This is the first look at the initial work on `Joy` theme structure. But before diving into it, let me state what are the objectives and non-objective of this write-up so we can have a more assertive discussion and focus on what we have so far:
+This is the first look at the initial work on `Joy` theme structure. But before diving into it, let me state what are the objectives and non-objectives of this write-up so we can have a more assertive discussion and focus on what we have so far:
 
-## Objective
+## Objectives
 
 This discussion is meant mainly to get early feedback on the default theme structure and some ideas about the implementation surface. We'll also share thoughts (and early prototypes) about how to customize and extend it.
 
@@ -43,31 +43,33 @@ We do not expect to discuss the presented content in detail, like API specificat
 
 ---
 
-Let's dive in.
+If you are ready, let's dive in.
 
 ## Rethinking the Theme
 
-Customizability will be a huge part of Joy. Even though we're focusing on having sensible and opinionated defaults that act as a great starting point for your projects, we'll still optimize it for extensive customizability. To do so, we have been studying ways to add improvements to the current theming approach in `@mui/material` v5. We'll first introduce them on Joy to get early feedback and iterate until they are solid, later on, bring to the `@mui/material` as well. Among them:
+Customizability will be a huge part of Joy. Even though we're focusing on having sensible and opinionated defaults that act as a great starting point for your projects, we'll still optimize it for extensive customizability. To do so, we have been studying ways to add improvements to the current theming approach in `@mui/material` v5. We'll first introduce them on Joy to get early feedback and iterate until they are solid, later on, bring back to the `@mui/material` as well. Among them are:
 
-### Color schemes
+### 1. Color schemes
 
 Sometimes, we use the word *theme* referring to the whole design language (specific values for each styling property) of an application (Material Design, iOS, Microsoft's Fluent, etc). Other times, we use *theme* referring only to the color scheme currently selected (light or dark). This can get confusing especially if you have an API where, on your ThemeProvider component, you pass to the `theme` prop a `lightTheme` or `darkTheme` value. Most often, this means that only colors are changing, all other properties remain intact.
 
-To get rid of the confusion, we think that an application should have one theme at a time. For example, you can theme Joy components to look alike material design. but the theme can have multiple `colorSchemes` (different set of palettes that you can define at the beginning) which is way clearer than having `lightTheme` or `darkTheme` separated. We have tested this concept and we think that it is more intuitive when you have to customize multiple color schemes. We will talk about what's the code looks like in the [Unlimited color schemes](#unlimited-color-schemes) section.
+To get rid of the confusion, we think that an application should have one theme at a time. For example, you can theme Joy components to look like material and call it material-design theme. Any theme can one or many `colorSchemes` (different set of palettes that you can define at the beginning) which is way clearer than having `lightTheme` or `darkTheme` separated. We have tested this concept and we think that it is more intuitive when you have to customize multiple color schemes. We will talk about what's the code looks like in the [Unlimited color schemes](#unlimited-color-schemes) section.
 
 ![Group 42](https://user-images.githubusercontent.com/18292247/136911050-6107eac6-36ad-4491-bd0d-cd1c70868ffe.jpg)
 
-### Adopting CSS variables
+### 2. Adopting CSS variables
 
 CSS variables will play an important role in Joy. It allows for building APIs that provide a much better customization experience and with a [high percentage of browsers](https://caniuse.com/css-variables) supporting it already, we are confident to bring it on. Some highlights of things we can do with it:
 
-#### Perfect dark mode
+#### 2.1 Perfect dark mode
 
 The flashy dark mode problem is one we've been aware of for some time now. With CSS variables, we can create a stylesheet that contains all of the color schemes at build time and then pick the right color when users enter the website. To understand more details about it, check [the dedicated RFC](https://github.com/mui-org/material-ui/issues/27651).
 
 ![Group 43](https://user-images.githubusercontent.com/18292247/136911533-7eefc155-5813-4f21-b057-5d1dac668540.jpg)
 
-#### Component customization via variables
+> This picture above illustrate the terms `design system`, `theme` and `colorSchemes`. It does not mean that Joy will provide Material & iOS Theme by default.
+
+#### 2.2 Component customization via variables
 
 As we've said, Joy components will be built on top of the unstyled. To visualize how CSS variables actually provide a better customization experience, let's use one of the [unstyled components already available: the switch](https://mui.com/components/switches/#unstyled). A switch basically has two parts: the track and the thumb.
 
@@ -75,15 +77,15 @@ As we've said, Joy components will be built on top of the unstyled. To visualize
 
 Let's say we want to do something basic such as reducing the size of the thumb to be a little smaller. On `@mui/material`  v5 this is how we'd normally do that:
 
-```jsx
-<Switch
-	sx={{
-		'& .MuiSwitch-thumb': {
-			size: '12px',
-			height: '12px',
-		}
-	}}
-/>
+```js
+  <Switch
+    sx={{
+      '& .MuiSwitch-thumb': {
+        size: '12px',
+        height: '12px',
+      }
+    }}
+  />
 ```
 
 ![Group 29](https://user-images.githubusercontent.com/18292247/136911763-7ed8d2ee-074b-4923-a652-0e737e5968e2.png)
@@ -106,13 +108,13 @@ We also used [this POC](https://deploy-preview-28637--material-ui.netlify.app/jo
 /> 
 ```
 
-#### Improved debugging experience
+#### 2.3 Improved debugging experience
 
 The CSS variables help developers and also designers to understand the token structure of a given element without even touching the codebase. It's way easier to read and to play around with values for reaching the desired design.
 
 https://user-images.githubusercontent.com/18292247/136912044-ad763b1c-b552-4ee7-8248-4aa08c3a466d.mov
 
-#### Side benefits
+#### 2.4 Side benefits
 
 From the POC, we found that css variables provide some side benefits that we get for free!
 
@@ -192,11 +194,11 @@ From the POC, we found that css variables provide some side benefits that we get
   />
   ```
 
-### The default theme structure
+### 3. The default theme structure
 
 When looking for opportunities we could bring to the 2nd DS theme structure, in comparison to the Material default, we noticed that it could benefit from the usage of more low-level tokens as it enforces even more consistency on the components while providing a set of opinionated values. Low-level implies that we'll have different layers of abstraction for given properties of the theme. A lower level token would be descriptive, holding the hard value of a given property and a high level would be semantic, holding indication info for how to use it. There will be instances where it's good to have it and others where not necessarily. We'll dive into the examples but keep in mind that this is all regarding the default structure - what comes out of the box for you. If these don't make sense to you, you'll be able to change them to fit whatever structure design you wish. 
 
-#### Colors
+#### 3.1 Colors
 
 Colors are probably the most illustrative example of the separation between descriptive and semantic tokens. At first, we'd have colors declared descriptively in a 50 to 900 value range. For example:
 
@@ -265,7 +267,7 @@ Instead of having primary and secondary, which can cause confusion as to where t
 - Text: instead of having a primary and secondary text color variants, we'd have variants for a specific type of text like heading, main content (body page paragraphs), blockquotes, etc.
 - Background: we'd have a three intensity scale of background for every semantic variant.
 
-#### Typography
+#### 3.2 Typography
 
 Similar to colors, the idea is to have every low-level property defined in a descriptive way and then use them for semantic variations. The descriptive values structure:
 
@@ -323,7 +325,7 @@ You'll notice that we're also using an `xs` to `xl6` scale for font sizes. This 
   overline
 ```
 
-#### Shadow
+#### 3.3 Shadow
 
 We're planning on having only 4 levels, ranging from extra small to large. In addition, since shadow can have multiple layer, we plan to add `ring` property for convenient customization. The ring property acts as an inner shadow to make the element standout from rest. We are still working on the conclusion about making it visible/invisible in the default theme.
 
@@ -340,7 +342,7 @@ shadow: {
 
 ![Rectangle 40](https://user-images.githubusercontent.com/18292247/136915558-b96f259a-fd57-436a-b30a-5a075af3fe41.jpg)
 
-#### Shape properties
+#### 3.4 Shape properties
 
 We're also planning on tokenizing properties that are usually applied to shapes (your everyday `div` or `<Box>`) to enforce consistency. The idea is to have extra-small to extra-large scale for them:
 
@@ -354,7 +356,7 @@ borderRadius: {
 },
 ```
 
-#### Other properties
+#### 3.5 Other properties
 
 There were some properties that didn't need to be changed from Material Design, we believe them to be good enough already.
 
@@ -386,7 +388,7 @@ There were some properties that didn't need to be changed from Material Design, 
   },
 ```
 
-### Unlimited color schemes
+### 4. Unlimited color schemes
 
 Light and dark will be built-in color schemes but it really won't be any limitation to add more custom ones. On the [Switch demo mentioned above](https://deploy-preview-28637--material-ui.netlify.app/joy/), there's already a proof of concept of this working.
 
