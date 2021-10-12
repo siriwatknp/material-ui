@@ -57,17 +57,19 @@ To get rid of the confusion, we think that an application should have one theme 
 
 <img src="https://user-images.githubusercontent.com/18292247/136911050-6107eac6-36ad-4491-bd0d-cd1c70868ffe.jpg" style="width: 700px; max-width: 100%;" />
 
+> This picture above illustrate the terms `design system`, `theme` and `colorSchemes`. This does not mean that Joy will provide Material & iOS Theme by default.
+
 ### 2. Adopting CSS variables
 
 CSS variables will play an important role in Joy. It allows for building APIs that provide a much better customization experience and with a [high percentage of browsers](https://caniuse.com/css-variables) supporting it already, we are confident to bring it on. Some highlights of things we can do with it:
 
 #### 2.1 Perfect dark mode
 
-The flashy dark mode problem is one we've been aware of for some time now. With CSS variables, we can create a stylesheet that contains all of the color schemes at build time and then pick the right color when users enter the website. To understand more details about it, check [the dedicated RFC](https://github.com/mui-org/material-ui/issues/27651).
+The flashy dark mode problem is one we've been aware of for some time now. With CSS variables, we can create a stylesheet that contains all of the color schemes at build time and then pick the right color when users enter the website. The picture below shows the high level flow of how perfect dark mode can be achieved.
 
 ![Group 43](https://user-images.githubusercontent.com/18292247/136911533-7eefc155-5813-4f21-b057-5d1dac668540.jpg)
 
-> This picture above illustrate the terms `design system`, `theme` and `colorSchemes`. This does not mean that Joy will provide Material & iOS Theme by default.
+To understand more details about it, check [the dedicated RFC](https://github.com/mui-org/material-ui/issues/27651).
 
 #### 2.2 Component customization via variables
 
