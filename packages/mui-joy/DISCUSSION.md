@@ -7,7 +7,7 @@
 - [Objectives](#objective)
 - [Non-objectives](#non-objectives)
 - [Rethinking the Theme](#rethinking-the-theme)
-  - [Color schemes](#1-theme-color-schemes-definition)
+  - [Theme & Color schemes definition](#1-theme--color-schemes-definition)
   - [Adopting CSS variables](#2-adopting-css-variables)
     - [Perfect dark mode](#21-perfect-dark-mode)
     - [Component customization via variables](#22-component-customization-via-variables)
