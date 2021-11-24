@@ -15,6 +15,7 @@ import IconButton from '../IconButton';
 import Chip from '../Chip';
 import inputClasses from '../Input/inputClasses';
 import inputBaseClasses from '../InputBase/inputBaseClasses';
+// import { useInputBaseClassNameGenerator } from '../InputBase/inputBaseClasses';
 import outlinedInputClasses from '../OutlinedInput/outlinedInputClasses';
 import filledInputClasses from '../FilledInput/filledInputClasses';
 import ClearIcon from '../internal/svg-icons/Close';
@@ -35,6 +36,7 @@ const useUtilityClasses = (ownerState) => {
     inputFocused,
     popupOpen,
     size,
+    // generateInputBaseClassName,
   } = ownerState;
 
   const slots = {
@@ -69,9 +71,17 @@ const AutocompleteRoot = styled('div', {
   slot: 'Root',
   overridesResolver: (props, styles) => {
     const { ownerState } = props;
-    const { fullWidth, hasClearIcon, hasPopupIcon, inputFocused, size } = ownerState;
+    const {
+      fullWidth,
+      hasClearIcon,
+      hasPopupIcon,
+      inputFocused,
+      size,
+      // generateClassName
+    } = ownerState;
 
     return [
+      // { [`& .${generateClassName('tag')}`]: styles.tag },
       { [`& .${autocompleteClasses.tag}`]: styles.tag },
       { [`& .${autocompleteClasses.tag}`]: styles[`tagSize${capitalize(size)}`] },
       { [`& .${autocompleteClasses.inputRoot}`]: styles.inputRoot },
@@ -171,6 +181,7 @@ const AutocompleteRoot = styled('div', {
       padding: '2.5px 4px',
     },
   },
+  // [`& .${ownerState.generateInputBaseClassName('hiddenLabel')}`]: {
   [`& .${inputBaseClasses.hiddenLabel}`]: {
     paddingTop: 8,
   },
@@ -442,6 +453,8 @@ const Autocomplete = React.forwardRef(function Autocomplete(inProps, ref) {
   const hasClearIcon = !disableClearable && !disabled && dirty;
   const hasPopupIcon = (!freeSolo || forcePopupIcon === true) && forcePopupIcon !== false;
 
+  // const generateInputBaseClassName = useInputBaseClassNameGenerator();
+
   const ownerState = {
     ...props,
     disablePortal,
@@ -452,6 +465,7 @@ const Autocomplete = React.forwardRef(function Autocomplete(inProps, ref) {
     inputFocused: focusedTag === -1,
     popupOpen,
     size,
+    // generateInputBaseClassName,
   };
 
   const classes = useUtilityClasses(ownerState);
