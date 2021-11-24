@@ -2,16 +2,19 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import { unstable_composeClasses as composeClasses } from '@mui/base';
-import { alpha } from '@mui/system';
+import { alpha, experimental_useClassNameGenerator as useClassNameGenerator } from '@mui/system';
 import styled, { rootShouldForwardProp } from '../styles/styled';
 import useThemeProps from '../styles/useThemeProps';
 import ButtonBase from '../ButtonBase';
 import capitalize from '../utils/capitalize';
-import buttonClasses, { getButtonUtilityClass } from './buttonClasses';
+import buttonClasses from './buttonClasses';
 import ButtonGroupContext from '../ButtonGroup/ButtonGroupContext';
 
+export const useGenerateButtonClassName = () => useClassNameGenerator({ name: 'MuiButton' });
+
 const useUtilityClasses = (ownerState) => {
-  const { color, disableElevation, fullWidth, size, variant, classes } = ownerState;
+  const { color, disableElevation, fullWidth, size, variant, classes, generateClassName } =
+    ownerState;
 
   const slots = {
     root: [
@@ -29,7 +32,7 @@ const useUtilityClasses = (ownerState) => {
     endIcon: ['endIcon', `iconSize${capitalize(size)}`],
   };
 
-  const composedClasses = composeClasses(slots, getButtonUtilityClass, classes);
+  const composedClasses = composeClasses(slots, generateClassName, classes);
 
   return {
     ...classes, // forward the focused, disabled, etc. classes to the ButtonBase
@@ -320,6 +323,8 @@ const Button = React.forwardRef(function Button(inProps, ref) {
   const variant = variantProp || variantContext || 'text';
   const disableRipple = disableRippleProp || disableRippleContext || false;
 
+  const generateClassName = useGenerateButtonClassName();
+
   const ownerState = {
     ...props,
     color,
@@ -331,6 +336,7 @@ const Button = React.forwardRef(function Button(inProps, ref) {
     size,
     type,
     variant,
+    generateClassName,
   };
 
   const classes = useUtilityClasses(ownerState);
