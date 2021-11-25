@@ -1,8 +1,11 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
-import { unstable_composeClasses as composeClasses } from '@mui/base';
-import { alpha, experimental_useClassNameGenerator as useClassNameGenerator } from '@mui/system';
+import {
+  unstable_composeClasses as composeClasses,
+  experimental_useClassNameGenerator as useClassNameGenerator,
+} from '@mui/base';
+import { alpha } from '@mui/system';
 import styled, { rootShouldForwardProp } from '../styles/styled';
 import useThemeProps from '../styles/useThemeProps';
 import ButtonBase from '../ButtonBase';
@@ -10,7 +13,7 @@ import capitalize from '../utils/capitalize';
 import buttonClasses from './buttonClasses';
 import ButtonGroupContext from '../ButtonGroup/ButtonGroupContext';
 
-export const useGenerateButtonClassName = () => useClassNameGenerator({ name: 'MuiButton' });
+export const useButtonClassNameGenerator = () => useClassNameGenerator({ name: 'MuiButton' });
 
 const useUtilityClasses = (ownerState) => {
   const { color, disableElevation, fullWidth, size, variant, classes, generateClassName } =
@@ -323,7 +326,7 @@ const Button = React.forwardRef(function Button(inProps, ref) {
   const variant = variantProp || variantContext || 'text';
   const disableRipple = disableRippleProp || disableRippleContext || false;
 
-  const generateClassName = useGenerateButtonClassName();
+  const generateClassName = useButtonClassNameGenerator();
 
   const ownerState = {
     ...props,

@@ -1,7 +1,23 @@
 import * as React from 'react';
-import PropTypes from 'prop-types';
 
-const defaultGenerator = (componentName) => componentName;
+const defaultGenerator = (componentName: string) => componentName;
+
+const createClassNameGenerator = () => {
+  let generate = defaultGenerator;
+  return {
+    configure(generator: typeof generate) {
+      generate = generator;
+    },
+    generate(componentName: string) {
+      return generate(componentName);
+    },
+    reset() {
+      generate = defaultGenerator;
+    },
+  };
+};
+
+const ClassNameGenerator = createClassNameGenerator();
 
 const ClassNameContext = React.createContext({
   generator: defaultGenerator,
@@ -33,9 +49,5 @@ export const ClassNameProvider = ({ children, generator }) => {
   const value = React.useMemo(() => ({ generator }), [generator]);
   return <ClassNameContext.Provider value={value}>{children}</ClassNameContext.Provider>;
 };
-ClassNameProvider.propTypes = {
-  children: PropTypes.element,
-  generator: PropTypes.func,
-};
 
-// <ClassNameProvider generator={(componentName) => `foo-bar-${componentName}`}>...</ClassNameProvider>
+export default ClassNameGenerator;

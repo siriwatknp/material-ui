@@ -45,7 +45,3 @@ export { default as useThemeWithoutDefault } from './useThemeWithoutDefault';
 export * from './colorManipulator';
 export { default as ThemeProvider } from './ThemeProvider';
 export { default as unstable_createCssVarsProvider } from './cssVars/createCssVarsProvider';
-export {
-  ClassNameProvider as experimental_ClassNameProvider,
-  useClassNameGenerator as experimental_useClassNameGenerator,
-} from './ClassNameGenerator';

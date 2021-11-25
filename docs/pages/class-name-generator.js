@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { experimental_ClassNameProvider as ClassNameProvider } from '@mui/system';
+import { experimental_ClassNameProvider as ClassNameProvider } from '@mui/material/utils';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 
