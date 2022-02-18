@@ -1,8 +1,8 @@
 import { unstable_createCssVarsProvider as createCssVarsProvider } from '@mui/system';
-import createTheme, { ThemeOptions, Theme } from './createTheme';
+import createTheme, { ThemeOptions } from './createTheme';
 import { PaletteOptions } from './createPalette';
 
-interface ThemeInput extends ThemeOptions {
+interface ThemeInput extends Omit<ThemeOptions, 'palette'> {
   colorSchemes?: Partial<
     Record<
       'light' | 'dark',
@@ -11,19 +11,20 @@ interface ThemeInput extends ThemeOptions {
   >;
 }
 
-const defaultTheme = createTheme();
-const darkTheme = createTheme({ palette: { mode: 'dark' } });
+const { palette: lightPalette, ...lightTheme } = createTheme();
+const { palette: darkPalette } = createTheme({ palette: { mode: 'dark' } });
 
 const { CssVarsProvider, useColorScheme, getInitColorSchemeScript } = createCssVarsProvider<
   'light' | 'dark',
   ThemeInput
 >({
+  prefix: 'mui',
   theme: {
-    ...defaultTheme,
+    ...lightTheme,
     colorSchemes: {
       // TODO: Shuold we remove the non color scheme values from here, like getContrastText, contrastThreshold etc.
-      light: { palette: defaultTheme.palette },
-      dark: { palette: darkTheme.palette },
+      light: { palette: lightPalette },
+      dark: { palette: darkPalette },
     },
   },
   defaultColorScheme: {
