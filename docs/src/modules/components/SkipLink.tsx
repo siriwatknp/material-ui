@@ -30,7 +30,7 @@ export default function SkipLink() {
   const t = useTranslate();
 
   return (
-    <StyledLink color="secondary" href="#main-content">
+    <StyledLink color="secondary" href="#main-content" className="skip-algolia-crawler">
       {t('appFrame.skipToContent')}
     </StyledLink>
   );
