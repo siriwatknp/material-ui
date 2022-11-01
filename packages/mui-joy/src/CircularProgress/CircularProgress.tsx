@@ -192,6 +192,7 @@ const CircularProgress = React.forwardRef(function CircularProgress(inProps, ref
     children,
     className,
     color = 'primary',
+    component = 'span',
     size = 'md',
     variant = 'soft',
     thickness,
@@ -203,6 +204,7 @@ const CircularProgress = React.forwardRef(function CircularProgress(inProps, ref
   const ownerState = {
     ...props,
     color,
+    component,
     size,
     variant,
     thickness,
@@ -212,12 +214,13 @@ const CircularProgress = React.forwardRef(function CircularProgress(inProps, ref
   };
 
   const classes = useUtilityClasses(ownerState);
+  const externalForwardedProps = { ...other, component };
 
   const [SlotRoot, rootProps] = useSlot('root', {
     ref,
     className: clsx(classes.root, className),
     elementType: CircularProgressRoot,
-    externalForwardedProps: other,
+    externalForwardedProps,
     ownerState,
     additionalProps: {
       role: 'progressbar',
@@ -238,21 +241,21 @@ const CircularProgress = React.forwardRef(function CircularProgress(inProps, ref
   const [SlotSvg, svgProps] = useSlot('svg', {
     className: classes.svg,
     elementType: CircularProgressSvg,
-    externalForwardedProps: other,
+    externalForwardedProps,
     ownerState,
   });
 
   const [SlotTrack, trackProps] = useSlot('track', {
     className: classes.track,
     elementType: CircularProgressTrack,
-    externalForwardedProps: other,
+    externalForwardedProps,
     ownerState,
   });
 
   const [SlotProgress, progressProps] = useSlot('progress', {
     className: classes.progress,
     elementType: CircularProgressProgress,
-    externalForwardedProps: other,
+    externalForwardedProps,
     ownerState,
   });
 
@@ -288,6 +291,11 @@ CircularProgress.propTypes /* remove-proptypes */ = {
     PropTypes.oneOf(['danger', 'info', 'neutral', 'primary', 'success', 'warning']),
     PropTypes.string,
   ]),
+  /**
+   * The component used for the root node.
+   * Either a string to use a HTML element or a component.
+   */
+  component: PropTypes.elementType,
   /**
    * Replace the default slots.
    */
