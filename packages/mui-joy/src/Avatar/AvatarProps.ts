@@ -10,9 +10,21 @@ export interface AvatarPropsVariantOverrides {}
 export interface AvatarPropsSizeOverrides {}
 
 interface ComponentsProps {
-  root?: SlotComponentProps<'div', { sx?: SxProps }, AvatarOwnerState>;
-  img?: SlotComponentProps<'img', { sx?: SxProps }, AvatarOwnerState>;
-  fallback?: SlotComponentProps<'svg', { sx?: SxProps }, AvatarOwnerState>;
+  root?: SlotComponentProps<
+    'div',
+    { component?: React.ElementType; sx?: SxProps },
+    AvatarOwnerState
+  >;
+  img?: SlotComponentProps<
+    'img',
+    { component?: React.ElementType; sx?: SxProps },
+    AvatarOwnerState
+  >;
+  fallback?: SlotComponentProps<
+    'svg',
+    { component?: React.ElementType; sx?: SxProps },
+    AvatarOwnerState
+  >;
 }
 
 export interface AvatarTypeMap<P = {}, D extends React.ElementType = 'div'> {
@@ -28,10 +40,18 @@ export interface AvatarTypeMap<P = {}, D extends React.ElementType = 'div'> {
      */
     children?: React.ReactNode;
     /**
+     * Replace the default slots.
+     */
+    slots?: {
+      root?: React.ElementType;
+      img?: React.ElementType;
+      fallback?: React.ElementType;
+    };
+    /**
      * The props used for each slot inside the component.
      * @default {}
      */
-    componentsProps?: ComponentsProps;
+    slotProps?: ComponentsProps;
     /**
      * The color of the component. It supports those theme colors that make sense for this component.
      * @default 'neutral'

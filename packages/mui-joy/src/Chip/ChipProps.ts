@@ -10,15 +10,32 @@ export interface ChipPropsSizeOverrides {}
 export interface ChipPropsVariantOverrides {}
 
 interface ComponentsProps {
-  root?: SlotComponentProps<'div', { sx?: SxProps }, ChipOwnerState>;
-  label?: SlotComponentProps<'span', { sx?: SxProps }, ChipOwnerState>;
-  action?: SlotComponentProps<
-    'button',
-    { sx?: SxProps; component?: React.ElementType; href?: string; to?: string },
+  root?: SlotComponentProps<'div', { component?: React.ElementType; sx?: SxProps }, ChipOwnerState>;
+  label?: SlotComponentProps<
+    'span',
+    { component?: React.ElementType; sx?: SxProps },
     ChipOwnerState
   >;
-  startDecorator?: SlotComponentProps<'span', { sx?: SxProps }, ChipOwnerState>;
-  endDecorator?: SlotComponentProps<'span', { sx?: SxProps }, ChipOwnerState>;
+  action?: SlotComponentProps<
+    'button',
+    {
+      component?: React.ElementType;
+      sx?: SxProps;
+      href?: string;
+      to?: string;
+    },
+    ChipOwnerState
+  >;
+  startDecorator?: SlotComponentProps<
+    'span',
+    { component?: React.ElementType; sx?: SxProps },
+    ChipOwnerState
+  >;
+  endDecorator?: SlotComponentProps<
+    'span',
+    { component?: React.ElementType; sx?: SxProps },
+    ChipOwnerState
+  >;
 }
 
 export interface ChipTypeMap<P = {}, D extends React.ElementType = 'div'> {
@@ -28,10 +45,20 @@ export interface ChipTypeMap<P = {}, D extends React.ElementType = 'div'> {
      */
     children?: React.ReactNode;
     /**
-     * The props used for each slot inside the component.
+     * Replace the default slots.
+     */
+    slots?: {
+      root?: React.ElementType;
+      label?: React.ElementType;
+      action?: React.ElementType;
+      startDecorator?: React.ElementType;
+      endDecorator?: React.ElementType;
+    };
+    /**
+     * The props used for each slot inside.
      * @default {}
      */
-    componentsProps?: ComponentsProps;
+    slotProps?: ComponentsProps;
     /**
      * The color of the component. It supports those theme colors that make sense for this component.
      * @default 'primary'

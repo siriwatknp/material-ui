@@ -1,5 +1,4 @@
 import { unstable_composeClasses as composeClasses } from '@mui/base';
-import { useSlotProps } from '@mui/base/utils';
 import { css, keyframes } from '@mui/system';
 import { OverridableComponent } from '@mui/types';
 import { unstable_capitalize as capitalize } from '@mui/utils';
@@ -8,6 +7,7 @@ import PropTypes from 'prop-types';
 import * as React from 'react';
 import styled from '../styles/styled';
 import useThemeProps from '../styles/useThemeProps';
+import useSlot from '../utils/useSlot';
 import { getCircularProgressUtilityClass } from './circularProgressClasses';
 import {
   CircularProgressOwnerState,
@@ -189,11 +189,10 @@ const CircularProgress = React.forwardRef(function CircularProgress(inProps, ref
   });
 
   const {
-    componentsProps = {},
-    component = 'span',
     children,
     className,
     color = 'primary',
+    component = 'span',
     size = 'md',
     variant = 'soft',
     thickness,
@@ -205,6 +204,7 @@ const CircularProgress = React.forwardRef(function CircularProgress(inProps, ref
   const ownerState = {
     ...props,
     color,
+    component,
     size,
     variant,
     thickness,
@@ -214,15 +214,15 @@ const CircularProgress = React.forwardRef(function CircularProgress(inProps, ref
   };
 
   const classes = useUtilityClasses(ownerState);
+  const externalForwardedProps = { ...other, component };
 
-  const rootProps = useSlotProps({
+  const [SlotRoot, rootProps] = useSlot('root', {
+    ref,
+    className: clsx(classes.root, className),
     elementType: CircularProgressRoot,
-    externalSlotProps: componentsProps.root,
-    externalForwardedProps: other,
+    externalForwardedProps,
     ownerState,
     additionalProps: {
-      ref,
-      as: component,
       role: 'progressbar',
       style: {
         // Setting this CSS varaible via inline-style
@@ -230,44 +230,43 @@ const CircularProgress = React.forwardRef(function CircularProgress(inProps, ref
         // `value` prop updates
         '--CircularProgress-percent': value,
       },
+      ...(value &&
+        determinate && {
+          'aria-valuenow':
+            typeof value === 'number' ? Math.round(value) : Math.round(Number(value || 0)),
+        }),
     },
-    className: clsx(classes.root, className),
-    ...(value &&
-      determinate && {
-        'aria-valuenow':
-          typeof value === 'number' ? Math.round(value) : Math.round(Number(value || 0)),
-      }),
   });
 
-  const svgProps = useSlotProps({
-    elementType: CircularProgressSvg,
-    externalSlotProps: componentsProps.svg,
-    ownerState,
+  const [SlotSvg, svgProps] = useSlot('svg', {
     className: classes.svg,
+    elementType: CircularProgressSvg,
+    externalForwardedProps,
+    ownerState,
   });
 
-  const trackProps = useSlotProps({
-    elementType: CircularProgressTrack,
-    externalSlotProps: componentsProps.track,
-    ownerState,
+  const [SlotTrack, trackProps] = useSlot('track', {
     className: classes.track,
+    elementType: CircularProgressTrack,
+    externalForwardedProps,
+    ownerState,
   });
 
-  const progressProps = useSlotProps({
-    elementType: CircularProgressProgress,
-    externalSlotProps: componentsProps.progress,
-    ownerState,
+  const [SlotProgress, progressProps] = useSlot('progress', {
     className: classes.progress,
+    elementType: CircularProgressProgress,
+    externalForwardedProps,
+    ownerState,
   });
 
   return (
-    <CircularProgressRoot {...rootProps}>
-      <CircularProgressSvg {...svgProps}>
-        <CircularProgressTrack {...trackProps} />
-        <CircularProgressProgress {...progressProps} />
-      </CircularProgressSvg>
+    <SlotRoot {...rootProps}>
+      <SlotSvg {...svgProps}>
+        <SlotTrack {...trackProps} />
+        <SlotProgress {...progressProps} />
+      </SlotSvg>
       {children}
-    </CircularProgressRoot>
+    </SlotRoot>
   );
 }) as OverridableComponent<CircularProgressTypeMap>;
 
@@ -298,16 +297,6 @@ CircularProgress.propTypes /* remove-proptypes */ = {
    */
   component: PropTypes.elementType,
   /**
-   * The props used for each slot inside the CircularProgress.
-   * @default {}
-   */
-  componentsProps: PropTypes.shape({
-    progress: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
-    root: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
-    svg: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
-    track: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
-  }),
-  /**
    * The boolean to select a variant.
    * Use indeterminate when there is no progress value.
    * @default false
@@ -322,6 +311,25 @@ CircularProgress.propTypes /* remove-proptypes */ = {
     PropTypes.oneOf(['sm', 'md', 'lg']),
     PropTypes.string,
   ]),
+  /**
+   * The props used for each slot inside.
+   * @default {}
+   */
+  slotProps: PropTypes.shape({
+    progress: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
+    root: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
+    svg: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
+    track: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
+  }),
+  /**
+   * Replace the default slots.
+   */
+  slots: PropTypes.shape({
+    progress: PropTypes.elementType,
+    root: PropTypes.elementType,
+    svg: PropTypes.elementType,
+    track: PropTypes.elementType,
+  }),
   /**
    * The system prop that allows defining system overrides as well as additional CSS styles.
    */

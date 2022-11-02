@@ -10,10 +10,26 @@ export interface CircularProgressPropsSizeOverrides {}
 export interface CircularProgressPropsVariantOverrides {}
 
 interface ComponentsProps {
-  root?: SlotComponentProps<'span', { sx?: SxProps }, CircularProgressOwnerState>;
-  svg?: SlotComponentProps<'svg', { sx?: SxProps }, CircularProgressOwnerState>;
-  track?: SlotComponentProps<'circle', { sx?: SxProps }, CircularProgressOwnerState>;
-  progress?: SlotComponentProps<'circle', { sx?: SxProps }, CircularProgressOwnerState>;
+  root?: SlotComponentProps<
+    'span',
+    { component?: React.ElementType; sx?: SxProps },
+    CircularProgressOwnerState
+  >;
+  svg?: SlotComponentProps<
+    'svg',
+    { component?: React.ElementType; sx?: SxProps },
+    CircularProgressOwnerState
+  >;
+  track?: SlotComponentProps<
+    'circle',
+    { component?: React.ElementType; sx?: SxProps },
+    CircularProgressOwnerState
+  >;
+  progress?: SlotComponentProps<
+    'circle',
+    { component?: React.ElementType; sx?: SxProps },
+    CircularProgressOwnerState
+  >;
 }
 
 export interface CircularProgressTypeMap<P = {}, D extends React.ElementType = 'span'> {
@@ -24,10 +40,19 @@ export interface CircularProgressTypeMap<P = {}, D extends React.ElementType = '
      */
     color?: OverridableStringUnion<ColorPaletteProp, CircularProgressPropsColorOverrides>;
     /**
-     * The props used for each slot inside the CircularProgress.
+     * Replace the default slots.
+     */
+    slots?: {
+      root?: React.ElementType;
+      svg?: React.ElementType;
+      track?: React.ElementType;
+      progress?: React.ElementType;
+    };
+    /**
+     * The props used for each slot inside.
      * @default {}
      */
-    componentsProps?: ComponentsProps;
+    slotProps?: ComponentsProps;
     /**
      * The boolean to select a variant.
      * Use indeterminate when there is no progress value.
