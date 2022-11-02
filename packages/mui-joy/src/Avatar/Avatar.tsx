@@ -264,23 +264,6 @@ Avatar.propTypes /* remove-proptypes */ = {
    */
   component: PropTypes.elementType,
   /**
-   * Replace the default slots.
-   */
-  components: PropTypes.shape({
-    fallback: PropTypes.elementType,
-    img: PropTypes.elementType,
-    root: PropTypes.elementType,
-  }),
-  /**
-   * The props used for each slot inside the component.
-   * @default {}
-   */
-  componentsProps: PropTypes.shape({
-    fallback: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
-    img: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
-    root: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
-  }),
-  /**
    * [Attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img#attributes) applied to the `img` element if the component is used to display an image.
    * It can be used to listen for the loading error event.
    */
@@ -294,6 +277,23 @@ Avatar.propTypes /* remove-proptypes */ = {
     PropTypes.oneOf(['lg', 'md', 'sm']),
     PropTypes.string,
   ]),
+  /**
+   * The props used for each slot inside the component.
+   * @default {}
+   */
+  slotProps: PropTypes.shape({
+    fallback: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
+    img: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
+    root: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
+  }),
+  /**
+   * Replace the default slots.
+   */
+  slots: PropTypes.shape({
+    fallback: PropTypes.elementType,
+    img: PropTypes.elementType,
+    root: PropTypes.elementType,
+  }),
   /**
    * The `src` attribute for the `img` element.
    */

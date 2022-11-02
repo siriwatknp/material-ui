@@ -337,27 +337,6 @@ Chip.propTypes /* remove-proptypes */ = {
    */
   component: PropTypes.elementType,
   /**
-   * Replace the default slots.
-   */
-  components: PropTypes.shape({
-    action: PropTypes.elementType,
-    endDecorator: PropTypes.elementType,
-    label: PropTypes.elementType,
-    root: PropTypes.elementType,
-    startDecorator: PropTypes.elementType,
-  }),
-  /**
-   * The props used for each slot inside.
-   * @default {}
-   */
-  componentsProps: PropTypes.shape({
-    action: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
-    endDecorator: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
-    label: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
-    root: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
-    startDecorator: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
-  }),
-  /**
    * If `true`, the component is disabled.
    * @default false
    */
@@ -379,6 +358,27 @@ Chip.propTypes /* remove-proptypes */ = {
     PropTypes.oneOf(['lg', 'md', 'sm']),
     PropTypes.string,
   ]),
+  /**
+   * The props used for each slot inside.
+   * @default {}
+   */
+  slotProps: PropTypes.shape({
+    action: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
+    endDecorator: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
+    label: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
+    root: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
+    startDecorator: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
+  }),
+  /**
+   * Replace the default slots.
+   */
+  slots: PropTypes.shape({
+    action: PropTypes.elementType,
+    endDecorator: PropTypes.elementType,
+    label: PropTypes.elementType,
+    root: PropTypes.elementType,
+    startDecorator: PropTypes.elementType,
+  }),
   /**
    * Element placed before the children.
    */
