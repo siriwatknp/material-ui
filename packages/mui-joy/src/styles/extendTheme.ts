@@ -320,21 +320,21 @@ export default function extendTheme(themeOptions?: CssVarsThemeOptions): Theme {
     xs: '0.75rem', // 12px
     sm: '0.875rem', // 14px
     md: '1rem', // 16px
-    lg: '1.25rem', // 20px
-    xl: '1.5rem', // 24px
-    xl2: '2rem', // 32px
-    xl3: '2.5rem', // 40px
-    xl4: '3.5rem', // 56px
-    xl5: '4rem', // 64px
+    lg: '1.125rem', // 18px
+    xl: '1.25rem', // 20px
+    xl2: '1.5rem', // 24px
+    xl3: '1.75rem', // 28px
+    xl4: '1.875rem', // 30px
+    xl5: '2.25rem', // 36px
 
     ...scalesInput.fontSize,
   };
 
   const lineHeight = {
-    xs: 1, // for one-line text. useful for creating component like badge or tag.
-    sm: 1.25,
+    xs: 1.33333,
+    sm: 1.42857,
     md: 1.5,
-    lg: 1.75,
+    lg: 1.55556,
     ...scalesInput.lineHeight,
   };
 
@@ -429,60 +429,81 @@ export default function extendTheme(themeOptions?: CssVarsThemeOptions): Theme {
     },
 
     typography: {
-      'title-xl': {
+      h1: {
         fontFamily: getCssVar('fontFamily-display', fontFamily.display),
-        fontWeight: getCssVar('fontWeight-md', fontWeight.md.toString()),
-        fontSize: getCssVar('fontSize-xl5', fontSize.xl5),
-        lineHeight: getCssVar('lineHeight-sm', lineHeight.sm.toString()),
+        fontWeight: getCssVar('fontWeight-xl', fontWeight.xl.toString()),
+        fontSize: getCssVar('fontSize-xl5', fontSize.xl5.toString()),
+        lineHeight: getCssVar('lineHeight-xs', lineHeight.xs.toString()),
+        color: getCssVar('palette-text-primary', lightColorSystem.palette.text.primary),
+      },
+      h2: {
+        fontFamily: getCssVar('fontFamily-display', fontFamily.display),
+        fontWeight: getCssVar('fontWeight-lg', fontWeight.lg.toString()),
+        fontSize: getCssVar('fontSize-xl4', fontSize.xl4.toString()),
+        lineHeight: getCssVar('lineHeight-xs', lineHeight.xs.toString()),
+        color: getCssVar('palette-text-primary', lightColorSystem.palette.text.primary),
+      },
+      h3: {
+        fontFamily: getCssVar('fontFamily-display', fontFamily.display),
+        fontWeight: getCssVar('fontWeight-lg', fontWeight.lg.toString()),
+        fontSize: getCssVar('fontSize-xl2', fontSize.xl2.toString()),
+        lineHeight: getCssVar('lineHeight-md', lineHeight.md.toString()),
+        color: getCssVar('palette-text-primary', lightColorSystem.palette.text.primary),
+      },
+      h4: {
+        fontFamily: getCssVar('fontFamily-body', fontFamily.body),
+        fontWeight: getCssVar('fontWeight-lg', fontWeight.lg.toString()),
+        fontSize: getCssVar('fontSize-xl', fontSize.xl.toString()),
+        lineHeight: getCssVar('lineHeight-md', lineHeight.md.toString()),
         color: getCssVar('palette-text-primary', lightColorSystem.palette.text.primary),
       },
       'title-lg': {
-        fontFamily: getCssVar('fontFamily-display', fontFamily.display),
-        fontWeight: getCssVar('fontWeight-lg', fontWeight.lg.toString()),
-        fontSize: getCssVar('fontSize-xl3', fontSize.xl3),
-        lineHeight: getCssVar('lineHeight-sm', lineHeight.sm.toString()),
+        fontFamily: getCssVar('fontFamily-body', fontFamily.body),
+        fontWeight: getCssVar('fontWeight-lg', fontWeight.md.toString()),
+        fontSize: getCssVar('fontSize-lg', fontSize.lg.toString()),
+        lineHeight: getCssVar('lineHeight-lg', lineHeight.lg.toString()),
         color: getCssVar('palette-text-primary', lightColorSystem.palette.text.primary),
       },
       'title-md': {
-        fontFamily: getCssVar('fontFamily-display', fontFamily.display),
-        fontWeight: getCssVar('fontWeight-lg', fontWeight.lg.toString()),
-        fontSize: getCssVar('fontSize-xl2', fontSize.xl2),
-        lineHeight: getCssVar('lineHeight-sm', lineHeight.sm.toString()),
+        fontFamily: getCssVar('fontFamily-body', fontFamily.body),
+        fontWeight: getCssVar('fontWeight-md', fontWeight.sm.toString()),
+        fontSize: getCssVar('fontSize-md', fontSize.md.toString()),
+        lineHeight: getCssVar('lineHeight-md', lineHeight.md.toString()),
         color: getCssVar('palette-text-primary', lightColorSystem.palette.text.primary),
       },
       'title-sm': {
         fontFamily: getCssVar('fontFamily-body', fontFamily.body),
-        fontWeight: getCssVar('fontWeight-lg', fontWeight.lg.toString()),
-        fontSize: getCssVar('fontSize-xl', fontSize.xl),
-        lineHeight: getCssVar('lineHeight-md', lineHeight.md.toString()),
-        color: getCssVar('palette-text-primary', lightColorSystem.palette.text.primary),
-      },
-      'title-xs': {
-        fontFamily: getCssVar('fontFamily-body', fontFamily.body),
-        fontWeight: getCssVar('fontWeight-sm', fontWeight.sm.toString()),
-        fontSize: getCssVar('fontSize-lg', fontSize.lg),
-        lineHeight: getCssVar('lineHeight-md', lineHeight.md.toString()),
-        color: getCssVar('palette-text-primary', lightColorSystem.palette.text.primary),
+        fontWeight: getCssVar('fontWeight-md', fontWeight.md.toString()),
+        fontSize: getCssVar('fontSize-sm', fontSize.sm.toString()),
+        lineHeight: getCssVar('lineHeight-sm', lineHeight.sm.toString()),
+        color: getCssVar('palette-text-secondary', lightColorSystem.palette.text.secondary),
       },
       'body-lg': {
         fontFamily: getCssVar('fontFamily-body', fontFamily.body),
         fontWeight: getCssVar('fontWeight-sm', fontWeight.sm.toString()),
-        fontSize: getCssVar('fontSize-md', fontSize.md),
-        lineHeight: getCssVar('lineHeight-lg', lineHeight.lg.toString()),
-        color: getCssVar('palette-text-primary', lightColorSystem.palette.text.primary),
+        fontSize: getCssVar('fontSize-lg', fontSize.lg.toString()),
+        lineHeight: getCssVar('lineHeight-md', lineHeight.md.toString()),
+        color: getCssVar('palette-text-secondary', lightColorSystem.palette.text.secondary),
       },
       'body-md': {
         fontFamily: getCssVar('fontFamily-body', fontFamily.body),
-        fontWeight: getCssVar('fontWeight-md', fontWeight.md.toString()),
-        fontSize: getCssVar('fontSize-sm', fontSize.sm),
-        lineHeight: getCssVar('lineHeight-lg', lineHeight.lg.toString()),
+        fontWeight: getCssVar('fontWeight-sm', fontWeight.sm.toString()),
+        fontSize: getCssVar('fontSize-md', fontSize.md.toString()),
+        lineHeight: getCssVar('lineHeight-md', lineHeight.md.toString()),
         color: getCssVar('palette-text-secondary', lightColorSystem.palette.text.secondary),
       },
       'body-sm': {
         fontFamily: getCssVar('fontFamily-body', fontFamily.body),
-        fontWeight: getCssVar('fontWeight-md', fontWeight.md.toString()),
-        fontSize: getCssVar('fontSize-xs', fontSize.xs),
-        lineHeight: getCssVar('lineHeight-lg', lineHeight.lg.toString()),
+        fontWeight: getCssVar('fontWeight-sm', fontWeight.sm.toString()),
+        fontSize: getCssVar('fontSize-sm', fontSize.sm.toString()),
+        lineHeight: getCssVar('lineHeight-sm', lineHeight.sm.toString()),
+        color: getCssVar('palette-text-tertiary', lightColorSystem.palette.text.tertiary),
+      },
+      caption: {
+        fontFamily: getCssVar('fontFamily-body', fontFamily.body),
+        fontWeight: getCssVar('fontWeight-sm', fontWeight.sm.toString()),
+        fontSize: getCssVar('fontSize-xs', fontSize.xs.toString()),
+        lineHeight: getCssVar('lineHeight-md', lineHeight.md.toString()),
         color: getCssVar('palette-text-tertiary', lightColorSystem.palette.text.tertiary),
       },
     },
@@ -501,7 +522,7 @@ export default function extendTheme(themeOptions?: CssVarsThemeOptions): Theme {
         // TODO: find a way to abstract SvgIcon out of @mui/material
         MuiSvgIcon: {
           defaultProps: {
-            fontSize: 'xl',
+            fontSize: 'xl2',
           },
           styleOverrides: {
             root: ({ ownerState, theme: themeProp }) => {

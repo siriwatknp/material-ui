@@ -129,14 +129,17 @@ const TypographyRoot = styled('span', {
 }));
 
 const defaultVariantMapping: Partial<Record<keyof TypographySystem | 'inherit', string>> = {
-  'title-xl': 'h1',
-  'title-lg': 'h1',
-  'title-md': 'h2',
-  'title-sm': 'h3',
-  'title-xs': 'h4',
+  h1: 'h1',
+  h2: 'h2',
+  h3: 'h3',
+  h4: 'h4',
+  'title-lg': 'div',
+  'title-md': 'div',
+  'title-sm': 'div',
   'body-lg': 'p',
   'body-md': 'p',
-  'body-sm': 'p',
+  'body-sm': 'span',
+  caption: 'span',
   inherit: 'p',
 };
 /**
