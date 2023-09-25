@@ -15,6 +15,8 @@ import useCurrentColorScheme from './useCurrentColorScheme';
 export const DISABLE_CSS_TRANSITION =
   '*{-webkit-transition:none!important;-moz-transition:none!important;-o-transition:none!important;-ms-transition:none!important;transition:none!important}';
 
+const ColorSchemeContext = React.createContext(undefined);
+
 export default function createCssVarsProvider(options) {
   const {
     themeId,
@@ -46,7 +48,6 @@ export default function createCssVarsProvider(options) {
   ) {
     console.error(`MUI: \`${designSystemColorScheme}\` does not exist in \`theme.colorSchemes\`.`);
   }
-  const ColorSchemeContext = React.createContext(undefined);
 
   const useColorScheme = () => {
     const value = React.useContext(ColorSchemeContext);
