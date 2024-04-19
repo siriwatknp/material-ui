@@ -10,6 +10,7 @@ import type { IOptions } from './styled';
 import { processCssObject } from '../utils/processCssObject';
 import { cssFnValueToVariable } from '../utils/cssFnValueToVariable';
 import BaseProcessor from './base-processor';
+import { valueToLiteral } from '../utils/valueToLiteral';
 
 // @TODO: Maybe figure out a better way allow imports.
 const allowedSxTransformImports = [`${process.env.PACKAGE_NAME}/Box`];
@@ -45,6 +46,8 @@ export class SxProcessor extends BaseProcessor {
 
   elementClassName = '';
 
+  elementProps: any = {};
+
   constructor(params: Params, ...args: TailProcessorParams) {
     super([params[0]], ...args);
     validateParams(params, ['callee', 'call'], 'Invalid usage of sx call.');
@@ -58,7 +61,10 @@ export class SxProcessor extends BaseProcessor {
   }
 
   build(values: ValueCache) {
-    const [sxStyle, elementClassExpression] = this.sxArguments;
+    const [sxStyle, elementClassExpression, elementProps] = this.sxArguments;
+    if (elementProps.kind === ValueType.LAZY) {
+      this.elementProps = values.get(elementProps.ex.name) as any;
+    }
     if (elementClassExpression.kind === ValueType.LAZY) {
       const elementClassValue = values.get(elementClassExpression.ex.name);
       if (typeof elementClassValue === 'string') {
@@ -123,6 +129,7 @@ export class SxProcessor extends BaseProcessor {
     if (this.artifacts.length === 0) {
       return;
     }
+    let result = this.value;
     if (this.collectedVariables.length) {
       const varProperties: ReturnType<typeof t.objectProperty>[] = this.collectedVariables.map(
         ([variableId, expression, isUnitLess]) => {
@@ -156,10 +163,16 @@ export class SxProcessor extends BaseProcessor {
         t.objectProperty(t.identifier('className'), t.stringLiteral(this.className)),
         t.objectProperty(t.identifier('vars'), t.objectExpression(varProperties)),
       ]);
-      this.replacer(obj, false);
-    } else {
-      this.replacer(this.value, false);
+      result = obj;
     }
+    const sxImportIdentifier = t.addNamedImport(
+      this.tagSource.imported,
+      process.env.PACKAGE_NAME as string,
+    );
+    this.replacer(
+      t.callExpression(sxImportIdentifier, [result, valueToLiteral(this.elementProps)]),
+      false,
+    );
   }
 
   get asSelector(): string {

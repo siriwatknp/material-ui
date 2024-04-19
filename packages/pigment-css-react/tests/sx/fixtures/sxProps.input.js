@@ -13,7 +13,7 @@ export const SliderRail = styled('span', {
 `;
 
 function App() {
-  return <SliderRail sx={{ color: 'red' }} />;
+  return <SliderRail className="foo" style={{ color: 'red' }} sx={{ color: 'red' }} />;
 }
 
 function App2(props) {

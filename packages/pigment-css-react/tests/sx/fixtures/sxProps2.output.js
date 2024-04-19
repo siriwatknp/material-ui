@@ -1,9 +1,4 @@
-import { sx as _sx6, styled as _styled } from '@pigment-css/react';
-import { ForwardSx as _ForwardSx3 } from '@pigment-css/react/private-runtime';
-import { sx as _sx4 } from '@pigment-css/react';
-import { ForwardSx as _ForwardSx2 } from '@pigment-css/react/private-runtime';
-import { sx as _sx2 } from '@pigment-css/react';
-import { ForwardSx as _ForwardSx } from '@pigment-css/react/private-runtime';
+import { styled as _styled, sx as _sx4, sx as _sx5, sx as _sx6 } from '@pigment-css/react';
 const SliderRail = /*#__PURE__*/ _styled('span', {
   name: 'MuiSlider',
   slot: 'Rail',
@@ -13,22 +8,29 @@ const SliderRail = /*#__PURE__*/ _styled('span', {
 const A = {
   SliderRail,
 };
+const _exp5 = /*#__PURE__*/ () => ({});
 function App(props) {
-  return <_ForwardSx sxComponent={SliderRail} sx={'_i7ulc4'} />;
+  return <SliderRail {..._sx4('si7ulc4', _exp5)} />;
 }
+const _exp8 = /*#__PURE__*/ () => ({
+  component: 'li',
+});
 function App2() {
-  return <_ForwardSx2 sxComponent={SliderRail} sx={'_liig2s'} component="li" {...props} />;
+  return <SliderRail {..._sx5('sliig2s', _exp8)} component="li" {...props} />;
 }
+const _exp11 = /*#__PURE__*/ () => ({});
 function App3(props) {
   return (
-    <_ForwardSx3
-      sxComponent={A.SliderRail}
-      sx={{
-        className: '_o956n',
-        vars: {
-          '_o956n-0': [props.isRed ? 'h1-fontSize' : 'h2-fontSize', false],
+    <A.SliderRail
+      {..._sx6(
+        {
+          className: 'so956n',
+          vars: {
+            'so956n-0': [props.isRed ? 'h1-fontSize' : 'h2-fontSize', false],
+          },
         },
-      }}
+        _exp11,
+      )}
     />
   );
 }
