@@ -10,7 +10,6 @@ import type { IOptions } from './styled';
 import { processCssObject } from '../utils/processCssObject';
 import { cssFnValueToVariable } from '../utils/cssFnValueToVariable';
 import BaseProcessor from './base-processor';
-import { valueToLiteral } from '../utils/valueToLiteral';
 
 // @TODO: Maybe figure out a better way allow imports.
 const allowedSxTransformImports = [`${process.env.PACKAGE_NAME}/Box`];
@@ -46,8 +45,6 @@ export class SxProcessor extends BaseProcessor {
 
   elementClassName = '';
 
-  elementProps: any = {};
-
   constructor(params: Params, ...args: TailProcessorParams) {
     super([params[0]], ...args);
     validateParams(params, ['callee', 'call'], 'Invalid usage of sx call.');
@@ -61,10 +58,7 @@ export class SxProcessor extends BaseProcessor {
   }
 
   build(values: ValueCache) {
-    const [sxStyle, elementClassExpression, elementProps] = this.sxArguments;
-    if (elementProps.kind === ValueType.LAZY) {
-      this.elementProps = values.get(elementProps.ex.name) as any;
-    }
+    const [sxStyle, elementClassExpression] = this.sxArguments;
     if (elementClassExpression.kind === ValueType.LAZY) {
       const elementClassValue = values.get(elementClassExpression.ex.name);
       if (typeof elementClassValue === 'string') {
@@ -165,13 +159,48 @@ export class SxProcessor extends BaseProcessor {
       ]);
       result = obj;
     }
-    const sxImportIdentifier = t.addNamedImport(
-      this.tagSource.imported,
-      process.env.PACKAGE_NAME as string,
-    );
+
     this.replacer(
-      t.callExpression(sxImportIdentifier, [result, valueToLiteral(this.elementProps)]),
+      // @ts-ignore
+      (tagPath) => {
+        let depth = 0;
+        let jsxElement = tagPath;
+        while (jsxElement.type !== 'JSXOpeningElement' && depth < 5) {
+          jsxElement = jsxElement.parentPath;
+          depth += 1;
+        }
+
+        if (jsxElement.isJSXOpeningElement()) {
+          const attributes: any[] = [];
+          let sxAttribute: any;
+          jsxElement.get('attributes').forEach((attr: any) => {
+            if (attr.isJSXAttribute() && attr.node.name.name === 'sx') {
+              sxAttribute = attr;
+              attr.remove();
+            } else if (attr.isJSXSpreadAttribute()) {
+              attributes.push(t.spreadElement(attr.node.argument));
+            } else if (
+              attr.isJSXAttribute() &&
+              (attr.node.name.name === 'className' || attr.node.name.name === 'style')
+            ) {
+              attributes.push(
+                t.objectProperty(
+                  t.identifier(attr.node.name.name),
+                  attr.node.value.type === 'JSXExpressionContainer'
+                    ? attr.node.value.expression
+                    : attr.node.value,
+                ),
+              );
+            }
+          });
+          if (sxAttribute) {
+            tagPath.node.arguments = [result, t.objectExpression(attributes)];
+            jsxElement.node.attributes.push(t.jsxSpreadAttribute(tagPath.node));
+          }
+        }
+      },
       false,
+      // t.callExpression(sxImportIdentifier, [result, valueToLiteral(this.elementProps)]),
     );
   }
 

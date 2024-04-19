@@ -77,18 +77,12 @@ function replaceNodePath(
   importName: string,
   t: typeof Types,
   tagNamePath: NodePath<
-    | Types.JSXIdentifier
-    | Types.Identifier
-    | Types.JSXMemberExpression
-    | Types.MemberExpression
-    | Types.JSXNamespacedName
+    Types.JSXIdentifier | Types.Identifier | Types.JSXMemberExpression | Types.MemberExpression
   >,
   sxComponentName: string,
-  nonSxAttributes: NodePath<Types.JSXAttribute | Types.JSXSpreadAttribute>[],
-  openingElement: NodePath<Types.JSXOpeningElement>,
 ) {
   const sxIdentifier = addNamed(namePath, importName, process.env.PACKAGE_NAME as string);
-  // let wasSxTransformed = false;
+  let wasSxTransformed = false;
 
   const wrapWithSxCall = (expPath: NodePath<Types.Expression>) => {
     let tagNameArg: Types.Identifier | Types.MemberExpression | null = null;
@@ -99,32 +93,11 @@ function replaceNodePath(
     } else {
       tagNameArg = tagNamePath.node as Types.Identifier | Types.MemberExpression;
     }
-    const attributes: Array<Types.ObjectProperty | Types.SpreadElement> = [];
-    nonSxAttributes.forEach((attr) => {
-      if (attr.isJSXAttribute() && attr.node.value) {
-        attributes.push(
-          t.objectProperty(
-            t.identifier(attr.node.name.name as string),
-            (attr.node.value.type === 'JSXExpressionContainer'
-              ? attr.node.value.expression
-              : attr.node.value) as Types.Expression,
-          ),
-        );
-      }
-    });
-    expPath.replaceWith(
-      t.callExpression(sxIdentifier, [expPath.node, tagNameArg, t.objectExpression(attributes)]),
-    );
-    // wasSxTransformed = true;
+    expPath.replaceWith(t.callExpression(sxIdentifier, [expPath.node, tagNameArg]));
+    wasSxTransformed = true;
   };
 
   sxPropConverter(expressionPath, wrapWithSxCall);
-
-  openingElement.get('attributes').forEach((attr) => {
-    if (attr.get('name') === namePath) {
-      attr.replaceWith(t.jsxSpreadAttribute(expressionPath.node));
-    }
-  });
 
   // if (wasSxTransformed) {
   //   if (tagNamePath.isJSXIdentifier() || tagNamePath.isJSXMemberExpression()) {
@@ -163,20 +136,8 @@ export const babelPlugin = declare<{
         if (!expressionPath.isExpression()) {
           return;
         }
-
-        const nonSxAttributes = openingElement.get('attributes').filter((attr) => attr !== path);
-
         // @ts-ignore
-        replaceNodePath(
-          expressionPath,
-          namePath,
-          importName,
-          t,
-          tagName,
-          sxComponentName,
-          nonSxAttributes,
-          openingElement,
-        );
+        replaceNodePath(expressionPath, namePath, importName, t, tagName, sxComponentName);
       },
       ObjectProperty(path) {
         // @TODO - Maybe add support for React.createElement calls as well.
@@ -197,8 +158,8 @@ export const babelPlugin = declare<{
         if (!callee.isIdentifier() || !callee.node.name.includes('jsx')) {
           return;
         }
-        // const jsxElement = parentJsxCall.get('arguments')[0] as NodePath<Types.Identifier>;
-        // replaceNodePath(valuePath, keyPath, importName, t, jsxElement, sxComponentName, []);
+        const jsxElement = parentJsxCall.get('arguments')[0] as NodePath<Types.Identifier>;
+        replaceNodePath(valuePath, keyPath, importName, t, jsxElement, sxComponentName);
       },
     },
   };
