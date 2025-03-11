@@ -1234,6 +1234,7 @@ describe('<Tooltip />', () => {
     });
   });
 
+  // TODO: deprecated, remove in v8
   describe('prop: components', () => {
     it('can render a different Popper component', () => {
       function CustomPopper() {
@@ -1278,6 +1279,7 @@ describe('<Tooltip />', () => {
     });
   });
 
+  // TODO: deprecated, remove in v8
   describe('prop: componentsProps', () => {
     it('can provide custom props for the inner Popper component', () => {
       render(
@@ -1361,6 +1363,50 @@ describe('<Tooltip />', () => {
       ));
       render(
         <Tooltip title="Hello World" open arrow slots={{ arrow: CustomArrow }}>
+          <button id="testChild" type="submit">
+            Hello World
+          </button>
+        </Tooltip>,
+      );
+      expect(screen.getByTestId('CustomArrow')).toBeVisible();
+    });
+  });
+
+  describe('prop: slotProps', () => {
+    it('can provide custom props for the inner Popper component', () => {
+      render(
+        <Tooltip title="Hello World" open slotProps={{ popper: { 'data-testid': 'CustomPopper' } }}>
+          <button id="testChild" type="submit">
+            Hello World
+          </button>
+        </Tooltip>,
+      );
+      expect(screen.getByTestId('CustomPopper')).toBeVisible();
+    });
+
+    it('can provide custom props for the inner Tooltip component', () => {
+      render(
+        <Tooltip
+          title="Hello World"
+          open
+          slotProps={{ tooltip: { 'data-testid': 'CustomTooltip' } }}
+        >
+          <button id="testChild" type="submit">
+            Hello World
+          </button>
+        </Tooltip>,
+      );
+      expect(screen.getByTestId('CustomTooltip')).toBeVisible();
+    });
+
+    it('can provide custom props for the inner Arrow component', () => {
+      render(
+        <Tooltip
+          title="Hello World"
+          open
+          arrow
+          slotProps={{ arrow: { 'data-testid': 'CustomArrow' } }}
+        >
           <button id="testChild" type="submit">
             Hello World
           </button>

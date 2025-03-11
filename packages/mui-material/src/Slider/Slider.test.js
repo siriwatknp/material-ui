@@ -813,7 +813,8 @@ describe('<Slider />', () => {
   });
 
   describe('prop: valueLabelDisplay', () => {
-    it('should always display the value label according to on and off', () => {
+    // TODO: deprecated, remove in v8
+    it('[deprecated `componentsProps`] should always display the value label according to on and off', () => {
       const { setProps } = render(
         <Slider
           valueLabelDisplay="on"
@@ -835,6 +836,23 @@ describe('<Slider />', () => {
         <Slider
           valueLabelDisplay="auto"
           value={50}
+          slotProps={{ thumb: { 'data-testid': 'thumb' } }}
+        />,
+      );
+      const thumb = getByTestId('thumb');
+      expect(document.querySelector(`.${classes.valueLabelOpen}`)).to.equal(null);
+
+      fireEvent.mouseOver(thumb);
+
+      expect(document.querySelector(`.${classes.valueLabelOpen}`)).not.to.equal(null);
+    });
+
+    // TODO: deprecated, remove in v8
+    it('[deprecated `componentsProps`] should display the value label only on hover for auto', () => {
+      const { getByTestId } = render(
+        <Slider
+          valueLabelDisplay="auto"
+          value={50}
           componentsProps={{ thumb: { 'data-testid': 'thumb' } }}
         />,
       );
@@ -846,7 +864,23 @@ describe('<Slider />', () => {
       expect(document.querySelector(`.${classes.valueLabelOpen}`)).not.to.equal(null);
     });
 
-    it('should be respected when using custom value label', () => {
+    it('should display the value label only on hover for auto', () => {
+      const { getByTestId } = render(
+        <Slider
+          valueLabelDisplay="auto"
+          value={50}
+          slotProps={{ thumb: { 'data-testid': 'thumb' } }}
+        />,
+      );
+      const thumb = getByTestId('thumb');
+      expect(document.querySelector(`.${classes.valueLabelOpen}`)).to.equal(null);
+
+      fireEvent.mouseOver(thumb);
+
+      expect(document.querySelector(`.${classes.valueLabelOpen}`)).not.to.equal(null);
+    });
+
+    it('[deprecated `components`] should be respected when using custom value label', () => {
       function ValueLabelComponent(props) {
         const { value, open } = props;
         return (
@@ -863,6 +897,30 @@ describe('<Slider />', () => {
           valueLabelDisplay="on"
           value={50}
         />,
+      );
+
+      expect(screen.queryByTestId('value-label')).to.have.class('open');
+
+      setProps({
+        valueLabelDisplay: 'off',
+      });
+
+      expect(screen.queryByTestId('value-label')).to.equal(null);
+    });
+
+    it('should be respected when using custom value label', () => {
+      function ValueLabelComponent(props) {
+        const { value, open } = props;
+        return (
+          <span data-testid="value-label" className={open ? 'open' : ''}>
+            {value}
+          </span>
+        );
+      }
+      ValueLabelComponent.propTypes = { value: PropTypes.number };
+
+      const { setProps } = render(
+        <Slider slots={{ valueLabel: ValueLabelComponent }} valueLabelDisplay="on" value={50} />,
       );
 
       expect(screen.queryByTestId('value-label')).to.have.class('open');
@@ -1615,6 +1673,7 @@ describe('<Slider />', () => {
     });
   });
 
+  // TODO: deprecated, remove in v8
   describe('prop: components', () => {
     it('should render custom components if specified', () => {
       // ARRANGE
@@ -1632,6 +1691,21 @@ describe('<Slider />', () => {
     });
   });
 
+  describe('prop: slots', () => {
+    it('should render custom components if specified', () => {
+      const dataTestId = 'slider-input-testid';
+      const name = 'custom-input';
+      function CustomInput({ ownerState, ...props }) {
+        return <input {...props} data-testid={dataTestId} name={name} />;
+      }
+
+      const { getByTestId } = render(<Slider slots={{ input: CustomInput }} />);
+
+      expect(getByTestId(dataTestId).name).to.equal(name);
+    });
+  });
+
+  // TODO: deprecated, remove in v8
   describe('prop: componentsProps', () => {
     it('should forward the props to their respective components', () => {
       // ARRANGE
@@ -1644,6 +1718,19 @@ describe('<Slider />', () => {
       );
 
       // ASSERT
+      expect(getByTestId(dataTestId).id).to.equal(id);
+    });
+  });
+
+  describe('prop: slotProps', () => {
+    it('should forward the props to their respective components', () => {
+      const dataTestId = 'slider-input-testid';
+      const id = 'slider-input-id';
+
+      const { getByTestId } = render(
+        <Slider defaultValue={10} slotProps={{ input: { 'data-testid': dataTestId, id } }} />,
+      );
+
       expect(getByTestId(dataTestId).id).to.equal(id);
     });
   });

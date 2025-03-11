@@ -96,6 +96,7 @@ describe('<Alert />', () => {
     });
   });
 
+  // TODO: deprecated, remove in v8
   describe('prop: components', () => {
     it('should override the default icon used in the close action', () => {
       function MyCloseIcon() {
@@ -103,11 +104,10 @@ describe('<Alert />', () => {
       }
 
       render(
-        <Alert onClose={() => {}} components={{ CloseIcon: MyCloseIcon }}>
+        <Alert onClose={() => {}} slots={{ closeIcon: MyCloseIcon }}>
           Hello World
         </Alert>,
       );
-
       expect(screen.getByTestId('closeIcon')).toBeVisible();
     });
 
@@ -126,6 +126,36 @@ describe('<Alert />', () => {
     });
   });
 
+  describe('prop: slots', () => {
+    it('should override the default icon used in the close action', () => {
+      function MyCloseIcon() {
+        return <div data-testid="closeIcon">X</div>;
+      }
+
+      render(
+        <Alert onClose={() => {}} slots={{ closeIcon: MyCloseIcon }}>
+          Hello World
+        </Alert>,
+      );
+      expect(screen.getByTestId('closeIcon')).toBeVisible();
+    });
+
+    it('should override the default button used in the close action', () => {
+      function MyCloseButton() {
+        return <button data-testid="closeButton">X</button>;
+      }
+
+      render(
+        <Alert onClose={() => {}} slots={{ closeButton: MyCloseButton }}>
+          Hello World
+        </Alert>,
+      );
+
+      expect(screen.getByTestId('closeButton')).toBeVisible();
+    });
+  });
+
+  // TODO: deprecated, remove in v8
   describe('prop: componentsProps', () => {
     it('should apply the props on the close IconButton component', () => {
       render(
@@ -153,6 +183,50 @@ describe('<Alert />', () => {
         <Alert
           onClose={() => {}}
           componentsProps={{
+            closeIcon: {
+              'data-testid': 'closeIcon',
+              fontSize: 'large',
+              className: 'my-class',
+            },
+          }}
+        >
+          Hello World
+        </Alert>,
+      );
+
+      const closeIcon = screen.getByTestId('closeIcon');
+      expect(closeIcon).to.have.class(svgIconClasses.fontSizeLarge);
+      expect(closeIcon).to.have.class('my-class');
+    });
+  });
+
+  describe('prop: slotProps', () => {
+    it('should apply the props on the close IconButton component', () => {
+      render(
+        <Alert
+          onClose={() => {}}
+          slotProps={{
+            closeButton: {
+              'data-testid': 'closeButton',
+              size: 'large',
+              className: 'my-class',
+            },
+          }}
+        >
+          Hello World
+        </Alert>,
+      );
+
+      const closeIcon = screen.getByTestId('closeButton');
+      expect(closeIcon).to.have.class(iconButtonClasses.sizeLarge);
+      expect(closeIcon).to.have.class('my-class');
+    });
+
+    it('should apply the props on the close SvgIcon component', () => {
+      render(
+        <Alert
+          onClose={() => {}}
+          slotProps={{
             closeIcon: {
               'data-testid': 'closeIcon',
               fontSize: 'large',
