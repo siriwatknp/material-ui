@@ -36,8 +36,14 @@ describe('<Input />', () => {
     expect(document.querySelector('.error')).not.to.equal(null);
   });
 
+  // TODO: deprecated, remove in v8
   it('should respects the componentsProps if passed', () => {
     render(<Input componentsProps={{ root: { 'data-test': 'test' } }} />);
+    expect(document.querySelector('[data-test=test]')).not.to.equal(null);
+  });
+
+  it('should respects the slotProps if passed', () => {
+    render(<Input slotProps={{ root: { 'data-test': 'test' } }} />);
     expect(document.querySelector('[data-test=test]')).not.to.equal(null);
   });
 

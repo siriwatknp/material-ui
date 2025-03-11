@@ -32,6 +32,7 @@ function testOnChange() {
     thumb: { className: 'thumb' },
     valueLabel: { valueLabelDisplay: 'auto' },
   }}
+  // TODO: deprecated, remove in v8
   componentsProps={{
     root: { onMouseDown: () => 'onMouseDown event triggered' },
     input: { disabled: true },
@@ -57,6 +58,7 @@ function testOnChange() {
     }),
     thumb: ({ orientation }) => ({ className: orientation === 'vertical' ? 'thumb_vertical' : '' }),
   }}
+  // TODO: deprecated, remove in v8
   componentsProps={{
     root: ({ color }) => ({ className: color === 'primary' ? 'root_primary' : 'root_secondary' }),
     input: ({ size }) => ({ disabled: size === 'medium' }),

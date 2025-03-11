@@ -208,6 +208,24 @@ describe('<StepLabel />', () => {
     });
   });
 
+  describe('slotProps: label', () => {
+    it('spreads the props on the label element', () => {
+      const { getByTestId } = render(
+        <StepLabel
+          slotProps={{
+            label: {
+              'data-testid': 'label',
+              className: 'step-label-test',
+            },
+          }}
+        >
+          Label
+        </StepLabel>,
+      );
+      expect(getByTestId('label')).to.have.class('step-label-test');
+    });
+  });
+
   describe('renders <StepIcon> with the className completed', () => {
     it('renders with completed className when completed', () => {
       function CustomizedIcon() {

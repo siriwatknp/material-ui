@@ -298,6 +298,7 @@ describe('<Badge />', () => {
   });
 
   describe('prop: components / slots', () => {
+    // TODO: deprecated, remove in v8
     it('allows overriding the slots using the components prop', () => {
       const CustomRoot = React.forwardRef((props, ref) => {
         const { ownerState, ...other } = props;
@@ -346,6 +347,7 @@ describe('<Badge />', () => {
   });
 
   describe('prop: componentsProps / slotProps', () => {
+    // TODO: deprecated, remove in v8
     it('allows modifying slots props using the componentsProps prop', () => {
       const { getByTestId } = render(
         <Badge

@@ -148,7 +148,14 @@ function AutocompleteComponentsProps() {
     <Autocomplete
       options={['one', 'two', 'three']}
       renderInput={(params) => <TextField {...params} />}
+      // TODO: deprecated, remove in v8
       componentsProps={{
+        clearIndicator: { size: 'large' },
+        paper: { elevation: 2 },
+        popper: { placement: 'bottom-end' },
+        popupIndicator: { size: 'large' },
+      }}
+      slotProps={{
         clearIndicator: { size: 'large' },
         paper: { elevation: 2 },
         popper: { placement: 'bottom-end' },
@@ -164,7 +171,11 @@ function CustomListboxRef() {
     <Autocomplete
       renderInput={(params) => <TextField {...params} />}
       options={['one', 'two', 'three']}
+      // TODO: deprecated, remove in v8
       ListboxProps={{ ref }}
+      slotProps={{
+        listbox: { ref },
+      }}
     />
   );
 }

@@ -191,12 +191,32 @@ describe('<FormControlLabel />', () => {
     });
   });
 
+  // TODO: deprecated, remove in v8
   describe('componentsProps: typography', () => {
     it('should spread its contents to the typography element', () => {
       const { getByTestId } = render(
         <FormControlLabel
           label="Pizza"
           componentsProps={{
+            typography: {
+              'data-testid': 'labelTypography',
+              name: 'test',
+            },
+          }}
+          control={<div />}
+        />,
+      );
+
+      expect(getByTestId('labelTypography')).to.have.attribute('name', 'test');
+    });
+  });
+
+  describe('slotProps: typography', () => {
+    it('should spread its contents to the typography element', () => {
+      const { getByTestId } = render(
+        <FormControlLabel
+          label="Pizza"
+          slotProps={{
             typography: {
               'data-testid': 'labelTypography',
               name: 'test',

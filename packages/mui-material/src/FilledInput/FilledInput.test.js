@@ -60,6 +60,11 @@ describe('<FilledInput />', () => {
     expect(document.querySelector('[data-test=test]')).not.to.equal(null);
   });
 
+  it('should respects the slotProps if passed', () => {
+    render(<FilledInput slotProps={{ root: { 'data-test': 'test' } }} />);
+    expect(document.querySelector('[data-test=test]')).not.to.equal(null);
+  });
+
   it('should respect the classes coming from InputBase', () => {
     render(
       <FilledInput

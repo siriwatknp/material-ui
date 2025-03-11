@@ -13,6 +13,7 @@ const backdropProps: ModalProps['BackdropProps'] = {
 <Modal
   open
   slotProps={{ backdrop: { invisible: true }, root: { id: 'modal' } }}
+  // TODO: deprecated, remove in v8
   componentsProps={{
     backdrop: { transitionDuration: 300 },
     root: { onClick: () => 'Modal clicked' },
@@ -28,6 +29,7 @@ const backdropProps: ModalProps['BackdropProps'] = {
     root: ({ disableAutoFocus }) => ({ className: disableAutoFocus ? '' : 'focused' }),
     backdrop: ({ exited }) => ({ className: exited ? 'hidden' : '' }),
   }}
+  // TODO: deprecated, remove in v8
   componentsProps={{
     root: ({ exited }) => ({ className: exited ? 'hidden' : '' }),
     backdrop: ({ disableAutoFocus }) => ({ className: disableAutoFocus ? '' : 'modal-focused' }),
