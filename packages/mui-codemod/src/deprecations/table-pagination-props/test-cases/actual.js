@@ -6,7 +6,6 @@ import { TablePagination as MyTablePagination } from '@mui/material';
   ActionsComponent="div"
   SelectProps={{ native: true }}
   slots={{
-    actions: 'div',
     select: 'div',
   }}
 />;
@@ -23,7 +22,6 @@ import { TablePagination as MyTablePagination } from '@mui/material';
 <TablePagination
   ActionsComponent="div"
   SelectProps={{ native: true }}
-  slots={{ actions: () => null }}
   slotProps={{ select: { native: false } }}
 />;
 

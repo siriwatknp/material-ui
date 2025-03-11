@@ -1,4 +1,3 @@
-import movePropIntoSlots from '../utils/movePropIntoSlots';
 import movePropIntoSlotProps from '../utils/movePropIntoSlotProps';
 
 /**
@@ -9,13 +8,6 @@ export default function transformer(file, api, options) {
   const j = api.jscodeshift;
   const root = j(file.source);
   const printOptions = options.printOptions;
-
-  movePropIntoSlots(j, {
-    root,
-    componentName: 'TablePagination',
-    propName: 'ActionsComponent',
-    slotName: 'actions',
-  });
 
   movePropIntoSlotProps(j, {
     root,
