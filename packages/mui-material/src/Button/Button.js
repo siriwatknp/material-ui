@@ -1,6 +1,6 @@
 'use client';
 import * as React from 'react';
-import PropTypes from 'prop-types';
+import PropTypes from '@mui/utils/prop-types';
 import clsx from 'clsx';
 import resolveProps from '@mui/utils/resolveProps';
 import composeClasses from '@mui/utils/composeClasses';
@@ -17,7 +17,6 @@ import createSimplePaletteValueFilter from '../utils/createSimplePaletteValueFil
 import buttonClasses, { getButtonUtilityClass } from './buttonClasses';
 import ButtonGroupContext from '../ButtonGroup/ButtonGroupContext';
 import ButtonGroupButtonContext from '../ButtonGroup/ButtonGroupButtonContext';
-import validate from '../utils/prop-types';
 
 const useUtilityClasses = (ownerState) => {
   const { color, disableElevation, fullWidth, size, variant, loading, loadingPosition, classes } =
@@ -622,7 +621,7 @@ Button.propTypes /* remove-proptypes */ = {
   /**
    * The content of the component.
    */
-  children: validate,
+  children: PropTypes.node,
   /**
    * Override or extend the styles applied to the component.
    */

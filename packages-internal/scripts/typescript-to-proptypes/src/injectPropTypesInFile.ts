@@ -242,7 +242,7 @@ function createBabelPlugin({
             !path.node.body.some((n) => {
               if (
                 babelTypes.isImportDeclaration(n) &&
-                n.source.value === 'prop-types' &&
+                n.source.value === '@mui/utils/prop-types' &&
                 n.specifiers.length
               ) {
                 importName = n.specifiers[0].local.name;
@@ -308,7 +308,7 @@ function createBabelPlugin({
           }
 
           const propTypesImport = babel.template.ast(
-            `import ${importName} from 'prop-types'`,
+            `import ${importName} from '@mui/utils/prop-types'`,
           ) as babel.types.ImportDeclaration;
 
           const firstImport = path
