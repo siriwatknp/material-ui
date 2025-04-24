@@ -1,6 +1,6 @@
 {
   "props": {
-    "children": { "type": { "name": "node" } },
+    "children": { "type": { "name": "custom", "description": "validate" } },
     "classes": { "type": { "name": "object" }, "additionalInfo": { "cssApi": true } },
     "color": {
       "type": {

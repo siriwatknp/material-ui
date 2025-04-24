@@ -17,6 +17,7 @@ import createSimplePaletteValueFilter from '../utils/createSimplePaletteValueFil
 import buttonClasses, { getButtonUtilityClass } from './buttonClasses';
 import ButtonGroupContext from '../ButtonGroup/ButtonGroupContext';
 import ButtonGroupButtonContext from '../ButtonGroup/ButtonGroupButtonContext';
+import validate from '../utils/prop-types';
 
 const useUtilityClasses = (ownerState) => {
   const { color, disableElevation, fullWidth, size, variant, loading, loadingPosition, classes } =
@@ -621,7 +622,7 @@ Button.propTypes /* remove-proptypes */ = {
   /**
    * The content of the component.
    */
-  children: PropTypes.node,
+  children: validate,
   /**
    * Override or extend the styles applied to the component.
    */
