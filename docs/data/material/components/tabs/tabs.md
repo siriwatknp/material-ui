@@ -32,6 +32,10 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 ```
 
+## Panels
+
+{{"demo": "PanelsTabs.js"}}
+
 ## Experimental API
 
 `@mui/lab` offers utility components that inject props to implement accessible tabs

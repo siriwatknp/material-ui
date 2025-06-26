@@ -305,6 +305,7 @@ const Tabs = React.forwardRef(function Tabs(inProps, ref) {
     indicatorColor = 'primary',
     onChange,
     orientation = 'horizontal',
+    panels,
     ScrollButtonComponent, // TODO: remove in v7 (deprecated in v6)
     scrollButtons = 'auto',
     selectionFollowsFocus,
@@ -907,24 +908,27 @@ const Tabs = React.forwardRef(function Tabs(inProps, ref) {
   });
 
   return (
-    <RootSlot {...rootSlotProps}>
-      {conditionalElements.scrollButtonStart}
-      {conditionalElements.scrollbarSizeListener}
-      <ScrollerSlot {...scrollerSlotProps}>
-        {/* The tablist isn't interactive but the tabs are */}
-        <ListSlot
-          aria-label={ariaLabel}
-          aria-labelledby={ariaLabelledBy}
-          aria-orientation={orientation === 'vertical' ? 'vertical' : null}
-          role="tablist"
-          {...listSlotProps}
-        >
-          <TabsContext.Provider value={tabsContextValue}>{childrenProp}</TabsContext.Provider>
-        </ListSlot>
-        {mounted && indicator}
-      </ScrollerSlot>
-      {conditionalElements.scrollButtonEnd}
-    </RootSlot>
+    <TabsContext.Provider value={tabsContextValue}>
+      <RootSlot {...rootSlotProps}>
+        {conditionalElements.scrollButtonStart}
+        {conditionalElements.scrollbarSizeListener}
+        <ScrollerSlot {...scrollerSlotProps}>
+          {/* The tablist isn't interactive but the tabs are */}
+          <ListSlot
+            aria-label={ariaLabel}
+            aria-labelledby={ariaLabelledBy}
+            aria-orientation={orientation === 'vertical' ? 'vertical' : null}
+            role="tablist"
+            {...listSlotProps}
+          >
+            {childrenProp}
+          </ListSlot>
+          {mounted && indicator}
+        </ScrollerSlot>
+        {conditionalElements.scrollButtonEnd}
+      </RootSlot>
+      {panels}
+    </TabsContext.Provider>
   );
 });
 
@@ -999,6 +1003,10 @@ Tabs.propTypes /* remove-proptypes */ = {
    * @default 'horizontal'
    */
   orientation: PropTypes.oneOf(['horizontal', 'vertical']),
+  /**
+   * The panel elements.
+   */
+  panels: PropTypes.node,
   /**
    * The component used to render the scroll buttons.
    * @deprecated use the `slots.scrollButtons` prop instead. This prop will be removed in a future major release. See [Migrating from deprecated APIs](https://mui.com/material-ui/migration/migrating-from-deprecated-apis/) for more details.

@@ -26,6 +26,7 @@
       "type": { "name": "enum", "description": "'horizontal'<br>&#124;&nbsp;'vertical'" },
       "default": "'horizontal'"
     },
+    "panels": { "type": { "name": "node" } },
     "ScrollButtonComponent": {
       "type": { "name": "elementType" },
       "default": "TabScrollButton",
