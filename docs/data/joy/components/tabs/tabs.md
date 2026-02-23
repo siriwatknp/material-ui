@@ -2,7 +2,7 @@
 productId: joy-ui
 title: React Tabs component
 components: Tab, TabList, TabPanel, Tabs
-githubLabel: 'component: tabs'
+githubLabel: 'scope: tabs'
 waiAria: https://www.w3.org/WAI/ARIA/apg/patterns/tabs/
 ---
 
@@ -97,7 +97,7 @@ Use the `tabFlex` prop on the Tab List component to make the Tab elements fill t
 {{"demo": "TabsFlex.js"}}
 
 :::info
-The value of the `tabFlex` prop can be any [valid CSS flex value](https://developer.mozilla.org/en-US/docs/Web/CSS/flex).
+The value of the `tabFlex` prop can be any [valid CSS flex value](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/flex).
 :::
 
 ### Icon
@@ -112,7 +112,7 @@ Since the Tab List component uses the same style as the [List](/joy-ui/react-lis
 
 Add the `overflow: auto` property to the Tab List component to make the tabs scrollable.
 
-Polish it further by hiding the scrollbar with `'&::-webkit-scrollbar': { display: 'none' }`, and snapping the scroll to the edge of the Tab List component with [CSS scroll snap properties](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_scroll_snap).
+Polish it further by hiding the scrollbar with `'&::-webkit-scrollbar': { display: 'none' }`, and snapping the scroll to the edge of the Tab List component with [CSS scroll snap properties](https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Scroll_snap).
 
 {{"demo": "TabsScrollable.js"}}
 

@@ -16,7 +16,7 @@ import { Link } from '@mui/docs/Link';
 import IconImage from 'docs/src/components/icon/IconImage';
 import { useLicenseModel } from 'docs/src/components/pricing/LicenseModelContext';
 import SupportAgentIcon from '@mui/icons-material/SupportAgent';
-import { PrioritySupportSwitchTable } from 'docs/src/components/pricing/PrioritySupportSwitch';
+import { MultiAppSwitchTable } from 'docs/src/components/pricing/MultiAppSwitch';
 import InfoPrioritySupport from 'docs/src/components/pricing/InfoPrioritySupport';
 import { PlanName, planInfo } from './PricingCards';
 
@@ -285,7 +285,7 @@ const rowHeaders: Record<string, React.ReactNode> = {
   'Base UI': (
     <ColumnHead
       label="Base UI"
-      tooltip="A library of headless ('unstyled') React UI components and low-level hooks, available in @base-ui-components/react."
+      tooltip="A library of headless ('unstyled') React UI components and low-level hooks, available in @base-ui/react."
     />
   ),
   'MUI System': (
@@ -534,11 +534,11 @@ const rowHeaders: Record<string, React.ReactNode> = {
   'priority-support': (
     <ColumnHead
       {...{
-        label: 'Priority support',
+        label: 'Priority Support',
         tooltip: (
           <React.Fragment>
-            At $399/year/dev, get the highest level of support with a 24h SLA response time,
-            pre-screening and issue escalation. More details in the{' '}
+            The highest level of support with 1 business day response time, pre-screening and issue
+            escalation. More details in the{' '}
             <Link
               href="https://mui.com/legal/technical-support-sla/#priority-support"
               target="_blank"
@@ -803,7 +803,7 @@ const proData: Record<string, React.ReactNode> = {
 
   'charts/radar': yes,
   'charts/funnel': yes,
-  'charts/sankey': pending,
+  'charts/sankey': yes,
   'charts/gantt': no,
   'charts/gantt-advanced': no,
   'charts/candlestick': no,
@@ -840,7 +840,7 @@ const proData: Record<string, React.ReactNode> = {
   'response-time': no,
   'pre-screening': no,
   'issue-escalation': no,
-  'security-questionnaire': <Info value="Available from 10+ devs" />,
+  'security-questionnaire': <Info value="Available for orders of $12,000 and above" />,
 };
 
 const premiumData: Record<string, React.ReactNode> = {
@@ -908,7 +908,7 @@ const premiumData: Record<string, React.ReactNode> = {
   'charts/treemap': pending,
   'charts/radar': yes,
   'charts/funnel': yes,
-  'charts/sankey': pending,
+  'charts/sankey': yes,
   'charts/gantt': pending,
   'charts/gantt-advanced': toBeDefined,
   'charts/candlestick': toBeDefined,
@@ -938,13 +938,13 @@ const premiumData: Record<string, React.ReactNode> = {
   // Support
   'core-support': <InfoPrioritySupport value={yes} value2="Community" />,
   'x-support': <Info value={yes} metadata="Priority over Pro" />,
-  'priority-support': <PrioritySupportSwitchTable />,
+  'multi-app': <MultiAppSwitchTable />,
   'tech-advisory': pending,
   'support-duration': <Info value="1 year" />,
   'response-time': <InfoPrioritySupport value={yes} metadata="1 business day" value2={no} />,
   'pre-screening': <InfoPrioritySupport value={yes} metadata="4 hours" value2={no} />,
   'issue-escalation': <InfoPrioritySupport value={yes} value2={no} />,
-  'security-questionnaire': <Info value="Available from 4+ devs" />,
+  'security-questionnaire': <Info value="Available for orders of $12,000 and above" />,
   'customer-success': no,
 };
 
@@ -1013,7 +1013,7 @@ const enterpriseData: Record<string, React.ReactNode> = {
   'charts/treemap': pending,
   'charts/radar': yes,
   'charts/funnel': yes,
-  'charts/sankey': pending,
+  'charts/sankey': yes,
   'charts/gantt': pending,
   'charts/gantt-advanced': toBeDefined,
   'charts/candlestick': toBeDefined,
@@ -1050,7 +1050,7 @@ const enterpriseData: Record<string, React.ReactNode> = {
   'response-time': <Info value={yes} metadata="1 business day" />,
   'pre-screening': <Info value={yes} metadata="4 hours" />,
   'issue-escalation': <Info value={yes} />,
-  'security-questionnaire': <Info value="Available from 4+ devs" />,
+  'security-questionnaire': yes,
 };
 
 function RowCategory(props: BoxProps) {
@@ -1287,7 +1287,7 @@ export default function PricingTable({
 
   return (
     <ThemeProvider theme={transitionTheme}>
-      <Box ref={tableRef} {...props} sx={{ pt: 8, width: '100%', ...props.sx }}>
+      <Box ref={tableRef} {...props} sx={{ pt: 8, width: '100%', contain: 'paint', ...props.sx }}>
         <StickyHead container={tableRef} disableCalculation={columnHeaderHidden} />
         {!columnHeaderHidden && (
           <Box sx={gridSx}>
@@ -1554,9 +1554,9 @@ export default function PricingTable({
           {divider}
           {renderNestedRow('charts/funnel')}
           {divider}
-          {renderNestedRow('charts/treemap')}
-          {divider}
           {renderNestedRow('charts/sankey')}
+          {divider}
+          {renderNestedRow('charts/treemap')}
           {divider}
           {renderNestedRow('charts/gantt')}
           {divider}

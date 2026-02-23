@@ -2,7 +2,7 @@
 productId: material-ui
 title: React Switch component
 components: Switch, FormControl, FormGroup, FormLabel, FormControlLabel
-githubLabel: 'component: switch'
+githubLabel: 'scope: switch'
 materialDesign: https://m2.material.io/components/selection-controls#switches
 githubSource: packages/mui-material/src/Switch
 ---
@@ -57,7 +57,7 @@ You can learn more about this in the [overrides documentation page](/material-ui
 
 {{"demo": "CustomizedSwitches.js"}}
 
-🎨 If you are looking for inspiration, you can check [MUI Treasury's customization examples](https://mui-treasury.com/?path=/docs/switch-introduction--docs).
+🎨 If you are looking for inspiration, you can check [MUI Treasury's customization examples](https://www.mui-treasury.com/?path=/docs/switch-introduction--docs).
 
 ## Label placement
 

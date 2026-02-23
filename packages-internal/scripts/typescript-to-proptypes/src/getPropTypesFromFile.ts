@@ -199,12 +199,55 @@ function checkType({
   }
 
   if (type.isUnion()) {
+    const hasStringIntersection = type.types.some((t) => {
+      if (t.isIntersection && t.isIntersection()) {
+        const hasString = t.types.some((it) => it.flags & ts.TypeFlags.String);
+        const hasEmptyObject = t.types.some(
+          (it) =>
+            it.flags & ts.TypeFlags.Object &&
+            (!it.symbol || !it.symbol.members || it.symbol.members.size === 0),
+        );
+        return hasString && hasEmptyObject;
+      }
+      return false;
+    });
+
+    if (hasStringIntersection) {
+      const hasLiterals = type.types.some((t) => t.flags & ts.TypeFlags.Literal);
+      if (hasLiterals) {
+        const hasUndefined = type.types.some((t) => t.flags & ts.TypeFlags.Undefined);
+        if (hasUndefined) {
+          return createUnionType({
+            jsDoc,
+            types: [
+              createStringType({ jsDoc: undefined }),
+              createUndefinedType({ jsDoc: undefined }),
+            ],
+          });
+        }
+        return createStringType({ jsDoc });
+      }
+    }
+
     const node = createUnionType({
       jsDoc,
       types: type.types.map((x) => checkType({ type: x, location, typeStack, name, project })),
     });
 
     return node.types.length === 1 ? node.types[0] : node;
+  }
+
+  if (type.isIntersection && type.isIntersection()) {
+    const hasString = type.types.some((t) => t.flags & ts.TypeFlags.String);
+    const hasEmptyObject = type.types.some(
+      (t) =>
+        t.flags & ts.TypeFlags.Object &&
+        (!t.symbol || !t.symbol.members || t.symbol.members.size === 0),
+    );
+
+    if (hasString && hasEmptyObject) {
+      return createStringType({ jsDoc });
+    }
   }
 
   if (type.flags & ts.TypeFlags.TypeParameter) {
@@ -369,21 +412,58 @@ function checkSymbol({
   // but not
   // { a?: React.ElementType, b: React.ReactElement }
   // get around this by not using the TypeChecker
-  if (
-    declaration &&
-    ts.isPropertySignature(declaration) &&
-    declaration.type &&
-    ts.isTypeReferenceNode(declaration.type)
-  ) {
-    const name = declaration.type.typeName.getText();
-    if (
-      name === 'React.ElementType' ||
-      name === 'React.ComponentType' ||
-      name === 'React.JSXElementConstructor' ||
-      name === 'React.ReactElement'
-    ) {
+  if (declaration && ts.isPropertySignature(declaration) && declaration.type) {
+    // Helper to check if a type node is a React element type reference
+    const getElementTypeName = (typeNode: ts.TypeNode): string | null => {
+      if (ts.isTypeReferenceNode(typeNode)) {
+        const name = typeNode.typeName.getText();
+        if (
+          name === 'React.ElementType' ||
+          name === 'React.ComponentType' ||
+          name === 'React.JSXElementConstructor' ||
+          name === 'React.ReactElement'
+        ) {
+          return name;
+        }
+      }
+      return null;
+    };
+
+    // Check for direct type reference (e.g., `prop: React.ElementType`)
+    let elementTypeName = getElementTypeName(declaration.type);
+
+    // Also check for union types like `React.ElementType | undefined`
+    // but NOT for unions with other types like `string | React.ReactElement | undefined`
+    if (!elementTypeName && ts.isUnionTypeNode(declaration.type)) {
+      let foundElementType: string | null = null;
+      let hasOtherNonUndefinedTypes = false;
+
+      for (const typeNode of declaration.type.types) {
+        const name = getElementTypeName(typeNode);
+        if (name) {
+          foundElementType = name;
+        } else if (
+          // Check if this is an undefined type (keyword or literal)
+          !(
+            typeNode.kind === ts.SyntaxKind.UndefinedKeyword ||
+            (ts.isLiteralTypeNode(typeNode) &&
+              typeNode.literal.kind === ts.SyntaxKind.UndefinedKeyword)
+          )
+        ) {
+          // Found a type that's neither an element type nor undefined
+          hasOtherNonUndefinedTypes = true;
+        }
+      }
+
+      // Only use the element type if the union doesn't have other non-undefined types
+      if (foundElementType && !hasOtherNonUndefinedTypes) {
+        elementTypeName = foundElementType;
+      }
+    }
+
+    if (elementTypeName) {
       const elementNode = createElementType({
-        elementType: name === 'React.ReactElement' ? 'element' : 'elementType',
+        elementType: elementTypeName === 'React.ReactElement' ? 'element' : 'elementType',
         jsDoc,
       });
 
@@ -598,11 +678,10 @@ export function getPropTypesFromFile({
   return components;
 }
 
-export interface GetPropTypesFromFileOptions
-  extends Pick<
-    GetPropsFromComponentDeclarationOptions,
-    'shouldInclude' | 'project' | 'checkDeclarations'
-  > {
+export interface GetPropTypesFromFileOptions extends Pick<
+  GetPropsFromComponentDeclarationOptions,
+  'shouldInclude' | 'project' | 'checkDeclarations'
+> {
   filePath: string;
   /**
    * Called before the shape of an object is resolved

@@ -70,7 +70,7 @@ const ChipRoot = styled('div', {
       styles[`size${capitalize(size)}`],
       styles[`color${capitalize(color)}`],
       clickable && styles.clickable,
-      clickable && color !== 'default' && styles[`clickableColor${capitalize(color)})`],
+      clickable && color !== 'default' && styles[`clickableColor${capitalize(color)}`],
       onDelete && styles.deletable,
       onDelete && color !== 'default' && styles[`deletableColor${capitalize(color)}`],
       styles[variant],
@@ -396,9 +396,7 @@ const Chip = React.forwardRef(function Chip(inProps, ref) {
   const handleDeleteIconClick = (event) => {
     // Stop the event from bubbling up to the `Chip`
     event.stopPropagation();
-    if (onDelete) {
-      onDelete(event);
-    }
+    onDelete(event);
   };
 
   const handleKeyDown = (event) => {
@@ -519,11 +517,11 @@ const Chip = React.forwardRef(function Chip(inProps, ref) {
       },
       onKeyDown: (event) => {
         handlers.onKeyDown?.(event);
-        handleKeyDown?.(event);
+        handleKeyDown(event);
       },
       onKeyUp: (event) => {
         handlers.onKeyUp?.(event);
-        handleKeyUp?.(event);
+        handleKeyUp(event);
       },
     }),
   });
