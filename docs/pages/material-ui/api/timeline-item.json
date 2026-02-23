@@ -22,13 +22,7 @@
     "import { TimelineItem } from '@mui/lab';"
   ],
   "classes": [
-    {
-      "key": "missingOppositeContent",
-      "className": "MuiTimelineItem-missingOppositeContent",
-      "description": "Styles applied to the root element if TimelineOppositeContent isn't provided.",
-      "isGlobal": false
-    },
-    {
+{
       "key": "positionAlternate",
       "className": "MuiTimelineItem-positionAlternate",
       "description": "Styles applied to the root element if `position=\"alternate\"`.",

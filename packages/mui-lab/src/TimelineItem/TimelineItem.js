@@ -2,7 +2,6 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
-import { isMuiElement } from '@mui/material/utils';
 import { styled, useThemeProps } from '@mui/material/styles';
 import composeClasses from '@mui/utils/composeClasses';
 import { timelineContentClasses } from '../TimelineContent';
@@ -12,14 +11,10 @@ import { getTimelineItemUtilityClass } from './timelineItemClasses';
 import convertTimelinePositionToClass from '../internal/convertTimelinePositionToClass';
 
 const useUtilityClasses = (ownerState) => {
-  const { position, classes, hasOppositeContent } = ownerState;
+  const { position, classes } = ownerState;
 
   const slots = {
-    root: [
-      'root',
-      convertTimelinePositionToClass(position),
-      !hasOppositeContent && 'missingOppositeContent',
-    ],
+    root: ['root', convertTimelinePositionToClass(position)],
   };
 
   return composeClasses(slots, getTimelineItemUtilityClass, classes);
@@ -63,21 +58,10 @@ const TimelineItem = React.forwardRef(function TimelineItem(inProps, ref) {
   const props = useThemeProps({ props: inProps, name: 'MuiTimelineItem' });
   const { position: positionProp, className, ...other } = props;
   const { position: positionContext } = React.useContext(TimelineContext);
-  const [hasOppositeContent, setHasOppositeContent] = React.useState(false);
-
-  React.useEffect(() => {
-    React.Children.forEach(props.children, (child) => {
-      if (isMuiElement(child, ['TimelineOppositeContent'])) {
-        setHasOppositeContent(true);
-      }
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   const ownerState = {
     ...props,
     position: positionProp || positionContext || 'right',
-    hasOppositeContent,
   };
 
   const classes = useUtilityClasses(ownerState);

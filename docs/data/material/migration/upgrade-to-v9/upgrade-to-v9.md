@@ -64,3 +64,12 @@ in the ButtonBase keyboard handlers. This is actually the expected behavior.
 #### Listbox toggle on right click
 
 The listbox does not toggle anymore when using right click on the input. The left click toggle behavior remains unchanged.
+
+### TimelineItem
+
+The `missingOppositeContent` class has been removed. The `::before` spacing when `TimelineOppositeContent` is absent is now handled via the CSS `:has()` selector. If you were targeting `MuiTimelineItem-missingOppositeContent` in custom styles, use the equivalent CSS selector instead:
+
+```diff
+-'& .MuiTimelineItem-missingOppositeContent'
++'& .MuiTimelineItem-root:not(:has(.MuiTimelineOppositeContent-root))'
+```
