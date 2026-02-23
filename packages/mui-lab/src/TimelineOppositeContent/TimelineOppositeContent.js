@@ -87,6 +87,9 @@ TimelineOppositeContent.propTypes /* remove-proptypes */ = {
   ]),
 };
 
+// Historically, TimelineItem needs to locate TimelineOppositeContent to apply styles based on opposite content.
+// but it's no longer needed after using `:has()` in PR https://github.com/mui/material-ui/pull/46663.
+// The reason to keep it is to minimize breaking changes.
 TimelineOppositeContent.muiName = 'TimelineOppositeContent';
 
 export default TimelineOppositeContent;
