@@ -12,8 +12,6 @@ export interface TimelineItemClasses {
   positionAlternate: string;
   /** Styles applied to the root element if `position="alternate-reverse"`. */
   positionAlternateReverse: string;
-  /** Styles applied to the root element if TimelineOppositeContent isn't provided. */
-  missingOppositeContent: string;
 }
 
 export type TimelineItemClassKey = keyof TimelineItemClasses;
@@ -28,7 +26,6 @@ const timelineItemClasses: TimelineItemClasses = generateUtilityClasses('MuiTime
   'positionRight',
   'positionAlternate',
   'positionAlternateReverse',
-  'missingOppositeContent',
 ]);
 
 export default timelineItemClasses;
