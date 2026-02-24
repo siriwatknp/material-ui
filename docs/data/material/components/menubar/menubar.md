@@ -10,7 +10,9 @@ components: Box, Button, Divider, List, ListItemButton, ListItemIcon, ListItemTe
 
 {{"component": "@mui/docs/ComponentLinkHeader"}}
 
-Menubar is _not_ a built-in `@mui/material` component—it's composed of a [Base UI Menubar](https://base-ui.com/react/components/menubar) and styled to align with Material UI specs.
+A menu bar is a presentation of a menu that usually remains visible and is displayed horizontally.
+
+Material UI does not include a menu bar component out of the box, but this page provides components composed with the [Base UI `Menubar`](https://base-ui.com/react/components/menubar) and styled to align with Material Design (MD2) specifications, so they can be used with Material UI.
 
 As such, you must install Base UI before proceeding.
 The examples that follow can then be copied and pasted directly into your app.
@@ -87,5 +89,5 @@ For sidebar-style navigation where menus open to the side.
 
 See the documentation below for a complete reference to all of the props.
 
-- [`<Menubar />`](https://base-ui.com/react/components/menubar#api-reference)
-- [`<Menu />`](https://base-ui.com/react/components/menu#api-reference)
+- [`Menubar`](https://base-ui.com/react/components/menubar#api-reference)
+- [`Menu`](https://base-ui.com/react/components/menu#api-reference)
