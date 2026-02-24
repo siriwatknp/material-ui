@@ -24,7 +24,7 @@ import {
 } from './gridGenerator';
 import { CreateMUIStyled } from '../createStyled';
 import { GridTypeMap, GridOwnerState, GridProps, GridOffset, GridSize } from './GridProps';
-import deleteLegacyGridProps from './deleteLegacyGridProps';
+
 
 const defaultTheme = createTheme();
 
@@ -122,10 +122,7 @@ export default function createGrid(
     const themeProps = useThemeProps<
       typeof inProps & { component?: React.ElementType | undefined }
     >(inProps);
-    const props = { ...themeProps } as typeof themeProps & GridOwnerState;
-
-    // TODO v8: Remove when removing the legacy Grid component
-    deleteLegacyGridProps(props, theme.breakpoints);
+    const props = themeProps as typeof themeProps & GridOwnerState;
 
     const {
       className,
