@@ -99,6 +99,7 @@ type AutocompleteValueOrFreeSoloValueMapping<Value, FreeSolo> = FreeSolo extends
   : Value;
 ```
 
+
 ### TimelineItem
 
 The `missingOppositeContent` class has been removed. The `::before` spacing when `TimelineOppositeContent` is absent is now handled via the CSS `:has()` selector. If you were targeting `MuiTimelineItem-missingOppositeContent` in custom styles, use the equivalent CSS selector instead:
