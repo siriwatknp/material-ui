@@ -35,7 +35,7 @@ function PositionedTooltips() {
             <Button>left-end</Button>
           </Tooltip>
         </Grid>
-        <Grid container direction="column" sx={{ alignItems: 'flex-end' }} size={6}>
+        <Grid container direction="column" size={6} sx={{ alignItems: 'flex-end' }}>
           <Grid>
             <Tooltip open arrow title="Add" placement="right-start">
               <Button>right-start</Button>
