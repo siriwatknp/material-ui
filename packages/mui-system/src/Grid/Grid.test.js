@@ -236,5 +236,4 @@ describe('System <Grid />', () => {
       expect(container.lastChild).to.have.class('MuiGrid-spacing-laptop-4');
     });
   });
-
 });

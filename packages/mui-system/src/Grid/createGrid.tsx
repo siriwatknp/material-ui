@@ -25,7 +25,6 @@ import {
 import { CreateMUIStyled } from '../createStyled';
 import { GridTypeMap, GridOwnerState, GridProps, GridOffset, GridSize } from './GridProps';
 
-
 const defaultTheme = createTheme();
 
 // widening Theme to any so that the consumer can own the theme structure.

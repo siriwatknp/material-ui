@@ -3,7 +3,6 @@ import { OverrideProps, PartiallyRequired } from '@mui/types';
 import { SxProps } from '../styleFunctionSx';
 import { Theme, Breakpoint } from '../createTheme';
 
-
 type ResponsiveStyleValue<T> = T | Array<T | null> | { [key in Breakpoint]?: T | null };
 
 export type GridDirection = 'row' | 'row-reverse' | 'column' | 'column-reverse';
