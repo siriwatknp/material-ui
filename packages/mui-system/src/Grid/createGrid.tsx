@@ -9,7 +9,6 @@ import composeClasses from '@mui/utils/composeClasses';
 import systemStyled from '../styled';
 import useThemePropsSystem from '../useThemeProps';
 import useThemeSystem from '../useTheme';
-import { extendSxProp } from '../styleFunctionSx';
 import createTheme, { Breakpoint, Breakpoints } from '../createTheme';
 import {
   generateGridStyles,
@@ -123,7 +122,7 @@ export default function createGrid(
     const themeProps = useThemeProps<
       typeof inProps & { component?: React.ElementType | undefined }
     >(inProps);
-    const props = extendSxProp(themeProps) as Omit<typeof themeProps, 'color'> & GridOwnerState; // `color` type conflicts with html color attribute.
+    const props = { ...themeProps } as typeof themeProps & GridOwnerState;
 
     // TODO v8: Remove when removing the legacy Grid component
     deleteLegacyGridProps(props, theme.breakpoints);

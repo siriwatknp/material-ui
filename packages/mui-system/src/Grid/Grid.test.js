@@ -154,16 +154,6 @@ describe('System <Grid />', () => {
     });
   });
 
-  it('combines system properties with the sx prop', () => {
-    const { container } = render(<Grid mt={2} mr={1} sx={{ marginRight: 5, mb: 2 }} />);
-
-    expect(container.firstChild).toHaveComputedStyle({
-      marginTop: '16px',
-      marginRight: '40px',
-      marginBottom: '16px',
-    });
-  });
-
   describe('prop: wrap', () => {
     it('should wrap by default', () => {
       render(<Grid container data-testid="wrap" />);
