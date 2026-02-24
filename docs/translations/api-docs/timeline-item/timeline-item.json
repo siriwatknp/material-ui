@@ -9,7 +9,7 @@
     }
   },
   "classDescriptions": {
-"positionAlternate": {
+    "positionAlternate": {
       "description": "Styles applied to {{nodeName}} if {{conditions}}.",
       "nodeName": "the root element",
       "conditions": "<code>position=\"alternate\"</code>"

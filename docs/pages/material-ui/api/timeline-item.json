@@ -22,7 +22,7 @@
     "import { TimelineItem } from '@mui/lab';"
   ],
   "classes": [
-{
+    {
       "key": "positionAlternate",
       "className": "MuiTimelineItem-positionAlternate",
       "description": "Styles applied to the root element if `position=\"alternate\"`.",
