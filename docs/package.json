@@ -52,7 +52,7 @@
     "@mui/x-tree-view": "8.27.2",
     "@popperjs/core": "^2.11.8",
     "@react-spring/web": "^10.0.3",
-    "@tailwindcss/postcss": "^4.1.18",
+    "@tailwindcss/postcss": "^4.2.0",
     "autosuggest-highlight": "^3.3.4",
     "babel-plugin-module-resolver": "^5.0.2",
     "babel-plugin-optimize-clsx": "^2.6.2",
@@ -98,7 +98,7 @@
     "react-virtuoso": "^4.18.1",
     "react-window": "^2.2.7",
     "rimraf": "^6.1.3",
-    "styled-components": "^6.3.9",
+    "styled-components": "^6.3.11",
     "stylis": "4.2.0",
     "use-count-up": "^3.0.1",
     "webpack-bundle-analyzer": "^5.2.0"
@@ -129,7 +129,7 @@
     "cross-fetch": "4.1.0",
     "gm": "1.25.1",
     "prettier": "3.8.1",
-    "tailwindcss": "4.1.18",
+    "tailwindcss": "4.2.0",
     "yargs": "18.0.0"
   }
 }
