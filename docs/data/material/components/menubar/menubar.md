@@ -79,12 +79,6 @@ Organize menu items into logical sections with labeled groups.
 
 {{"demo": "GroupLabelMenubar.js"}}
 
-## Vertical menubar
-
-For sidebar-style navigation where menus open to the side.
-
-{{"demo": "VerticalMenubar.js"}}
-
 ## Base UI API
 
 See the documentation below for a complete reference to all of the props.
