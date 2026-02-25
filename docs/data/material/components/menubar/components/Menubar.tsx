@@ -235,7 +235,8 @@ export function MenuGroupLabel(
     Pick<ListSubheaderProps, 'sx'>,
 ) {
   const { sx, ...other } = props;
+  const subheaderProps: ListSubheaderProps = { sx, component: 'div' };
   return (
-    <Menu.GroupLabel render={<StyledSubheader as="div" sx={sx} />} {...other} />
+    <Menu.GroupLabel render={<StyledSubheader {...subheaderProps} />} {...other} />
   );
 }

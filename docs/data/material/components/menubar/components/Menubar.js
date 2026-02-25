@@ -18,14 +18,18 @@ import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
 import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
 
-const StyledMenubar = styled('div')({
+const StyledMenubar = styled('div')(({ theme }) => ({
   display: 'flex',
   gap: '1px',
   p: 0.25,
+  background: (theme.vars || theme).palette.grey[100],
+  ...theme.applyStyles('dark', {
+    background: (theme.vars || theme).palette.grey[800],
+  }),
   '&[aria-orientation="vertical"]': {
     flexDirection: 'column',
   },
-});
+}));
 export function Menubar(props) {
   return <BaseMenubar render={<StyledMenubar />} {...props} />;
 }
@@ -34,20 +38,24 @@ export function MenuRoot(props) {
   return <Menu.Root {...props} />;
 }
 
-const StyledTrigger = styled(Button)({
-  px: 2,
-  color: 'text.secondary',
+const StyledTrigger = styled(Button)(({ theme }) => ({
+  paddingInline: theme.spacing(2),
+  color: (theme.vars || theme).palette.text.secondary,
   fontWeight: 500,
   transition: 'none',
   textTransform: 'capitalize',
   letterSpacing: 0,
   fontSize: '0.875rem',
-  '&[data-popup-open]': { bgcolor: 'action.focus' },
-  '&.Mui-focusVisible': { bgcolor: 'action.focus' },
+  '&[data-popup-open]': {
+    backgroundColor: (theme.vars || theme).palette.action.focus,
+  },
+  '&.Mui-focusVisible': {
+    backgroundColor: (theme.vars || theme).palette.action.focus,
+  },
   '[aria-orientation="vertical"] &': {
     justifyContent: 'initial',
   },
-});
+}));
 export function MenuTrigger(props) {
   return (
     <Menu.Trigger
@@ -65,15 +73,15 @@ export function MenuPositioner(props) {
   return <Menu.Positioner {...props} />;
 }
 
-const StyledPaper = styled(Paper)({
+const StyledPaper = styled(Paper)(({ theme }) => ({
   minWidth: 160,
-  py: 0.5,
+  paddingBlock: theme.spacing(0.5),
   transformOrigin: 'var(--transform-origin)',
   '&[data-starting-style], &[data-ending-style]': {
     opacity: 0,
     transform: 'scale(0.95)',
   },
-});
+}));
 function MenuPopup(props) {
   return (
     <Menu.Popup
@@ -148,11 +156,11 @@ export function MenuSubmenuRoot(props) {
   return <Menu.SubmenuRoot {...props} />;
 }
 
-const StyledHint = styled(Typography)({
+const StyledHint = styled(Typography)(({ theme }) => ({
   flexShrink: 0,
-  color: 'text.secondary',
-  typography: 'body2',
-});
+  color: (theme.vars || theme).palette.text.secondary,
+  ...theme.typography.body2,
+}));
 function MenuSubmenuTrigger(props) {
   const { sx, icon, hint, children, ...other } = props;
   return (
@@ -264,26 +272,18 @@ export function MenuGroup(props) {
   return <Menu.Group render={<Box sx={{ position: 'relative' }} />} {...props} />;
 }
 
+const StyledSubheader = styled(ListSubheader)(({ theme }) => ({
+  position: 'initial',
+  paddingBlock: theme.spacing(1),
+  ...theme.typography.overline,
+  lineHeight: '1.5',
+}));
+
 function MenuGroupLabel(props) {
   const { sx, ...other } = props;
+  const subheaderProps = { sx, component: 'div' };
   return (
-    <Menu.GroupLabel
-      render={
-        <ListSubheader
-          component="div"
-          sx={[
-            (theme) => ({
-              position: 'initial',
-              py: 1,
-              ...theme.typography.overline,
-              lineHeight: '1.5',
-            }),
-            ...(Array.isArray(sx) ? sx : [sx]),
-          ]}
-        />
-      }
-      {...other}
-    />
+    <Menu.GroupLabel render={<StyledSubheader {...subheaderProps} />} {...other} />
   );
 }
 
