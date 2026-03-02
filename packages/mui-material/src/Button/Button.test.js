@@ -27,6 +27,7 @@ describe('<Button />', () => {
     testVariantProps: { variant: 'contained', fullWidth: true },
     testStateOverrides: { prop: 'size', value: 'small', styleKey: 'sizeSmall' },
     skip: ['componentsProp'],
+    enableAxe: true,
   }));
 
   it('should render with the root, text, and textPrimary classes but no others', () => {

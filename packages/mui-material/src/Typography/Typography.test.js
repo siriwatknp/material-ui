@@ -15,6 +15,7 @@ describe('<Typography />', () => {
     testVariantProps: { variant: 'dot' },
     testStateOverrides: { prop: 'variant', value: 'h2', styleKey: 'h2' },
     skip: ['componentsProp'],
+    enableAxe: true,
   }));
 
   it('should render the text', () => {
