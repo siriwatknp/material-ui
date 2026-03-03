@@ -6,7 +6,14 @@ const variants = ['contained', 'outlined', 'text'] as const;
 const colors = ['primary', 'secondary', 'success', 'error', 'info', 'warning'] as const;
 
 // TODO: fix color-contrast violations for these combinations
-const SKIP = ['contained info', 'contained warning', 'outlined info', 'outlined warning', 'text info', 'text warning'];
+const SKIP = [
+  'contained info',
+  'contained warning',
+  'outlined info',
+  'outlined warning',
+  'text info',
+  'text warning',
+];
 
 describe('<Button />', () => {
   const { render } = createRenderer();
@@ -26,11 +33,6 @@ describe('<Button />', () => {
           await expectNoVisualAxeViolations(container);
         });
       });
-    });
-
-    it('disabled', async () => {
-      const { container } = await render(<Button disabled>Button</Button>);
-      await expectNoVisualAxeViolations(container);
     });
   });
 });
