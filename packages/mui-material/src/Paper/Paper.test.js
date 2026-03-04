@@ -23,7 +23,6 @@ describe('<Paper />', () => {
     testVariantProps: { variant: 'rounded' },
     testStateOverrides: { prop: 'elevation', value: 10, styleKey: 'elevation10' },
     skip: ['componentsProp'],
-    enableAxe: true,
   }));
 
   describe('prop: square', () => {

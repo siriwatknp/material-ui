@@ -42,7 +42,6 @@ describe('<Alert />', () => {
       },
     },
     skip: ['componentsProp'],
-    enableAxe: true,
   }));
 
   describe('prop: square', () => {

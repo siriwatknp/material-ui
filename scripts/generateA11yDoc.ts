@@ -4,12 +4,11 @@ import * as url from 'node:url';
 import * as prettier from 'prettier';
 
 const SCRIPT_DIR = path.dirname(url.fileURLToPath(import.meta.url));
-const MUI_MATERIAL_SRC = path.resolve(SCRIPT_DIR, '../packages/mui-material/src');
-const OUTPUT_DIR = path.resolve(
+const DOCS_COMPONENTS_DIR = path.resolve(
   SCRIPT_DIR,
-  '../docs/data/material/getting-started/accessibility-compliance',
+  '../docs/data/material/components',
 );
-const MD_PATH = path.join(OUTPUT_DIR, 'accessibility-compliance.md');
+const MUI_MATERIAL_SRC = path.resolve(SCRIPT_DIR, '../packages/mui-material/src');
 const COMPONENT_PATH = path.resolve(
   SCRIPT_DIR,
   '../docs/src/modules/components/MaterialAccessibilityCompliance.js',
@@ -43,46 +42,6 @@ const EXCLUDED_COMPONENTS = [
   'TextareaAutosize',
 ];
 
-// Maps a parent component to its sub-components that should be grouped into one row.
-const COMPONENT_FAMILIES: Record<string, string[]> = {
-  Accordion: ['AccordionActions', 'AccordionDetails', 'AccordionSummary'],
-  Alert: ['AlertTitle'],
-  Avatar: ['AvatarGroup'],
-  BottomNavigation: ['BottomNavigationAction'],
-  Button: ['ButtonBase', 'ButtonGroup'],
-  Card: ['CardActionArea', 'CardActions', 'CardContent', 'CardHeader', 'CardMedia'],
-  Dialog: ['DialogActions', 'DialogContent', 'DialogContentText', 'DialogTitle'],
-  FormControl: ['FormControlLabel', 'FormGroup', 'FormHelperText', 'FormLabel'],
-  Input: ['InputAdornment', 'InputBase', 'InputLabel'],
-  List: [
-    'ListItem',
-    'ListItemAvatar',
-    'ListItemButton',
-    'ListItemIcon',
-    'ListItemSecondaryAction',
-    'ListItemText',
-    'ListSubheader',
-  ],
-  Pagination: ['PaginationItem'],
-  Snackbar: ['SnackbarContent'],
-  SpeedDial: ['SpeedDialAction', 'SpeedDialIcon'],
-  Step: ['StepButton', 'StepConnector', 'StepContent', 'StepIcon', 'StepLabel'],
-  Table: [
-    'TableBody',
-    'TableCell',
-    'TableContainer',
-    'TableFooter',
-    'TableHead',
-    'TablePagination',
-    'TablePaginationActions',
-    'TableRow',
-    'TableSortLabel',
-  ],
-  ToggleButton: ['ToggleButtonGroup'],
-};
-
-const SUB_COMPONENTS = new Set(Object.values(COMPONENT_FAMILIES).flat());
-
 interface ComponentInfo {
   name: string;
   jsdom: boolean;
@@ -91,37 +50,66 @@ interface ComponentInfo {
   skipReason: string;
 }
 
-interface FamilyInfo {
-  name: string;
-  status: 'pass' | 'partial' | 'upcoming';
-  skip: string[];
-  skipReason: string;
-}
-
-function getComponents(): string[] {
+function getParentComponents(): string[] {
   const excludeSet = new Set(EXCLUDED_COMPONENTS);
-  return fs
-    .readdirSync(MUI_MATERIAL_SRC)
-    .filter((name) => {
-      if (excludeSet.has(name)) {
-        return false;
+  const components = new Set<string>();
+
+  const dirs = fs.readdirSync(DOCS_COMPONENTS_DIR);
+  for (const dir of dirs) {
+    const dirPath = path.join(DOCS_COMPONENTS_DIR, dir);
+    if (!fs.statSync(dirPath).isDirectory()) {
+      continue;
+    }
+    const mdFiles = fs.readdirSync(dirPath).filter((f) => f.endsWith('.md'));
+    for (const mdFile of mdFiles) {
+      const content = fs.readFileSync(path.join(dirPath, mdFile), 'utf-8');
+      const frontmatterMatch = content.match(/^---\n([\s\S]*?)\n---/);
+      if (!frontmatterMatch) {
+        continue;
       }
-      if (!/^[A-Z]/.test(name)) {
-        return false;
+      const frontmatter = frontmatterMatch[1];
+
+      let componentName: string | null = null;
+
+      const githubSourceMatch = frontmatter.match(/^githubSource:\s*(.+)$/m);
+      if (githubSourceMatch) {
+        const sourcePath = githubSourceMatch[1].trim();
+        if (sourcePath.startsWith('packages/mui-material/src/')) {
+          componentName = sourcePath.split('/').pop()!;
+        }
       }
-      const dir = path.join(MUI_MATERIAL_SRC, name);
-      if (!fs.statSync(dir).isDirectory()) {
-        return false;
+
+      if (!componentName) {
+        const componentsMatch = frontmatter.match(/^components:\s*(.+)$/m);
+        if (componentsMatch) {
+          const first = componentsMatch[1].split(',')[0].trim();
+          const componentDir = path.join(MUI_MATERIAL_SRC, first);
+          if (fs.existsSync(componentDir) && fs.statSync(componentDir).isDirectory()) {
+            componentName = first;
+          }
+        }
       }
-      const hasComponent =
-        fs.existsSync(path.join(dir, `${name}.tsx`)) ||
-        fs.existsSync(path.join(dir, `${name}.js`));
+
+      if (!componentName || excludeSet.has(componentName) || !/^[A-Z]/.test(componentName)) {
+        continue;
+      }
+
+      const compDir = path.join(MUI_MATERIAL_SRC, componentName);
+      if (!fs.existsSync(compDir) || !fs.statSync(compDir).isDirectory()) {
+        continue;
+      }
       const hasTest =
-        fs.existsSync(path.join(dir, `${name}.test.js`)) ||
-        fs.existsSync(path.join(dir, `${name}.test.tsx`));
-      return hasComponent && hasTest;
-    })
-    .sort();
+        fs.existsSync(path.join(compDir, `${componentName}.test.js`)) ||
+        fs.existsSync(path.join(compDir, `${componentName}.test.tsx`));
+      if (!hasTest) {
+        continue;
+      }
+
+      components.add(componentName);
+    }
+  }
+
+  return [...components].sort();
 }
 
 function readTestFile(componentName: string): string | null {
@@ -167,7 +155,6 @@ function getBrowserTestInfo(
         const line = lines[i].trim();
         if (line.startsWith('//')) {
           const commentText = line.replace(/^\/\/\s*/, '');
-          // Extract axe rule name (e.g., "color-contrast") and convert to readable label
           const ruleMatch = commentText.match(/\b(color-contrast|link-in-text-block)\b/);
           if (ruleMatch) {
             skipReason = ruleMatch[1]
@@ -199,141 +186,8 @@ function getStatus(info: ComponentInfo): 'pass' | 'partial' | 'upcoming' {
   return 'pass';
 }
 
-function buildFamilies(components: ComponentInfo[]): FamilyInfo[] {
-  const componentMap = new Map(components.map((c) => [c.name, c]));
-  const families: FamilyInfo[] = [];
-
-  for (const comp of components) {
-    if (SUB_COMPONENTS.has(comp.name)) {
-      continue;
-    }
-
-    const subNames = COMPONENT_FAMILIES[comp.name] ?? [];
-    let familyStatus = getStatus(comp);
-    if (familyStatus === 'pass') {
-      for (const memberName of subNames) {
-        const member = componentMap.get(memberName);
-        if (member && getStatus(member) === 'partial') {
-          familyStatus = 'partial';
-          break;
-        }
-      }
-    }
-
-    families.push({
-      name: comp.name,
-      status: familyStatus,
-      skip: comp.skip,
-      skipReason: comp.skipReason,
-    });
-  }
-
-  return families;
-}
-
-function generateComponent(families: FamilyInfo[]): string {
-  const dataEntries = families
-    .map((f) => {
-      const entry: Record<string, string | string[]> = {
-        name: f.name,
-        status: f.status,
-      };
-      if (f.skip.length > 0) {
-        entry.skip = f.skip;
-      }
-      if (f.skipReason) {
-        entry.skipReason = f.skipReason;
-      }
-      return entry;
-    });
-
-  return `// Generated by scripts/generateA11yDoc.ts. Do not edit directly.
-import Chip from '@mui/material/Chip';
-import Table from '@mui/material/Table';
-import TableHead from '@mui/material/TableHead';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-import Typography from '@mui/material/Typography';
-
-const components = ${JSON.stringify(dataEntries, null, 2)};
-
-const statusConfig = {
-  pass: { label: 'Pass', color: 'success' },
-  partial: { label: 'Partial', color: 'warning' },
-  upcoming: { label: 'Upcoming', color: 'default' },
-};
-
-export default function AccessibilityCompliance() {
-  return (
-    <Paper sx={{ width: '100%' }}>
-      <Table size="small">
-        <TableHead>
-          <TableRow>
-            <TableCell>Component</TableCell>
-            <TableCell>Status</TableCell>
-            <TableCell>Known Failures</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {components.map((component) => {
-            const config = statusConfig[component.status];
-            return (
-              <TableRow key={component.name}>
-                <TableCell>
-                  <Typography variant="body2">{component.name}</Typography>
-                </TableCell>
-                <TableCell>
-                  <Chip label={config.label} color={config.color} size="small" variant="outlined" />
-                </TableCell>
-                <TableCell>
-                  {component.skip ? (
-                    <div>
-                      {component.skipReason ? (
-                        <Typography variant="body2" sx={{ fontWeight: 'bold' }}>
-                          {component.skipReason}
-                        </Typography>
-                      ) : null}
-                      <ul style={{ margin: 0, paddingLeft: 20 }}>
-                        {component.skip.map((item) => (
-                          <li key={item}>
-                            <Typography variant="body2" color="text.secondary">
-                              {item}
-                            </Typography>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  ) : null}
-                </TableCell>
-              </TableRow>
-            );
-          })}
-        </TableBody>
-      </Table>
-    </Paper>
-  );
-}
-`;
-}
-
-function generateMarkdown(): string {
-  return `# Accessibility Compliance
-
-<p class="description">Automated accessibility test coverage for Material UI components using axe-core.</p>
-
-Material UI uses [axe-core](https://github.com/dequelabs/axe-core) for automated accessibility testing:
-
-- **JSDOM tests** check structural accessibility rules (ARIA attributes, roles, labels).
-- **Browser tests** check visual rules (color contrast, link-in-text-block) in real Chrome.
-
-{{"component": "modules/components/MaterialAccessibilityCompliance.js"}}
-`;
-}
-
 async function main() {
-  const componentNames = getComponents();
+  const componentNames = getParentComponents();
   const components: ComponentInfo[] = componentNames.map((name) => {
     const testContent = readTestFile(name);
     const jsdom = testContent ? hasEnableAxe(testContent) : false;
@@ -348,35 +202,46 @@ async function main() {
     };
   });
 
-  const families = buildFamilies(components);
+  const dataEntries = components.map((comp) => {
+    const status = getStatus(comp);
+    const entry: Record<string, string | string[]> = {
+      name: comp.name,
+      status,
+    };
+    if (comp.skip.length > 0) {
+      entry.skip = comp.skip;
+    }
+    if (comp.skipReason) {
+      entry.skipReason = comp.skipReason;
+    }
+    return entry;
+  });
+
+  const existing = fs.readFileSync(COMPONENT_PATH, 'utf-8');
+  const updated = existing.replace(
+    /const components = \[[\s\S]*?\];/,
+    `const components = ${JSON.stringify(dataEntries, null, 2)};`,
+  );
 
   const prettierConfig = await prettier.resolveConfig(process.cwd(), {
     config: path.join(SCRIPT_DIR, '../prettier.config.mjs'),
   });
 
-  const markdown = generateMarkdown();
-  const formattedMd = await prettier.format(markdown, {
-    ...prettierConfig,
-    filepath: MD_PATH,
-  });
-
-  const component = generateComponent(families);
-  const formattedComponent = await prettier.format(component, {
+  const formatted = await prettier.format(updated, {
     ...prettierConfig,
     filepath: COMPONENT_PATH,
   });
 
-  fs.mkdirSync(OUTPUT_DIR, { recursive: true });
-  fs.writeFileSync(MD_PATH, formattedMd, 'utf-8');
-  fs.writeFileSync(COMPONENT_PATH, formattedComponent, 'utf-8');
+  fs.writeFileSync(COMPONENT_PATH, formatted, 'utf-8');
 
-  const passCount = families.filter((f) => f.status === 'pass').length;
-  const partialCount = families.filter((f) => f.status === 'partial').length;
-  const upcomingCount = families.filter((f) => f.status === 'upcoming').length;
+  const passCount = dataEntries.filter((e) => e.status === 'pass').length;
+  const partialCount = dataEntries.filter((e) => e.status === 'partial').length;
+  const upcomingCount = dataEntries.filter((e) => e.status === 'upcoming').length;
 
-  console.log(`Generated ${MD_PATH}`);
-  console.log(`Generated ${COMPONENT_PATH}`);
-  console.log(`  Pass: ${passCount}, Partial: ${partialCount}, Upcoming: ${upcomingCount}`);
+  console.log(`Updated ${COMPONENT_PATH}`);
+  console.log(
+    `  Components: ${dataEntries.length} (Pass: ${passCount}, Partial: ${partialCount}, Upcoming: ${upcomingCount})`,
+  );
 }
 
 main();

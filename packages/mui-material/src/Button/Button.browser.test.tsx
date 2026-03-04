@@ -1,6 +1,6 @@
 import { createRenderer, isJsdom } from '@mui/internal-test-utils';
 import Button from '@mui/material/Button';
-import expectNoVisualAxeViolations from '../../test/axe.browser';
+import { expectNoVisualAxeViolations } from '../../test/axe';
 
 const variants = ['contained', 'outlined', 'text'] as const;
 const colors = ['primary', 'secondary', 'success', 'error', 'info', 'warning'] as const;

@@ -4,7 +4,7 @@ import {
 } from '@mui/internal-test-utils';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import DefaultPropsProvider from '@mui/material/DefaultPropsProvider';
-import expectNoAxeViolations from './axe';
+import { expectNoAxeViolations } from './axe';
 
 interface A11yConformanceOptions extends ConformanceOptions {
   enableAxe?: boolean;
