@@ -1,4 +1,4 @@
-import { createRenderer } from '@mui/internal-test-utils';
+import { createRenderer, isJsdom } from '@mui/internal-test-utils';
 import Button from '@mui/material/Button';
 import expectNoVisualAxeViolations from '../../test/axe.browser';
 
@@ -15,23 +15,21 @@ const SKIP = [
   'text warning',
 ];
 
-describe('<Button />', () => {
+describe.skipIf(isJsdom())('Button Visual Accessibility', () => {
   const { render } = createRenderer();
 
-  describe('visual a11y', () => {
-    variants.forEach((variant) => {
-      colors.forEach((color) => {
-        const name = `${variant} ${color}`;
-        const testFn = SKIP.includes(name) ? it.skip : it;
+  variants.forEach((variant) => {
+    colors.forEach((color) => {
+      const name = `${variant} ${color}`;
+      const testFn = SKIP.includes(name) ? it.skip : it;
 
-        testFn(name, async () => {
-          const { container } = await render(
-            <Button variant={variant} color={color}>
-              Button
-            </Button>,
-          );
-          await expectNoVisualAxeViolations(container);
-        });
+      testFn(name, async () => {
+        const { container } = await render(
+          <Button variant={variant} color={color}>
+            Button
+          </Button>,
+        );
+        await expectNoVisualAxeViolations(container);
       });
     });
   });
