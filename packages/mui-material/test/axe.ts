@@ -48,10 +48,7 @@ function assertNoViolations(results: AxeResults) {
   }
 }
 
-export async function expectNoAxeViolations(
-  container: HTMLElement,
-  disabledRules?: string[],
-) {
+export async function expectNoAxeViolations(container: HTMLElement, disabledRules?: string[]) {
   const results: AxeResults = await axe.run(container, {
     rules: Object.fromEntries(
       [...JSDOM_INCOMPATIBLE_RULES, ...(disabledRules || [])].map((rule) => [

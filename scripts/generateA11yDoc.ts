@@ -4,10 +4,7 @@ import * as url from 'node:url';
 import * as prettier from 'prettier';
 
 const SCRIPT_DIR = path.dirname(url.fileURLToPath(import.meta.url));
-const DOCS_COMPONENTS_DIR = path.resolve(
-  SCRIPT_DIR,
-  '../docs/data/material/components',
-);
+const DOCS_COMPONENTS_DIR = path.resolve(SCRIPT_DIR, '../docs/data/material/components');
 const MUI_MATERIAL_SRC = path.resolve(SCRIPT_DIR, '../packages/mui-material/src');
 const COMPONENT_PATH = path.resolve(
   SCRIPT_DIR,
@@ -127,9 +124,11 @@ function hasEnableAxe(testContent: string): boolean {
   return /enableAxe:\s*true/.test(testContent);
 }
 
-function getBrowserTestInfo(
-  componentName: string,
-): { exists: boolean; skip: string[]; skipReason: string } {
+function getBrowserTestInfo(componentName: string): {
+  exists: boolean;
+  skip: string[];
+  skipReason: string;
+} {
   const browserTestPath = path.join(
     MUI_MATERIAL_SRC,
     componentName,
@@ -151,7 +150,7 @@ function getBrowserTestInfo(
     const lines = content.split('\n');
     const skipLineIndex = lines.findIndex((l) => /const SKIP\s*=/.test(l));
     if (skipLineIndex > 0) {
-      for (let i = skipLineIndex - 1; i >= 0; i--) {
+      for (let i = skipLineIndex - 1; i >= 0; i -= 1) {
         const line = lines[i].trim();
         if (line.startsWith('//')) {
           const commentText = line.replace(/^\/\/\s*/, '');
@@ -234,11 +233,13 @@ async function main() {
 
   fs.writeFileSync(COMPONENT_PATH, formatted, 'utf-8');
 
-  const passCount = dataEntries.filter((e) => e.status === 'pass').length;
-  const partialCount = dataEntries.filter((e) => e.status === 'partial').length;
-  const upcomingCount = dataEntries.filter((e) => e.status === 'upcoming').length;
+  const passCount = dataEntries.filter((item) => item.status === 'pass').length;
+  const partialCount = dataEntries.filter((item) => item.status === 'partial').length;
+  const upcomingCount = dataEntries.filter((item) => item.status === 'upcoming').length;
 
+  // eslint-disable-next-line no-console
   console.log(`Updated ${COMPONENT_PATH}`);
+  // eslint-disable-next-line no-console
   console.log(
     `  Components: ${dataEntries.length} (Pass: ${passCount}, Partial: ${partialCount}, Upcoming: ${upcomingCount})`,
   );
