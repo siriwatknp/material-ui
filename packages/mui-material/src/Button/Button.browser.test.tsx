@@ -7,12 +7,12 @@ const colors = ['primary', 'secondary', 'success', 'error', 'info', 'warning'] a
 
 // TODO: fix color-contrast violations for these combinations
 const SKIP = [
-  'contained info',
-  'contained warning',
-  'outlined info',
-  'outlined warning',
-  'text info',
-  'text warning',
+  'variant:contained, color:info',
+  'variant:contained, color:warning',
+  'variant:outlined, color:info',
+  'variant:outlined, color:warning',
+  'variant:text, color:info',
+  'variant:text, color:warning',
 ];
 
 describe.skipIf(isJsdom())('Button Visual Accessibility', () => {
@@ -20,7 +20,7 @@ describe.skipIf(isJsdom())('Button Visual Accessibility', () => {
 
   variants.forEach((variant) => {
     colors.forEach((color) => {
-      const name = `${variant} ${color}`;
+      const name = `variant:${variant}, color:${color}`;
       const testFn = SKIP.includes(name) ? it.skip : it;
 
       testFn(name, async () => {

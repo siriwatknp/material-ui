@@ -15,6 +15,7 @@ const pages: MuiPage[] = [
       { pathname: '/material-ui/getting-started/example-projects' },
       { pathname: '/material-ui/getting-started/templates' },
       { pathname: '/material-ui/getting-started/learn' },
+      { pathname: '/material-ui/getting-started/accessibility-compliance' },
       { pathname: '/material-ui/getting-started/design-resources' },
       { pathname: '/material-ui/getting-started/faq', title: 'FAQs' },
       { pathname: '/material-ui/getting-started/supported-components' },
