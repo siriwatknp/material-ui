@@ -11,7 +11,7 @@ A big thanks to the 15 contributors who made this release possible.
 ### `@mui/material@7.3.9`
 
 - Clean up duplicated CSS rules (#47893) @sai6855
-- [theme] Generate `color-mix` value on top of default generated Material UI CSS variables (#47791) @ZeeshanTamboli
+- [theme] Generate `color-mix` value on top of default generated Material UI CSS variables (#47791) @ZeeshanTamboli
 - [tooltip] Fix error is thrown when wrapping an input which is disabled while focused (#47841) @ZeeshanTamboli
 - [table cell][theme] Apply `alpha` before color mixing to border bottom color when nativeColor + cssVariables is used (#47840) @ZeeshanTamboli
 
@@ -29,8 +29,8 @@ A big thanks to the 15 contributors who made this release possible.
 
 ### Core
 
-- point v7 subdomain to MUI X v7 docs (#113) @vmakhaev
-- [blog] Blogpost for upcoming price changes for MUI X (#47748) (#47910) @DanailH
+- point v7 subdomain to MUI X v7 docs (#113) @vmakhaev
+- [blog] Blogpost for upcoming price changes for MUI X (#47748) (#47910) @DanailH
 - [blog] Company Update: What we've been working on (and why) (alethomas) (#47626) (#47908) @alelthomas
 - [core] Update releaseChangelog.mjs (#47862) @mnajdova
 - [code-infra] Detect browser envs that don't support layout (#47813) (#47873) @Janpot
