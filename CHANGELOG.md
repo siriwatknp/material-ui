@@ -25,7 +25,7 @@ A big thanks to the 15 contributors who made this release possible.
 - Fix JSX in Overriding component structure docs (#47805) @ZeeshanTamboli
 - Fix SSR flicker sentence grammar (#47794) @pavan-sh
 - [system] Update sizing docs to clarify `(0, 1]` behavior. (#47851) @matthias-ccri
-- [theme] Fix `nativeColor` docs  (#47759) (#47789) @ZeeshanTamboli
+- [theme] Fix `nativeColor` docs (#47759) (#47789) @ZeeshanTamboli
 
 ### Core
 
