@@ -10,16 +10,16 @@ A big thanks to the 4 contributors who made this release possible.
 
 ### @mui/material@9.0.0-alpha.2
 
-- [material-ui] Clean up duplicated CSS rules (#47838) @sai6855
+- Clean up duplicated CSS rules (#47838) @sai6855
 
 ### @mui/system@9.0.0-alpha.2
 
-- [system] Refactor sortContainerQueries to define regex outside of sort function (#47817) @sai6855
+- Refactor sortContainerQueries to define regex outside of sort function (#47817) @sai6855
 
 ### Docs
 
-- [docs] Move shared components to @mui/docs package (#47672) @Janpot
-- [docs] Fix small typo in NumberField page (#47877) @arthur-plazanet
+- Move shared components to @mui/docs package (#47672) @Janpot
+- Fix small typo in NumberField page (#47877) @arthur-plazanet
 
 ### Core
 
