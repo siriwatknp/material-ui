@@ -51,7 +51,7 @@ export function createAxeCollector(): AxeCollector {
         rules: rules ? undefined : { region: { enabled: false } },
       });
       addRules(results);
-      for (const v of results.violations) {
+      for (const v of [...results.violations, ...results.incomplete]) {
         const tests = failedRulesMap.get(v.id) || [];
         tests.push(testName);
         failedRulesMap.set(v.id, tests);
