@@ -16,7 +16,7 @@
     "release:build": "lerna run --concurrency 8 --no-private build --skip-nx-cache",
     "release:changelog": "node scripts/releaseChangelog.mjs",
     "release:pack": "tsx scripts/releasePack.mts",
-    "docs:a11y": "tsx scripts/generateA11yDoc.ts",
+    "docs:a11y": "rimraf packages/mui-material/test/a11y-results.json && cross-env TEST_SCOPE=browser vitest run '.a11y.browser.test' --project 'browser:@mui/material' && tsx scripts/generateA11yDoc.ts",
     "docs:api": "rimraf --glob ./docs/pages/**/api-docs ./docs/pages/**/api && pnpm docs:api:build",
     "docs:api:build": "tsx ./scripts/buildApiDocs/index.ts",
     "docs:llms:build": "rimraf --glob ./docs/public/material-ui/ && tsx ./scripts/buildLlmsDocs/index.ts --projectSettings ./packages/api-docs-builder-core/materialUi/projectSettings.ts",

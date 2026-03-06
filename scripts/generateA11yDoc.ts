@@ -1,6 +1,7 @@
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import * as url from 'node:url';
+import chalk from 'chalk';
 import * as prettier from 'prettier';
 
 const SCRIPT_DIR = path.dirname(url.fileURLToPath(import.meta.url));
@@ -132,7 +133,7 @@ function getBrowserTestInfo(componentName: string): {
   const browserTestPath = path.join(
     MUI_MATERIAL_SRC,
     componentName,
-    `${componentName}.browser.test.tsx`,
+    `${componentName}.a11y.browser.test.tsx`,
   );
   if (!fs.existsSync(browserTestPath)) {
     return { exists: false, skip: [], skipReason: '' };
@@ -237,11 +238,20 @@ async function main() {
   const partialCount = dataEntries.filter((item) => item.status === 'partial').length;
   const upcomingCount = dataEntries.filter((item) => item.status === 'upcoming').length;
 
-  // eslint-disable-next-line no-console
-  console.log(`Updated ${COMPONENT_PATH}`);
+  const passComponents = components.filter((c) => getStatus(c) === 'pass').map((c) => c.name);
+  const partialComponents = components.filter((c) => getStatus(c) === 'partial').map((c) => c.name);
+
   // eslint-disable-next-line no-console
   console.log(
-    `  Components: ${dataEntries.length} (Pass: ${passCount}, Partial: ${partialCount}, Upcoming: ${upcomingCount})`,
+    [
+      '',
+      chalk.bold(`Generated a11y docs (${dataEntries.length} components)`),
+      '',
+      `  ✅ Pass (${passCount}):     ${passComponents.join(', ') || '—'}`,
+      `  ⚠️  Partial (${partialCount}):  ${partialComponents.join(', ') || '—'}`,
+      `  ⏳ Upcoming (${upcomingCount})`,
+      '',
+    ].join('\n'),
   );
 }
 

@@ -8,10 +8,17 @@ import CardHeader from '@mui/material/CardHeader';
 import CardMedia from '@mui/material/CardMedia';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import { expectNoVisualAxeViolations } from '../../test/axe';
+import { expectNoVisualAxeViolations, createAxeCollector } from '../../test/axe';
+import { flushAxeResults } from '../../test/axeFlush';
+
+const collector = createAxeCollector();
 
 describe.skipIf(isJsdom())('Card Visual Accessibility', () => {
   const { render } = createRenderer();
+
+  afterAll(async () => {
+    await flushAxeResults({ component: 'Card', collector });
+  });
 
   it('variant:elevation (default)', async () => {
     const { container } = render(
@@ -21,6 +28,7 @@ describe.skipIf(isJsdom())('Card Visual Accessibility', () => {
         </CardContent>
       </Card>,
     );
+    await collector.collectAxeRules(container, 'variant:elevation (default)');
     await expectNoVisualAxeViolations(container);
   });
 
@@ -32,6 +40,7 @@ describe.skipIf(isJsdom())('Card Visual Accessibility', () => {
         </CardContent>
       </Card>,
     );
+    await collector.collectAxeRules(container, 'variant:outlined');
     await expectNoVisualAxeViolations(container);
   });
 
@@ -47,6 +56,7 @@ describe.skipIf(isJsdom())('Card Visual Accessibility', () => {
         </CardActions>
       </Card>,
     );
+    await collector.collectAxeRules(container, 'with CardHeader and CardActions');
     await expectNoVisualAxeViolations(container);
   });
 
@@ -63,6 +73,7 @@ describe.skipIf(isJsdom())('Card Visual Accessibility', () => {
         </CardActions>
       </Card>,
     );
+    await collector.collectAxeRules(container, 'with CardMedia');
     await expectNoVisualAxeViolations(container);
   });
 
@@ -77,6 +88,7 @@ describe.skipIf(isJsdom())('Card Visual Accessibility', () => {
         </CardActionArea>
       </Card>,
     );
+    await collector.collectAxeRules(container, 'with CardActionArea');
     await expectNoVisualAxeViolations(container);
   });
 
@@ -93,6 +105,7 @@ describe.skipIf(isJsdom())('Card Visual Accessibility', () => {
         </CardContent>
       </Card>,
     );
+    await collector.collectAxeRules(container, 'with CardHeader action');
     await expectNoVisualAxeViolations(container);
   });
 });

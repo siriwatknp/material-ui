@@ -27,6 +27,10 @@ The Material UI Card component includes several complementary utility component
 
 {{"demo": "BasicCard.js", "bg": true}}
 
+## Accessibility compliance
+
+{{"component": "modules/components/ComponentAccessibilityStatus.js"}}
+
 ## Basics
 
 ```jsx

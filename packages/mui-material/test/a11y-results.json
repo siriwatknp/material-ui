@@ -1,0 +1,74 @@
+{
+  "Card": {
+    "passed": 11,
+    "failed": 0,
+    "total": 11,
+    "passedRules": [
+      "avoid-inline-spacing",
+      "color-contrast",
+      "button-name",
+      "nested-interactive",
+      "target-size",
+      "image-alt",
+      "aria-allowed-attr",
+      "aria-conditional-attr",
+      "aria-prohibited-attr",
+      "aria-valid-attr-value",
+      "aria-valid-attr"
+    ],
+    "failedRules": {},
+    "testedRules": {
+      "wcag21aa": [
+        "avoid-inline-spacing"
+      ],
+      "wcag2aa": [
+        "color-contrast"
+      ],
+      "wcag2a": [
+        "button-name",
+        "nested-interactive",
+        "image-alt",
+        "aria-allowed-attr",
+        "aria-conditional-attr",
+        "aria-prohibited-attr",
+        "aria-valid-attr-value",
+        "aria-valid-attr"
+      ],
+      "wcag22aa": [
+        "target-size"
+      ]
+    }
+  },
+  "Button": {
+    "passed": 3,
+    "failed": 1,
+    "total": 4,
+    "passedRules": [
+      "button-name",
+      "nested-interactive",
+      "target-size"
+    ],
+    "failedRules": {
+      "color-contrast": [
+        "variant:contained, color:info",
+        "variant:contained, color:warning",
+        "variant:outlined, color:info",
+        "variant:outlined, color:warning",
+        "variant:text, color:info",
+        "variant:text, color:warning"
+      ]
+    },
+    "testedRules": {
+      "wcag2a": [
+        "button-name",
+        "nested-interactive"
+      ],
+      "wcag2aa": [
+        "color-contrast"
+      ],
+      "wcag22aa": [
+        "target-size"
+      ]
+    }
+  }
+}
