@@ -275,6 +275,7 @@ export function MenuGroup(props) {
 const StyledSubheader = styled(ListSubheader)(({ theme }) => ({
   position: 'initial',
   paddingBlock: theme.spacing(1),
+  backgroundColor: 'transparent',
   ...theme.typography.overline,
   lineHeight: '1.5',
 }));

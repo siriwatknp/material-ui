@@ -226,6 +226,7 @@ export function MenuGroup(props: React.ComponentProps<typeof Menu.Group>) {
 const StyledSubheader = styled(ListSubheader)(({ theme }) => ({
   position: 'initial',
   paddingBlock: theme.spacing(1),
+  backgroundColor: 'transparent',
   ...theme.typography.overline,
   lineHeight: '1.5',
 }));
