@@ -158,13 +158,7 @@ export default function ComponentAccessibilityStatus(props) {
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-      <Typography>
-        The accessibility test is done by{' '}
-        <Link href="https://www.deque.com/axe/" target="_blank" rel="noopener">
-          Axe
-        </Link>
-        . Expand the sections below to see the details of the tested rules.
-      </Typography>
+      <Typography>Expand the sections below to see the details of the tested rules.</Typography>
       <LevelAccordion group={groups.aa} />
       <LevelAccordion group={groups.aaa} />
     </Box>
