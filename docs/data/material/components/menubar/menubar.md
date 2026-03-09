@@ -10,7 +10,7 @@ components: Box, Button, Divider, List, ListItemButton, ListItemIcon, ListItemTe
 
 {{"component": "@mui/docs/ComponentLinkHeader"}}
 
-The `menubar` [role](https://w3c.github.io/aria/#dfn-role) is used to create a menu bar similar to those found in Windows, Mac, and Gnome desktop applications. A menu bar provides a consistent set of frequently used commands, and its interaction should be similar to the typical menu bar interaction in a desktop graphical user interface.
+The menu bar is a visually persistent menu similar to those found in desktop applications that provides a consistent set of frequently used commands.
 
 Material UI does not include a menu bar component out of the box, but this page provides components composed with the [Base UI `Menubar`](https://base-ui.com/react/components/menubar) and styled to align with Material Design (MD2) specifications, so they can be used with Material UI.
 
