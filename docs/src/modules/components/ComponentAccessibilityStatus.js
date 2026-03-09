@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded';
 import ErrorRoundedIcon from '@mui/icons-material/ErrorRounded';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -14,6 +15,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Typography from '@mui/material/Typography';
+// eslint-disable-next-line import/no-relative-packages
 import a11yResults from '../../../../packages/mui-material/test/a11y-results.json';
 
 const AA_TAGS = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'];
@@ -122,12 +124,25 @@ function LevelAccordion({ group }) {
   );
 }
 
+LevelAccordion.propTypes = {
+  group: PropTypes.shape({
+    label: PropTypes.string.isRequired,
+    rules: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        knownIssues: PropTypes.arrayOf(PropTypes.string).isRequired,
+        result: PropTypes.string.isRequired,
+      }),
+    ).isRequired,
+  }).isRequired,
+};
+
 export default function ComponentAccessibilityStatus(props) {
-  const { markdown } = props;
+  const { name, markdown } = props;
   const headers = markdown?.headers || {};
 
-  let componentName = null;
-  if (headers.githubSource) {
+  let componentName = name || null;
+  if (!componentName && headers.githubSource) {
     componentName = headers.githubSource.split('/').pop();
   }
   if (!componentName && headers.components) {
@@ -155,3 +170,13 @@ export default function ComponentAccessibilityStatus(props) {
     </Box>
   );
 }
+
+ComponentAccessibilityStatus.propTypes = {
+  markdown: PropTypes.shape({
+    headers: PropTypes.shape({
+      components: PropTypes.string,
+      githubSource: PropTypes.string,
+    }),
+  }),
+  name: PropTypes.string,
+};
