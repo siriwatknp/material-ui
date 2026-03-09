@@ -1,7 +1,7 @@
 import { createRenderer, isJsdom } from '@mui/internal-test-utils';
 import Button from '@mui/material/Button';
 import { expectNoVisualAxeViolations, createAxeCollector } from '../../test/axe';
-import { flushAxeResults } from '../../test/axeFlush';
+import flushAxeResults from '../../test/axeFlush';
 
 const collector = createAxeCollector();
 
@@ -27,20 +27,20 @@ describe.skipIf(isJsdom())('Button Visual Accessibility', () => {
 
   variants.forEach((variant) => {
     colors.forEach((color) => {
-      const name = `variant:${variant}, color:${color}`;
-      const skipped = SKIP.includes(name);
+      const testName = `variant:${variant}, color:${color}`;
+      const skipped = SKIP.includes(testName);
 
-      it(name, async (ctx) => {
+      // eslint-disable-next-line vitest/valid-title
+      it(testName, async () => {
         const { container } = await render(
           <Button variant={variant} color={color}>
             Button
           </Button>,
         );
-        await collector.collectAxeRules(container, name);
-        if (skipped) {
-          ctx.skip();
+        await collector.collectAxeRules(container, testName);
+        if (!skipped) {
+          await expectNoVisualAxeViolations(container);
         }
-        await expectNoVisualAxeViolations(container);
       });
     });
   });

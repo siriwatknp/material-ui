@@ -9,7 +9,7 @@ import CardMedia from '@mui/material/CardMedia';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import { expectNoVisualAxeViolations, createAxeCollector } from '../../test/axe';
-import { flushAxeResults } from '../../test/axeFlush';
+import flushAxeResults from '../../test/axeFlush';
 
 const collector = createAxeCollector();
 

@@ -13,7 +13,7 @@ interface FlushAxeResultsOptions {
  * This file lives in a separate module from axe.ts because it imports `vitest/browser`
  * which is only available in browser tests — axe.ts is shared with jsdom tests.
  */
-export async function flushAxeResults({ component, collector }: FlushAxeResultsOptions) {
+export default async function flushAxeResults({ component, collector }: FlushAxeResultsOptions) {
   const collectedRules = collector.getCollectedRules();
   const failedRules = collector.getFailedRulesMap();
   const testedRules = collector.getTestedRules();

@@ -18,12 +18,8 @@
     ],
     "failedRules": {},
     "testedRules": {
-      "wcag21aa": [
-        "avoid-inline-spacing"
-      ],
-      "wcag2aa": [
-        "color-contrast"
-      ],
+      "wcag21aa": ["avoid-inline-spacing"],
+      "wcag2aa": ["color-contrast"],
       "wcag2a": [
         "button-name",
         "nested-interactive",
@@ -34,20 +30,14 @@
         "aria-valid-attr-value",
         "aria-valid-attr"
       ],
-      "wcag22aa": [
-        "target-size"
-      ]
+      "wcag22aa": ["target-size"]
     }
   },
   "Button": {
     "passed": 3,
     "failed": 1,
     "total": 4,
-    "passedRules": [
-      "button-name",
-      "nested-interactive",
-      "target-size"
-    ],
+    "passedRules": ["button-name", "nested-interactive", "target-size"],
     "failedRules": {
       "color-contrast": [
         "variant:contained, color:info",
@@ -59,16 +49,9 @@
       ]
     },
     "testedRules": {
-      "wcag2a": [
-        "button-name",
-        "nested-interactive"
-      ],
-      "wcag2aa": [
-        "color-contrast"
-      ],
-      "wcag22aa": [
-        "target-size"
-      ]
+      "wcag2a": ["button-name", "nested-interactive"],
+      "wcag2aa": ["color-contrast"],
+      "wcag22aa": ["target-size"]
     }
   }
 }

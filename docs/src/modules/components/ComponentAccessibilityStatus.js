@@ -15,7 +15,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Typography from '@mui/material/Typography';
-// eslint-disable-next-line import/no-relative-packages
+// eslint-disable-next-line import/no-relative-packages -- data lives outside the docs package
 import a11yResults from '../../../../packages/mui-material/test/a11y-results.json';
 
 const AA_TAGS = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'];
