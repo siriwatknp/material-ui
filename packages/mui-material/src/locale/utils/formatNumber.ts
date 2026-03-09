@@ -1,21 +1,32 @@
-export const formatNumber = (value: number | string, locale?: string): string => {
-  const numValue = typeof value === 'string' ? Number(value) : value;
-
-  if (!Number.isFinite(numValue)) {
+export const formatNumber = (value: number, locale?: string): string => {
+  if (!Number.isFinite(value)) {
     return String(value);
   }
 
   if (typeof Intl !== 'undefined' && Intl.NumberFormat) {
     try {
-      return new Intl.NumberFormat(locale).format(numValue);
+      return new Intl.NumberFormat(locale).format(value);
     } catch {
-      return String(numValue);
+      return String(value);
     }
   }
 
-  return String(numValue);
+  return String(value);
 };
 
 export const buildFormatNumber = (locale: string) => {
-  return (value: number | string) => formatNumber(value, locale);
+  let formatter: Intl.NumberFormat | undefined;
+  if (typeof Intl !== 'undefined' && Intl.NumberFormat) {
+    try {
+      formatter = new Intl.NumberFormat(locale);
+    } catch {
+      // fallback to String()
+    }
+  }
+  return (value: number) => {
+    if (!Number.isFinite(value)) {
+      return String(value);
+    }
+    return formatter ? formatter.format(value) : String(value);
+  };
 };
