@@ -118,6 +118,31 @@ This also fixes an issue where props like `color` were consumed by the Grid inst
 </Grid>
 ```
 
+### GridLegacy
+
+The `GridLegacy` component (a deprecated compatibility layer) has been removed.
+Use the `Grid` component instead. The main API differences are:
+
+- The `item` prop is no longer needed.
+- The `xs`, `sm`, `md`, `lg`, `xl` props are replaced by the `size` prop.
+
+```diff
+-import Grid from '@mui/material/GridLegacy';
++import Grid from '@mui/material/Grid';
+
+-<Grid container spacing={2}>
+-  <Grid item xs={12} sm={6}>
++<Grid container spacing={2}>
++  <Grid size={{ xs: 12, sm: 6 }}>
+     ...
+   </Grid>
+ </Grid>
+```
+
+See the [Grid v2 migration guide](/material-ui/migration/upgrade-to-grid-v2/) for more details.
+
+`MuiGridLegacy` has also been removed from the theme `components` types (`ComponentsProps`, `ComponentsOverrides`, and `ComponentsVariants`).
+
 ### Theme
 
 `MuiTouchRipple` has been removed from the theme `components` types (`ComponentsProps`, `ComponentsOverrides`, and `ComponentsVariants`).
