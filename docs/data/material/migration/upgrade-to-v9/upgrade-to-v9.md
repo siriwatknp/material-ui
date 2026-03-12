@@ -120,8 +120,9 @@ This also fixes an issue where props like `color` were consumed by the Grid inst
 
 ### GridLegacy
 
-The `GridLegacy` component (a deprecated compatibility layer) has been removed.
-Use the `Grid` component instead. The main API differences are:
+The `GridLegacy` component is **removed**, use the `Grid` component instead.
+
+The main API differences are:
 
 - The `item` prop is no longer needed.
 - The `xs`, `sm`, `md`, `lg`, `xl` props are replaced by the `size` prop.
@@ -130,9 +131,8 @@ Use the `Grid` component instead. The main API differences are:
 -import Grid from '@mui/material/GridLegacy';
 +import Grid from '@mui/material/Grid';
 
--<Grid container spacing={2}>
+<Grid container spacing={2}>
 -  <Grid item xs={12} sm={6}>
-+<Grid container spacing={2}>
 +  <Grid size={{ xs: 12, sm: 6 }}>
      ...
    </Grid>
