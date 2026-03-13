@@ -17,7 +17,7 @@ import TablePaginationActions from '../TablePaginationActions';
 import useId from '../utils/useId';
 import tablePaginationClasses, { getTablePaginationUtilityClass } from './tablePaginationClasses';
 import useSlot from '../utils/useSlot';
-import { buildFormatNumber } from '../locale/utils/buildFormatNumber';
+import buildFormatNumber from '../locale/utils/buildFormatNumber';
 
 const formatNumber = buildFormatNumber('en-US');
 

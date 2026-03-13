@@ -1,4 +1,4 @@
-export const buildFormatNumber = (locale: string) => {
+const buildFormatNumber = (locale: string) => {
   let formatter: Intl.NumberFormat | undefined;
   if (typeof Intl !== 'undefined' && Intl.NumberFormat) {
     try {
@@ -14,3 +14,5 @@ export const buildFormatNumber = (locale: string) => {
     return formatter ? formatter.format(value) : String(value);
   };
 };
+
+export default buildFormatNumber;

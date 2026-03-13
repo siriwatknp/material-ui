@@ -1,5 +1,5 @@
 import type { Localization } from './utils/LocaleTextApi';
-import { buildFormatNumber } from './utils/buildFormatNumber';
+import buildFormatNumber from './utils/buildFormatNumber';
 
 const formatNumber = buildFormatNumber('kk-KZ');
 

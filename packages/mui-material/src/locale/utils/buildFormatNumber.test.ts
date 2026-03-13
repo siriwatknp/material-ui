@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { buildFormatNumber } from './buildFormatNumber';
+import buildFormatNumber from './buildFormatNumber';
 
 describe('buildFormatNumber', () => {
   it('formats numbers using the given locale', () => {
