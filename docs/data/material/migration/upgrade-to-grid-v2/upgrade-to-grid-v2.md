@@ -16,7 +16,7 @@ Grid provides the following improvements over GridLegacy:
 - All grids are considered items without specifying the `item` prop.
 - The [offset feature](/material-ui/react-grid/#offset) gives you more flexibility for positioning.
 - [Nested grids](/material-ui/react-grid/#nested-grid) now have no depth limitation.
-- Its implementation doesn't use negative margins so it doesn't overflow like the legacy Grid.
+- Its implementation doesn't use negative margins so it doesn't overflow.
 
 ## How to upgrade
 
