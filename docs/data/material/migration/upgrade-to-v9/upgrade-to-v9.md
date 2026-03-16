@@ -488,3 +488,18 @@ If you render a `TextField` from `Autocomplete`, the `params` shape also changed
    )}
  />
 ```
+
+#### Typography deprecated props removed
+
+Use the [typography-props codemod](https://github.com/mui/material-ui/tree/HEAD/packages/mui-codemod#typography-props) below to migrate the code as described in the following section:
+
+```bash
+npx @mui/codemod@latest deprecations/typography-props <path>
+```
+
+The deprecated `paragraph` prop and `typographyClasses.paragraph` have been removed.
+
+```diff
+- <Typography paragraph>Hello</Typography>
++ <Typography component="p" sx={{ mb: 2 }}>Hello</Typography>
+```
