@@ -559,3 +559,41 @@ If you were already using the `surplus` key via `componentsProps`, move it to `s
 -<AvatarGroup componentsProps={{ surplus: { className: 'my-class' } }}>
 +<AvatarGroup slotProps={{ surplus: { className: 'my-class' } }}>
 ```
+
+#### SpeedDial deprecated props removed
+
+The deprecated `SpeedDial` props have been removed.
+Use the `slots` and `slotProps` props instead:
+
+```diff
+ <SpeedDial
+-  TransitionComponent={CustomTransition}
+-  TransitionProps={{ timeout: 500 }}
++  slots={{ transition: CustomTransition }}
++  slotProps={{ transition: { timeout: 500 } }}
+ >
+```
+
+#### SpeedDialAction deprecated props removed
+
+The deprecated `SpeedDialAction` props have been removed.
+Use the `slotProps` prop instead:
+
+```diff
+ <SpeedDialAction
+-  FabProps={{ size: 'large' }}
+-  tooltipTitle="Add"
+-  tooltipPlacement="right"
+-  tooltipOpen
+-  TooltipClasses={{ tooltip: 'custom' }}
++  slotProps={{
++    fab: { size: 'large' },
++    tooltip: {
++      title: 'Add',
++      placement: 'right',
++      open: true,
++      classes: { tooltip: 'custom' },
++    },
++  }}
+ />
+```
