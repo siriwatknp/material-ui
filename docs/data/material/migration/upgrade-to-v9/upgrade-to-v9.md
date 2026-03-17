@@ -559,3 +559,29 @@ If you were already using the `surplus` key via `componentsProps`, move it to `s
 -<AvatarGroup componentsProps={{ surplus: { className: 'my-class' } }}>
 +<AvatarGroup slotProps={{ surplus: { className: 'my-class' } }}>
 ```
+
+#### Snackbar deprecated props removed
+
+Use the [snackbar-props codemod](https://github.com/mui/material-ui/tree/HEAD/packages/mui-codemod#snackbar-props) below to migrate the code as described in the following section:
+
+```bash
+npx @mui/codemod@latest deprecations/snackbar-props <path>
+```
+
+The deprecated `Snackbar` props have been removed.
+Use the `slots` and `slotProps` props instead:
+
+```diff
+ <Snackbar
+-  ClickAwayListenerProps={CustomClickAwayListenerProps}
+-  ContentProps={CustomContentProps}
+-  TransitionComponent={CustomTransition}
+-  TransitionProps={CustomTransitionProps}
++  slots={{ transition: CustomTransition }}
++  slotProps={{
++    clickAwayListener: CustomClickAwayListenerProps,
++    content: CustomContentProps,
++    transition: CustomTransitionProps,
++  }}
+ />
+```

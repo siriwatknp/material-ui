@@ -767,12 +767,12 @@ function SnackbarTest() {
         open
         autoHideDuration={6000}
         onClose={(event) => log(event)}
-        ContentProps={
-          {
+        slotProps={{
+          content: {
             // 'aria-describedby': 'message-id',
             // ^ will work once https://github.com/DefinitelyTyped/DefinitelyTyped/pull/22582 is merged.
-          }
-        }
+          },
+        }}
         message={<span id="message-id">Note archived</span>}
         action={[
           <Button key="undo" color="secondary" size="small" onClick={(event) => log(event)}>
