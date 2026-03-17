@@ -559,3 +559,23 @@ If you were already using the `surplus` key via `componentsProps`, move it to `s
 -<AvatarGroup componentsProps={{ surplus: { className: 'my-class' } }}>
 +<AvatarGroup slotProps={{ surplus: { className: 'my-class' } }}>
 ```
+
+#### Slider deprecated props removed
+
+Use the [slider-props codemod](https://github.com/mui/material-ui/tree/HEAD/packages/mui-codemod#slider-props) below to migrate the code as described in the following section:
+
+```bash
+npx @mui/codemod@latest deprecations/slider-props <path>
+```
+
+The deprecated `Slider` props have been removed.
+Use the `slots` and `slotProps` props instead:
+
+```diff
+ <Slider
+-  components={{ Track: CustomTrack }}
+-  componentsProps={{ track: { testid: 'test-id' } }}
++  slots={{ track: CustomTrack }}
++  slotProps={{ track: { testid: 'test-id' } }}
+ />
+```

@@ -563,8 +563,6 @@ const Slider = React.forwardRef(function Slider(inputProps, ref) {
     'aria-labelledby': ariaLabelledby,
     // eslint-disable-next-line react/prop-types
     component = 'span',
-    components = {},
-    componentsProps = {},
     color = 'primary',
     classes: classesProp,
     className,
@@ -637,24 +635,23 @@ const Slider = React.forwardRef(function Slider(inputProps, ref) {
 
   const classes = useUtilityClasses(ownerState);
 
-  // support both `slots` and `components` for backward compatibility
-  const RootSlot = slots?.root ?? components.Root ?? SliderRoot;
-  const RailSlot = slots?.rail ?? components.Rail ?? SliderRail;
-  const TrackSlot = slots?.track ?? components.Track ?? SliderTrack;
-  const ThumbSlot = slots?.thumb ?? components.Thumb ?? SliderThumb;
-  const ValueLabelSlot = slots?.valueLabel ?? components.ValueLabel ?? SliderValueLabel;
-  const MarkSlot = slots?.mark ?? components.Mark ?? SliderMark;
-  const MarkLabelSlot = slots?.markLabel ?? components.MarkLabel ?? SliderMarkLabel;
-  const InputSlot = slots?.input ?? components.Input ?? 'input';
+  const RootSlot = slots?.root ?? SliderRoot;
+  const RailSlot = slots?.rail ?? SliderRail;
+  const TrackSlot = slots?.track ?? SliderTrack;
+  const ThumbSlot = slots?.thumb ?? SliderThumb;
+  const ValueLabelSlot = slots?.valueLabel ?? SliderValueLabel;
+  const MarkSlot = slots?.mark ?? SliderMark;
+  const MarkLabelSlot = slots?.markLabel ?? SliderMarkLabel;
+  const InputSlot = slots?.input ?? 'input';
 
-  const rootSlotProps = slotProps?.root ?? componentsProps.root;
-  const railSlotProps = slotProps?.rail ?? componentsProps.rail;
-  const trackSlotProps = slotProps?.track ?? componentsProps.track;
-  const thumbSlotProps = slotProps?.thumb ?? componentsProps.thumb;
-  const valueLabelSlotProps = slotProps?.valueLabel ?? componentsProps.valueLabel;
-  const markSlotProps = slotProps?.mark ?? componentsProps.mark;
-  const markLabelSlotProps = slotProps?.markLabel ?? componentsProps.markLabel;
-  const inputSlotProps = slotProps?.input ?? componentsProps.input;
+  const rootSlotProps = slotProps?.root;
+  const railSlotProps = slotProps?.rail;
+  const trackSlotProps = slotProps?.track;
+  const thumbSlotProps = slotProps?.thumb;
+  const valueLabelSlotProps = slotProps?.valueLabel;
+  const markSlotProps = slotProps?.mark;
+  const markLabelSlotProps = slotProps?.markLabel;
+  const inputSlotProps = slotProps?.input;
 
   const rootProps = useSlotProps({
     elementType: RootSlot,
@@ -909,51 +906,6 @@ Slider.propTypes /* remove-proptypes */ = {
     PropTypes.oneOf(['primary', 'secondary', 'error', 'info', 'success', 'warning']),
     PropTypes.string,
   ]),
-  /**
-   * The components used for each slot inside.
-   *
-   * @deprecated use the `slots` prop instead. This prop will be removed in a future major release. See [Migrating from deprecated APIs](https://mui.com/material-ui/migration/migrating-from-deprecated-apis/) for more details.
-   *
-   * @default {}
-   */
-  components: PropTypes.shape({
-    Input: PropTypes.elementType,
-    Mark: PropTypes.elementType,
-    MarkLabel: PropTypes.elementType,
-    Rail: PropTypes.elementType,
-    Root: PropTypes.elementType,
-    Thumb: PropTypes.elementType,
-    Track: PropTypes.elementType,
-    ValueLabel: PropTypes.elementType,
-  }),
-  /**
-   * The extra props for the slot components.
-   * You can override the existing props or add new ones.
-   *
-   * @deprecated use the `slotProps` prop instead. This prop will be removed in a future major release. See [Migrating from deprecated APIs](https://mui.com/material-ui/migration/migrating-from-deprecated-apis/) for more details.
-   *
-   * @default {}
-   */
-  componentsProps: PropTypes.shape({
-    input: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
-    mark: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
-    markLabel: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
-    rail: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
-    root: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
-    thumb: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
-    track: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
-    valueLabel: PropTypes.oneOfType([
-      PropTypes.func,
-      PropTypes.shape({
-        children: PropTypes.element,
-        className: PropTypes.string,
-        open: PropTypes.bool,
-        style: PropTypes.object,
-        value: PropTypes.node,
-        valueLabelDisplay: PropTypes.oneOf(['auto', 'off', 'on']),
-      }),
-    ]),
-  }),
   /**
    * The default value. Use when the component is not controlled.
    */

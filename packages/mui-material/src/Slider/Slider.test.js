@@ -40,7 +40,6 @@ describe.skipIf(!supportsTouch())('<Slider />', () => {
       testDeepOverrides: { slotName: 'thumb', slotClassName: classes.thumb },
       testVariantProps: { color: 'primary', orientation: 'vertical', size: 'small' },
       testStateOverrides: { prop: 'color', value: 'secondary', styleKey: 'colorSecondary' },
-      testLegacyComponentsProp: true,
       slots: {
         root: {
           expectedClassName: classes.root,
@@ -327,7 +326,7 @@ describe.skipIf(!supportsTouch())('<Slider />', () => {
     it('should focus the slider when dragging', () => {
       const { container } = render(
         <Slider
-          componentsProps={{ thumb: { 'data-testid': 'thumb' } }}
+          slotProps={{ thumb: { 'data-testid': 'thumb' } }}
           defaultValue={30}
           step={10}
           marks
@@ -808,7 +807,7 @@ describe.skipIf(!supportsTouch())('<Slider />', () => {
         <Slider
           valueLabelDisplay="on"
           value={50}
-          componentsProps={{ thumb: { 'data-testid': 'thumb' } }}
+          slotProps={{ thumb: { 'data-testid': 'thumb' } }}
         />,
       );
       expect(document.querySelector(`.${classes.valueLabelOpen}`)).not.to.equal(null);
@@ -825,7 +824,7 @@ describe.skipIf(!supportsTouch())('<Slider />', () => {
         <Slider
           valueLabelDisplay="auto"
           value={50}
-          componentsProps={{ thumb: { 'data-testid': 'thumb' } }}
+          slotProps={{ thumb: { 'data-testid': 'thumb' } }}
         />,
       );
 
@@ -849,11 +848,7 @@ describe.skipIf(!supportsTouch())('<Slider />', () => {
       ValueLabelComponent.propTypes = { value: PropTypes.number };
 
       const { setProps } = render(
-        <Slider
-          components={{ ValueLabel: ValueLabelComponent }}
-          valueLabelDisplay="on"
-          value={50}
-        />,
+        <Slider slots={{ valueLabel: ValueLabelComponent }} valueLabelDisplay="on" value={50} />,
       );
 
       expect(screen.queryByTestId('value-label')).to.have.class('open');
@@ -952,7 +947,7 @@ describe.skipIf(!supportsTouch())('<Slider />', () => {
           <Slider
             value={30}
             onChange={handleChange}
-            componentsProps={{ thumb: { 'data-testid': 'thumb' } }}
+            slotProps={{ thumb: { 'data-testid': 'thumb' } }}
           />
         </ThemeProvider>,
       );
@@ -1369,7 +1364,7 @@ describe.skipIf(!supportsTouch())('<Slider />', () => {
       render(
         <Slider
           value={10}
-          components={{ ValueLabel: ValueLabelComponent }}
+          slots={{ valueLabel: ValueLabelComponent }}
           valueLabelDisplay="on"
           valueLabelFormat={(n) => n.toString(2)}
         />,
@@ -1607,7 +1602,7 @@ describe.skipIf(!supportsTouch())('<Slider />', () => {
     });
   });
 
-  describe('prop: components', () => {
+  describe('prop: slots', () => {
     it('should render custom components if specified', () => {
       // ARRANGE
       const dataTestId = 'slider-input-testid';
@@ -1616,22 +1611,20 @@ describe.skipIf(!supportsTouch())('<Slider />', () => {
         return <input {...props} data-testid={dataTestId} name={name} />;
       }
 
-      render(<Slider components={{ Input: CustomInput }} />);
+      render(<Slider slots={{ input: CustomInput }} />);
 
       // ASSERT
       expect(screen.getByTestId(dataTestId).name).to.equal(name);
     });
   });
 
-  describe('prop: componentsProps', () => {
+  describe('prop: slotProps', () => {
     it('should forward the props to their respective components', () => {
       // ARRANGE
       const dataTestId = 'slider-input-testid';
       const id = 'slider-input-id';
 
-      render(
-        <Slider defaultValue={10} componentsProps={{ input: { 'data-testid': dataTestId, id } }} />,
-      );
+      render(<Slider defaultValue={10} slotProps={{ input: { 'data-testid': dataTestId, id } }} />);
 
       // ASSERT
       expect(screen.getByTestId(dataTestId).id).to.equal(id);
