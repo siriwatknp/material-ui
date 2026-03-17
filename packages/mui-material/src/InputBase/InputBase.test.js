@@ -682,7 +682,7 @@ describe('<InputBase />', () => {
                   <Select value="" name="suffix" />
                 </InputAdornment>
               ),
-            }
+            },
           }}
         />,
       );
