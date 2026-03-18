@@ -894,6 +894,52 @@ describe('<Tooltip />', () => {
 
       expect(appliedComputeStylesModifier).not.to.equal(undefined);
     });
+
+    it('should pass slotProps to Popper Component', () => {
+      render(
+        <Tooltip title="Hello World" open slotProps={{ popper: { 'data-testid': 'popper' } }}>
+          <button id="testChild" type="submit">
+            Hello World
+          </button>
+        </Tooltip>,
+      );
+      expect(screen.getByTestId('popper')).not.to.equal(null);
+    });
+  });
+
+  describe('prop: slotProps.tooltip', () => {
+    it('should pass slotProps to Tooltip component', () => {
+      render(
+        <Tooltip
+          title="Hello World"
+          open
+          slotProps={{ tooltip: { 'data-testid': 'CustomTooltip' } }}
+        >
+          <button id="testChild" type="submit">
+            Hello World
+          </button>
+        </Tooltip>,
+      );
+      expect(screen.getByTestId('CustomTooltip')).toBeVisible();
+    });
+  });
+
+  describe('prop: slotProps.arrow', () => {
+    it('should pass slotProps to Arrow component', () => {
+      render(
+        <Tooltip
+          title="Hello World"
+          open
+          arrow
+          slotProps={{ arrow: { 'data-testid': 'CustomArrow' } }}
+        >
+          <button id="testChild" type="submit">
+            Hello World
+          </button>
+        </Tooltip>,
+      );
+      expect(screen.getByTestId('CustomArrow')).toBeVisible();
+    });
   });
 
   describe('prop forwarding', () => {
