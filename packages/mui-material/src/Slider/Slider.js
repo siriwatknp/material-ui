@@ -551,8 +551,8 @@ const useUtilityClasses = (ownerState) => {
 
 const Forward = ({ children }) => children;
 
-const Slider = React.forwardRef(function Slider(inputProps, ref) {
-  const props = useDefaultProps({ props: inputProps, name: 'MuiSlider' });
+const Slider = React.forwardRef(function Slider(inProps, ref) {
+  const props = useDefaultProps({ props: inProps, name: 'MuiSlider' });
 
   const isRtl = useRtl();
 
@@ -578,8 +578,8 @@ const Slider = React.forwardRef(function Slider(inputProps, ref) {
     size = 'medium',
     step = 1,
     scale = Identity,
-    slotProps,
-    slots,
+    slotProps = {},
+    slots = {},
     tabIndex,
     track = 'normal',
     value: valueProp,
@@ -979,6 +979,44 @@ Slider.propTypes /* remove-proptypes */ = {
     PropTypes.oneOf(['small', 'medium']),
     PropTypes.string,
   ]),
+  /**
+   * The props used for each slot inside.
+   * @default {}
+   */
+  slotProps: PropTypes.shape({
+    input: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
+    mark: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
+    markLabel: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
+    rail: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
+    root: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
+    thumb: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
+    track: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
+    valueLabel: PropTypes.oneOfType([
+      PropTypes.func,
+      PropTypes.shape({
+        children: PropTypes.element,
+        className: PropTypes.string,
+        open: PropTypes.bool,
+        style: PropTypes.object,
+        value: PropTypes.node,
+        valueLabelDisplay: PropTypes.oneOf(['auto', 'off', 'on']),
+      }),
+    ]),
+  }),
+  /**
+   * The components used for each slot inside.
+   * @default {}
+   */
+  slots: PropTypes.shape({
+    input: PropTypes.elementType,
+    mark: PropTypes.elementType,
+    markLabel: PropTypes.elementType,
+    rail: PropTypes.elementType,
+    root: PropTypes.elementType,
+    thumb: PropTypes.elementType,
+    track: PropTypes.elementType,
+    valueLabel: PropTypes.elementType,
+  }),
   /**
    * The granularity with which the slider can step through values. (A "discrete" slider.)
    * The `min` prop serves as the origin for the valid values.
