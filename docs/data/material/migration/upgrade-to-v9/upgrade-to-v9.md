@@ -618,8 +618,8 @@ npx @mui/codemod@latest deprecations/slider-props <path>
 
 The following deprecated props have been removed from the `Slider` component:
 
-- `components` → use `slots`
-- `componentsProps` → use `slotProps`
+- `components` — use `slots` instead
+- `componentsProps` — use `slotProps` instead
 
 ```diff
  <Slider
