@@ -708,3 +708,29 @@ Use `sx={{ opacity : "0.6" }}` (or any opacity):
 +  sx={{ opacity: 0.6 }}
  />
 ```
+
+#### Popover deprecated props removed
+
+The following deprecated props have been removed:
+
+- `BackdropComponent` — use `slots.backdrop` instead
+- `BackdropProps` — use `slotProps.backdrop` instead
+- `PaperProps` — use `slotProps.paper` instead
+- `TransitionComponent` — use `slots.transition` instead
+- `TransitionProps` — use `slotProps.transition` instead
+
+```diff
+ <Popover
+-  BackdropComponent={CustomBackdrop}
+-  BackdropProps={{ invisible: true }}
+-  PaperProps={{ elevation: 12 }}
+-  TransitionComponent={CustomTransition}
+-  TransitionProps={{ timeout: 500 }}
++  slots={{ backdrop: CustomBackdrop, transition: CustomTransition }}
++  slotProps={{
++    backdrop: { invisible: true },
++    paper: { elevation: 12 },
++    transition: { timeout: 500 },
++  }}
+ />
+```

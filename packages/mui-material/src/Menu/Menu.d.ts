@@ -127,6 +127,12 @@ export interface MenuProps
    */
   MenuListProps?: Partial<MenuListProps> | undefined;
   /**
+   * Props applied to the [`Paper`](https://mui.com/material-ui/api/paper/) element.
+   * @deprecated Use `slotProps.paper` instead. This prop will be removed in a future major release. See [Migrating from deprecated APIs](https://mui.com/material-ui/migration/migrating-from-deprecated-apis/) for more details.
+   * @default {}
+   */
+  PaperProps?: Partial<PaperProps> | undefined;
+  /**
    * Callback fired when the component requests to be closed.
    *
    * @param {object} event The event source of the callback.
