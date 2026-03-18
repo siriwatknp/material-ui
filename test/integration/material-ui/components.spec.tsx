@@ -769,8 +769,7 @@ function SnackbarTest() {
         onClose={(event) => log(event)}
         slotProps={{
           content: {
-            // 'aria-describedby': 'message-id',
-            // ^ will work once https://github.com/DefinitelyTyped/DefinitelyTyped/pull/22582 is merged.
+            'aria-describedby': 'message-id',
           },
         }}
         message={<span id="message-id">Note archived</span>}
