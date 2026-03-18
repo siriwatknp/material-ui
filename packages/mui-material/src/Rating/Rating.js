@@ -223,7 +223,6 @@ function RatingItem(props) {
     highlightSelectedOnly,
     hover,
     icon,
-    IconContainerComponent,
     isActive,
     itemValue,
     labelProps,
@@ -277,11 +276,7 @@ function RatingItem(props) {
     additionalProps: {
       value: itemValue,
     },
-    internalForwardedProps: {
-      // TODO: remove this in v7 because `IconContainerComponent` is deprecated
-      // only forward if `slots.icon` is NOT provided
-      as: IconContainerComponent,
-    },
+    internalForwardedProps: {},
   });
 
   const [LabelSlot, labelSlotProps] = useSlot('label', {
@@ -334,7 +329,6 @@ RatingItem.propTypes = {
   highlightSelectedOnly: PropTypes.bool.isRequired,
   hover: PropTypes.number.isRequired,
   icon: PropTypes.node,
-  IconContainerComponent: PropTypes.elementType.isRequired,
   isActive: PropTypes.bool.isRequired,
   itemValue: PropTypes.number.isRequired,
   labelProps: PropTypes.object,
@@ -370,7 +364,6 @@ const Rating = React.forwardRef(function Rating(inProps, ref) {
     getLabelText = defaultLabelText,
     highlightSelectedOnly = false,
     icon = defaultIcon,
-    IconContainerComponent = IconContainer,
     max = 5,
     name: nameProp,
     onChange,
@@ -541,7 +534,6 @@ const Rating = React.forwardRef(function Rating(inProps, ref) {
     focusVisible,
     getLabelText,
     icon,
-    IconContainerComponent,
     max,
     precision,
     readOnly,
@@ -610,7 +602,6 @@ const Rating = React.forwardRef(function Rating(inProps, ref) {
           highlightSelectedOnly,
           hover,
           icon,
-          IconContainerComponent,
           name,
           onBlur: handleBlur,
           onChange: handleChange,
@@ -760,15 +751,6 @@ Rating.propTypes /* remove-proptypes */ = {
    * @default <Star fontSize="inherit" />
    */
   icon: PropTypes.node,
-  /**
-   * The component containing the icon.
-   * @deprecated Use `slotProps.icon.component` instead. This prop will be removed in a future major release. See [Migrating from deprecated APIs](/material-ui/migration/migrating-from-deprecated-apis/) for more details.
-   * @default function IconContainer(props) {
-   *   const { value, ...other } = props;
-   *   return <span {...other} />;
-   * }
-   */
-  IconContainerComponent: PropTypes.elementType,
   /**
    * Maximum rating.
    * @default 5

@@ -708,3 +708,22 @@ Use `sx={{ opacity : "0.6" }}` (or any opacity):
 +  sx={{ opacity: 0.6 }}
  />
 ```
+
+#### Rating deprecated props removed
+
+Use the [rating-props codemod](https://github.com/mui/material-ui/tree/HEAD/packages/mui-codemod#rating-props) below to migrate the code as described in the following section:
+
+```bash
+npx @mui/codemod@latest deprecations/rating-props <path>
+```
+
+The following deprecated prop has been removed:
+
+- `IconContainerComponent` — use `slotProps.icon.component` instead
+
+```diff
+ <Rating
+-  IconContainerComponent={CustomIconContainer}
++  slotProps={{ icon: { component: CustomIconContainer } }}
+ />
+```
