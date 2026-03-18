@@ -728,11 +728,6 @@ The following deprecated props have been removed:
 -  componentsProps={{ root: { className: 'custom' } }}
 +  slots={{ root: CustomRoot }}
 +  slotProps={{ root: { className: 'custom' } }}
-- `ScrollButtonComponent` — use `slots.scrollButtons` instead
-- `TabIndicatorProps` — use `slotProps.indicator` instead
-- `TabScrollButtonProps` — use `slotProps.scrollButtons` instead
-- `slots.StartScrollButtonIcon` — use `slots.startScrollButtonIcon` instead
-- `slots.EndScrollButtonIcon` — use `slots.endScrollButtonIcon` instead
  />
 ```
 
