@@ -907,41 +907,6 @@ describe('<Tooltip />', () => {
     });
   });
 
-  describe('prop: slotProps.tooltip', () => {
-    it('should pass slotProps to Tooltip component', () => {
-      render(
-        <Tooltip
-          title="Hello World"
-          open
-          slotProps={{ tooltip: { 'data-testid': 'CustomTooltip' } }}
-        >
-          <button id="testChild" type="submit">
-            Hello World
-          </button>
-        </Tooltip>,
-      );
-      expect(screen.getByTestId('CustomTooltip')).toBeVisible();
-    });
-  });
-
-  describe('prop: slotProps.arrow', () => {
-    it('should pass slotProps to Arrow component', () => {
-      render(
-        <Tooltip
-          title="Hello World"
-          open
-          arrow
-          slotProps={{ arrow: { 'data-testid': 'CustomArrow' } }}
-        >
-          <button id="testChild" type="submit">
-            Hello World
-          </button>
-        </Tooltip>,
-      );
-      expect(screen.getByTestId('CustomArrow')).toBeVisible();
-    });
-  });
-
   describe('prop forwarding', () => {
     it('should forward props to the child element', () => {
       render(

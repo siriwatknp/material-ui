@@ -520,17 +520,18 @@ The following deprecated props have been removed from the `Tooltip` component:
 ```diff
  <Tooltip
    title="Hello World"
--  components={{ Popper: CustomPopper, Transition: CustomTransition }}
--  componentsProps={{ popper: { placement: 'top' }, tooltip: { className: 'custom' } }}
+-  components={{ Popper: CustomPopper, Tooltip: CustomTooltip, Transition: CustomTransition, Arrow: CustomArrow }}
+-  componentsProps={{ popper: { placement: 'top' }, tooltip: { className: 'custom' }, arrow: { className: 'arrow' } }}
 -  PopperComponent={CustomPopper}
 -  PopperProps={{ disablePortal: true }}
 -  TransitionComponent={CustomTransition}
 -  TransitionProps={{ timeout: 500 }}
-+  slots={{ popper: CustomPopper, transition: CustomTransition }}
++  slots={{ popper: CustomPopper, tooltip: CustomTooltip, transition: CustomTransition, arrow: CustomArrow }}
 +  slotProps={{
 +    popper: { placement: 'top', disablePortal: true },
 +    tooltip: { className: 'custom' },
 +    transition: { timeout: 500 },
++    arrow: { className: 'arrow' },
 +  }}
  />
 ```
