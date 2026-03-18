@@ -67,16 +67,18 @@ function Person(props: Profile & { sx?: PaperProps['sx'] }) {
           title={props.location || false}
           placement="right-end"
           describeChild
-          PopperProps={{
-            popperOptions: {
-              modifiers: [
-                {
-                  name: 'offset',
-                  options: {
-                    offset: [3, 2],
+          slotProps={{
+            popper: {
+              popperOptions: {
+                modifiers: [
+                  {
+                    name: 'offset',
+                    options: {
+                      offset: [3, 2],
+                    },
                   },
-                },
-              ],
+                ],
+              },
             },
           }}
         >
