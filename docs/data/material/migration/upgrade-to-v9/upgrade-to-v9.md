@@ -63,6 +63,10 @@ the click event now bubbles to their ancestors.
 Also, the `event` passed to the `onClick` prop is a `MouseEvent` instead of the `KeyboardEvent` captured
 in the ButtonBase keyboard handlers. This is actually the expected behavior.
 
+#### Event handlers on disabled non-native buttons
+
+When ButtonBase renders a non-native element like a `<span>`, keyboard event handlers will no longer run when the component is disabled.
+
 ### Autocomplete
 
 #### Listbox toggle on right click
@@ -117,6 +121,31 @@ This also fixes an issue where props like `color` were consumed by the Grid inst
   hello
 </Grid>
 ```
+
+### GridLegacy
+
+The `GridLegacy` component is **removed**, use the `Grid` component instead.
+
+The main API differences are:
+
+- The `item` prop is no longer needed.
+- The `xs`, `sm`, `md`, `lg`, `xl` props are replaced by the `size` prop.
+
+```diff
+-import Grid from '@mui/material/GridLegacy';
++import Grid from '@mui/material/Grid';
+
+ <Grid container spacing={2}>
+-  <Grid item xs={12} sm={6}>
++  <Grid size={{ xs: 12, sm: 6 }}>
+     ...
+   </Grid>
+ </Grid>
+```
+
+See the [Grid v2 migration guide](/material-ui/migration/upgrade-to-grid-v2/) for more details.
+
+`MuiGridLegacy` has also been removed from the theme `components` types (`ComponentsProps`, `ComponentsOverrides`, and `ComponentsVariants`).
 
 ### TablePagination numbers are formatted by default
 
@@ -469,7 +498,6 @@ If you render a `TextField` from `Autocomplete`, the `params` shape also changed
        }}
      />
    )}
- />
 ```
 
 #### Tooltip deprecated props removed
@@ -505,4 +533,161 @@ The following deprecated props have been removed from the `Tooltip` component:
 +    transition: { timeout: 500 },
 +  }}
  />
+```
+
+#### Alert deprecated props removed
+
+Use the [alert-props codemod](https://github.com/mui/material-ui/tree/HEAD/packages/mui-codemod#alert-props) below to migrate the code as described in the following section:
+
+```bash
+npx @mui/codemod@latest deprecations/alert-props <path>
+```
+
+The deprecated `Alert` props have been removed.
+Use the `slots` and `slotProps` props instead:
+
+```diff
+ <Alert
+   onClose={handleClose}
+-  components={{ CloseIcon: MyCloseIcon, CloseButton: MyCloseButton }}
+-  componentsProps={{ closeButton: { size: 'large' }, closeIcon: { fontSize: 'small' } }}
++  slots={{ closeIcon: MyCloseIcon, closeButton: MyCloseButton }}
++  slotProps={{ closeButton: { size: 'large' }, closeIcon: { fontSize: 'small' } }}
+ />
+```
+
+#### Accordion deprecated props removed
+
+Use the [accordion-props codemod](https://github.com/mui/material-ui/tree/HEAD/packages/mui-codemod#accordion-props) below to migrate the code as described in the following section:
+
+```bash
+npx @mui/codemod@latest deprecations/accordion-props <path>
+```
+
+The deprecated `Accordion` props have been removed.
+Use the `slots` and `slotProps` props instead:
+
+```diff
+ <Accordion
+-  TransitionComponent={CustomTransition}
+-  TransitionProps={{ unmountOnExit: true }}
++  slots={{ transition: CustomTransition }}
++  slotProps={{ transition: { unmountOnExit: true } }}
+ >
+```
+
+#### AccordionSummary deprecated CSS classes removed
+
+Use the [accordion-summary-classes codemod](https://github.com/mui/material-ui/tree/HEAD/packages/mui-codemod#accordion-summary-classes) below to migrate the code as described in the following section:
+
+```bash
+npx @mui/codemod@latest deprecations/accordion-summary-classes <path>
+```
+
+The deprecated `AccordionSummary` CSS class `contentGutters` has been removed.
+Use the combination of `.MuiAccordionSummary-gutters` and `.MuiAccordionSummary-content` classes instead:
+
+```diff
+-.MuiAccordionSummary-contentGutters {
++.MuiAccordionSummary-gutters .MuiAccordionSummary-content {
+   margin: 20px 0;
+ }
+```
+
+#### AvatarGroup deprecated props removed
+
+Use the [avatar-group-props codemod](https://github.com/mui/material-ui/tree/HEAD/packages/mui-codemod#avatar-group-props) below to migrate the code as described in the following section:
+
+```bash
+npx @mui/codemod@latest deprecations/avatar-group-props <path>
+```
+
+The deprecated `AvatarGroup` props have been removed.
+Use the `slotProps` prop instead. The `additionalAvatar` key has been renamed to `surplus`:
+
+```diff
+-<AvatarGroup componentsProps={{ additionalAvatar: { className: 'my-class' } }}>
++<AvatarGroup slotProps={{ surplus: { className: 'my-class' } }}>
+```
+
+If you were already using the `surplus` key via `componentsProps`, move it to `slotProps`:
+
+```diff
+-<AvatarGroup componentsProps={{ surplus: { className: 'my-class' } }}>
++<AvatarGroup slotProps={{ surplus: { className: 'my-class' } }}>
+```
+
+#### Backdrop deprecated props removed
+
+Use the [backdrop-props codemod](https://github.com/mui/material-ui/tree/HEAD/packages/mui-codemod#backdrop-props) below to migrate the code as described in the following section:
+
+```bash
+npx @mui/codemod@latest deprecations/backdrop-props <path>
+```
+
+The following deprecated `Backdrop` props have been removed:
+
+- `components` — use `slots` instead
+- `componentsProps` — use `slotProps` instead
+- `TransitionComponent` — use `slots.transition` instead
+
+```diff
+ <Backdrop
+-  components={{ Root: CustomRoot }}
+-  componentsProps={{ root: { className: 'my-class' } }}
+-  TransitionComponent={CustomTransition}
++  slots={{ root: CustomRoot, transition: CustomTransition }}
++  slotProps={{ root: { className: 'my-class' } }}
+```
+
+#### Badge deprecated props removed
+
+Use the [badge-props codemod](https://github.com/mui/material-ui/tree/HEAD/packages/mui-codemod#badge-props) below to migrate the code as described in the following section:
+
+```bash
+npx @mui/codemod@latest deprecations/badge-props <path>
+```
+
+The following deprecated props have been removed from the `Badge` component:
+
+- `components` → use `slots`
+- `componentsProps` → use `slotProps`
+
+```diff
+ <Badge
+-  components={{ Root: CustomRoot, Badge: CustomBadge }}
+-  componentsProps={{ root: { className: 'my-root' }, badge: { className: 'my-badge' } }}
++  slots={{ root: CustomRoot, badge: CustomBadge }}
++  slotProps={{ root: { className: 'my-root' }, badge: { className: 'my-badge' } }}
+ />
+```
+
+#### Typography deprecated CSS classes removed
+
+The deprecated `paragraph` CSS class has been removed.
+Use CSS `.MuiTypography-root:where(p)` to apply custom styles for the paragraph element instead:
+
+```diff
+-.MuiTypography-paragraph {
+-  margin-bottom: 16px;
+-}
++.MuiTypography-root:where(p) {
++  margin-bottom: 16px;
++}
+```
+
+#### Typography deprecated props removed
+
+Use the [typography-props codemod](https://github.com/mui/material-ui/tree/HEAD/packages/mui-codemod#typography-props) below to migrate the code as described in the following section:
+
+```bash
+npx @mui/codemod@latest deprecations/typography-props <path>
+```
+
+The deprecated `paragraph` prop has been removed.
+Use `sx` prop to add the margin bottom instead:
+
+```diff
+-<Typography paragraph />
++<Typography sx={{ marginBottom: '16px' }} />
 ```
