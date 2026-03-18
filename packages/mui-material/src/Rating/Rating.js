@@ -276,7 +276,6 @@ function RatingItem(props) {
     additionalProps: {
       value: itemValue,
     },
-    internalForwardedProps: {},
   });
 
   const [LabelSlot, labelSlotProps] = useSlot('label', {
