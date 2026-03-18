@@ -218,19 +218,11 @@ const SpeedDial = React.forwardRef(function SpeedDial(inProps, ref) {
    * Is called before the original ref callback for Button that was set in buttonProps
    *
    * @param dialActionIndex {number}
-   * @param origButtonRef {React.RefObject?}
    * @param fabSlotOrigButtonRef {React.RefObject?}
    */
-  const createHandleSpeedDialActionButtonRef = (
-    dialActionIndex,
-    origButtonRef,
-    fabSlotOrigButtonRef,
-  ) => {
+  const createHandleSpeedDialActionButtonRef = (dialActionIndex, fabSlotOrigButtonRef) => {
     return (buttonRef) => {
       actions.current[dialActionIndex + 1] = buttonRef;
-      if (origButtonRef) {
-        origButtonRef(buttonRef);
-      }
       if (fabSlotOrigButtonRef) {
         fabSlotOrigButtonRef(buttonRef);
       }
@@ -386,7 +378,7 @@ const SpeedDial = React.forwardRef(function SpeedDial(inProps, ref) {
       slotProps: {
         fab: {
           ...fabSlotProps,
-          ref: createHandleSpeedDialActionButtonRef(index, undefined, fabSlotOrigButtonRef),
+          ref: createHandleSpeedDialActionButtonRef(index, fabSlotOrigButtonRef),
         },
         ...restOfSlotProps,
         tooltip: {
