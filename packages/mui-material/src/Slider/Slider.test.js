@@ -64,6 +64,7 @@ describe.skipIf(!supportsTouch())('<Slider />', () => {
         },
       },
       skip: [
+        'componentsProp',
         'slotPropsCallback', // not supported yet
         'slotPropsCallbackWithPropsAsOwnerState', // not supported yet
       ],

@@ -5,14 +5,13 @@ import clsx from 'clsx';
 import chainPropTypes from '@mui/utils/chainPropTypes';
 import composeClasses from '@mui/utils/composeClasses';
 import { useRtl } from '@mui/system/RtlProvider';
-import useSlotProps from '@mui/utils/useSlotProps';
 import isHostComponent from '@mui/utils/isHostComponent';
 import { useSlider, valueToPercent } from './useSlider';
 import { styled } from '../zero-styled';
 import memoTheme from '../utils/memoTheme';
 import { useDefaultProps } from '../DefaultPropsProvider';
+import useSlot from '../utils/useSlot';
 import slotShouldForwardProp from '../styles/slotShouldForwardProp';
-import shouldSpreadAdditionalProps from '../utils/shouldSpreadAdditionalProps';
 import capitalize from '../utils/capitalize';
 import createSimplePaletteValueFilter from '../utils/createSimplePaletteValueFilter';
 import BaseSliderValueLabel from './SliderValueLabel';
@@ -561,8 +560,6 @@ const Slider = React.forwardRef(function Slider(inputProps, ref) {
     'aria-label': ariaLabel,
     'aria-valuetext': ariaValuetext,
     'aria-labelledby': ariaLabelledby,
-    // eslint-disable-next-line react/prop-types
-    component = 'span',
     color = 'primary',
     classes: classesProp,
     className,
@@ -635,103 +632,75 @@ const Slider = React.forwardRef(function Slider(inputProps, ref) {
 
   const classes = useUtilityClasses(ownerState);
 
-  const RootSlot = slots?.root ?? SliderRoot;
-  const RailSlot = slots?.rail ?? SliderRail;
-  const TrackSlot = slots?.track ?? SliderTrack;
-  const ThumbSlot = slots?.thumb ?? SliderThumb;
-  const ValueLabelSlot = slots?.valueLabel ?? SliderValueLabel;
-  const MarkSlot = slots?.mark ?? SliderMark;
-  const MarkLabelSlot = slots?.markLabel ?? SliderMarkLabel;
-  const InputSlot = slots?.input ?? 'input';
+  const externalForwardedProps = {
+    slots,
+    slotProps,
+  };
 
-  const rootSlotProps = slotProps?.root;
-  const railSlotProps = slotProps?.rail;
-  const trackSlotProps = slotProps?.track;
-  const thumbSlotProps = slotProps?.thumb;
-  const valueLabelSlotProps = slotProps?.valueLabel;
-  const markSlotProps = slotProps?.mark;
-  const markLabelSlotProps = slotProps?.markLabel;
-  const inputSlotProps = slotProps?.input;
-
-  const rootProps = useSlotProps({
-    elementType: RootSlot,
+  const [RootSlot, rootProps] = useSlot('root', {
+    elementType: SliderRoot,
     getSlotProps: getRootProps,
-    externalSlotProps: rootSlotProps,
-    externalForwardedProps: other,
-    additionalProps: {
-      ...(shouldSpreadAdditionalProps(RootSlot) && {
-        as: component,
-      }),
+    externalForwardedProps: {
+      ...externalForwardedProps,
+      ...other,
     },
-    ownerState: {
-      ...ownerState,
-      ...rootSlotProps?.ownerState,
-    },
+    ownerState,
     className: [classes.root, className],
   });
 
-  const railProps = useSlotProps({
-    elementType: RailSlot,
-    externalSlotProps: railSlotProps,
+  const [RailSlot, railProps] = useSlot('rail', {
+    elementType: SliderRail,
+    externalForwardedProps,
     ownerState,
     className: classes.rail,
   });
 
-  const trackProps = useSlotProps({
-    elementType: TrackSlot,
-    externalSlotProps: trackSlotProps,
+  const [TrackSlot, trackProps] = useSlot('track', {
+    elementType: SliderTrack,
+    externalForwardedProps,
     additionalProps: {
       style: {
         ...axisProps[axis].offset(trackOffset),
         ...axisProps[axis].leap(trackLeap),
       },
     },
-    ownerState: {
-      ...ownerState,
-      ...trackSlotProps?.ownerState,
-    },
+    ownerState,
     className: classes.track,
   });
 
-  const thumbProps = useSlotProps({
-    elementType: ThumbSlot,
+  const [ThumbSlot, thumbProps] = useSlot('thumb', {
+    elementType: SliderThumb,
     getSlotProps: getThumbProps,
-    externalSlotProps: thumbSlotProps,
-    ownerState: {
-      ...ownerState,
-      ...thumbSlotProps?.ownerState,
-    },
+    externalForwardedProps,
+    ownerState,
     className: classes.thumb,
   });
 
-  const valueLabelProps = useSlotProps({
-    elementType: ValueLabelSlot,
-    externalSlotProps: valueLabelSlotProps,
-    ownerState: {
-      ...ownerState,
-      ...valueLabelSlotProps?.ownerState,
-    },
+  const [ValueLabelSlot, valueLabelProps] = useSlot('valueLabel', {
+    elementType: SliderValueLabel,
+    externalForwardedProps,
+    ownerState,
     className: classes.valueLabel,
   });
 
-  const markProps = useSlotProps({
-    elementType: MarkSlot,
-    externalSlotProps: markSlotProps,
+  const [MarkSlot, markProps] = useSlot('mark', {
+    elementType: SliderMark,
+    externalForwardedProps,
     ownerState,
     className: classes.mark,
   });
 
-  const markLabelProps = useSlotProps({
-    elementType: MarkLabelSlot,
-    externalSlotProps: markLabelSlotProps,
+  const [MarkLabelSlot, markLabelProps] = useSlot('markLabel', {
+    elementType: SliderMarkLabel,
+    externalForwardedProps,
     ownerState,
     className: classes.markLabel,
   });
 
-  const inputSliderProps = useSlotProps({
-    elementType: InputSlot,
+  const [InputSliderSlot, inputSliderProps] = useSlot('input', {
+    elementType: 'input',
     getSlotProps: getHiddenInputProps,
-    externalSlotProps: inputSlotProps,
+    externalForwardedProps,
     ownerState,
   });
 
@@ -828,7 +797,7 @@ const Slider = React.forwardRef(function Slider(inputProps, ref) {
                 ...thumbProps.style,
               }}
             >
-              <InputSlot
+              <InputSliderSlot
                 data-index={index}
                 aria-label={getAriaLabel ? getAriaLabel(index) : ariaLabel}
                 aria-valuenow={scale(value)}
