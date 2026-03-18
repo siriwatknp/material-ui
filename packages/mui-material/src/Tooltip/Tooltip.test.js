@@ -821,6 +821,17 @@ describe('<Tooltip />', () => {
   });
 
   describe('prop: slotProps.popper', () => {
+    it('should pass slotProps to Popper Component', () => {
+      render(
+        <Tooltip title="Hello World" open slotProps={{ popper: { 'data-testid': 'popper' } }}>
+          <button id="testChild" type="submit">
+            Hello World
+          </button>
+        </Tooltip>,
+      );
+      expect(screen.getByTestId('popper')).not.to.equal(null);
+    });
+
     it('should merge popperOptions with arrow modifier', () => {
       const popperRef = React.createRef();
       render(
@@ -893,17 +904,6 @@ describe('<Tooltip />', () => {
       );
 
       expect(appliedComputeStylesModifier).not.to.equal(undefined);
-    });
-
-    it('should pass slotProps to Popper Component', () => {
-      render(
-        <Tooltip title="Hello World" open slotProps={{ popper: { 'data-testid': 'popper' } }}>
-          <button id="testChild" type="submit">
-            Hello World
-          </button>
-        </Tooltip>,
-      );
-      expect(screen.getByTestId('popper')).not.to.equal(null);
     });
   });
 
