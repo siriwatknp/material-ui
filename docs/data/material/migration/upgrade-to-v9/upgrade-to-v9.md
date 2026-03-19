@@ -835,11 +835,14 @@ The following deprecated props have been removed from the `Drawer` component:
 
 - `PaperProps` → use `slotProps.paper`
 - `SlideProps` → use `slotProps.transition`
+- `TransitionComponent` → use `slots.transition`
 
 ```diff
  <Drawer
 -  PaperProps={{ elevation: 2 }}
 -  SlideProps={{ timeout: 500 }}
+-  TransitionComponent={CustomTransition}
++  slots={{ transition: CustomTransition }}
 +  slotProps={{ paper: { elevation: 2 }, transition: { timeout: 500 } }}
  />
 ```

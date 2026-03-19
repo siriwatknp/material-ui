@@ -198,16 +198,13 @@ const Drawer = React.forwardRef(function Drawer(inProps, ref) {
 
   const {
     anchor: anchorProp = 'left',
-    BackdropProps,
     children,
     className,
     elevation = 16,
     hideBackdrop = false,
-    ModalProps: { BackdropProps: BackdropPropsProp, ...ModalProps } = {},
+    ModalProps = {},
     onClose,
     open = false,
-    // eslint-disable-next-line react/prop-types
-    TransitionComponent,
     transitionDuration = defaultTransitionDuration,
     variant = 'temporary',
     slots = {},
@@ -238,13 +235,10 @@ const Drawer = React.forwardRef(function Drawer(inProps, ref) {
   const classes = useUtilityClasses(ownerState);
 
   const externalForwardedProps = {
-    slots: {
-      transition: TransitionComponent,
-      ...slots,
-    },
+    slots,
     slotProps: {
       ...slotProps,
-      backdrop: mergeSlotProps(slotProps.backdrop || { ...BackdropProps, ...BackdropPropsProp }, {
+      backdrop: mergeSlotProps(slotProps.backdrop, {
         transitionDuration,
       }),
     },

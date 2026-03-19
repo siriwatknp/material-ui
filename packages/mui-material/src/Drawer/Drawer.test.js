@@ -328,7 +328,7 @@ describe('<Drawer />', () => {
       });
 
       const { setProps } = render(
-        <Drawer open TransitionComponent={MockedSlide}>
+        <Drawer open slots={{ transition: MockedSlide }}>
           <div />
         </Drawer>,
       );
@@ -367,7 +367,7 @@ describe('<Drawer />', () => {
       });
       const view = render(
         <ThemeProvider theme={theme}>
-          <Drawer open anchor="left" TransitionComponent={MockedSlide}>
+          <Drawer open anchor="left" slots={{ transition: MockedSlide }}>
             <div />
           </Drawer>
         </ThemeProvider>,
@@ -377,7 +377,7 @@ describe('<Drawer />', () => {
 
       view.rerender(
         <ThemeProvider theme={theme}>
-          <Drawer open anchor="right" TransitionComponent={MockedSlide}>
+          <Drawer open anchor="right" slots={{ transition: MockedSlide }}>
             <div />
           </Drawer>
         </ThemeProvider>,
