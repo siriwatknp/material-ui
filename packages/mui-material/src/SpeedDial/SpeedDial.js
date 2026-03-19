@@ -370,21 +370,22 @@ const SpeedDial = React.forwardRef(function SpeedDial(inProps, ref) {
     const { fab: { ref: fabSlotOrigButtonRef, ...fabSlotProps } = {}, ...restOfSlotProps } =
       childSlotProps;
 
-    const tooltipPlacement =
-      childSlotProps.tooltip?.placement ||
-      (getOrientation(direction) === 'vertical' ? 'left' : 'top');
+    const defaultPlacement = getOrientation(direction) === 'vertical' ? 'left' : 'top';
 
     return React.cloneElement(child, {
       slotProps: {
+        ...restOfSlotProps,
         fab: {
           ...fabSlotProps,
           ref: createHandleSpeedDialActionButtonRef(index, fabSlotOrigButtonRef),
         },
-        ...restOfSlotProps,
-        tooltip: {
-          ...(typeof restOfSlotProps.tooltip === 'object' ? restOfSlotProps.tooltip : undefined),
-          placement: tooltipPlacement,
-        },
+        tooltip:
+          typeof restOfSlotProps.tooltip === 'function'
+            ? (ownerState) => ({
+                placement: defaultPlacement,
+                ...restOfSlotProps.tooltip(ownerState),
+              })
+            : { placement: defaultPlacement, ...restOfSlotProps.tooltip },
       },
       delay: 30 * (open ? index : allItems.length - index),
       open,

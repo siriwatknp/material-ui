@@ -147,7 +147,7 @@ const SpeedDialAction = React.forwardRef(function SpeedDialAction(inProps, ref) 
   const { className, delay = 0, icon, id, open, slots = {}, slotProps = {}, ...other } = props;
 
   const resolvedTooltipSlotProps =
-    typeof slotProps.tooltip === 'function' ? {} : (slotProps.tooltip ?? {});
+    typeof slotProps.tooltip === 'function' ? slotProps.tooltip(props) : (slotProps.tooltip ?? {});
   const tooltipPlacement = resolvedTooltipSlotProps.placement ?? 'left';
 
   const ownerState = { ...props, tooltipPlacement };
