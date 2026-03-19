@@ -139,7 +139,7 @@ describe('<Drawer />', () => {
           <Drawer
             open={false}
             transitionDuration={transitionDuration}
-            SlideProps={{ onEntered: handleEntered }}
+            slotProps={{ transition: { onEntered: handleEntered } }}
           >
             <div />
           </Drawer>,
@@ -265,7 +265,7 @@ describe('<Drawer />', () => {
         <Drawer
           open={false}
           transitionDuration={transitionDuration}
-          SlideProps={{ onEntered: handleEntered }}
+          slotProps={{ transition: { onEntered: handleEntered } }}
           variant="persistent"
         >
           <div />
@@ -300,10 +300,10 @@ describe('<Drawer />', () => {
     });
   });
 
-  describe('prop: PaperProps', () => {
+  describe('prop: slotProps.paper', () => {
     it('should merge class names', () => {
       const { container } = render(
-        <Drawer PaperProps={{ className: 'my-class' }} variant="permanent">
+        <Drawer slotProps={{ paper: { className: 'my-class' } }} variant="permanent">
           <div />
         </Drawer>,
       );
