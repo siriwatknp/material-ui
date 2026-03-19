@@ -13,10 +13,7 @@ function Test() {
   return (
     <React.Fragment>
       <Popover open />;
-      <Popover
-        open
-        slotProps={{ paper: paperProps as NonNullable<PopoverProps['slotProps']>['paper'] }}
-      />
+      <Popover open slotProps={{ paper: paperProps }} />
     </React.Fragment>
   );
 }
