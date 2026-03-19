@@ -747,6 +747,80 @@ If you were using these deprecated class names as `styleOverrides` keys in your 
  });
 ```
 
+#### Dialog deprecated CSS classes removed
+
+Use the [dialog-classes codemod](https://github.com/mui/material-ui/tree/HEAD/packages/mui-codemod#dialog-classes) below to migrate the code as described in the following section:
+
+```bash
+npx @mui/codemod@latest deprecations/dialog-classes <path>
+```
+
+The following deprecated `Dialog` CSS classes have been removed:
+
+- `paperScrollPaper` → use `.MuiDialog-scrollPaper > .MuiDialog-paper`
+- `paperScrollBody` → use `.MuiDialog-scrollBody > .MuiDialog-paper`
+
+If you were using these classes in `styleOverrides`, use the `variants` array in the `paper` slot instead:
+
+```diff
+ const theme = createTheme({
+   components: {
+     MuiDialog: {
+       styleOverrides: {
+-        paperScrollPaper: {
+-          maxHeight: '80vh',
+-        },
+-        paperScrollBody: {
+-          verticalAlign: 'bottom',
+-        },
++        paper: {
++          variants: [
++            {
++              props: { scroll: 'paper' },
++              style: {
++                maxHeight: '80vh',
++              },
++            },
++            {
++              props: { scroll: 'body' },
++              style: {
++                verticalAlign: 'bottom',
++              },
++            },
++          ],
++        },
+       },
+     },
+   },
+ });
+```
+
+#### Dialog deprecated props removed
+
+Use the [dialog-props codemod](https://github.com/mui/material-ui/tree/HEAD/packages/mui-codemod#dialog-props) below to migrate the code as described in the following section:
+
+```bash
+npx @mui/codemod@latest deprecations/dialog-props <path>
+```
+
+The following deprecated props have been removed from the `Dialog` component:
+
+- `PaperProps` → use `slotProps.paper`
+- `TransitionComponent` → use `slots.transition`
+- `TransitionProps` → use `slotProps.transition`
+
+```diff
+ <Dialog
+-  PaperProps={{ elevation: 3 }}
+-  TransitionComponent={CustomTransition}
+-  TransitionProps={{ timeout: 500 }}
++  slots={{ transition: CustomTransition }}
++  slotProps={{ paper: { elevation: 3 }, transition: { timeout: 500 } }}
+ />
+```
+
+> > > > > > > 8be8bfe33f ([dialog] Remove deprecated props and classes)
+
 #### Divider deprecated props removed
 
 Use the [codemod](https://github.com/mui/material-ui/tree/HEAD/packages/mui-codemod#divider-props) below to migrate the code as described in the following sections:

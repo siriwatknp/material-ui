@@ -33,7 +33,6 @@ const useUtilityClasses = (ownerState) => {
     container: ['container', `scroll${capitalize(scroll)}`],
     paper: [
       'paper',
-      `paperScroll${capitalize(scroll)}`,
       `paperWidth${capitalize(String(maxWidth))}`,
       fullWidth && 'paperFullWidth',
       fullScreen && 'paperFullScreen',
@@ -107,7 +106,6 @@ const DialogPaper = styled(Paper, {
 
     return [
       styles.paper,
-      styles[`scrollPaper${capitalize(ownerState.scroll)}`],
       styles[`paperWidth${capitalize(String(ownerState.maxWidth))}`],
       ownerState.fullWidth && styles.paperFullWidth,
       ownerState.fullScreen && styles.paperFullScreen,
@@ -158,10 +156,16 @@ const DialogPaper = styled(Paper, {
             theme.breakpoints.unit === 'px'
               ? Math.max(theme.breakpoints.values.xs, 444)
               : `max(${theme.breakpoints.values.xs}${theme.breakpoints.unit}, 444px)`,
-          [`&.${dialogClasses.paperScrollBody}`]: {
-            [theme.breakpoints.down(Math.max(theme.breakpoints.values.xs, 444) + 32 * 2)]: {
-              maxWidth: 'calc(100% - 64px)',
-            },
+        },
+      },
+      {
+        props: {
+          maxWidth: 'xs',
+          scroll: 'body',
+        },
+        style: {
+          [theme.breakpoints.down(Math.max(theme.breakpoints.values.xs, 444) + 32 * 2)]: {
+            maxWidth: 'calc(100% - 64px)',
           },
         },
       },
@@ -171,10 +175,15 @@ const DialogPaper = styled(Paper, {
           props: { maxWidth },
           style: {
             maxWidth: `${theme.breakpoints.values[maxWidth]}${theme.breakpoints.unit}`,
-            [`&.${dialogClasses.paperScrollBody}`]: {
-              [theme.breakpoints.down(theme.breakpoints.values[maxWidth] + 32 * 2)]: {
-                maxWidth: 'calc(100% - 64px)',
-              },
+          },
+        })),
+      ...Object.keys(theme.breakpoints.values)
+        .filter((maxWidth) => maxWidth !== 'xs')
+        .map((maxWidth) => ({
+          props: { maxWidth, scroll: 'body' },
+          style: {
+            [theme.breakpoints.down(theme.breakpoints.values[maxWidth] + 32 * 2)]: {
+              maxWidth: 'calc(100% - 64px)',
             },
           },
         })),
@@ -193,10 +202,13 @@ const DialogPaper = styled(Paper, {
           height: '100%',
           maxHeight: 'none',
           borderRadius: 0,
-          [`&.${dialogClasses.paperScrollBody}`]: {
-            margin: 0,
-            maxWidth: '100%',
-          },
+        },
+      },
+      {
+        props: ({ ownerState }) => ownerState.fullScreen && ownerState.scroll === 'body',
+        style: {
+          margin: 0,
+          maxWidth: '100%',
         },
       },
     ],
@@ -229,13 +241,10 @@ const Dialog = React.forwardRef(function Dialog(inProps, ref) {
     onClose,
     open,
     PaperComponent = Paper,
-    PaperProps = {},
     scroll = 'paper',
     slots = {},
     slotProps = {},
-    TransitionComponent = Fade,
     transitionDuration = defaultTransitionDuration,
-    TransitionProps,
     ...other
   } = props;
 
@@ -277,21 +286,12 @@ const Dialog = React.forwardRef(function Dialog(inProps, ref) {
     return { titleId: ariaLabelledby };
   }, [ariaLabelledby]);
 
-  const backwardCompatibleSlots = {
-    transition: TransitionComponent,
-    ...slots,
-  };
-
-  const backwardCompatibleSlotProps = {
-    transition: TransitionProps,
-    paper: PaperProps,
-    backdrop: BackdropProps,
-    ...slotProps,
-  };
-
   const externalForwardedProps = {
-    slots: backwardCompatibleSlots,
-    slotProps: backwardCompatibleSlotProps,
+    slots,
+    slotProps: {
+      backdrop: BackdropProps,
+      ...slotProps,
+    },
   };
 
   const [RootSlot, rootSlotProps] = useSlot('root', {
@@ -316,7 +316,7 @@ const Dialog = React.forwardRef(function Dialog(inProps, ref) {
     shouldForwardComponentProp: true,
     externalForwardedProps,
     ownerState,
-    className: clsx(classes.paper, PaperProps.className),
+    className: classes.paper,
   });
 
   const [ContainerSlot, containerSlotProps] = useSlot('container', {
@@ -466,12 +466,6 @@ Dialog.propTypes /* remove-proptypes */ = {
    */
   PaperComponent: PropTypes.elementType,
   /**
-   * Props applied to the [`Paper`](https://mui.com/material-ui/api/paper/) element.
-   * @default {}
-   * @deprecated Use `slotProps.paper` instead. This prop will be removed in a future major release. See [Migrating from deprecated APIs](/material-ui/migration/migrating-from-deprecated-apis/) for more details.
-   */
-  PaperProps: PropTypes.object,
-  /**
    * Determine the container for scrolling the dialog.
    * @default 'paper'
    */
@@ -507,13 +501,6 @@ Dialog.propTypes /* remove-proptypes */ = {
     PropTypes.object,
   ]),
   /**
-   * The component used for the transition.
-   * [Follow this guide](https://mui.com/material-ui/transitions/#transitioncomponent-prop) to learn more about the requirements for this component.
-   * @default Fade
-   * @deprecated Use `slots.transition` instead. This prop will be removed in a future major release. See [Migrating from deprecated APIs](/material-ui/migration/migrating-from-deprecated-apis/) for more details.
-   */
-  TransitionComponent: PropTypes.elementType,
-  /**
    * The duration for the transition, in milliseconds.
    * You may specify a single timeout for all transitions, or individually with an object.
    * @default {
@@ -529,12 +516,6 @@ Dialog.propTypes /* remove-proptypes */ = {
       exit: PropTypes.number,
     }),
   ]),
-  /**
-   * Props applied to the transition element.
-   * By default, the element is based on this [`Transition`](https://reactcommunity.org/react-transition-group/transition/) component.
-   * @deprecated Use `slotProps.transition` instead. This prop will be removed in a future major release. See [Migrating from deprecated APIs](/material-ui/migration/migrating-from-deprecated-apis/) for more details.
-   */
-  TransitionProps: PropTypes.object,
 };
 
 export default Dialog;
