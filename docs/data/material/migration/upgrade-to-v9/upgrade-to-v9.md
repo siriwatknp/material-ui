@@ -744,6 +744,35 @@ The following deprecated prop has been removed:
  />
 ```
 
+#### PaginationItem deprecated props removed
+
+Use the [pagination-item-props codemod](https://github.com/mui/material-ui/tree/HEAD/packages/mui-codemod#pagination-item-props) below to migrate the code as described in the following section:
+
+```bash
+npx @mui/codemod@latest deprecations/pagination-item-props <path>
+```
+
+The following deprecated props have been removed:
+
+- `components` — use `slots` instead
+
+```diff
+ <PaginationItem
+-  components={{
+-    first: MyFirstIcon,
+-    last: MyLastIcon,
+-    previous: MyPreviousIcon,
+-    next: MyNextIcon,
+-  }}
++  slots={{
++    first: MyFirstIcon,
++    last: MyLastIcon,
++    previous: MyPreviousIcon,
++    next: MyNextIcon,
++  }}
+ />
+```
+
 #### Popper deprecated props removed
 
 Use the [popper-props codemod](https://github.com/mui/material-ui/tree/HEAD/packages/mui-codemod#popper-props) below to migrate the code as described in the following section:
