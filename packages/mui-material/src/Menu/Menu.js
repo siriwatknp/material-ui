@@ -290,10 +290,6 @@ Menu.propTypes /* remove-proptypes */ = {
    */
   open: PropTypes.bool.isRequired,
   /**
-   * @ignore
-   */
-  PaperProps: PropTypes.object,
-  /**
    * `classes` prop applied to the [`Popover`](https://mui.com/material-ui/api/popover/) element.
    */
   PopoverClasses: PropTypes.object,
