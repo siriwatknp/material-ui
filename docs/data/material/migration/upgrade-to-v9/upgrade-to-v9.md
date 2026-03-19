@@ -883,6 +883,13 @@ The following deprecated props have been removed:
  />
 ```
 
+```diff
+ <Tabs
+-  slots={{ StartScrollButtonIcon: CustomIcon, EndScrollButtonIcon: CustomIcon2 }}
++  slots={{ startScrollButtonIcon: CustomIcon, endScrollButtonIcon: CustomIcon2 }}
+ />
+```
+
 #### TextField deprecated props removed
 
 Use the [text-field-props codemod](https://github.com/mui/material-ui/tree/HEAD/packages/mui-codemod#text-field-props) below to migrate the code as described in the following section:
