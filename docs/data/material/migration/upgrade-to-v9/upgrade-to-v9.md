@@ -851,24 +851,6 @@ The following deprecated props have been removed from the `Drawer` component:
  />
 ```
 
-#### SwipeableDrawer deprecated props removed
-
-The following deprecated props have been removed from the `SwipeableDrawer` component:
-
-- `BackdropComponent` → use `slots.backdrop`
-- `BackdropProps` → use `slotProps.backdrop`
-- `SwipeAreaProps` → use `slotProps.swipeArea`
-
-```diff
- <SwipeableDrawer
--  BackdropComponent={CustomBackdrop}
--  BackdropProps={{ invisible: true }}
--  SwipeAreaProps={{ className: 'custom' }}
-+  slots={{ backdrop: CustomBackdrop }}
-+  slotProps={{ backdrop: { invisible: true }, swipeArea: { className: 'custom' } }}
- />
-```
-
 #### Modal deprecated props removed
 
 Use the [modal-props codemod](https://github.com/mui/material-ui/tree/HEAD/packages/mui-codemod#modal-props) below to migrate the code as described in the following section:
@@ -932,29 +914,86 @@ The following deprecated prop has been removed:
  />
 ```
 
-#### Modal deprecated props removed
+#### Menu deprecated props removed
 
-Use the [modal-props codemod](https://github.com/mui/material-ui/tree/HEAD/packages/mui-codemod#modal-props) below to migrate the code as described in the following section:
+The following deprecated props have been removed:
 
-```bash
-npx @mui/codemod@latest deprecations/modal-props <path>
-```
-
-The following deprecated props have been removed from the `Modal` component:
-
-- `BackdropComponent` → use `slots.backdrop`
-- `BackdropProps` → use `slotProps.backdrop`
-- `components` → use `slots`
-- `componentsProps` → use `slotProps`
+- `MenuListProps` — use `slotProps.list` instead
+- `PaperProps` — use `slotProps.paper` instead
+- `TransitionProps` — use `slotProps.transition` instead
 
 ```diff
- <Modal
+ <Menu
+-  MenuListProps={{ disablePadding: true }}
+-  PaperProps={{ elevation: 12 }}
+-  TransitionProps={{ timeout: 500 }}
++  slotProps={{
++    list: { disablePadding: true },
++    paper: { elevation: 12 },
++    transition: { timeout: 500 },
++  }}
+ />
+```
+
+If you pass these props via `Select`'s `MenuProps`, update them the same way:
+
+```diff
+ <Select
+   MenuProps={{
+-    PaperProps: { style: { maxHeight: 200 } },
+-    MenuListProps: { disablePadding: true },
+-    TransitionProps: { timeout: 500 },
++    slotProps: {
++      paper: { style: { maxHeight: 200 } },
++      list: { disablePadding: true },
++      transition: { timeout: 500 },
++    },
+   }}
+ />
+```
+
+#### MobileStepper deprecated props removed
+
+Use the [mobile-stepper-props codemod](https://github.com/mui/material-ui/tree/HEAD/packages/mui-codemod#mobile-stepper-props) below to migrate the code as described in the following section:
+
+```bash
+npx @mui/codemod@latest deprecations/mobile-stepper-props <path>
+```
+
+The following deprecated props have been removed:
+
+- `LinearProgressProps` — use `slotProps.progress` instead
+
+```diff
+ <MobileStepper
+-  LinearProgressProps={{ className: 'progress' }}
++  slotProps={{ progress: { className: 'progress' } }}
+ />
+```
+
+#### Popover deprecated props removed
+
+The following deprecated props have been removed:
+
+- `BackdropComponent` — use `slots.backdrop` instead
+- `BackdropProps` — use `slotProps.backdrop` instead
+- `PaperProps` — use `slotProps.paper` instead
+- `TransitionComponent` — use `slots.transition` instead
+- `TransitionProps` — use `slotProps.transition` instead
+
+```diff
+ <Popover
 -  BackdropComponent={CustomBackdrop}
 -  BackdropProps={{ invisible: true }}
--  components={{ Root: CustomRoot }}
--  componentsProps={{ root: { className: 'custom' } }}
-+  slots={{ backdrop: CustomBackdrop, root: CustomRoot }}
-+  slotProps={{ backdrop: { invisible: true }, root: { className: 'custom' } }}
+-  PaperProps={{ elevation: 12 }}
+-  TransitionComponent={CustomTransition}
+-  TransitionProps={{ timeout: 500 }}
++  slots={{ backdrop: CustomBackdrop, transition: CustomTransition }}
++  slotProps={{
++    backdrop: { invisible: true },
++    paper: { elevation: 12 },
++    transition: { timeout: 500 },
++  }}
  />
 ```
 
@@ -1068,86 +1107,21 @@ Use the `slotProps` prop instead:
 +    },
 ```
 
-#### Menu deprecated props removed
+#### SwipeableDrawer deprecated props removed
 
-The following deprecated props have been removed:
+The following deprecated props have been removed from the `SwipeableDrawer` component:
 
-- `MenuListProps` — use `slotProps.list` instead
-- `PaperProps` — use `slotProps.paper` instead
-- `TransitionProps` — use `slotProps.transition` instead
-
-```diff
- <Menu
--  MenuListProps={{ disablePadding: true }}
--  PaperProps={{ elevation: 12 }}
--  TransitionProps={{ timeout: 500 }}
-+  slotProps={{
-+    list: { disablePadding: true },
-+    paper: { elevation: 12 },
-+    transition: { timeout: 500 },
-+  }}
- />
-```
-
-If you pass these props via `Select`'s `MenuProps`, update them the same way:
+- `BackdropComponent` → use `slots.backdrop`
+- `BackdropProps` → use `slotProps.backdrop`
+- `SwipeAreaProps` → use `slotProps.swipeArea`
 
 ```diff
- <Select
-   MenuProps={{
--    PaperProps: { style: { maxHeight: 200 } },
--    MenuListProps: { disablePadding: true },
--    TransitionProps: { timeout: 500 },
-+    slotProps: {
-+      paper: { style: { maxHeight: 200 } },
-+      list: { disablePadding: true },
-+      transition: { timeout: 500 },
-+    },
-   }}
- />
-```
-
-#### MobileStepper deprecated props removed
-
-Use the [mobile-stepper-props codemod](https://github.com/mui/material-ui/tree/HEAD/packages/mui-codemod#mobile-stepper-props) below to migrate the code as described in the following section:
-
-```bash
-npx @mui/codemod@latest deprecations/mobile-stepper-props <path>
-```
-
-The following deprecated props have been removed:
-
-- `LinearProgressProps` — use `slotProps.progress` instead
-
-```diff
- <MobileStepper
--  LinearProgressProps={{ className: 'progress' }}
-+  slotProps={{ progress: { className: 'progress' } }}
- />
-```
-
-#### Popover deprecated props removed
-
-The following deprecated props have been removed:
-
-- `BackdropComponent` — use `slots.backdrop` instead
-- `BackdropProps` — use `slotProps.backdrop` instead
-- `PaperProps` — use `slotProps.paper` instead
-- `TransitionComponent` — use `slots.transition` instead
-- `TransitionProps` — use `slotProps.transition` instead
-
-```diff
- <Popover
+ <SwipeableDrawer
 -  BackdropComponent={CustomBackdrop}
 -  BackdropProps={{ invisible: true }}
--  PaperProps={{ elevation: 12 }}
--  TransitionComponent={CustomTransition}
--  TransitionProps={{ timeout: 500 }}
-+  slots={{ backdrop: CustomBackdrop, transition: CustomTransition }}
-+  slotProps={{
-+    backdrop: { invisible: true },
-+    paper: { elevation: 12 },
-+    transition: { timeout: 500 },
-+  }}
+-  SwipeAreaProps={{ className: 'custom' }}
++  slots={{ backdrop: CustomBackdrop }}
++  slotProps={{ backdrop: { invisible: true }, swipeArea: { className: 'custom' } }}
  />
 ```
 
