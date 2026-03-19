@@ -734,3 +734,54 @@ The following deprecated props have been removed:
 +  }}
  />
 ```
+
+#### Popper deprecated props removed
+
+Use the [popper-props codemod](https://github.com/mui/material-ui/tree/HEAD/packages/mui-codemod#popper-props) below to migrate the code as described in the following section:
+
+```bash
+npx @mui/codemod@latest deprecations/popper-props <path>
+```
+
+The following deprecated props have been removed:
+
+- `components` — use `slots` instead
+- `componentsProps` — use `slotProps` instead
+
+```diff
+ <Popper
+-  components={{ Root: CustomRoot }}
+-  componentsProps={{ root: { className: 'custom' } }}
++  slots={{ root: CustomRoot }}
++  slotProps={{ root: { className: 'custom' } }}
+ />
+```
+
+#### Tabs deprecated props removed
+
+Use the [tabs-props codemod](https://github.com/mui/material-ui/tree/HEAD/packages/mui-codemod#tabs-props) below to migrate the code as described in the following section:
+
+```bash
+npx @mui/codemod@latest deprecations/tabs-props <path>
+```
+
+The following deprecated props have been removed:
+
+- `ScrollButtonComponent` — use `slots.scrollButtons` instead
+- `TabIndicatorProps` — use `slotProps.indicator` instead
+- `TabScrollButtonProps` — use `slotProps.scrollButtons` instead
+- `slots.StartScrollButtonIcon` — use `slots.startScrollButtonIcon` instead
+- `slots.EndScrollButtonIcon` — use `slots.endScrollButtonIcon` instead
+
+```diff
+ <Tabs
+-  ScrollButtonComponent={CustomScrollButton}
+-  TabIndicatorProps={{ style: { backgroundColor: 'green' } }}
+-  TabScrollButtonProps={{ disableRipple: true }}
++  slots={{ scrollButtons: CustomScrollButton }}
++  slotProps={{
++    indicator: { style: { backgroundColor: 'green' } },
++    scrollButtons: { disableRipple: true },
++  }}
+ />
+```
