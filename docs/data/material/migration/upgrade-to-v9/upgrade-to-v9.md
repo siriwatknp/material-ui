@@ -840,6 +840,19 @@ The following deprecated props have been removed from the `Drawer` component:
  />
 ```
 
+#### SwipeableDrawer deprecated props removed
+
+The following deprecated prop has been removed from the `SwipeableDrawer` component:
+
+- `SwipeAreaProps` → use `slotProps.swipeArea`
+
+```diff
+ <SwipeableDrawer
+-  SwipeAreaProps={{ className: 'custom' }}
++  slotProps={{ swipeArea: { className: 'custom' } }}
+ />
+```
+
 #### Modal deprecated props removed
 
 Use the [modal-props codemod](https://github.com/mui/material-ui/tree/HEAD/packages/mui-codemod#modal-props) below to migrate the code as described in the following section:

@@ -156,8 +156,6 @@ const SwipeableDrawer = React.forwardRef(function SwipeableDrawer(inProps, ref) 
     onClose,
     onOpen,
     open = false,
-    PaperProps = {},
-    SwipeAreaProps,
     swipeAreaWidth = 20,
     transitionDuration = transitionDurationDefault,
     variant = 'temporary', // Mobile first.
@@ -174,8 +172,6 @@ const SwipeableDrawer = React.forwardRef(function SwipeableDrawer(inProps, ref) 
   const swipeAreaRef = React.useRef();
   const backdropRef = React.useRef();
   const paperRef = React.useRef();
-
-  const handleRef = useForkRef(PaperProps.ref, paperRef);
 
   const touchDetected = React.useRef(false);
 
@@ -594,10 +590,7 @@ const SwipeableDrawer = React.forwardRef(function SwipeableDrawer(inProps, ref) 
     ownerState: props,
     externalForwardedProps: {
       slots,
-      slotProps: {
-        swipeArea: SwipeAreaProps,
-        ...slotProps,
-      },
+      slotProps,
     },
     additionalProps: {
       width: swipeAreaWidth,
@@ -633,12 +626,12 @@ const SwipeableDrawer = React.forwardRef(function SwipeableDrawer(inProps, ref) 
           backdrop: mergeSlotProps(slotProps.backdrop ?? BackdropProps, {
             ref: backdropRef,
           }),
-          paper: mergeSlotProps(slotProps.paper ?? PaperProps, {
+          paper: mergeSlotProps(slotProps.paper, {
             style: {
               pointerEvents:
                 variant === 'temporary' && !open && !allowSwipeInChildren ? 'none' : '',
             },
-            ref: handleRef,
+            ref: paperRef,
           }),
         }}
         {...other}
@@ -739,13 +732,6 @@ SwipeableDrawer.propTypes /* remove-proptypes */ = {
    */
   open: PropTypes.bool,
   /**
-   * @ignore
-   */
-  PaperProps: PropTypes /* @typescript-to-proptypes-ignore */.shape({
-    component: elementTypeAcceptingRef,
-    style: PropTypes.object,
-  }),
-  /**
    * The props used for each slot inside.
    * @default {}
    */
@@ -769,11 +755,6 @@ SwipeableDrawer.propTypes /* remove-proptypes */ = {
     swipeArea: PropTypes.elementType,
     transition: PropTypes.elementType,
   }),
-  /**
-   * The element is used to intercept the touch events on the edge.
-   * @deprecated use the `slotProps.swipeArea` prop instead. This prop will be removed in a future major release. See [Migrating from deprecated APIs](https://mui.com/material-ui/migration/migrating-from-deprecated-apis/) for more details.
-   */
-  SwipeAreaProps: PropTypes.object,
   /**
    * The width of the left most (or right most) area in `px` that
    * the drawer can be swiped open from.
