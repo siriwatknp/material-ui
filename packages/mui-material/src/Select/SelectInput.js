@@ -519,6 +519,7 @@ const SelectInput = React.forwardRef(function SelectInput(props, ref) {
   };
 
   const listboxId = useId();
+  const nativeInputId = useId();
 
   return (
     <React.Fragment>
@@ -569,6 +570,7 @@ const SelectInput = React.forwardRef(function SelectInput(props, ref) {
         autoFocus={autoFocus}
         required={required}
         {...other}
+        id={other.id ?? nativeInputId}
         ownerState={ownerState}
       />
       <SelectIcon as={IconComponent} className={classes.icon} ownerState={ownerState} />
