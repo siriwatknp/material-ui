@@ -767,6 +767,13 @@ The following deprecated props have been removed:
  />
 ```
 
+```diff
+ <Tabs
+-  slots={{ StartScrollButtonIcon: CustomIcon, EndScrollButtonIcon: CustomIcon2 }}
++  slots={{ startScrollButtonIcon: CustomIcon, endScrollButtonIcon: CustomIcon2 }}
+ />
+```
+
 #### FormControlLabel deprecated props removed
 
 Use the [form-control-label-props codemod](https://github.com/mui/material-ui/tree/HEAD/packages/mui-codemod#form-control-label-props) below to migrate the code as described in the following section:
