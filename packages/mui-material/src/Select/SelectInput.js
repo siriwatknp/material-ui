@@ -504,26 +504,15 @@ const SelectInput = React.forwardRef(function SelectInput(props, ref) {
 
   const classes = useUtilityClasses(ownerState);
 
-  const {
-    PaperProps: MenuPaperProps,
-    MenuListProps: MenuMenuListProps,
-    TransitionProps: MenuTransitionProps,
-    ...MenuPropsOther
-  } = MenuProps;
-
-  const paperProps = {
-    ...MenuPaperProps,
-    ...(typeof MenuProps.slotProps?.paper === 'function'
+  const menuPaperSlotProps =
+    typeof MenuProps.slotProps?.paper === 'function'
       ? MenuProps.slotProps.paper(ownerState)
-      : MenuProps.slotProps?.paper),
-  };
+      : MenuProps.slotProps?.paper;
 
-  const listProps = {
-    ...MenuMenuListProps,
-    ...(typeof MenuProps.slotProps?.list === 'function'
+  const menuListSlotProps =
+    typeof MenuProps.slotProps?.list === 'function'
       ? MenuProps.slotProps.list(ownerState)
-      : MenuProps.slotProps?.list),
-  };
+      : MenuProps.slotProps?.list;
 
   const listboxId = useId();
 
@@ -593,28 +582,22 @@ const SelectInput = React.forwardRef(function SelectInput(props, ref) {
             vertical: 'top',
             horizontal: 'center',
           }}
-          {...MenuPropsOther}
+          {...MenuProps}
           slotProps={{
-            ...MenuPropsOther.slotProps,
-            transition: {
-              ...MenuTransitionProps,
-              ...(typeof MenuPropsOther.slotProps?.transition === 'function'
-                ? MenuPropsOther.slotProps.transition(ownerState)
-                : MenuPropsOther.slotProps?.transition),
-            },
+            ...MenuProps.slotProps,
             list: {
               'aria-labelledby': labelId,
               role: 'listbox',
               'aria-multiselectable': multiple ? 'true' : undefined,
               disableListWrap: true,
               id: listboxId,
-              ...listProps,
+              ...menuListSlotProps,
             },
             paper: {
-              ...paperProps,
+              ...menuPaperSlotProps,
               style: {
                 minWidth: menuMinWidth,
-                ...(paperProps != null ? paperProps.style : null),
+                ...menuPaperSlotProps?.style,
               },
             },
           }}
