@@ -381,9 +381,9 @@ const SpeedDial = React.forwardRef(function SpeedDial(inProps, ref) {
         },
         tooltip:
           typeof restOfSlotProps.tooltip === 'function'
-            ? (ownerState) => ({
+            ? (state) => ({
                 placement: defaultPlacement,
-                ...restOfSlotProps.tooltip(ownerState),
+                ...restOfSlotProps.tooltip(state),
               })
             : { placement: defaultPlacement, ...restOfSlotProps.tooltip },
       },
