@@ -96,7 +96,7 @@ const Menu = React.forwardRef(function Menu(inProps, ref) {
 
   const menuListActionsRef = React.useRef(null);
 
-  const handleEntering = (element, isAppearing) => {
+  const handleEntering = (element, _isAppearing) => {
     if (menuListActionsRef.current) {
       menuListActionsRef.current.adjustStyleForScrollbar(element, {
         direction: isRtl ? 'rtl' : 'ltr',
@@ -289,6 +289,10 @@ Menu.propTypes /* remove-proptypes */ = {
    * If `true`, the component is shown.
    */
   open: PropTypes.bool.isRequired,
+  /**
+   * @ignore
+   */
+  PaperProps: PropTypes.object,
   /**
    * `classes` prop applied to the [`Popover`](https://mui.com/material-ui/api/popover/) element.
    */
