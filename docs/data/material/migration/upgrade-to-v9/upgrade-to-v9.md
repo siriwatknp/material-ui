@@ -833,30 +833,39 @@ npx @mui/codemod@latest deprecations/drawer-props <path>
 
 The following deprecated props have been removed from the `Drawer` component:
 
+- `BackdropComponent` → use `slots.backdrop`
+- `BackdropProps` → use `slotProps.backdrop`
 - `PaperProps` → use `slotProps.paper`
 - `SlideProps` → use `slotProps.transition`
 - `TransitionComponent` → use `slots.transition`
 
 ```diff
  <Drawer
+-  BackdropComponent={CustomBackdrop}
+-  BackdropProps={{ invisible: true }}
 -  PaperProps={{ elevation: 2 }}
 -  SlideProps={{ timeout: 500 }}
 -  TransitionComponent={CustomTransition}
-+  slots={{ transition: CustomTransition }}
-+  slotProps={{ paper: { elevation: 2 }, transition: { timeout: 500 } }}
++  slots={{ backdrop: CustomBackdrop, transition: CustomTransition }}
++  slotProps={{ backdrop: { invisible: true }, paper: { elevation: 2 }, transition: { timeout: 500 } }}
  />
 ```
 
 #### SwipeableDrawer deprecated props removed
 
-The following deprecated prop has been removed from the `SwipeableDrawer` component:
+The following deprecated props have been removed from the `SwipeableDrawer` component:
 
+- `BackdropComponent` → use `slots.backdrop`
+- `BackdropProps` → use `slotProps.backdrop`
 - `SwipeAreaProps` → use `slotProps.swipeArea`
 
 ```diff
  <SwipeableDrawer
+-  BackdropComponent={CustomBackdrop}
+-  BackdropProps={{ invisible: true }}
 -  SwipeAreaProps={{ className: 'custom' }}
-+  slotProps={{ swipeArea: { className: 'custom' } }}
++  slots={{ backdrop: CustomBackdrop }}
++  slotProps={{ backdrop: { invisible: true }, swipeArea: { className: 'custom' } }}
  />
 ```
 
