@@ -504,15 +504,22 @@ const SelectInput = React.forwardRef(function SelectInput(props, ref) {
 
   const classes = useUtilityClasses(ownerState);
 
+  const {
+    PaperProps: MenuPaperProps,
+    MenuListProps: MenuMenuListProps,
+    TransitionProps: MenuTransitionProps,
+    ...MenuPropsOther
+  } = MenuProps;
+
   const paperProps = {
-    ...MenuProps.PaperProps,
+    ...MenuPaperProps,
     ...(typeof MenuProps.slotProps?.paper === 'function'
       ? MenuProps.slotProps.paper(ownerState)
       : MenuProps.slotProps?.paper),
   };
 
   const listProps = {
-    ...MenuProps.MenuListProps,
+    ...MenuMenuListProps,
     ...(typeof MenuProps.slotProps?.list === 'function'
       ? MenuProps.slotProps.list(ownerState)
       : MenuProps.slotProps?.list),
@@ -586,9 +593,15 @@ const SelectInput = React.forwardRef(function SelectInput(props, ref) {
             vertical: 'top',
             horizontal: 'center',
           }}
-          {...MenuProps}
+          {...MenuPropsOther}
           slotProps={{
-            ...MenuProps.slotProps,
+            ...MenuPropsOther.slotProps,
+            transition: {
+              ...MenuTransitionProps,
+              ...(typeof MenuPropsOther.slotProps?.transition === 'function'
+                ? MenuPropsOther.slotProps.transition(ownerState)
+                : MenuPropsOther.slotProps?.transition),
+            },
             list: {
               'aria-labelledby': labelId,
               role: 'listbox',
