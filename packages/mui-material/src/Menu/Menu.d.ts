@@ -121,12 +121,6 @@ export interface MenuProps
    */
   disableAutoFocusItem?: boolean | undefined;
   /**
-   * Props applied to the [`MenuList`](https://mui.com/material-ui/api/menu-list/) element.
-   * @deprecated use the `slotProps.list` prop instead. This prop will be removed in a future major release. See [Migrating from deprecated APIs](https://mui.com/material-ui/migration/migrating-from-deprecated-apis/) for more details.
-   * @default {}
-   */
-  MenuListProps?: Partial<MenuListProps> | undefined;
-  /**
    * Props applied to the [`Paper`](https://mui.com/material-ui/api/paper/) element.
    * @deprecated Use `slotProps.paper` instead. This prop will be removed in a future major release. See [Migrating from deprecated APIs](https://mui.com/material-ui/migration/migrating-from-deprecated-apis/) for more details.
    * @default {}
@@ -156,13 +150,6 @@ export interface MenuProps
    * @default 'auto'
    */
   transitionDuration?: TransitionProps['timeout'] | 'auto' | undefined;
-  /**
-   * Props applied to the transition element.
-   * By default, the element is based on this [`Transition`](https://reactcommunity.org/react-transition-group/transition/) component.
-   * @deprecated use the `slotProps.transition` prop instead. This prop will be removed in a future major release. See [Migrating from deprecated APIs](https://mui.com/material-ui/migration/migrating-from-deprecated-apis/) for more details.
-   * @default {}
-   */
-  TransitionProps?: TransitionProps | undefined;
   /**
    * The variant to use. Use `menu` to prevent selected items from impacting the initial focus.
    * @default 'selectedMenu'

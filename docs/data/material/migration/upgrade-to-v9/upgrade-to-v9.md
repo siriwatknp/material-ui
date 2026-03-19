@@ -709,6 +709,27 @@ Use `sx={{ opacity : "0.6" }}` (or any opacity):
  />
 ```
 
+#### Menu deprecated props removed
+
+The following deprecated props have been removed:
+
+- `MenuListProps` — use `slotProps.list` instead
+- `PaperProps` — use `slotProps.paper` instead
+- `TransitionProps` — use `slotProps.transition` instead
+
+```diff
+ <Menu
+-  MenuListProps={{ disablePadding: true }}
+-  PaperProps={{ elevation: 12 }}
+-  TransitionProps={{ timeout: 500 }}
++  slotProps={{
++    list: { disablePadding: true },
++    paper: { elevation: 12 },
++    transition: { timeout: 500 },
++  }}
+ />
+```
+
 #### Popover deprecated props removed
 
 The following deprecated props have been removed:
