@@ -730,6 +730,23 @@ The following deprecated props have been removed:
  />
 ```
 
+If you pass these props via `Select`'s `MenuProps`, update them the same way:
+
+```diff
+ <Select
+   MenuProps={{
+-    PaperProps: { style: { maxHeight: 200 } },
+-    MenuListProps: { disablePadding: true },
+-    TransitionProps: { timeout: 500 },
++    slotProps: {
++      paper: { style: { maxHeight: 200 } },
++      list: { disablePadding: true },
++      transition: { timeout: 500 },
++    },
+   }}
+ />
+```
+
 #### Popover deprecated props removed
 
 The following deprecated props have been removed:
