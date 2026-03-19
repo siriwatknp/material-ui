@@ -276,6 +276,9 @@ function RatingItem(props) {
     additionalProps: {
       value: itemValue,
     },
+    internalForwardedProps: {
+      as: IconContainer,
+    },
   });
 
   const [LabelSlot, labelSlotProps] = useSlot('label', {
