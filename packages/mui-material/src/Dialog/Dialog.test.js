@@ -233,7 +233,11 @@ describe('<Dialog />', () => {
   describe('prop: classes', () => {
     it('should add the class on the Paper element', () => {
       render(
-        <Dialog open classes={{ paper: 'my-paperclass' }} slotProps={{ paper: { 'data-testid': 'paper' } }}>
+        <Dialog
+          open
+          classes={{ paper: 'my-paperclass' }}
+          slotProps={{ paper: { 'data-testid': 'paper' } }}
+        >
           foo
         </Dialog>,
       );
@@ -348,7 +352,10 @@ describe('<Dialog />', () => {
   describe('prop: slotProps.paper.className', () => {
     it('should merge the className', () => {
       render(
-        <Dialog open slotProps={{ paper: { className: 'custom-paper-class', 'data-testid': 'paper' } }}>
+        <Dialog
+          open
+          slotProps={{ paper: { className: 'custom-paper-class', 'data-testid': 'paper' } }}
+        >
           foo
         </Dialog>,
       );

@@ -5,10 +5,7 @@ import Modal, { ModalProps } from '@mui/material/Modal';
 </Modal>;
 
 // slotProps slots as object
-<Modal
-  open
-  slotProps={{ backdrop: { invisible: true }, root: { id: 'modal' } }}
->
+<Modal open slotProps={{ backdrop: { invisible: true }, root: { id: 'modal' } }}>
   <div />
 </Modal>;
 

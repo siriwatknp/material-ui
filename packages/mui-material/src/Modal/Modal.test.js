@@ -817,7 +817,10 @@ describe('<Modal />', () => {
   describe('prop: slotProps.backdrop', () => {
     it('should handle custom className', () => {
       render(
-        <Modal open slotProps={{ backdrop: { className: 'custom-backdrop', 'data-testid': 'backdrop' } }}>
+        <Modal
+          open
+          slotProps={{ backdrop: { className: 'custom-backdrop', 'data-testid': 'backdrop' } }}
+        >
           <div />
         </Modal>,
       );
