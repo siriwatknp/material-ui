@@ -819,8 +819,6 @@ The following deprecated props have been removed from the `Dialog` component:
  />
 ```
 
-> > > > > > > 8be8bfe33f ([dialog] Remove deprecated props and classes)
-
 #### Divider deprecated props removed
 
 Use the [codemod](https://github.com/mui/material-ui/tree/HEAD/packages/mui-codemod#divider-props) below to migrate the code as described in the following sections:
@@ -855,6 +853,32 @@ The following deprecated prop has been removed:
  <FormControlLabel
 -  componentsProps={{ typography: { fontWeight: 'bold' } }}
 +  slotProps={{ typography: { fontWeight: 'bold' } }}
+ />
+```
+
+#### Modal deprecated props removed
+
+Use the [modal-props codemod](https://github.com/mui/material-ui/tree/HEAD/packages/mui-codemod#modal-props) below to migrate the code as described in the following section:
+
+```bash
+npx @mui/codemod@latest deprecations/modal-props <path>
+```
+
+The following deprecated props have been removed from the `Modal` component:
+
+- `BackdropComponent` → use `slots.backdrop`
+- `BackdropProps` → use `slotProps.backdrop`
+- `components` → use `slots`
+- `componentsProps` → use `slotProps`
+
+```diff
+ <Modal
+-  BackdropComponent={CustomBackdrop}
+-  BackdropProps={{ invisible: true }}
+-  components={{ Root: CustomRoot }}
+-  componentsProps={{ root: { className: 'custom' } }}
++  slots={{ backdrop: CustomBackdrop, root: CustomRoot }}
++  slotProps={{ backdrop: { invisible: true }, root: { className: 'custom' } }}
  />
 ```
 

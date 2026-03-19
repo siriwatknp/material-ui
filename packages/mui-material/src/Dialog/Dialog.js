@@ -396,22 +396,6 @@ Dialog.propTypes /* remove-proptypes */ = {
    */
   'aria-modal': PropTypes.oneOfType([PropTypes.oneOf(['false', 'true']), PropTypes.bool]),
   /**
-   * A backdrop component. This prop enables custom backdrop rendering.
-   * @deprecated Use `slots.backdrop` instead. While this prop currently works, it will be removed in the next major version.
-   * Use the `slots.backdrop` prop to make your application ready for the next version of Material UI.
-   * @default styled(Backdrop, {
-   *   name: 'MuiModal',
-   *   slot: 'Backdrop',
-   * })({
-   *   zIndex: -1,
-   * })
-   */
-  BackdropComponent: PropTypes.elementType,
-  /**
-   * @ignore
-   */
-  BackdropProps: PropTypes.object,
-  /**
    * Dialog children, usually the included sub-components.
    */
   children: PropTypes.node,
