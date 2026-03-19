@@ -805,17 +805,21 @@ npx @mui/codemod@latest deprecations/dialog-props <path>
 
 The following deprecated props have been removed from the `Dialog` component:
 
+- `BackdropComponent` → use `slots.backdrop`
+- `BackdropProps` → use `slotProps.backdrop`
 - `PaperProps` → use `slotProps.paper`
 - `TransitionComponent` → use `slots.transition`
 - `TransitionProps` → use `slotProps.transition`
 
 ```diff
  <Dialog
+-  BackdropComponent={CustomBackdrop}
+-  BackdropProps={{ invisible: true }}
 -  PaperProps={{ elevation: 3 }}
 -  TransitionComponent={CustomTransition}
 -  TransitionProps={{ timeout: 500 }}
-+  slots={{ transition: CustomTransition }}
-+  slotProps={{ paper: { elevation: 3 }, transition: { timeout: 500 } }}
++  slots={{ backdrop: CustomBackdrop, transition: CustomTransition }}
++  slotProps={{ backdrop: { invisible: true }, paper: { elevation: 3 }, transition: { timeout: 500 } }}
  />
 ```
 

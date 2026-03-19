@@ -230,8 +230,6 @@ const Dialog = React.forwardRef(function Dialog(inProps, ref) {
     'aria-describedby': ariaDescribedby,
     'aria-labelledby': ariaLabelledbyProp,
     'aria-modal': ariaModal = true,
-    BackdropComponent,
-    BackdropProps,
     children,
     className,
     fullScreen = false,
@@ -288,10 +286,7 @@ const Dialog = React.forwardRef(function Dialog(inProps, ref) {
 
   const externalForwardedProps = {
     slots,
-    slotProps: {
-      backdrop: BackdropProps,
-      ...slotProps,
-    },
+    slotProps,
   };
 
   const [RootSlot, rootSlotProps] = useSlot('root', {
@@ -345,7 +340,6 @@ const Dialog = React.forwardRef(function Dialog(inProps, ref) {
       slotProps={{
         backdrop: {
           transitionDuration,
-          as: BackdropComponent,
           ...backdropSlotProps,
         },
       }}
