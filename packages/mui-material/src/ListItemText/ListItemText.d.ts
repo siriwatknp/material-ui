@@ -24,7 +24,10 @@ export interface ListItemTextSlots {
   secondary?: React.ElementType | undefined;
 }
 
-export type ListItemTextSlotsAndSlotProps = CreateSlotsAndSlotProps<
+export type ListItemTextSlotsAndSlotProps<
+  PrimaryTypographyComponent extends React.ElementType = React.ElementType<TypographyProps<'span'>>,
+  SecondaryTypographyComponent extends React.ElementType = React.ElementType<TypographyProps<'p'>>,
+> = CreateSlotsAndSlotProps<
   ListItemTextSlots,
   {
     /**
@@ -36,19 +39,44 @@ export type ListItemTextSlotsAndSlotProps = CreateSlotsAndSlotProps<
      * Props forwarded to the primary slot (as long as disableTypography is not `true`)
      * By default, the available props are based on the [Typography](https://mui.com/material-ui/api/typography/#props) component
      */
-    primary: SlotProps<React.ElementType<TypographyProps>, {}, ListItemTextOwnerState>;
+    primary:
+      | TypographyProps<
+          PrimaryTypographyComponent,
+          { component?: PrimaryTypographyComponent | undefined }
+        >
+      | ((
+          ownerState: ListItemTextOwnerState,
+        ) => TypographyProps<
+          PrimaryTypographyComponent,
+          { component?: PrimaryTypographyComponent | undefined }
+        >);
     /**
      * Props forwarded to the secondary slot (as long as disableTypography is not `true`)
      * By default, the available props are based on the [Typography](https://mui.com/material-ui/api/typography/#props) component
      */
-    secondary: SlotProps<React.ElementType<TypographyProps>, {}, ListItemTextOwnerState>;
+    secondary:
+      | TypographyProps<
+          SecondaryTypographyComponent,
+          { component?: SecondaryTypographyComponent | undefined }
+        >
+      | ((
+          ownerState: ListItemTextOwnerState,
+        ) => TypographyProps<
+          SecondaryTypographyComponent,
+          { component?: SecondaryTypographyComponent | undefined }
+        >);
   }
 >;
 
 export interface ListItemTextOwnerState extends ListItemTextProps {}
 
-export interface ListItemTextProps
-  extends StandardProps<React.HTMLAttributes<HTMLDivElement>>, ListItemTextSlotsAndSlotProps {
+export interface ListItemTextProps<
+  PrimaryTypographyComponent extends React.ElementType = 'span',
+  SecondaryTypographyComponent extends React.ElementType = 'p',
+>
+  extends
+    StandardProps<React.HTMLAttributes<HTMLDivElement>>,
+    ListItemTextSlotsAndSlotProps<PrimaryTypographyComponent, SecondaryTypographyComponent> {
   /**
    * Alias for the `primary` prop.
    */
@@ -96,4 +124,9 @@ export interface ListItemTextProps
  *
  * - [ListItemText API](https://next.mui.com/material-ui/api/list-item-text/)
  */
-export default function ListItemText(props: ListItemTextProps): React.JSX.Element;
+export default function ListItemText<
+  PrimaryTypographyComponent extends React.ElementType = 'span',
+  SecondaryTypographyComponent extends React.ElementType = 'p',
+>(
+  props: ListItemTextProps<PrimaryTypographyComponent, SecondaryTypographyComponent>,
+): React.JSX.Element;
