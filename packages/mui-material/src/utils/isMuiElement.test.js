@@ -1,8 +1,7 @@
 import { expect } from 'chai';
 
 import { isMuiElement } from '.';
-import { Input, SvgIcon } from '..';
-import ListItemSecondaryAction from '../ListItemSecondaryAction';
+import { Input, ListItemSecondaryAction, SvgIcon } from '..';
 
 describe('utils/index.js', () => {
   describe('isMuiElement', () => {

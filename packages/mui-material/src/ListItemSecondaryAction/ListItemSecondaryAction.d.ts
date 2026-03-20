@@ -1,10 +1,12 @@
 import * as React from 'react';
 import { SxProps } from '@mui/system';
-import { OverridableComponent, OverrideProps } from '../OverridableComponent';
 import { Theme } from '../styles';
+import { InternalStandardProps as StandardProps } from '../internal';
 import { ListItemSecondaryActionClasses } from './listItemSecondaryActionClasses';
 
-export interface ListItemSecondaryActionOwnProps {
+export interface ListItemSecondaryActionProps extends StandardProps<
+  React.HTMLAttributes<HTMLDivElement>
+> {
   /**
    * The content of the component, normally an `IconButton` or selection control.
    */
@@ -19,15 +21,7 @@ export interface ListItemSecondaryActionOwnProps {
   sx?: SxProps<Theme> | undefined;
 }
 
-export interface ListItemSecondaryActionTypeMap<
-  AdditionalProps = {},
-  RootComponent extends React.ElementType = 'div',
-> {
-  props: AdditionalProps & ListItemSecondaryActionOwnProps;
-  defaultComponent: RootComponent;
-}
 /**
-<<<<<<< HEAD
  * Must be used as the last child of ListItem to function properly.
  *
  * Demos:
@@ -37,19 +31,11 @@ export interface ListItemSecondaryActionTypeMap<
  * API:
  *
  * - [ListItemSecondaryAction API](https://next.mui.com/material-ui/api/list-item-secondary-action/)
-=======
- * @ignore - internal component.
->>>>>>> 7228ffa828 ([ListItemSecondaryAction] Remove deprecated component from public API)
  */
-declare const ListItemSecondaryAction: OverridableComponent<ListItemSecondaryActionTypeMap> & {
+declare const ListItemSecondaryAction: ((
+  props: ListItemSecondaryActionProps,
+) => React.JSX.Element) & {
   muiName: string;
-};
-
-export type ListItemSecondaryActionProps<
-  RootComponent extends React.ElementType = ListItemSecondaryActionTypeMap['defaultComponent'],
-  AdditionalProps = {},
-> = OverrideProps<ListItemSecondaryActionTypeMap<AdditionalProps, RootComponent>, RootComponent> & {
-  component?: React.ElementType | undefined;
 };
 
 export default ListItemSecondaryAction;

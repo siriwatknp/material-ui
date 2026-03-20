@@ -66,6 +66,7 @@ export default [
   { pathname: '/material-ui/api/list-item-avatar' },
   { pathname: '/material-ui/api/list-item-button' },
   { pathname: '/material-ui/api/list-item-icon' },
+  { pathname: '/material-ui/api/list-item-secondary-action' },
   { pathname: '/material-ui/api/list-item-text' },
   { pathname: '/material-ui/api/list-subheader' },
   { pathname: '/material-ui/api/masonry' },
