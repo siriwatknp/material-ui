@@ -24,13 +24,11 @@ export const overridesResolver = (props, styles) => {
     ownerState.divider && styles.divider,
     !ownerState.disableGutters && styles.gutters,
     !ownerState.disablePadding && styles.padding,
-    ownerState.secondaryAction && styles.secondaryAction,
   ];
 };
 
 const useUtilityClasses = (ownerState) => {
-  const { alignItems, classes, dense, disableGutters, disablePadding, divider, secondaryAction } =
-    ownerState;
+  const { alignItems, classes, dense, disableGutters, disablePadding, divider } = ownerState;
 
   const slots = {
     root: [
@@ -40,7 +38,6 @@ const useUtilityClasses = (ownerState) => {
       !disablePadding && 'padding',
       divider && 'divider',
       alignItems === 'flex-start' && 'alignItemsFlexStart',
-      secondaryAction && 'secondaryAction',
     ],
     secondaryAction: ['secondaryAction'],
   };

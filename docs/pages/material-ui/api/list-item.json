@@ -79,7 +79,7 @@
     {
       "key": "secondaryAction",
       "className": "MuiListItem-secondaryAction",
-      "description": "Styles applied to the component element if `secondaryAction` is provided.",
+      "description": "Styles applied to the secondary action element.",
       "isGlobal": false
     }
   ],
