@@ -22,7 +22,15 @@ export interface ListItemSecondaryActionProps extends StandardProps<
 }
 
 /**
- * @ignore - internal component.
+ * Must be used as the last child of ListItem to function properly.
+ *
+ * Demos:
+ *
+ * - [Lists](https://next.mui.com/material-ui/react-list/)
+ *
+ * API:
+ *
+ * - [ListItemSecondaryAction API](https://next.mui.com/material-ui/api/list-item-secondary-action/)
  */
 declare const ListItemSecondaryAction: ((
   props: ListItemSecondaryActionProps,

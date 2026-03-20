@@ -808,23 +808,6 @@ The following deprecated props have been removed:
  />
 ```
 
-#### ListItemSecondaryAction removed
-
-The `ListItemSecondaryAction` component has been removed. Use the `secondaryAction` prop on `ListItem` instead:
-
-```diff
--import ListItemSecondaryAction from '@mui/material/ListItemSecondaryAction';
-
- <ListItem
-+  secondaryAction={<IconButton><DeleteIcon /></IconButton>}
- >
-   <ListItemText primary="Item" />
--  <ListItemSecondaryAction>
--    <IconButton><DeleteIcon /></IconButton>
--  </ListItemSecondaryAction>
- </ListItem>
-```
-
 #### ListItemText deprecated props removed
 
 Use the [list-item-text-props codemod](https://github.com/mui/material-ui/tree/HEAD/packages/mui-codemod#list-item-text-props) below to migrate the code as described in the following section:

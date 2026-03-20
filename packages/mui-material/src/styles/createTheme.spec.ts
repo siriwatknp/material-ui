@@ -38,7 +38,7 @@ const theme = createTheme();
 {
   createTheme({
     components: {
-      MuiListItemText: {
+      MuiListItemSecondaryAction: {
         styleOverrides: {
           root: {
             ...theme.typography.body1,
@@ -53,7 +53,7 @@ const theme = createTheme();
 {
   createTheme({
     components: {
-      MuiListItemText: {
+      MuiListItemSecondaryAction: {
         styleOverrides: {
           root: {
             ...theme.mixins.toolbar,
