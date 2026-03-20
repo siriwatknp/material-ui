@@ -15,13 +15,11 @@ describe('<ListItem />', () => {
     muiName: 'MuiListItem',
     testVariantProps: { dense: true },
     slots: {
-      root: {},
+      root: { expectedClassName: classes.root },
       secondaryAction: { expectedClassName: classes.secondaryAction },
     },
     skip: [
       'componentsProp',
-      'slotPropsCallback', // not supported yet
-      'slotPropsCallbackWithPropsAsOwnerState', // not supported yet
     ],
   }));
 
