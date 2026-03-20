@@ -47,10 +47,7 @@ export type ListItemTextSlotsAndSlotProps = CreateSlotsAndSlotProps<
 
 export interface ListItemTextOwnerState extends ListItemTextProps {}
 
-export interface ListItemTextProps<
-  PrimaryTypographyComponent extends React.ElementType = 'span',
-  SecondaryTypographyComponent extends React.ElementType = 'p',
->
+export interface ListItemTextProps
   extends StandardProps<React.HTMLAttributes<HTMLDivElement>>, ListItemTextSlotsAndSlotProps {
   /**
    * Alias for the `primary` prop.
@@ -79,31 +76,9 @@ export interface ListItemTextProps<
    */
   primary?: React.ReactNode;
   /**
-   * These props will be forwarded to the primary typography component
-   * (as long as disableTypography is not `true`).
-   * @deprecated Use `slotProps.primary` instead. This prop will be removed in a future major release. See [Migrating from deprecated APIs](/material-ui/migration/migrating-from-deprecated-apis/) for more details.
-   */
-  primaryTypographyProps?:
-    | TypographyProps<
-        PrimaryTypographyComponent,
-        { component?: PrimaryTypographyComponent | undefined }
-      >
-    | undefined;
-  /**
    * The secondary content element.
    */
   secondary?: React.ReactNode;
-  /**
-   * These props will be forwarded to the secondary typography component
-   * (as long as disableTypography is not `true`).
-   * @deprecated Use `slotProps.secondary` instead. This prop will be removed in a future major release. See [Migrating from deprecated APIs](/material-ui/migration/migrating-from-deprecated-apis/) for more details.
-   */
-  secondaryTypographyProps?:
-    | TypographyProps<
-        SecondaryTypographyComponent,
-        { component?: SecondaryTypographyComponent | undefined }
-      >
-    | undefined;
   /**
    * The system prop that allows defining system overrides as well as additional CSS styles.
    */
@@ -121,9 +96,4 @@ export interface ListItemTextProps<
  *
  * - [ListItemText API](https://next.mui.com/material-ui/api/list-item-text/)
  */
-export default function ListItemText<
-  PrimaryTypographyComponent extends React.ElementType = 'span',
-  SecondaryTypographyComponent extends React.ElementType = 'p',
->(
-  props: ListItemTextProps<PrimaryTypographyComponent, SecondaryTypographyComponent>,
-): React.JSX.Element;
+export default function ListItemText(props: ListItemTextProps): React.JSX.Element;
