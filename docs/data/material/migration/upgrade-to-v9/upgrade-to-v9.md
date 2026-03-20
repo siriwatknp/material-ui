@@ -784,31 +784,63 @@ The following deprecated prop has been removed:
  />
 ```
 
-#### PaginationItem deprecated props removed
+#### ListItem deprecated props removed
 
-Use the [pagination-item-props codemod](https://github.com/mui/material-ui/tree/HEAD/packages/mui-codemod#pagination-item-props) below to migrate the code as described in the following section:
+Use the [list-item-props codemod](https://github.com/mui/material-ui/tree/HEAD/packages/mui-codemod#list-item-props) below to migrate the code as described in the following section:
 
 ```bash
-npx @mui/codemod@latest deprecations/pagination-item-props <path>
+npx @mui/codemod@latest deprecations/list-item-props <path>
 ```
 
 The following deprecated props have been removed:
 
 - `components` — use `slots` instead
+- `componentsProps` — use `slotProps` instead
+- `ContainerComponent` — use `component` or `slots.root` instead
+- `ContainerProps` — use `slotProps.root` instead
 
 ```diff
- <PaginationItem
--  components={{
--    first: MyFirstIcon,
--    last: MyLastIcon,
--    previous: MyPreviousIcon,
--    next: MyNextIcon,
--  }}
-+  slots={{
-+    first: MyFirstIcon,
-+    last: MyLastIcon,
-+    previous: MyPreviousIcon,
-+    next: MyNextIcon,
+ <ListItem
+-  components={{ Root: CustomRoot }}
+-  componentsProps={{ root: { className: 'custom' } }}
++  slots={{ root: CustomRoot }}
++  slotProps={{ root: { className: 'custom' } }}
+ />
+```
+
+Using `ListItemSecondaryAction` as a child of `ListItem` is no longer supported. Use the `secondaryAction` prop instead:
+
+```diff
+ <ListItem
++  secondaryAction={<IconButton><DeleteIcon /></IconButton>}
+ >
+   <ListItemText primary="Item" />
+-  <ListItemSecondaryAction>
+-    <IconButton><DeleteIcon /></IconButton>
+-  </ListItemSecondaryAction>
+ </ListItem>
+```
+
+#### ListItemText deprecated props removed
+
+Use the [list-item-text-props codemod](https://github.com/mui/material-ui/tree/HEAD/packages/mui-codemod#list-item-text-props) below to migrate the code as described in the following section:
+
+```bash
+npx @mui/codemod@latest deprecations/list-item-text-props <path>
+```
+
+The following deprecated props have been removed:
+
+- `primaryTypographyProps` — use `slotProps.primary` instead
+- `secondaryTypographyProps` — use `slotProps.secondary` instead
+
+```diff
+ <ListItemText
+-  primaryTypographyProps={{ variant: 'h6' }}
+-  secondaryTypographyProps={{ color: 'textSecondary' }}
++  slotProps={{
++    primary: { variant: 'h6' },
++    secondary: { color: 'textSecondary' },
 +  }}
  />
 ```
@@ -958,25 +990,6 @@ If you pass these props via `Select`'s `MenuProps`, update them the same way:
 +      transition: { timeout: 500 },
 +    },
    }}
- />
-```
-
-#### MobileStepper deprecated props removed
-
-Use the [mobile-stepper-props codemod](https://github.com/mui/material-ui/tree/HEAD/packages/mui-codemod#mobile-stepper-props) below to migrate the code as described in the following section:
-
-```bash
-npx @mui/codemod@latest deprecations/mobile-stepper-props <path>
-```
-
-The following deprecated props have been removed:
-
-- `LinearProgressProps` — use `slotProps.progress` instead
-
-```diff
- <MobileStepper
--  LinearProgressProps={{ className: 'progress' }}
-+  slotProps={{ progress: { className: 'progress' } }}
  />
 ```
 

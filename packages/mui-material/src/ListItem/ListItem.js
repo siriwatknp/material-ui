@@ -3,6 +3,7 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import composeClasses from '@mui/utils/composeClasses';
+import isHostComponent from '@mui/utils/isHostComponent';
 import { styled } from '../zero-styled';
 import memoTheme from '../utils/memoTheme';
 import { useDefaultProps } from '../DefaultPropsProvider';
@@ -23,11 +24,13 @@ export const overridesResolver = (props, styles) => {
     ownerState.divider && styles.divider,
     !ownerState.disableGutters && styles.gutters,
     !ownerState.disablePadding && styles.padding,
+    ownerState.secondaryAction && styles.secondaryAction,
   ];
 };
 
 const useUtilityClasses = (ownerState) => {
-  const { alignItems, classes, dense, disableGutters, disablePadding, divider } = ownerState;
+  const { alignItems, classes, dense, disableGutters, disablePadding, divider, secondaryAction } =
+    ownerState;
 
   const slots = {
     root: [
@@ -37,6 +40,7 @@ const useUtilityClasses = (ownerState) => {
       !disablePadding && 'padding',
       divider && 'divider',
       alignItems === 'flex-start' && 'alignItemsFlexStart',
+      secondaryAction && 'secondaryAction',
     ],
     secondaryAction: ['secondaryAction'],
   };
@@ -131,19 +135,13 @@ export const ListItemRoot = styled('div', {
   })),
 );
 
-const StyledListItemSecondaryAction = styled(ListItemSecondaryAction, {
-  name: 'MuiListItem',
-  slot: 'secondaryAction',
-  overridesResolver: (props, styles) => styles.secondaryAction,
-})({});
-
 const ListItem = React.forwardRef(function ListItem(inProps, ref) {
   const props = useDefaultProps({ props: inProps, name: 'MuiListItem' });
   const {
     alignItems = 'center',
     children: childrenProp,
     className,
-    component: componentProp = 'li',
+    component: componentProp,
     dense = false,
     disableGutters = false,
     disablePadding = false,
@@ -185,32 +183,39 @@ const ListItem = React.forwardRef(function ListItem(inProps, ref) {
     slotProps,
   };
 
-  const [RootSlot, rootSlotProps] = useSlot('root', {
-    elementType: ListItemRoot,
-    externalForwardedProps: {
-      component: componentProp,
-      ...externalForwardedProps,
-    },
-    ownerState,
-    className: clsx(classes.root, className),
-  });
-
   const [SecondaryActionSlot, secondaryActionSlotProps] = useSlot('secondaryAction', {
-    elementType: StyledListItemSecondaryAction,
-    shouldForwardComponentProp: true,
+    elementType: ListItemSecondaryAction,
     externalForwardedProps,
     ownerState,
     className: classes.secondaryAction,
   });
 
+  const Root = slots.root || ListItemRoot;
+  const rootProps = slotProps.root || {};
+
+  const componentProps = {
+    className: clsx(classes.root, rootProps.className, className),
+    ...other,
+  };
+
+  const Component = componentProp || 'li';
+
   return (
     <ListContext.Provider value={childContext}>
-      <RootSlot {...rootSlotProps} ref={handleRef} {...other}>
+      <Root
+        {...rootProps}
+        as={Component}
+        ref={handleRef}
+        {...(!isHostComponent(Root) && {
+          ownerState: { ...ownerState, ...rootProps.ownerState },
+        })}
+        {...componentProps}
+      >
         {childrenProp}
         {secondaryAction && (
           <SecondaryActionSlot {...secondaryActionSlotProps}>{secondaryAction}</SecondaryActionSlot>
         )}
-      </RootSlot>
+      </Root>
     </ListContext.Provider>
   );
 });
