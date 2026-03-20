@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 
 import { isMuiElement } from '.';
-import { Input, ListItemText, SvgIcon } from '..';
+import { Input, SpeedDialIcon, SvgIcon } from '..';
 
 describe('utils/index.js', () => {
   describe('isMuiElement', () => {
@@ -20,7 +20,7 @@ describe('utils/index.js', () => {
     it('should be truthy for matching components', () => {
       [
         [Input, 'Input'],
-        [ListItemText, 'ListItemText'],
+        [SpeedDialIcon, 'SpeedDialIcon'],
         [SvgIcon, 'SvgIcon'],
       ].forEach(([Component, muiName]) => {
         expect(isMuiElement(<Component />, [muiName])).to.equal(true);
