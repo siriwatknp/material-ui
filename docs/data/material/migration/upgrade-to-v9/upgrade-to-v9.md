@@ -707,6 +707,58 @@ If you were using these deprecated class names as `styleOverrides` keys in your 
  });
 ```
 
+#### ButtonGroup deprecated CSS classes removed
+
+Use the [button-group-classes codemod](https://github.com/mui/material-ui/tree/HEAD/packages/mui-codemod#button-group-classes) below to migrate the code as described in the following section:
+
+```bash
+npx @mui/codemod@latest deprecations/button-group-classes <path>
+```
+
+The following deprecated `ButtonGroup` CSS classes have been removed:
+
+- `groupedHorizontal` → use `.MuiButtonGroup-horizontal > .MuiButtonGroup-grouped`
+- `groupedVertical` → use `.MuiButtonGroup-vertical > .MuiButtonGroup-grouped`
+- `groupedText` → use `.MuiButtonGroup-text > .MuiButtonGroup-grouped`
+- `groupedTextHorizontal` → use `.MuiButtonGroup-text.MuiButtonGroup-horizontal > .MuiButtonGroup-grouped`
+- `groupedTextVertical` → use `.MuiButtonGroup-text.MuiButtonGroup-vertical > .MuiButtonGroup-grouped`
+- `groupedTextPrimary` → use `.MuiButtonGroup-text.MuiButtonGroup-colorPrimary > .MuiButtonGroup-grouped`
+- `groupedTextSecondary` → use `.MuiButtonGroup-text.MuiButtonGroup-colorSecondary > .MuiButtonGroup-grouped`
+- `groupedOutlined` → use `.MuiButtonGroup-outlined > .MuiButtonGroup-grouped`
+- `groupedOutlinedHorizontal` → use `.MuiButtonGroup-outlined.MuiButtonGroup-horizontal > .MuiButtonGroup-grouped`
+- `groupedOutlinedVertical` → use `.MuiButtonGroup-outlined.MuiButtonGroup-vertical > .MuiButtonGroup-grouped`
+- `groupedOutlinedPrimary` → use `.MuiButtonGroup-outlined.MuiButtonGroup-colorPrimary > .MuiButtonGroup-grouped`
+- `groupedOutlinedSecondary` → use `.MuiButtonGroup-outlined.MuiButtonGroup-colorSecondary > .MuiButtonGroup-grouped`
+- `groupedContained` → use `.MuiButtonGroup-contained > .MuiButtonGroup-grouped`
+- `groupedContainedHorizontal` → use `.MuiButtonGroup-contained.MuiButtonGroup-horizontal > .MuiButtonGroup-grouped`
+- `groupedContainedVertical` → use `.MuiButtonGroup-contained.MuiButtonGroup-vertical > .MuiButtonGroup-grouped`
+- `groupedContainedPrimary` → use `.MuiButtonGroup-contained.MuiButtonGroup-colorPrimary > .MuiButtonGroup-grouped`
+- `groupedContainedSecondary` → use `.MuiButtonGroup-contained.MuiButtonGroup-colorSecondary > .MuiButtonGroup-grouped`
+
+If you were using these deprecated class names as `styleOverrides` keys in your theme, use the `variants` array in the `root` override instead:
+
+```diff
+ const theme = createTheme({
+   components: {
+     MuiButtonGroup: {
+       styleOverrides: {
+-        groupedContainedPrimary: { borderColor: 'red' },
++        root: {
++          variants: [
++            {
++              props: { variant: 'contained', color: 'primary' },
++              style: {
++                '& > .MuiButtonGroup-grouped': { borderColor: 'red' },
++              },
++            },
++          ],
++        },
+       },
+     },
+   },
+ });
+```
+
 #### CircularProgress deprecated CSS classes removed
 
 Use the [circular-progress-classes codemod](https://github.com/mui/material-ui/tree/HEAD/packages/mui-codemod#circular-progress-classes) below to migrate the code as described in the following section:
