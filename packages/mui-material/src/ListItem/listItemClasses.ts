@@ -14,7 +14,7 @@ export interface ListItemClasses {
   gutters: string;
   /** Styles applied to the root element unless `disablePadding={true}`. */
   padding: string;
-  /** Styles applied to the component element if `secondaryAction` is provided. */
+  /** Styles applied to the secondary action element. */
   secondaryAction: string;
 }
 

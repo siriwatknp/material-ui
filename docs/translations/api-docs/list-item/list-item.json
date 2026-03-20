@@ -54,9 +54,8 @@
     },
     "root": { "description": "Styles applied to the root element." },
     "secondaryAction": {
-      "description": "Styles applied to {{nodeName}} if {{conditions}}.",
-      "nodeName": "the component element",
-      "conditions": "<code>secondaryAction</code> is provided"
+      "description": "Styles applied to {{nodeName}}.",
+      "nodeName": "the secondary action element"
     }
   }
 }
