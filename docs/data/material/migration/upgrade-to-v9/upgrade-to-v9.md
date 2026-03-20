@@ -808,9 +808,13 @@ The following deprecated props have been removed:
  />
 ```
 
-Using `ListItemSecondaryAction` as a child of `ListItem` is no longer supported. Use the `secondaryAction` prop instead:
+#### ListItemSecondaryAction removed
+
+The `ListItemSecondaryAction` component has been removed. Use the `secondaryAction` prop on `ListItem` instead:
 
 ```diff
+-import ListItemSecondaryAction from '@mui/material/ListItemSecondaryAction';
+
  <ListItem
 +  secondaryAction={<IconButton><DeleteIcon /></IconButton>}
  >
