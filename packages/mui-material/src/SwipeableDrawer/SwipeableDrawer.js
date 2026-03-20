@@ -151,7 +151,7 @@ const SwipeableDrawer = React.forwardRef(function SwipeableDrawer(inProps, ref) 
     hysteresis = 0.52,
     allowSwipeInChildren = false,
     minFlingVelocity = 450,
-    ModalProps: { BackdropProps, ...ModalPropsProp } = {},
+    ModalProps: ModalPropsProp = {},
     onClose,
     onOpen,
     open = false,
@@ -603,10 +603,6 @@ const SwipeableDrawer = React.forwardRef(function SwipeableDrawer(inProps, ref) 
         open={variant === 'temporary' && maybeSwiping ? true : open}
         variant={variant}
         ModalProps={{
-          BackdropProps: {
-            ...BackdropProps,
-            ref: backdropRef,
-          },
           // Ensures that paperRef.current will be defined inside the touch start event handler
           // See https://github.com/mui/material-ui/issues/30414 for more information
           ...(variant === 'temporary' && {
@@ -622,7 +618,7 @@ const SwipeableDrawer = React.forwardRef(function SwipeableDrawer(inProps, ref) 
         slots={slots}
         slotProps={{
           ...slotProps,
-          backdrop: mergeSlotProps(slotProps.backdrop ?? BackdropProps, {
+          backdrop: mergeSlotProps(slotProps.backdrop, {
             ref: backdropRef,
           }),
           paper: mergeSlotProps(slotProps.paper, {
@@ -708,11 +704,7 @@ SwipeableDrawer.propTypes /* remove-proptypes */ = {
   /**
    * @ignore
    */
-  ModalProps: PropTypes /* @typescript-to-proptypes-ignore */.shape({
-    BackdropProps: PropTypes.shape({
-      component: elementTypeAcceptingRef,
-    }),
-  }),
+  ModalProps: PropTypes /* @typescript-to-proptypes-ignore */.shape({}),
   /**
    * Callback fired when the component requests to be closed.
    *
