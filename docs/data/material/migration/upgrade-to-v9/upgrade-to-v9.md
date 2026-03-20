@@ -808,6 +808,27 @@ The following deprecated props have been removed:
  />
 ```
 
+The theming `styleOverrides` key `secondaryAction` now targets the `secondaryAction` slot instead of the root slot.
+
+```diff
+ const theme = createTheme({
+   components: {
+     MuiListItem: {
+       styleOverrides: {
+-        secondaryAction: {
+-          [`& .${listItemClasses.secondaryAction}`]: {
+-            // styles
+-          },
+-        },
++        secondaryAction: {
++          // styles applied directly to the secondaryAction slot
++        },
+       },
+     },
+   },
+ });
+```
+
 #### ListItemText deprecated props removed
 
 Use the [list-item-text-props codemod](https://github.com/mui/material-ui/tree/HEAD/packages/mui-codemod#list-item-text-props) below to migrate the code as described in the following section:
