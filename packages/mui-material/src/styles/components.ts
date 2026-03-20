@@ -435,13 +435,6 @@ export interface Components<Theme = unknown> {
         variants?: ComponentsVariants<Theme>['MuiListItemIcon'] | undefined;
       }
     | undefined;
-  MuiListItemSecondaryAction?:
-    | {
-        defaultProps?: ComponentsProps['MuiListItemSecondaryAction'] | undefined;
-        styleOverrides?: ComponentsOverrides<Theme>['MuiListItemSecondaryAction'] | undefined;
-        variants?: ComponentsVariants<Theme>['MuiListItemSecondaryAction'] | undefined;
-      }
-    | undefined;
   MuiListItemText?:
     | {
         defaultProps?: ComponentsProps['MuiListItemText'] | undefined;

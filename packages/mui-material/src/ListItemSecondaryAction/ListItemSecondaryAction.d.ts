@@ -22,17 +22,7 @@ export interface ListItemSecondaryActionProps extends StandardProps<
 }
 
 /**
- * Must be used as the last child of ListItem to function properly.
- *
- * Demos:
- *
- * - [Lists](https://next.mui.com/material-ui/react-list/)
- *
- * API:
- *
- * - [ListItemSecondaryAction API](https://next.mui.com/material-ui/api/list-item-secondary-action/)
- *
- * @deprecated Use the `secondaryAction` prop in the `ListItem` component instead. This component will be removed in a future major release. See [Migrating from deprecated APIs](https://mui.com/material-ui/migration/migrating-from-deprecated-apis/) for more details.
+ * @ignore - internal component.
  */
 declare const ListItemSecondaryAction: ((
   props: ListItemSecondaryActionProps,

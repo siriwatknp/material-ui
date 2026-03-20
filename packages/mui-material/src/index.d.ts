@@ -208,9 +208,6 @@ export * from './ListItemButton';
 export { default as ListItemIcon } from './ListItemIcon';
 export * from './ListItemIcon';
 
-export { default as ListItemSecondaryAction } from './ListItemSecondaryAction';
-export * from './ListItemSecondaryAction';
-
 export { default as ListItemText } from './ListItemText';
 export * from './ListItemText';
 

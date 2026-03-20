@@ -58,7 +58,6 @@ import { ListItemAvatarProps } from '../ListItemAvatar';
 import { ListItemIconProps } from '../ListItemIcon';
 import { ListItemProps } from '../ListItem';
 import { ListItemButtonProps } from '../ListItemButton';
-import { ListItemSecondaryActionProps } from '../ListItemSecondaryAction';
 import { ListItemTextProps } from '../ListItemText';
 import { ListProps } from '../List';
 import { ListSubheaderProps } from '../ListSubheader';
@@ -183,7 +182,6 @@ export interface ComponentsPropsList {
   MuiListItemButton: ListItemButtonProps;
   MuiListItemAvatar: ListItemAvatarProps;
   MuiListItemIcon: ListItemIconProps;
-  MuiListItemSecondaryAction: ListItemSecondaryActionProps;
   MuiListItemText: ListItemTextProps;
   MuiListSubheader: ListSubheaderProps;
   MuiMenu: MenuProps;

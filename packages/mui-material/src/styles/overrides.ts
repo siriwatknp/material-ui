@@ -61,7 +61,6 @@ import { ListItemAvatarClassKey } from '../ListItemAvatar';
 import { ListItemClassKey } from '../ListItem';
 import { ListItemButtonClassKey } from '../ListItemButton';
 import { ListItemIconClassKey } from '../ListItemIcon';
-import { ListItemSecondaryActionClassKey } from '../ListItemSecondaryAction';
 import { ListItemTextClassKey } from '../ListItemText';
 import { ListSubheaderClassKey } from '../ListSubheader';
 import { MenuClassKey } from '../Menu';
@@ -205,7 +204,6 @@ export interface ComponentNameToClassKey {
   MuiListItemButton: ListItemButtonClassKey;
   MuiListItemAvatar: ListItemAvatarClassKey;
   MuiListItemIcon: ListItemIconClassKey;
-  MuiListItemSecondaryAction: ListItemSecondaryActionClassKey;
   MuiListItemText: ListItemTextClassKey;
   MuiListSubheader: ListSubheaderClassKey;
   MuiMenu: MenuClassKey;
