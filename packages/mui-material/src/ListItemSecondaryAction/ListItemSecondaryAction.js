@@ -46,13 +46,14 @@ const ListItemSecondaryActionRoot = styled('div', {
  */
 const ListItemSecondaryAction = React.forwardRef(function ListItemSecondaryAction(inProps, ref) {
   const props = useDefaultProps({ props: inProps, name: 'MuiListItemSecondaryAction' });
-  const { className, ...other } = props;
+  const { className, component, ...other } = props;
   const context = React.useContext(ListContext);
   const ownerState = { ...props, disableGutters: context.disableGutters };
   const classes = useUtilityClasses(ownerState);
 
   return (
     <ListItemSecondaryActionRoot
+      as={component}
       className={clsx(classes.root, className)}
       ownerState={ownerState}
       ref={ref}
@@ -78,6 +79,11 @@ ListItemSecondaryAction.propTypes /* remove-proptypes */ = {
    * @ignore
    */
   className: PropTypes.string,
+  /**
+   * The component used for the root node.
+   * Either a string to use a HTML element or a component.
+   */
+  component: PropTypes.elementType,
   /**
    * The system prop that allows defining system overrides as well as additional CSS styles.
    */
