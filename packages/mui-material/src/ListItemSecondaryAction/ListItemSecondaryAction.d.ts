@@ -27,6 +27,7 @@ export interface ListItemSecondaryActionTypeMap<
   defaultComponent: RootComponent;
 }
 /**
+<<<<<<< HEAD
  * Must be used as the last child of ListItem to function properly.
  *
  * Demos:
@@ -36,6 +37,9 @@ export interface ListItemSecondaryActionTypeMap<
  * API:
  *
  * - [ListItemSecondaryAction API](https://next.mui.com/material-ui/api/list-item-secondary-action/)
+=======
+ * @ignore - internal component.
+>>>>>>> 7228ffa828 ([ListItemSecondaryAction] Remove deprecated component from public API)
  */
 declare const ListItemSecondaryAction: OverridableComponent<ListItemSecondaryActionTypeMap> & {
   muiName: string;

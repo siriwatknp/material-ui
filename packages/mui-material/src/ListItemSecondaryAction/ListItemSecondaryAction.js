@@ -42,7 +42,11 @@ const ListItemSecondaryActionRoot = styled('div', {
 });
 
 /**
+<<<<<<< HEAD
  * Must be used as the last child of ListItem to function properly.
+=======
+ * @ignore - internal component.
+>>>>>>> 7228ffa828 ([ListItemSecondaryAction] Remove deprecated component from public API)
  */
 const ListItemSecondaryAction = React.forwardRef(function ListItemSecondaryAction(inProps, ref) {
   const props = useDefaultProps({ props: inProps, name: 'MuiListItemSecondaryAction' });
