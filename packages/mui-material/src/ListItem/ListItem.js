@@ -3,7 +3,6 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import composeClasses from '@mui/utils/composeClasses';
-import isHostComponent from '@mui/utils/isHostComponent';
 import { styled } from '../zero-styled';
 import memoTheme from '../utils/memoTheme';
 import { useDefaultProps } from '../DefaultPropsProvider';
@@ -132,13 +131,19 @@ export const ListItemRoot = styled('div', {
   })),
 );
 
+const StyledListItemSecondaryAction = styled(ListItemSecondaryAction, {
+  name: 'MuiListItem',
+  slot: 'secondaryAction',
+  overridesResolver: (props, styles) => styles.secondaryAction,
+})({});
+
 const ListItem = React.forwardRef(function ListItem(inProps, ref) {
   const props = useDefaultProps({ props: inProps, name: 'MuiListItem' });
   const {
     alignItems = 'center',
     children: childrenProp,
     className,
-    component: componentProp,
+    component: componentProp = 'li',
     dense = false,
     disableGutters = false,
     disablePadding = false,
@@ -180,39 +185,32 @@ const ListItem = React.forwardRef(function ListItem(inProps, ref) {
     slotProps,
   };
 
+  const [RootSlot, rootSlotProps] = useSlot('root', {
+    elementType: ListItemRoot,
+    externalForwardedProps: {
+      component: componentProp,
+      ...externalForwardedProps,
+    },
+    ownerState,
+    className: clsx(classes.root, className),
+  });
+
   const [SecondaryActionSlot, secondaryActionSlotProps] = useSlot('secondaryAction', {
-    elementType: ListItemSecondaryAction,
+    elementType: StyledListItemSecondaryAction,
+    shouldForwardComponentProp: true,
     externalForwardedProps,
     ownerState,
     className: classes.secondaryAction,
   });
 
-  const Root = slots.root || ListItemRoot;
-  const rootProps = slotProps.root || {};
-
-  const componentProps = {
-    className: clsx(classes.root, rootProps.className, className),
-    ...other,
-  };
-
-  const Component = componentProp || 'li';
-
   return (
     <ListContext.Provider value={childContext}>
-      <Root
-        {...rootProps}
-        as={Component}
-        ref={handleRef}
-        {...(!isHostComponent(Root) && {
-          ownerState: { ...ownerState, ...rootProps.ownerState },
-        })}
-        {...componentProps}
-      >
+      <RootSlot {...rootSlotProps} ref={handleRef} {...other}>
         {childrenProp}
         {secondaryAction && (
           <SecondaryActionSlot {...secondaryActionSlotProps}>{secondaryAction}</SecondaryActionSlot>
         )}
-      </Root>
+      </RootSlot>
     </ListContext.Provider>
   );
 });
