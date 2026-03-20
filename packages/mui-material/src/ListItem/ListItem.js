@@ -190,6 +190,7 @@ const ListItem = React.forwardRef(function ListItem(inProps, ref) {
     externalForwardedProps: {
       component: componentProp,
       ...externalForwardedProps,
+      ...other,
     },
     ownerState,
     className: clsx(classes.root, className),
@@ -205,7 +206,7 @@ const ListItem = React.forwardRef(function ListItem(inProps, ref) {
 
   return (
     <ListContext.Provider value={childContext}>
-      <RootSlot {...rootSlotProps} ref={handleRef} {...other}>
+      <RootSlot {...rootSlotProps} ref={handleRef}>
         {childrenProp}
         {secondaryAction && (
           <SecondaryActionSlot {...secondaryActionSlotProps}>{secondaryAction}</SecondaryActionSlot>
