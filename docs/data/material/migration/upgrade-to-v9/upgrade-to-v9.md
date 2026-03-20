@@ -932,6 +932,25 @@ If you pass these props via `Select`'s `MenuProps`, update them the same way:
  />
 ```
 
+#### MobileStepper deprecated props removed
+
+Use the [mobile-stepper-props codemod](https://github.com/mui/material-ui/tree/HEAD/packages/mui-codemod#mobile-stepper-props) below to migrate the code as described in the following section:
+
+```bash
+npx @mui/codemod@latest deprecations/mobile-stepper-props <path>
+```
+
+The following deprecated props have been removed:
+
+- `LinearProgressProps` — use `slotProps.progress` instead
+
+```diff
+ <MobileStepper
+-  LinearProgressProps={{ className: 'progress' }}
++  slotProps={{ progress: { className: 'progress' } }}
+ />
+```
+
 #### Popover deprecated props removed
 
 The following deprecated props have been removed:
