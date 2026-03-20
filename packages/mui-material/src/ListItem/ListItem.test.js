@@ -18,7 +18,9 @@ describe('<ListItem />', () => {
       root: { expectedClassName: classes.root },
       secondaryAction: { expectedClassName: classes.secondaryAction },
     },
-    skip: ['componentsProp'],
+    skip: [
+      'componentsProp',
+    ],
   }));
 
   it('should render with gutters classes', () => {
