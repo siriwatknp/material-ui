@@ -939,7 +939,7 @@ The following deprecated `Snackbar` props have been removed:
  />
 ```
 
-#### StepConnector deprecated classes removed
+#### StepConnector deprecated CSS classes removed
 
 Use the [step-connector-classes codemod](https://github.com/mui/material-ui/tree/HEAD/packages/mui-codemod#step-connector-classes) below to migrate the code as described in the following section:
 
@@ -947,18 +947,30 @@ Use the [step-connector-classes codemod](https://github.com/mui/material-ui/tree
 npx @mui/codemod@latest deprecations/step-connector-classes <path>
 ```
 
-The following deprecated classes have been removed:
+The following deprecated `StepConnector` CSS classes have been removed:
 
-- `lineHorizontal` — combine the `.MuiStepConnector-horizontal` and `.MuiStepConnector-line` classes instead
-- `lineVertical` — combine the `.MuiStepConnector-vertical` and `.MuiStepConnector-line` classes instead
+- `lineHorizontal` → use `.MuiStepConnector-horizontal .MuiStepConnector-line`
+- `lineVertical` → use `.MuiStepConnector-vertical .MuiStepConnector-line`
+
+If you were using these deprecated class names as `styleOverrides` keys in your theme, use the `variants` array in the `line` override instead:
 
 ```diff
- <StepConnector
-   classes={{
--    lineHorizontal: 'my-class',
-+    line: 'my-class',
-   }}
- />
+ const theme = createTheme({
+   components: {
+     MuiStepConnector: {
+       styleOverrides: {
+-        lineHorizontal: { borderTopWidth: 3 },
+-        lineVertical: { borderLeftWidth: 3 },
++        line: {
++          variants: [
++            { props: { orientation: 'horizontal' }, style: { borderTopWidth: 3 } },
++            { props: { orientation: 'vertical' }, style: { borderLeftWidth: 3 } },
++          ],
++        },
+       },
+     },
+   },
+ });
 ```
 
 #### StepContent deprecated props removed
@@ -969,10 +981,10 @@ Use the [step-content-props codemod](https://github.com/mui/material-ui/tree/HEA
 npx @mui/codemod@latest deprecations/step-content-props <path>
 ```
 
-The following deprecated props have been removed:
+The following deprecated `StepContent` props have been removed:
 
-- `TransitionComponent` — use `slots.transition` instead
-- `TransitionProps` — use `slotProps.transition` instead
+- `TransitionComponent` → use `slots.transition` instead
+- `TransitionProps` → use `slotProps.transition` instead
 
 ```diff
  <StepContent
@@ -991,11 +1003,11 @@ Use the [step-label-props codemod](https://github.com/mui/material-ui/tree/HEAD/
 npx @mui/codemod@latest deprecations/step-label-props <path>
 ```
 
-The following deprecated props have been removed:
+The following deprecated `StepLabel` props have been removed:
 
-- `componentsProps` — use `slotProps` instead
-- `StepIconComponent` — use `slots.stepIcon` instead
-- `StepIconProps` — use `slotProps.stepIcon` instead
+- `componentsProps` → use `slotProps` instead
+- `StepIconComponent` → use `slots.stepIcon` instead
+- `StepIconProps` → use `slotProps.stepIcon` instead
 
 ```diff
  <StepLabel
