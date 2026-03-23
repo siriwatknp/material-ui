@@ -92,8 +92,8 @@ describe('<TextField />', () => {
     it('should forward the multiline prop to Input', () => {
       render(<TextField variant="standard" multiline />);
 
-      expect(screen.getByRole('textbox', { hidden: false })).to.have.class(
-        inputBaseClasses.inputMultiline,
+      expect(screen.getByRole('textbox', { hidden: false }).parentElement).to.have.class(
+        inputBaseClasses.multiline,
       );
     });
 

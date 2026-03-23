@@ -29,7 +29,6 @@ describe('<InputBase />', () => {
     refInstanceof: window.HTMLDivElement,
     muiName: 'MuiInputBase',
     testVariantProps: { size: 'small' },
-    testLegacyComponentsProp: true,
     slots: {
       // can't test with DOM element as InputBase places an ownerState prop on it unconditionally.
       root: { expectedClassName: classes.root, testWithElement: null },
@@ -37,6 +36,7 @@ describe('<InputBase />', () => {
     },
     skip: [
       'componentProp',
+      'componentsProp',
       'slotPropsCallback', // not supported yet
       'slotPropsCallbackWithPropsAsOwnerState', // not supported yet
     ],
@@ -355,13 +355,13 @@ describe('<InputBase />', () => {
     });
 
     describe('size', () => {
-      it('should have the inputSizeSmall class in a dense context', () => {
+      it('should have the sizeSmall class on the root in a dense context', () => {
         const { container } = render(
           <FormControl size="small">
             <InputBase />
           </FormControl>,
         );
-        expect(container.querySelector('input')).to.have.class(classes.inputSizeSmall);
+        expect(container.querySelector(`.${classes.root}`)).to.have.class(classes.sizeSmall);
       });
 
       it('should be overridden by props', () => {
@@ -373,20 +373,20 @@ describe('<InputBase />', () => {
           );
         }
         const { container, setProps } = render(<InputBaseInFormWithMargin />);
-        expect(container.querySelector('input')).not.to.have.class(classes.inputSizeSmall);
+        expect(container.querySelector(`.${classes.root}`)).not.to.have.class(classes.sizeSmall);
 
         setProps({ size: 'small' });
-        expect(container.querySelector('input')).to.have.class(classes.inputSizeSmall);
+        expect(container.querySelector(`.${classes.root}`)).to.have.class(classes.sizeSmall);
       });
 
-      it('has an inputHiddenLabel class to further reduce margin', () => {
+      it('has the hiddenLabel class on the root to further reduce margin', () => {
         render(
           <FormControl hiddenLabel margin="dense">
             <InputBase />
           </FormControl>,
         );
 
-        expect(screen.getByRole('textbox')).to.have.class(classes.inputHiddenLabel);
+        expect(screen.getByRole('textbox').parentElement).to.have.class(classes.hiddenLabel);
       });
     });
 
