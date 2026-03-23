@@ -759,6 +759,27 @@ If you were using these deprecated class names as `styleOverrides` keys in your 
  });
 ```
 
+#### Checkbox deprecated props removed
+
+Use the [checkbox-props codemod](https://github.com/mui/material-ui/tree/HEAD/packages/mui-codemod#checkbox-props) below to migrate the code as described in the following section:
+
+```bash
+npx @mui/codemod@latest deprecations/checkbox-props <path>
+```
+
+The following deprecated `Checkbox` props have been removed:
+
+- `inputProps` — use `slotProps.input` instead
+- `inputRef` — use `slotProps.input.ref` instead
+
+```diff
+ <Checkbox
+-  inputProps={{ 'aria-label': 'Checkbox' }}
+-  inputRef={ref}
++  slotProps={{ input: { 'aria-label': 'Checkbox', ref } }}
+ />
+```
+
 #### Chip deprecated CSS classes removed
 
 Use the [chip-classes codemod](https://github.com/mui/material-ui/tree/HEAD/packages/mui-codemod#chip-classes) below to migrate the code as described in the following section:
@@ -1030,6 +1051,27 @@ The following deprecated props have been removed:
  />
 ```
 
+#### Radio deprecated props removed
+
+Use the [radio-props codemod](https://github.com/mui/material-ui/tree/HEAD/packages/mui-codemod#radio-props) below to migrate the code as described in the following section:
+
+```bash
+npx @mui/codemod@latest deprecations/radio-props <path>
+```
+
+The following deprecated `Radio` props have been removed:
+
+- `inputProps` — use `slotProps.input` instead
+- `inputRef` — use `slotProps.input.ref` instead
+
+```diff
+ <Radio
+-  inputProps={{ 'aria-label': 'Radio' }}
+-  inputRef={ref}
++  slotProps={{ input: { 'aria-label': 'Radio', ref } }}
+ />
+```
+
 #### Slider deprecated props removed
 
 Use the [slider-props codemod](https://github.com/mui/material-ui/tree/HEAD/packages/mui-codemod#slider-props) below to migrate the code as described in the following section:
@@ -1288,6 +1330,27 @@ The following deprecated prop has been removed:
  <Rating
 -  IconContainerComponent={CustomIconContainer}
 +  slotProps={{ icon: { component: CustomIconContainer } }}
+ />
+```
+
+#### Switch deprecated props removed
+
+Use the [switch-props codemod](https://github.com/mui/material-ui/tree/HEAD/packages/mui-codemod#switch-props) below to migrate the code as described in the following section:
+
+```bash
+npx @mui/codemod@latest deprecations/switch-props <path>
+```
+
+The following deprecated `Switch` props have been removed:
+
+- `inputProps` — use `slotProps.input` instead
+- `inputRef` — use `slotProps.input.ref` instead
+
+```diff
+ <Switch
+-  inputProps={{ 'aria-label': 'Switch' }}
+-  inputRef={ref}
++  slotProps={{ input: { 'aria-label': 'Switch', ref } }}
  />
 ```
 

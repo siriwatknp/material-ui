@@ -900,6 +900,20 @@ npx @mui/codemod@next deprecations/button-group-classes <path>
 npx @mui/codemod@next deprecations/card-header-props <path>
 ```
 
+#### `checkbox-props`
+
+```diff
+ <Checkbox
+-  inputProps={{ 'aria-label': 'Checkbox' }}
+-  inputRef={ref}
++  slotProps={{ input: { 'aria-label': 'Checkbox', ref } }}
+ />
+```
+
+```bash
+npx @mui/codemod@next deprecations/checkbox-props <path>
+```
+
 #### `chip-classes`
 
 JS transforms:
@@ -1781,6 +1795,20 @@ npx @mui/codemod@next deprecations/outlined-input-props <path>
 npx @mui/codemod@next deprecations/rating-props <path>
 ```
 
+#### `radio-props`
+
+```diff
+ <Radio
+-  inputProps={{ 'aria-label': 'Radio' }}
+-  inputRef={ref}
++  slotProps={{ input: { 'aria-label': 'Radio', ref } }}
+ />
+```
+
+```bash
+npx @mui/codemod@next deprecations/radio-props <path>
+```
+
 #### `select-classes`
 
 JS transforms:
@@ -2131,6 +2159,20 @@ npx @mui/codemod@next deprecations/step-content-props <path>
 
 ```bash
 npx @mui/codemod@next deprecations/step-label-props <path>
+```
+
+#### `switch-props`
+
+```diff
+ <Switch
+-  inputProps={{ 'aria-label': 'Switch' }}
+-  inputRef={ref}
++  slotProps={{ input: { 'aria-label': 'Switch', ref } }}
+ />
+```
+
+```bash
+npx @mui/codemod@next deprecations/switch-props <path>
 ```
 
 #### `text-field-props`
