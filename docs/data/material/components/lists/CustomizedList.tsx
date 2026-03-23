@@ -191,8 +191,11 @@ export default function CustomizedList() {
                     },
                     secondary: {
                       noWrap: true,
-                      sx: { fontSize: 12, lineHeight: '16px' },
-                      color: open ? 'rgba(0,0,0,0)' : 'rgba(255,255,255,0.5)',
+                      sx: {
+                        fontSize: 12,
+                        lineHeight: '16px',
+                        color: open ? 'rgba(0,0,0,0)' : 'rgba(255,255,255,0.5)',
+                      },
                     },
                   }}
                   sx={{ my: 0 }}
