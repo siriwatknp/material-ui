@@ -22,7 +22,6 @@ describe('<OutlinedInput />', () => {
     testDeepOverrides: { slotName: 'input', slotClassName: classes.input },
     testVariantProps: { variant: 'contained', fullWidth: true },
     testStateOverrides: { prop: 'size', value: 'small', styleKey: 'sizeSmall' },
-    testLegacyComponentsProp: ['root', 'input'],
     slots: {
       // can't test with DOM element as InputBase places an ownerState prop on it unconditionally.
       root: { expectedClassName: classes.root, testWithElement: null },
@@ -63,11 +62,6 @@ describe('<OutlinedInput />', () => {
   it('should forward classes to InputBase', () => {
     render(<OutlinedInput error classes={{ error: 'error' }} />);
     expect(document.querySelector('.error')).not.to.equal(null);
-  });
-
-  it('should respects the componentsProps if passed', () => {
-    render(<OutlinedInput componentsProps={{ root: { 'data-test': 'test' } }} />);
-    expect(document.querySelector('[data-test=test]')).not.to.equal(null);
   });
 
   it('should respect the classes coming from InputBase', () => {
