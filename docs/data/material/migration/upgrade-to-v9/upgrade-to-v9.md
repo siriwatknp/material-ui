@@ -833,6 +833,21 @@ The `label` slot is a proper styled component and can use `variants` directly in
  });
 ```
 
+#### Checkbox, Radio, Switch deprecated props removed
+
+The following deprecated props have been removed from `Checkbox`, `Radio`, and `Switch` (via `SwitchBase`):
+
+- `inputProps` — use `slotProps.input` instead
+- `inputRef` — use `slotProps.input.ref` instead
+
+```diff
+ <Checkbox
+-  inputProps={{ 'aria-label': 'Checkbox' }}
+-  inputRef={ref}
++  slotProps={{ input: { 'aria-label': 'Checkbox', ref } }}
+ />
+```
+
 #### CircularProgress deprecated CSS classes removed
 
 Use the [circular-progress-classes codemod](https://github.com/mui/material-ui/tree/HEAD/packages/mui-codemod#circular-progress-classes) below to migrate the code as described in the following section:
