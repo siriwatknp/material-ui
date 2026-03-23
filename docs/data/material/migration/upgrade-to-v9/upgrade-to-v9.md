@@ -912,6 +912,21 @@ Use `sx={{ opacity : "0.6" }}` (or any opacity):
  />
 ```
 
+#### ImageListItemBar deprecated CSS classes removed
+
+Use the [image-list-item-bar-classes codemod](https://github.com/mui/material-ui/tree/HEAD/packages/mui-codemod#image-list-item-bar-classes) below to migrate the code as described in the following section:
+
+```bash
+npx @mui/codemod@latest deprecations/image-list-item-bar-classes <path>
+```
+
+The following deprecated `ImageListItemBar` CSS classes have been removed:
+
+- `titleWrapBelow` → use `.MuiImageListItemBar-titleWrap` with `.MuiImageListItemBar-positionBelow` on the root
+- `titleWrapActionPosLeft` → use `.MuiImageListItemBar-titleWrap` with `.MuiImageListItemBar-actionPositionLeft` on the root
+- `titleWrapActionPosRight` → use `.MuiImageListItemBar-titleWrap` with `.MuiImageListItemBar-actionPositionRight` on the root
+- `actionIconActionPosLeft` → use `.MuiImageListItemBar-actionIcon` with `.MuiImageListItemBar-actionPositionLeft` on the root
+
 #### FormControlLabel deprecated props removed
 
 Use the [form-control-label-props codemod](https://github.com/mui/material-ui/tree/HEAD/packages/mui-codemod#form-control-label-props) below to migrate the code as described in the following section:
