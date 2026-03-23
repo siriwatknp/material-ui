@@ -1132,6 +1132,27 @@ The following deprecated classes have been removed:
 +.MuiTableSortLabel-directionAsc > .MuiTableSortLabel-icon
 ```
 
+If you were using these deprecated class names as `styleOverrides` keys in your theme, use the `variants` array in the `icon` override instead:
+
+```diff
+ const theme = createTheme({
+   components: {
+     MuiTableSortLabel: {
+       styleOverrides: {
+-        iconDirectionDesc: { opacity: 1 },
+-        iconDirectionAsc: { opacity: 1 },
++        icon: {
++          variants: [
++            { props: { direction: 'desc' }, style: { opacity: 1 } },
++            { props: { direction: 'asc' }, style: { opacity: 1 } },
++          ],
++        },
+       },
+     },
+   },
+ });
+```
+
 #### SpeedDial deprecated props removed
 
 The deprecated `SpeedDial` props have been removed.
