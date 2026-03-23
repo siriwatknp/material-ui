@@ -7,7 +7,6 @@ import {
   TablePaginationActionsSlots,
 } from '../TablePaginationActions';
 import { TableCellProps } from '../TableCell';
-import { IconButtonProps } from '../IconButton';
 import { SelectProps } from '../Select';
 import { TablePaginationClasses } from './tablePaginationClasses';
 import { CreateSlotsAndSlotProps, SlotProps } from '../utils/types';
