@@ -1094,6 +1094,24 @@ The following deprecated props have been removed:
  />
 ```
 
+#### ToggleButtonGroup deprecated classes removed
+
+Use the [toggle-button-group-classes codemod](https://github.com/mui/material-ui/tree/HEAD/packages/mui-codemod#toggle-button-group-classes) below to migrate the code as described in the following section:
+
+```bash
+npx @mui/codemod@latest deprecations/toggle-button-group-classes <path>
+```
+
+The following deprecated classes have been removed:
+
+- `groupedHorizontal` — combine the `.MuiToggleButtonGroup-horizontal` and `.MuiToggleButtonGroup-grouped` classes instead
+- `groupedVertical` — combine the `.MuiToggleButtonGroup-vertical` and `.MuiToggleButtonGroup-grouped` classes instead
+
+```diff
+-.MuiToggleButtonGroup-groupedHorizontal
++.MuiToggleButtonGroup-horizontal > .MuiToggleButtonGroup-grouped
+```
+
 #### TextField deprecated props removed
 
 Use the [text-field-props codemod](https://github.com/mui/material-ui/tree/HEAD/packages/mui-codemod#text-field-props) below to migrate the code as described in the following section:
