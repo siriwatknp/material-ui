@@ -79,11 +79,7 @@ const StepContent = React.forwardRef(function StepContent(inProps, ref) {
 
   let transitionDuration = transitionDurationProp;
 
-  const TransitionComponent = slots.transition ?? Collapse;
-  if (
-    transitionDurationProp === 'auto' &&
-    (typeof TransitionComponent === 'function' || !TransitionComponent.muiSupportAuto)
-  ) {
+  if (transitionDurationProp === 'auto' && !(slots.transition ?? Collapse).muiSupportAuto) {
     transitionDuration = undefined;
   }
 
