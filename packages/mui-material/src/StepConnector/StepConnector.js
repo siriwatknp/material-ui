@@ -65,7 +65,7 @@ const StepConnectorRoot = styled('div', {
 const StepConnectorLine = styled('span', {
   name: 'MuiStepConnector',
   slot: 'Line',
-  overridesResolver: (props, styles) => [styles.line],
+  overridesResolver: (props, styles) => styles.line,
 })(
   memoTheme(({ theme }) => {
     const borderColor =
