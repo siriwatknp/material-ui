@@ -869,6 +869,21 @@ Use `sx={{ opacity : "0.6" }}` (or any opacity):
  />
 ```
 
+#### ImageListItemBar deprecated CSS classes removed
+
+Use the [image-list-item-bar-classes codemod](https://github.com/mui/material-ui/tree/HEAD/packages/mui-codemod#image-list-item-bar-classes) below to migrate the code as described in the following section:
+
+```bash
+npx @mui/codemod@latest deprecations/image-list-item-bar-classes <path>
+```
+
+The following deprecated `ImageListItemBar` CSS classes have been removed:
+
+- `titleWrapBelow` → use `.MuiImageListItemBar-titleWrap` with `.MuiImageListItemBar-positionBelow` on the root
+- `titleWrapActionPosLeft` → use `.MuiImageListItemBar-titleWrap` with `.MuiImageListItemBar-actionPositionLeft` on the root
+- `titleWrapActionPosRight` → use `.MuiImageListItemBar-titleWrap` with `.MuiImageListItemBar-actionPositionRight` on the root
+- `actionIconActionPosLeft` → use `.MuiImageListItemBar-actionIcon` with `.MuiImageListItemBar-actionPositionLeft` on the root
+
 #### FormControlLabel deprecated props removed
 
 Use the [form-control-label-props codemod](https://github.com/mui/material-ui/tree/HEAD/packages/mui-codemod#form-control-label-props) below to migrate the code as described in the following section:
@@ -886,6 +901,57 @@ The following deprecated prop has been removed:
 -  componentsProps={{ typography: { fontWeight: 'bold' } }}
 +  slotProps={{ typography: { fontWeight: 'bold' } }}
  />
+```
+
+#### LinearProgress deprecated CSS classes removed
+
+Use the [linear-progress-classes codemod](https://github.com/mui/material-ui/tree/HEAD/packages/mui-codemod#linear-progress-classes) below to migrate the code as described in the following section:
+
+```bash
+npx @mui/codemod@latest deprecations/linear-progress-classes <path>
+```
+
+The following deprecated `LinearProgress` CSS classes have been removed:
+
+- `dashedColorPrimary` → use `.MuiLinearProgress-colorPrimary > .MuiLinearProgress-dashed`
+- `dashedColorSecondary` → use `.MuiLinearProgress-colorSecondary > .MuiLinearProgress-dashed`
+- `barColorPrimary` → use `.MuiLinearProgress-colorPrimary > .MuiLinearProgress-bar`
+- `barColorSecondary` → use `.MuiLinearProgress-colorSecondary > .MuiLinearProgress-bar`
+- `bar1Indeterminate` → use `.MuiLinearProgress-indeterminate > .MuiLinearProgress-bar1`
+- `bar1Determinate` → use `.MuiLinearProgress-determinate > .MuiLinearProgress-bar1`
+- `bar1Buffer` → use `.MuiLinearProgress-buffer > .MuiLinearProgress-bar1`
+- `bar2Indeterminate` → use `.MuiLinearProgress-indeterminate > .MuiLinearProgress-bar2`
+- `bar2Buffer` → use `.MuiLinearProgress-buffer > .MuiLinearProgress-bar2`
+
+If you were using these deprecated class names as `styleOverrides` keys in your theme, use the `variants` array in the appropriate slot override instead:
+
+```diff
+ const theme = createTheme({
+   components: {
+     MuiLinearProgress: {
+       styleOverrides: {
+-        bar1Determinate: { transition: 'none' },
+-        barColorPrimary: { backgroundColor: 'red' },
++        bar1: {
++          variants: [
++            {
++              props: { variant: 'determinate' },
++              style: { transition: 'none' },
++            },
++          ],
++        },
++        bar: {
++          variants: [
++            {
++              props: { color: 'primary' },
++              style: { backgroundColor: 'red' },
++            },
++          ],
++        },
+       },
+     },
+   },
+ });
 ```
 
 #### Popper deprecated props removed
