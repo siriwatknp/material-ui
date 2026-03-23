@@ -1124,6 +1124,77 @@ The following deprecated `Snackbar` props have been removed:
  />
 ```
 
+#### TablePagination deprecated props removed
+
+Use the [table-pagination-props codemod](https://github.com/mui/material-ui/tree/HEAD/packages/mui-codemod#table-pagination-props) below to migrate the code as described in the following section:
+
+```bash
+npx @mui/codemod@latest deprecations/table-pagination-props <path>
+```
+
+The following deprecated props have been removed:
+
+- `backIconButtonProps` — use `slotProps.actions.previousButton` instead
+- `nextIconButtonProps` — use `slotProps.actions.nextButton` instead
+- `SelectProps` — use `slotProps.select` instead
+
+```diff
+ <TablePagination
+-  backIconButtonProps={{ disabled: true }}
+-  nextIconButtonProps={{ disabled: true }}
+-  SelectProps={{ variant: 'outlined' }}
++  slotProps={{
++    actions: {
++      previousButton: { disabled: true },
++      nextButton: { disabled: true },
++    },
++    select: { variant: 'outlined' },
++  }}
+ />
+```
+
+#### TableSortLabel deprecated classes removed
+
+Use the [table-sort-label-classes codemod](https://github.com/mui/material-ui/tree/HEAD/packages/mui-codemod#table-sort-label-classes) below to migrate the code as described in the following section:
+
+```bash
+npx @mui/codemod@latest deprecations/table-sort-label-classes <path>
+```
+
+The following deprecated classes have been removed:
+
+- `iconDirectionDesc` — combine the `.MuiTableSortLabel-directionDesc` and `.MuiTableSortLabel-icon` classes instead
+- `iconDirectionAsc` — combine the `.MuiTableSortLabel-directionAsc` and `.MuiTableSortLabel-icon` classes instead
+
+```diff
+-.MuiTableSortLabel-iconDirectionDesc
++.MuiTableSortLabel-directionDesc > .MuiTableSortLabel-icon
+
+-.MuiTableSortLabel-iconDirectionAsc
++.MuiTableSortLabel-directionAsc > .MuiTableSortLabel-icon
+```
+
+If you were using these deprecated class names as `styleOverrides` keys in your theme, use the `variants` array in the `icon` override instead:
+
+```diff
+ const theme = createTheme({
+   components: {
+     MuiTableSortLabel: {
+       styleOverrides: {
+-        iconDirectionDesc: { opacity: 1 },
+-        iconDirectionAsc: { opacity: 1 },
++        icon: {
++          variants: [
++            { props: { direction: 'desc' }, style: { opacity: 1 } },
++            { props: { direction: 'asc' }, style: { opacity: 1 } },
++          ],
++        },
+       },
+     },
+   },
+ });
+```
+
 #### SpeedDial deprecated props removed
 
 The deprecated `SpeedDial` props have been removed.
@@ -1298,6 +1369,40 @@ The following deprecated props have been removed:
 -  slots={{ StartScrollButtonIcon: CustomIcon, EndScrollButtonIcon: CustomIcon2 }}
 +  slots={{ startScrollButtonIcon: CustomIcon, endScrollButtonIcon: CustomIcon2 }}
  />
+```
+
+#### ToggleButtonGroup deprecated CSS classes removed
+
+Use the [toggle-button-group-classes codemod](https://github.com/mui/material-ui/tree/HEAD/packages/mui-codemod#toggle-button-group-classes) below to migrate the code as described in the following section:
+
+```bash
+npx @mui/codemod@latest deprecations/toggle-button-group-classes <path>
+```
+
+The following deprecated `ToggleButtonGroup` CSS classes have been removed:
+
+- `groupedHorizontal` → use `.MuiToggleButtonGroup-horizontal > .MuiToggleButtonGroup-grouped`
+- `groupedVertical` → use `.MuiToggleButtonGroup-vertical > .MuiToggleButtonGroup-grouped`
+
+If you were using these deprecated class names as `styleOverrides` keys in your theme, use the `variants` array in the `grouped` override instead:
+
+```diff
+ const theme = createTheme({
+   components: {
+     MuiToggleButtonGroup: {
+       styleOverrides: {
+-        groupedHorizontal: { borderRadius: 0 },
+-        groupedVertical: { borderRadius: 0 },
++        grouped: {
++          variants: [
++            { props: { orientation: 'horizontal' }, style: { borderRadius: 0 } },
++            { props: { orientation: 'vertical' }, style: { borderRadius: 0 } },
++          ],
++        },
+       },
+     },
+   },
+ });
 ```
 
 #### TextField deprecated props removed
