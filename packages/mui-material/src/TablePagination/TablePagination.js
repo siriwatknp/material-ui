@@ -171,7 +171,8 @@ const TablePagination = React.forwardRef(function TablePagination(inProps, ref) 
   const ownerState = props;
   const classes = useUtilityClasses(ownerState);
 
-  const selectProps = slotProps?.select ?? {};
+  const selectProps =
+    typeof slotProps?.select === 'function' ? slotProps.select(ownerState) : slotProps?.select ?? {};
 
   const MenuItemComponent = selectProps.native ? 'option' : TablePaginationMenuItem;
 

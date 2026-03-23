@@ -1127,6 +1127,9 @@ The following deprecated classes have been removed:
 ```diff
 -.MuiTableSortLabel-iconDirectionDesc
 +.MuiTableSortLabel-directionDesc > .MuiTableSortLabel-icon
+
+-.MuiTableSortLabel-iconDirectionAsc
++.MuiTableSortLabel-directionAsc > .MuiTableSortLabel-icon
 ```
 
 #### SpeedDial deprecated props removed
