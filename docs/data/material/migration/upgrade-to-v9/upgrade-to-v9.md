@@ -939,6 +939,53 @@ The following deprecated `Snackbar` props have been removed:
  />
 ```
 
+#### TablePagination deprecated props removed
+
+Use the [table-pagination-props codemod](https://github.com/mui/material-ui/tree/HEAD/packages/mui-codemod#table-pagination-props) below to migrate the code as described in the following section:
+
+```bash
+npx @mui/codemod@latest deprecations/table-pagination-props <path>
+```
+
+The following deprecated props have been removed:
+
+- `backIconButtonProps` — use `slotProps.actions.previousButton` instead
+- `nextIconButtonProps` — use `slotProps.actions.nextButton` instead
+- `SelectProps` — use `slotProps.select` instead
+
+```diff
+ <TablePagination
+-  backIconButtonProps={{ disabled: true }}
+-  nextIconButtonProps={{ disabled: true }}
+-  SelectProps={{ variant: 'outlined' }}
++  slotProps={{
++    actions: {
++      previousButton: { disabled: true },
++      nextButton: { disabled: true },
++    },
++    select: { variant: 'outlined' },
++  }}
+ />
+```
+
+#### TableSortLabel deprecated classes removed
+
+Use the [table-sort-label-classes codemod](https://github.com/mui/material-ui/tree/HEAD/packages/mui-codemod#table-sort-label-classes) below to migrate the code as described in the following section:
+
+```bash
+npx @mui/codemod@latest deprecations/table-sort-label-classes <path>
+```
+
+The following deprecated classes have been removed:
+
+- `iconDirectionDesc` — combine the `.MuiTableSortLabel-directionDesc` and `.MuiTableSortLabel-icon` classes instead
+- `iconDirectionAsc` — combine the `.MuiTableSortLabel-directionAsc` and `.MuiTableSortLabel-icon` classes instead
+
+```diff
+-.MuiTableSortLabel-iconDirectionDesc
++.MuiTableSortLabel-directionDesc > .MuiTableSortLabel-icon
+```
+
 #### SpeedDial deprecated props removed
 
 The deprecated `SpeedDial` props have been removed.
