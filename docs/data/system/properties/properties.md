@@ -110,9 +110,9 @@ and detail each column:
   ```jsx
   <Button sx={{ mb: 3 }}>
   // or
-  <Box mb={3}>
+  <Box sx={{ mb: 3 }}>
   // or
-  <Box marginBottom={3}>
+  <Box sx={{ marginBottom: 3 }}>
   ```
 
 - **CSS properties**.

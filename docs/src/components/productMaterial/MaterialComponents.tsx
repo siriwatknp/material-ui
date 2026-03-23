@@ -166,9 +166,8 @@ export default function MaterialComponents() {
                 )}
                 {demo === 'Text Field' && (
                   <Stack
-                    justifyContent="center"
                     spacing={2}
-                    sx={{ p: 2, width: '50%', margin: 'auto' }}
+                    sx={{ justifyContent: 'center', p: 2, width: '50%', margin: 'auto' }}
                   >
                     <TextField variant="standard" label="Username" />
                     <TextField variant="outlined" label="Email" type="email" />
@@ -239,10 +238,8 @@ export default function MaterialComponents() {
                 )}
                 {demo === 'Tooltip' && (
                   <Stack
-                    alignItems="center"
-                    justifyContent="center"
                     spacing={1}
-                    sx={{ minHeight: 100, py: 2 }}
+                    sx={{ alignItems: 'center', justifyContent: 'center', minHeight: 100, py: 2 }}
                   >
                     <Tooltip
                       title="Appears on hover"

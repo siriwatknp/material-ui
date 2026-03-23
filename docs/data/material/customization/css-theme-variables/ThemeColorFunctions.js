@@ -43,9 +43,8 @@ function ColorDisplay({ color }) {
       />
       <Typography
         variant="caption"
-        fontFamily="monospace"
         color="text.secondary"
-        sx={{ wordBreak: 'break-all' }}
+        sx={{ fontFamily: 'monospace', wordBreak: 'break-all' }}
       >
         {color}
       </Typography>
@@ -104,19 +103,31 @@ export default function ThemeColorFunctions() {
           }}
         >
           <div>
-            <Typography variant="subtitle2" gutterBottom fontWeight="medium">
+            <Typography
+              variant="subtitle2"
+              gutterBottom
+              sx={{ fontWeight: 'medium' }}
+            >
               theme.alpha(color, 0.5)
             </Typography>
             <ColorDisplay color={colorValues.alpha} />
           </div>
           <div>
-            <Typography variant="subtitle2" gutterBottom fontWeight="medium">
+            <Typography
+              variant="subtitle2"
+              gutterBottom
+              sx={{ fontWeight: 'medium' }}
+            >
               theme.lighten(color, 0.5)
             </Typography>
             <ColorDisplay color={colorValues.lighten} />
           </div>
           <div>
-            <Typography variant="subtitle2" gutterBottom fontWeight="medium">
+            <Typography
+              variant="subtitle2"
+              gutterBottom
+              sx={{ fontWeight: 'medium' }}
+            >
               theme.darken(color, 0.5)
             </Typography>
             <ColorDisplay color={colorValues.darken} />

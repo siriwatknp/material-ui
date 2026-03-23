@@ -46,8 +46,8 @@ The demo below shows how to apply colors from the theme using this prop:
 
 ### With MUI System props
 
-:::info
-System props are deprecated and will be removed in the next major release. Please use the `sx` prop instead.
+:::warning
+System props have been removed. Use the `sx` prop instead.
 
 ```diff
 - <Box mt={2} />

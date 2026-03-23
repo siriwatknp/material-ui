@@ -101,8 +101,8 @@ Below is an interactive demo that lets you explore the visual results of the dif
 
 ## System props
 
-:::info
-System props are deprecated and will be removed in the next major release. Please use the `sx` prop instead.
+:::warning
+System props have been removed. Use the `sx` prop instead.
 
 ```diff
 - <Stack mt={2} />

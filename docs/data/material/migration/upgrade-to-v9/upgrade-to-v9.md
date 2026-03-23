@@ -103,17 +103,32 @@ type AutocompleteValueOrFreeSoloValueMapping<Value, FreeSolo> = FreeSolo extends
   : Value;
 ```
 
-### Grid
+### Box, Grid, Stack, Typography
 
-The Grid component no longer supports [system props](/material-ui/customization/how-to-customize/#the-sx-prop).
+These components no longer support [system props](/material-ui/customization/how-to-customize/#the-sx-prop).
 Use the `sx` prop instead:
 
 ```diff
+-<Box mt={2} color="primary.main" />
++<Box sx={{ mt: 2, color: 'primary.main' }} />
+
 -<Grid mt={2} mr={1} />
 +<Grid sx={{ mt: 2, mr: 1 }} />
+
+-<Stack mt={2} alignItems="center" />
++<Stack sx={{ mt: 2, alignItems: 'center' }} />
+
+-<Typography mt={2} fontWeight="bold" />
++<Typography sx={{ mt: 2, fontWeight: 'bold' }} />
 ```
 
-This also fixes an issue where props like `color` were consumed by the Grid instead of being forwarded to the component rendered via the `component` prop:
+Use the [v6 codemod](/material-ui/migration/migrating-from-deprecated-apis/#system-props) to automatically migrate:
+
+```bash
+npx @mui/codemod@latest v6.0.0/system-props <path/to/folder>
+```
+
+This also fixes an issue where props like `color` were consumed by the component instead of being forwarded to the element rendered via the `component` prop:
 
 ```jsx
 // `color` is now correctly forwarded to Button

@@ -101,7 +101,7 @@ export default function Item({
         {icon}
       </Box>
       <Box sx={{ flexWrap: 'wrap' }}>
-        <Typography color="text.primary" variant="body2" fontWeight="semiBold">
+        <Typography color="text.primary" variant="body2" sx={{ fontWeight: 'semiBold' }}>
           {title}
         </Typography>
         {description && (

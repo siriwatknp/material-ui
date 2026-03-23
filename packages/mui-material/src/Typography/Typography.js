@@ -3,7 +3,7 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import composeClasses from '@mui/utils/composeClasses';
-import { styled, internal_createExtendSxProp } from '../zero-styled';
+import { styled } from '../zero-styled';
 import memoTheme from '../utils/memoTheme';
 import { useDefaultProps } from '../DefaultPropsProvider';
 import capitalize from '../utils/capitalize';
@@ -21,8 +21,6 @@ const v6Colors = {
   textSecondary: true,
   textDisabled: true,
 };
-
-const extendSxProp = internal_createExtendSxProp();
 
 const useUtilityClasses = (ownerState) => {
   const { align, gutterBottom, noWrap, variant, classes } = ownerState;
@@ -132,11 +130,10 @@ const defaultVariantMapping = {
 const Typography = React.forwardRef(function Typography(inProps, ref) {
   const { color, ...themeProps } = useDefaultProps({ props: inProps, name: 'MuiTypography' });
   const isSxColor = !v6Colors[color];
-  // TODO: Remove `extendSxProp` in v7
-  const props = extendSxProp({
+  const props = {
     ...themeProps,
     ...(isSxColor && { color }),
-  });
+  };
 
   const {
     align = 'inherit',
