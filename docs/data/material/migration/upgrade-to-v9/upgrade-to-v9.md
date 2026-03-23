@@ -1274,6 +1274,7 @@ If you were using these deprecated class names as `styleOverrides` keys in your 
    },
  });
 ```
+
 #### SpeedDial deprecated props removed
 
 The deprecated `SpeedDial` props have been removed.
