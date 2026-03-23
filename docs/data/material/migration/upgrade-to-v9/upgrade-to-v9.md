@@ -903,6 +903,107 @@ The following deprecated prop has been removed:
  />
 ```
 
+#### InputBase deprecated props removed
+
+Use the [input-base-props codemod](https://github.com/mui/material-ui/tree/HEAD/packages/mui-codemod#input-base-props) below to migrate the code as described in the following section:
+
+```bash
+npx @mui/codemod@latest deprecations/input-base-props <path>
+```
+
+The following deprecated props have been removed:
+
+- `components` — use `slots` instead
+- `componentsProps` — use `slotProps` instead
+
+```diff
+ <InputBase
+-  components={{ Root: CustomRoot, Input: CustomInput }}
+-  componentsProps={{ root: { className: 'root' }, input: { className: 'input' } }}
++  slots={{ root: CustomRoot, input: CustomInput }}
++  slotProps={{ root: { className: 'root' }, input: { className: 'input' } }}
+ />
+```
+
+#### InputBase deprecated CSS classes removed
+
+Use the [input-base-classes codemod](https://github.com/mui/material-ui/tree/HEAD/packages/mui-codemod#input-base-classes) below to migrate the code as described in the following section:
+
+```bash
+npx @mui/codemod@latest deprecations/input-base-classes <path>
+```
+
+The following deprecated classes have been removed:
+
+- `inputSizeSmall` — combine `.MuiInputBase-input` and `.MuiInputBase-sizeSmall` instead
+- `inputMultiline` — combine `.MuiInputBase-input` and `.MuiInputBase-multiline` instead
+- `inputAdornedStart` — combine `.MuiInputBase-input` and `.MuiInputBase-adornedStart` instead
+- `inputAdornedEnd` — combine `.MuiInputBase-input` and `.MuiInputBase-adornedEnd` instead
+- `inputHiddenLabel` — combine `.MuiInputBase-input` and `.MuiInputBase-hiddenLabel` instead
+
+#### Input deprecated props removed
+
+Use the [input-props codemod](https://github.com/mui/material-ui/tree/HEAD/packages/mui-codemod#input-props) below to migrate the code as described in the following section:
+
+```bash
+npx @mui/codemod@latest deprecations/input-props <path>
+```
+
+The following deprecated props have been removed:
+
+- `components` — use `slots` instead
+- `componentsProps` — use `slotProps` instead
+
+```diff
+ <Input
+-  components={{ Root: CustomRoot, Input: CustomInput }}
+-  componentsProps={{ root: { className: 'root' }, input: { className: 'input' } }}
++  slots={{ root: CustomRoot, input: CustomInput }}
++  slotProps={{ root: { className: 'root' }, input: { className: 'input' } }}
+ />
+```
+
+#### FilledInput deprecated props removed
+
+Use the [filled-input-props codemod](https://github.com/mui/material-ui/tree/HEAD/packages/mui-codemod#filled-input-props) below to migrate the code as described in the following section:
+
+```bash
+npx @mui/codemod@latest deprecations/filled-input-props <path>
+```
+
+The following deprecated props have been removed:
+
+- `components` — use `slots` instead
+- `componentsProps` — use `slotProps` instead
+
+```diff
+ <FilledInput
+-  components={{ Root: CustomRoot, Input: CustomInput }}
+-  componentsProps={{ root: { className: 'root' }, input: { className: 'input' } }}
++  slots={{ root: CustomRoot, input: CustomInput }}
++  slotProps={{ root: { className: 'root' }, input: { className: 'input' } }}
+ />
+```
+
+#### OutlinedInput deprecated props removed
+
+Use the [outlined-input-props codemod](https://github.com/mui/material-ui/tree/HEAD/packages/mui-codemod#outlined-input-props) below to migrate the code as described in the following section:
+
+```bash
+npx @mui/codemod@latest deprecations/outlined-input-props <path>
+```
+
+The following deprecated props have been removed:
+
+- `components` — use `slots` instead
+
+```diff
+ <OutlinedInput
+-  components={{ Root: CustomRoot, Input: CustomInput }}
++  slots={{ root: CustomRoot, input: CustomInput }}
+ />
+```
+
 #### LinearProgress deprecated CSS classes removed
 
 Use the [linear-progress-classes codemod](https://github.com/mui/material-ui/tree/HEAD/packages/mui-codemod#linear-progress-classes) below to migrate the code as described in the following section:

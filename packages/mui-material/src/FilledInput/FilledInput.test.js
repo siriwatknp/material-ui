@@ -17,7 +17,6 @@ describe('<FilledInput />', () => {
     testDeepOverrides: { slotName: 'input', slotClassName: classes.input },
     testVariantProps: { variant: 'contained', fullWidth: true },
     testStateOverrides: { prop: 'size', value: 'small', styleKey: 'sizeSmall' },
-    testLegacyComponentsProp: true,
     slots: {
       // can't test with DOM element as Input places an ownerState prop on it unconditionally.
       root: { expectedClassName: classes.root, testWithElement: null },
@@ -54,8 +53,8 @@ describe('<FilledInput />', () => {
     expect(document.querySelector('.error')).not.to.equal(null);
   });
 
-  it('should respects the componentsProps if passed', () => {
-    render(<FilledInput componentsProps={{ root: { 'data-test': 'test' } }} />);
+  it('should respect the slotProps if passed', () => {
+    render(<FilledInput slotProps={{ root: { 'data-test': 'test' } }} />);
     expect(document.querySelector('[data-test=test]')).not.to.equal(null);
   });
 
@@ -74,24 +73,6 @@ describe('<FilledInput />', () => {
     const Adornment = styled('div')({});
     render(<FilledInput endAdornment={<Adornment />} slotProps={{}} />);
     render(<FilledInput startAdornment={<Adornment />} slotProps={{}} />);
-  });
-
-  it('should not have following classes', () => {
-    render(
-      <FilledInput
-        size="small"
-        multiline
-        startAdornment="start"
-        endAdornment="end"
-        type="search"
-      />,
-    );
-
-    expect(document.querySelector('.MuiFilledInput-inputSizeSmall')).to.equal(null);
-    expect(document.querySelector('.MuiFilledInput-inputMultiline')).to.equal(null);
-    expect(document.querySelector('.MuiFilledInput-inputAdornedStart')).to.equal(null);
-    expect(document.querySelector('.MuiFilledInput-inputAdornedEnd')).to.equal(null);
-    expect(document.querySelector('.MuiFilledInput-inputTypeSearch')).to.equal(null);
   });
 
   it('should have following classes', () => {

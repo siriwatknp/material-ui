@@ -9,8 +9,6 @@ export interface InputBasePropsSizeOverrides {}
 
 export interface InputBasePropsColorOverrides {}
 
-export interface InputBaseComponentsPropsOverrides {}
-
 export interface InputBaseProps extends StandardProps<
   React.HTMLAttributes<HTMLDivElement>,
   /*
@@ -53,37 +51,6 @@ export interface InputBaseProps extends StandardProps<
         'primary' | 'secondary' | 'error' | 'info' | 'success' | 'warning',
         InputBasePropsColorOverrides
       >
-    | undefined;
-  /**
-   * The components used for each slot inside.
-   *
-   * @deprecated use the `slots` prop instead. This prop will be removed in a future major release. See [Migrating from deprecated APIs](https://mui.com/material-ui/migration/migrating-from-deprecated-apis/) for more details.
-   *
-   * @default {}
-   */
-  components?:
-    | {
-        Root?: React.ElementType | undefined;
-        Input?: React.ElementType | undefined;
-      }
-    | undefined;
-  /**
-   * The extra props for the slot components.
-   * You can override the existing props or add new ones.
-   *
-   * @deprecated use the `slotProps` prop instead. This prop will be removed in a future major release. See [Migrating from deprecated APIs](https://mui.com/material-ui/migration/migrating-from-deprecated-apis/) for more details.
-   *
-   * @default {}
-   */
-  componentsProps?:
-    | {
-        root?:
-          | (React.HTMLAttributes<HTMLDivElement> & InputBaseComponentsPropsOverrides)
-          | undefined;
-        input?:
-          | (React.InputHTMLAttributes<HTMLInputElement> & InputBaseComponentsPropsOverrides)
-          | undefined;
-      }
     | undefined;
   /**
    * The default value. Use when the component is not controlled.
@@ -213,26 +180,20 @@ export interface InputBaseProps extends StandardProps<
    * The extra props for the slot components.
    * You can override the existing props or add new ones.
    *
-   * This prop is an alias for the `componentsProps` prop, which will be deprecated in the future.
-   *
    * @default {}
    */
   slotProps?:
     | {
         root?:
-          | (React.HTMLAttributes<HTMLDivElement> &
-              InputBaseComponentsPropsOverrides & { sx?: SxProps<Theme> | undefined })
+          | (React.HTMLAttributes<HTMLDivElement> & { sx?: SxProps<Theme> | undefined })
           | undefined;
         input?:
-          | (React.InputHTMLAttributes<HTMLInputElement> &
-              InputBaseComponentsPropsOverrides & { sx?: SxProps<Theme> | undefined })
+          | (React.InputHTMLAttributes<HTMLInputElement> & { sx?: SxProps<Theme> | undefined })
           | undefined;
       }
     | undefined;
   /**
    * The components used for each slot inside.
-   *
-   * This prop is an alias for the `components` prop, which will be deprecated in the future.
    *
    * @default {}
    */
