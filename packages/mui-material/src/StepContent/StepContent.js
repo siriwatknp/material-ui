@@ -77,6 +77,16 @@ const StepContent = React.forwardRef(function StepContent(inProps, ref) {
     }
   }
 
+  let transitionDuration = transitionDurationProp;
+
+  const TransitionComponent = slots.transition ?? Collapse;
+  if (
+    transitionDurationProp === 'auto' &&
+    (typeof TransitionComponent === 'function' || !TransitionComponent.muiSupportAuto)
+  ) {
+    transitionDuration = undefined;
+  }
+
   const externalForwardedProps = {
     slots,
     slotProps,
@@ -87,13 +97,12 @@ const StepContent = React.forwardRef(function StepContent(inProps, ref) {
     externalForwardedProps,
     ownerState,
     className: classes.transition,
+    additionalProps: {
+      in: active || expanded,
+      timeout: transitionDuration,
+      unmountOnExit: true,
+    },
   });
-
-  let transitionDuration = transitionDurationProp;
-
-  if (transitionDurationProp === 'auto' && !(slots.transition ?? Collapse).muiSupportAuto) {
-    transitionDuration = undefined;
-  }
 
   return (
     <StepContentRoot
@@ -102,14 +111,7 @@ const StepContent = React.forwardRef(function StepContent(inProps, ref) {
       ownerState={ownerState}
       {...other}
     >
-      <TransitionSlot
-        in={active || expanded}
-        timeout={transitionDuration}
-        unmountOnExit
-        {...transitionProps}
-      >
-        {children}
-      </TransitionSlot>
+      <TransitionSlot {...transitionProps}>{children}</TransitionSlot>
     </StepContentRoot>
   );
 });
