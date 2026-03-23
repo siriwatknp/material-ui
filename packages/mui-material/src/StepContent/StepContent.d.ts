@@ -15,7 +15,7 @@ export interface StepContentSlots {
    */
   transition?:
     | React.JSXElementConstructor<
-        TransitionProps & { children?: React.ReactElement<unknown, any> | undefined }
+        TransitionProps & { children: React.ReactElement<unknown, any> }
       >
     | undefined;
 }
