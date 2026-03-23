@@ -6,7 +6,6 @@ import composeClasses from '@mui/utils/composeClasses';
 import { styled } from '../zero-styled';
 import memoTheme from '../utils/memoTheme';
 import { useDefaultProps } from '../DefaultPropsProvider';
-import useForkRef from '../utils/useForkRef';
 import useSlot from '../utils/useSlot';
 import ListContext from '../List/ListContext';
 import { getListItemUtilityClass } from './listItemClasses';
@@ -164,8 +163,6 @@ const ListItem = React.forwardRef(function ListItem(inProps, ref) {
     [alignItems, context.dense, dense, disableGutters],
   );
 
-  const listItemRef = React.useRef(null);
-
   const ownerState = {
     ...props,
     alignItems,
@@ -178,14 +175,13 @@ const ListItem = React.forwardRef(function ListItem(inProps, ref) {
 
   const classes = useUtilityClasses(ownerState);
 
-  const handleRef = useForkRef(listItemRef, ref);
-
   const externalForwardedProps = {
     slots,
     slotProps,
   };
 
   const [RootSlot, rootSlotProps] = useSlot('root', {
+    ref,
     elementType: ListItemRoot,
     externalForwardedProps: {
       component: componentProp,
@@ -206,7 +202,7 @@ const ListItem = React.forwardRef(function ListItem(inProps, ref) {
 
   return (
     <ListContext.Provider value={childContext}>
-      <RootSlot {...rootSlotProps} ref={handleRef}>
+      <RootSlot {...rootSlotProps}>
         {childrenProp}
         {secondaryAction && (
           <SecondaryActionSlot {...secondaryActionSlotProps}>{secondaryAction}</SecondaryActionSlot>
