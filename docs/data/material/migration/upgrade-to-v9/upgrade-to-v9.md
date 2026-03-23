@@ -835,6 +835,14 @@ The `label` slot is a proper styled component and can use `variants` directly in
 
 #### Checkbox, Radio, Switch deprecated props removed
 
+Use the [checkbox-props](https://github.com/mui/material-ui/tree/HEAD/packages/mui-codemod#checkbox-props), [radio-props](https://github.com/mui/material-ui/tree/HEAD/packages/mui-codemod#radio-props), and [switch-props](https://github.com/mui/material-ui/tree/HEAD/packages/mui-codemod#switch-props) codemods below to migrate the code as described in the following section:
+
+```bash
+npx @mui/codemod@latest deprecations/checkbox-props <path>
+npx @mui/codemod@latest deprecations/radio-props <path>
+npx @mui/codemod@latest deprecations/switch-props <path>
+```
+
 The following deprecated props have been removed from `Checkbox`, `Radio`, and `Switch` (via `SwitchBase`):
 
 - `inputProps` — use `slotProps.input` instead
