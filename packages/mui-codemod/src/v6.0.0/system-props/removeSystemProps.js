@@ -136,6 +136,7 @@ const components = [
   'Link',
   'Grid',
   'Grid2',
+  'DialogContentText',
   'TimelineContent',
   'TimelineOppositeContent',
 ];
@@ -163,7 +164,8 @@ export default function removeSystemProps(file, api, options) {
   };
   const customReplacement = {
     Typography: typographyColorMatcher,
-    // TimelineContent and TimelineOppositeContent extend Typography
+    // These components extend Typography
+    DialogContentText: typographyColorMatcher,
     TimelineContent: typographyColorMatcher,
     TimelineOppositeContent: typographyColorMatcher,
     Link: {
