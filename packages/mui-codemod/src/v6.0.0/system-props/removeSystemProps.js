@@ -129,7 +129,16 @@ const defaultSxConfig = {
   typography: {},
 };
 const systemProps = Object.keys(defaultSxConfig);
-const components = ['Box', 'Stack', 'Typography', 'Link', 'Grid', 'Grid2'];
+const components = [
+  'Box',
+  'Stack',
+  'Typography',
+  'Link',
+  'Grid',
+  'Grid2',
+  'TimelineContent',
+  'TimelineOppositeContent',
+];
 
 /**
  * @param {import('jscodeshift').FileInfo} file
@@ -144,15 +153,19 @@ export default function removeSystemProps(file, api, options) {
   const printOptions = options.printOptions;
 
   const deprecatedElements = [];
+  const typographyColorMatcher = {
+    matcher: (key, val) =>
+      key !== 'color' ||
+      (val.value?.includes('.') && val.value !== 'inherit') ||
+      val.value === 'divider' ||
+      val.value.startsWith('#') ||
+      val.value.match(/\(.*\)/),
+  };
   const customReplacement = {
-    Typography: {
-      matcher: (key, val) =>
-        key !== 'color' ||
-        (val.value?.includes('.') && val.value !== 'inherit') ||
-        val.value === 'divider' ||
-        val.value.startsWith('#') ||
-        val.value.match(/\(.*\)/),
-    },
+    Typography: typographyColorMatcher,
+    // TimelineContent and TimelineOppositeContent extend Typography
+    TimelineContent: typographyColorMatcher,
+    TimelineOppositeContent: typographyColorMatcher,
     Link: {
       matcher: (key) => key !== 'color',
     },
