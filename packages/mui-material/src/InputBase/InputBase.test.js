@@ -356,12 +356,13 @@ describe('<InputBase />', () => {
 
     describe('size', () => {
       it('should have the sizeSmall class in a dense context', () => {
-        render(
+        const { container } = render(
           <FormControl size="small">
             <InputBase data-testid="root" />
           </FormControl>,
         );
         expect(screen.getByTestId('root')).to.have.class(classes.sizeSmall);
+        expect(container.querySelector('input')).to.have.class(classes.input);
       });
 
       it('should be overridden by props', () => {
@@ -377,6 +378,17 @@ describe('<InputBase />', () => {
 
         setProps({ size: 'small' });
         expect(screen.getByTestId('root')).to.have.class(classes.sizeSmall);
+      });
+
+      it('should have the hiddenLabel class and input class', () => {
+        const { container } = render(
+          <FormControl hiddenLabel margin="dense">
+            <InputBase data-testid="root" />
+          </FormControl>,
+        );
+
+        expect(screen.getByTestId('root')).to.have.class(classes.hiddenLabel);
+        expect(container.querySelector('input')).to.have.class(classes.input);
       });
     });
 

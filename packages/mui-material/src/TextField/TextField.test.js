@@ -99,6 +99,7 @@ describe('<TextField />', () => {
       );
 
       expect(screen.getByTestId('mui-input-base-root')).to.have.class(inputBaseClasses.multiline);
+      expect(screen.getByRole('textbox')).to.have.class(inputBaseClasses.input);
     });
 
     it('should forward the fullWidth prop to Input', () => {
