@@ -27,11 +27,11 @@ const typographyTest = () => {
       <Typography />
       <CustomComponent2 component="span" />
       <CustomComponent2 component="div" />
-      <Typography align="inherit" color="inherit" />
-      <Typography align="left" color="initial" />
+      <Typography align="inherit" sx={{ color: 'inherit' }} />
+      <Typography align="left" sx={{ color: 'initial' }} />
       <Typography align="right" color="primary" sx={{ display: 'initial' }} />
       <Typography align="justify" color="secondary" sx={{ display: 'initial' }} />
-      <Typography align="inherit" color="text.primary" />
+      <Typography align="inherit" sx={{ color: 'text.primary' }} />
       <Typography align="inherit" color="textSecondary" />
       <Typography align="inherit" color="textDisabled" />
       <Typography align="inherit" color="error" />

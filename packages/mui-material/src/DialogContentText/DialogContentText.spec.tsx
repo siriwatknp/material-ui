@@ -11,11 +11,11 @@ const dialogContentTextTest = () => {
       <DialogContentText classes={{ root: 'rootClass' }} />
       {/* @ts-expect-error */}
       <DialogContentText classes={{ body1: 'body1Class' }} />
-      <DialogContentText align="inherit" color="inherit" />
-      <DialogContentText align="left" color="initial" />
+      <DialogContentText align="inherit" sx={{ color: 'inherit' }} />
+      <DialogContentText align="left" sx={{ color: 'initial' }} />
       <DialogContentText align="right" color="primary" sx={{ display: 'initial' }} />
       <DialogContentText align="justify" color="secondary" sx={{ display: 'initial' }} />
-      <DialogContentText align="inherit" color="text.primary" />
+      <DialogContentText align="inherit" sx={{ color: 'text.primary' }} />
       <DialogContentText align="inherit" color="textSecondary" />
       <DialogContentText align="inherit" color="error" />
       <DialogContentText sx={{ display: 'block' }} />
