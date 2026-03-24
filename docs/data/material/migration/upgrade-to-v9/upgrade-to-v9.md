@@ -2188,7 +2188,9 @@ npx @mui/codemod@latest v9.0.0/system-props <path/to/folder>
 The deprecated system props have been removed from the following components:
 
 - `Box`
+- `DialogContentText`
 - `Grid`
+- `Link`
 - `Stack`
 - `Typography`
 - `TimelineContent`
@@ -2198,8 +2200,14 @@ The deprecated system props have been removed from the following components:
 -<Box mt={2} color="primary.main" />
 +<Box sx={{ mt: 2, color: 'primary.main' }} />
 
+-<DialogContentText mt={2} color="text.secondary" />
++<DialogContentText sx={{ mt: 2, color: 'text.secondary' }} />
+
 -<Grid mt={2} mr={1} />
 +<Grid sx={{ mt: 2, mr: 1 }} />
+
+-<Link mt={2} color="text.secondary" />
++<Link sx={{ mt: 2, color: 'text.secondary' }} />
 
 -<Stack mt={2} alignItems="center" />
 +<Stack sx={{ mt: 2, alignItems: 'center' }} />
