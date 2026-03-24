@@ -35,9 +35,9 @@ export default function MultiAppSwitch() {
           label={
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
               <Typography
-                color="text.primary"
                 variant="body2"
                 sx={{
+                  color: 'text.primary',
                   fontWeight: 'semiBold',
                   textAlign: 'left',
                   whiteSpace: 'nowrap',
