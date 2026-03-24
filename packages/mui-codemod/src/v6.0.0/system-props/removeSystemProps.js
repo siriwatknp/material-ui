@@ -157,7 +157,8 @@ export default function removeSystemProps(file, api, options) {
   const typographyColorMatcher = {
     matcher: (key, val) =>
       key !== 'color' ||
-      (val.value?.includes('.') && val.value !== 'inherit') ||
+      val.value === 'inherit' ||
+      val.value?.includes('.') ||
       val.value === 'divider' ||
       val.value.startsWith('#') ||
       val.value.match(/\(.*\)/),
