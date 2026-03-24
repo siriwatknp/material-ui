@@ -40,8 +40,7 @@ export interface TypographyOwnProps {
         | `text${Capitalize<keyof TypeText>}`,
         TypographyPropsColorOverrides
       >
-    | (string & {})
-    | undefined; // to work with v5 color prop type which allows any string
+    | undefined;
   /**
    * If `true`, the text will have a bottom margin.
    * @default false
