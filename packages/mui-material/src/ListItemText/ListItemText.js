@@ -207,7 +207,7 @@ ListItemText.propTypes /* remove-proptypes */ = {
         component: PropTypes.oneOfType([
           PropTypes.func,
           PropTypes.shape({
-            '__@iterator@4297': PropTypes.func.isRequired,
+            '__@iterator@3849': PropTypes.func.isRequired,
             anchor: PropTypes.func.isRequired,
             at: PropTypes.func.isRequired,
             big: PropTypes.func.isRequired,
@@ -314,7 +314,7 @@ ListItemText.propTypes /* remove-proptypes */ = {
         component: PropTypes.oneOfType([
           PropTypes.func,
           PropTypes.shape({
-            '__@iterator@4297': PropTypes.func.isRequired,
+            '__@iterator@3849': PropTypes.func.isRequired,
             anchor: PropTypes.func.isRequired,
             at: PropTypes.func.isRequired,
             big: PropTypes.func.isRequired,

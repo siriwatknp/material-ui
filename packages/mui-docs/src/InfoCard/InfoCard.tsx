@@ -101,7 +101,7 @@ export function InfoCard(props: InfoCardProps) {
       >
         {title}
       </Typography>
-      <Typography variant="body2" color="text.secondary" className={classNameDescription}>
+      <Typography variant="body2" sx={{ color: 'text.secondary' }} className={classNameDescription}>
         {description}
       </Typography>
     </Paper>

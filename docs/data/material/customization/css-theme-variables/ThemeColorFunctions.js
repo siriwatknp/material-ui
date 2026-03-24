@@ -43,8 +43,11 @@ function ColorDisplay({ color }) {
       />
       <Typography
         variant="caption"
-        color="text.secondary"
-        sx={{ fontFamily: 'monospace', wordBreak: 'break-all' }}
+        sx={{
+          color: 'text.secondary',
+          fontFamily: 'monospace',
+          wordBreak: 'break-all',
+        }}
       >
         {color}
       </Typography>

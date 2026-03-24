@@ -35,13 +35,12 @@ const code = `
   />
   <Stack direction="column" sx={{ alignItems: 'center' }} spacing={1} useFlexGap>
     <div>
-      <Typography color="text.primary" sx={{ fontWeight: 'semiBold' }}>
+      <Typography sx={{ color: 'text.primary', fontWeight: 'semiBold' }}>
         Contemplative Reptile
       </Typography>
       <Typography
         variant="caption"
-        color="text.secondary"
-        sx={{ fontWeight: 'medium', textAlign: 'center', width: '100%' }}
+        sx={{ color: 'text.secondary', fontWeight: 'medium', textAlign: 'center', width: '100%' }}
       >
         Sounds of Nature
       </Typography>

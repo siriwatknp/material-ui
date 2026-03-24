@@ -34,7 +34,7 @@ const code = `
     }}
   />
   <Box sx={{ alignSelf: 'center', ml: 2 }}>
-    <Typography variant="body2" color="text.secondary" sx={{ fontWeight: 'regular' }}>
+    <Typography variant="body2" sx={{ color: 'text.secondary', fontWeight: 'regular' }}>
       123 Main St, Phoenix, AZ, USA
     </Typography>
     <Typography sx={{ fontWeight: 'bold' }} noWrap gutterBottom>
