@@ -2,6 +2,7 @@ import { Box as Boxxx, Grid as Griddd, Grid2 as Griddd2 } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import Typographyyy from '@mui/material/Typography';
 import Stackkk from '@mui/material/Stack';
+import Link from '@mui/material/Link';
 
 <Boxxx sx={{
   typography: "body1"
@@ -45,8 +46,8 @@ const ml = 2;
   }, ...(Array.isArray(sx) ? sx : [sx])]} />;
 <Typographyyy
   variant="body1"
-  color="inherit"
   sx={[{
+    color: "inherit",
     ml: ml
   }, ...(Array.isArray(sx) ? sx : [sx])]} />;
 <Typographyyy
@@ -92,3 +93,9 @@ function Copyright(props) {
   sx={[{
     typography: "body1"
   }, foo.bar ? { opacity: 0 } : sx]} />;
+
+<Link color="inherit" href="https://mui.com/">Sitemark</Link>;
+<Link variant="body2" href="#" sx={{
+  color: "text.secondary"
+}}>Features</Link>;
+<Link color="primary" href="#">Primary Link</Link>;
