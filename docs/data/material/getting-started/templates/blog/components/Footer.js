@@ -26,6 +26,7 @@ function Copyright() {
       >
         Sitemark
       </Link>
+      &nbsp;
       {new Date().getFullYear()}
     </Typography>
   );
