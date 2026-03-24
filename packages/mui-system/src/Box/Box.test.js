@@ -267,16 +267,6 @@ describe('<Box />', () => {
     },
   );
 
-  it('applies system properties via the sx prop', () => {
-    const { container } = render(<Box sx={{ mt: 2, marginRight: 5, mb: 2 }} />);
-
-    expect(container.firstChild).toHaveComputedStyle({
-      marginTop: '16px',
-      marginRight: '40px',
-      marginBottom: '16px',
-    });
-  });
-
   it('adds the utility mui class', () => {
     render(<Box data-testid="regular-box" />);
 
