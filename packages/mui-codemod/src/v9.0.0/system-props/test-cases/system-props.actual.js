@@ -3,6 +3,9 @@ import Typography from '@mui/material/Typography';
 import Typographyyy from '@mui/material/Typography';
 import Stackkk from '@mui/material/Stack';
 import Link from '@mui/material/Link';
+import DialogContentText from '@mui/material/DialogContentText';
+import TimelineContent from '@mui/lab/TimelineContent';
+import TimelineOppositeContent from '@mui/lab/TimelineOppositeContent';
 
 <Boxxx typography="body1" />;
 <Boxxx color="palette.main" sx={{ display: 'block' }} />;
@@ -49,3 +52,10 @@ function Copyright(props) {
 <Link color="inherit" href="https://mui.com/">Sitemark</Link>;
 <Link color="text.secondary" variant="body2" href="#">Features</Link>;
 <Link color="primary" href="#">Primary Link</Link>;
+
+<DialogContentText color="text.secondary">Some content</DialogContentText>;
+<DialogContentText color="inherit" mt={2}>Inherited</DialogContentText>;
+<DialogContentText color="primary">Primary</DialogContentText>;
+
+<TimelineOppositeContent color="text.secondary">09:30 am</TimelineOppositeContent>;
+<TimelineContent color="inherit">Eat</TimelineContent>;

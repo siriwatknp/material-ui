@@ -3,6 +3,9 @@ import Typography from '@mui/material/Typography';
 import Typographyyy from '@mui/material/Typography';
 import Stackkk from '@mui/material/Stack';
 import Link from '@mui/material/Link';
+import DialogContentText from '@mui/material/DialogContentText';
+import TimelineContent from '@mui/lab/TimelineContent';
+import TimelineOppositeContent from '@mui/lab/TimelineOppositeContent';
 
 <Boxxx sx={{
   typography: "body1"
@@ -99,3 +102,20 @@ function Copyright(props) {
   color: "text.secondary"
 }}>Features</Link>;
 <Link color="primary" href="#">Primary Link</Link>;
+
+<DialogContentText sx={{
+  color: "text.secondary"
+}}>Some content</DialogContentText>;
+<DialogContentText
+  sx={{
+    color: "inherit",
+    mt: 2
+  }}>Inherited</DialogContentText>;
+<DialogContentText color="primary">Primary</DialogContentText>;
+
+<TimelineOppositeContent sx={{
+  color: "text.secondary"
+}}>09:30 am</TimelineOppositeContent>;
+<TimelineContent sx={{
+  color: "inherit"
+}}>Eat</TimelineContent>;
