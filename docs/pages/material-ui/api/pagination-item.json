@@ -40,7 +40,7 @@
     "sx": {
       "type": {
         "name": "union",
-        "description": "Array&lt;func<br>&#124;&nbsp;object<br>&#124;&nbsp;{ bgcolor?: any, border?: any, boxShadow?: any, displayPrint?: any, fontWeight?: any, m?: any, marginX?: any, marginY?: any, mb?: any, ml?: any, mr?: any, mt?: any, mx?: any, my?: any, p?: any, paddingX?: any, paddingY?: any, pb?: any, pl?: any, pr?: any, pt?: any, px?: any, py?: any, typography?: Array&lt;string&gt;<br>&#124;&nbsp;func<br>&#124;&nbsp;object<br>&#124;&nbsp;string, zIndex?: any }<br>&#124;&nbsp;bool&gt;<br>&#124;&nbsp;func<br>&#124;&nbsp;object<br>&#124;&nbsp;{ bgcolor?: any, border?: any, boxShadow?: any, displayPrint?: any, fontWeight?: any, m?: any, marginX?: any, marginY?: any, mb?: any, ml?: any, mr?: any, mt?: any, mx?: any, my?: any, p?: any, paddingX?: any, paddingY?: any, pb?: any, pl?: any, pr?: any, pt?: any, px?: any, py?: any, typography?: Array&lt;string&gt;<br>&#124;&nbsp;func<br>&#124;&nbsp;object<br>&#124;&nbsp;string, zIndex?: any }"
+        "description": "Array&lt;func<br>&#124;&nbsp;object<br>&#124;&nbsp;bool&gt;<br>&#124;&nbsp;func<br>&#124;&nbsp;object"
       },
       "additionalInfo": { "sx": true }
     },
