@@ -170,7 +170,13 @@ export default function removeSystemProps(file, api, options) {
     TimelineContent: typographyColorMatcher,
     TimelineOppositeContent: typographyColorMatcher,
     Link: {
-      matcher: (key) => key !== 'color',
+      // Same as Typography but keep color="inherit" as a Link component prop (controls underline behavior)
+      matcher: (key, val) =>
+        key !== 'color' ||
+        val.value?.includes('.') ||
+        val.value === 'divider' ||
+        val.value.startsWith('#') ||
+        val.value.match(/\(.*\)/),
     },
   };
   const elementReplacement = {};
