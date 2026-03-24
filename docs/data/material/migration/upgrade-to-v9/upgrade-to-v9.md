@@ -1908,7 +1908,7 @@ The following deprecated props have been removed from the `Typography` component
 Use the [system-props codemod](/material-ui/migration/migrating-from-deprecated-apis/#system-props) below to migrate the code as described in the following section:
 
 ```bash
-npx @mui/codemod@latest v6.0.0/system-props <path/to/folder>
+npx @mui/codemod@latest v9.0.0/system-props <path/to/folder>
 ```
 
 The deprecated system props have been removed from the following components:
