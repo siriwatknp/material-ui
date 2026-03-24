@@ -1016,6 +1016,17 @@ Use `sx={{ opacity : "0.6" }}` (or any opacity):
  />
 ```
 
+#### Divider deprecated classes removed
+
+The following deprecated class has been removed:
+
+- `withChildrenVertical` — combine the `.MuiDivider-withChildren` and `.MuiDivider-vertical` classes instead
+
+```diff
+-.MuiDivider-withChildrenVertical
++.MuiDivider-withChildren.MuiDivider-vertical
+```
+
 #### ImageListItemBar deprecated CSS classes removed
 
 Use the [image-list-item-bar-classes codemod](https://github.com/mui/material-ui/tree/HEAD/packages/mui-codemod#image-list-item-bar-classes) below to migrate the code as described in the following section:
