@@ -2636,6 +2636,30 @@ npx @mui/codemod@next v7.0.0/input-label-size-normal-medium <path>
 
 You can find more details about this breaking change in [the migration guide](https://next.mui.com/material-ui/migration/upgrade-to-v7/#inputlabel).
 
+### v9.0.0
+
+#### `system-props`
+
+```bash
+npx @mui/codemod@next v9.0.0/system-props <path>
+```
+
+Remove system props from Box, Stack, Typography, Link, Grid, Grid2, DialogContentText, TimelineContent, and TimelineOppositeContent components and move them to the `sx` prop.
+
+Compared to the v6 codemod, the v9 version also handles:
+
+- `color="inherit"` on Typography (moved to `sx`)
+- `color="text.secondary"` on Link (moved to `sx`, while keeping named colors like `"primary"` and `"inherit"` as component props)
+- DialogContentText, TimelineContent, and TimelineOppositeContent components
+
+```diff
+-<Typography color="inherit" />
++<Typography sx={{ color: "inherit" }} />
+
+-<Link color="text.secondary" href="#" />
++<Link href="#" sx={{ color: "text.secondary" }} />
+```
+
 ### v6.0.0
 
 #### `sx-prop`

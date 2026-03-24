@@ -129,7 +129,17 @@ const defaultSxConfig = {
   typography: {},
 };
 const systemProps = Object.keys(defaultSxConfig);
-const components = ['Box', 'Stack', 'Typography', 'Link', 'Grid', 'Grid2'];
+const components = [
+  'Box',
+  'Stack',
+  'Typography',
+  'Link',
+  'Grid',
+  'Grid2',
+  'DialogContentText',
+  'TimelineContent',
+  'TimelineOppositeContent',
+];
 
 /**
  * @param {import('jscodeshift').FileInfo} file
@@ -144,17 +154,29 @@ export default function removeSystemProps(file, api, options) {
   const printOptions = options.printOptions;
 
   const deprecatedElements = [];
+  const typographyColorMatcher = {
+    matcher: (key, val) =>
+      key !== 'color' ||
+      val.value === 'inherit' ||
+      val.value?.includes('.') ||
+      val.value === 'divider' ||
+      val.value.startsWith('#') ||
+      val.value.match(/\(.*\)/),
+  };
   const customReplacement = {
-    Typography: {
+    Typography: typographyColorMatcher,
+    // These components extend Typography
+    DialogContentText: typographyColorMatcher,
+    TimelineContent: typographyColorMatcher,
+    TimelineOppositeContent: typographyColorMatcher,
+    Link: {
+      // Same as Typography but keep color="inherit" as a Link component prop (controls underline behavior)
       matcher: (key, val) =>
         key !== 'color' ||
-        (val.value?.includes('.') && val.value !== 'inherit') ||
+        val.value?.includes('.') ||
         val.value === 'divider' ||
         val.value.startsWith('#') ||
         val.value.match(/\(.*\)/),
-    },
-    Link: {
-      matcher: (key) => key !== 'color',
     },
   };
   const elementReplacement = {};
