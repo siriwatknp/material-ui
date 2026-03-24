@@ -979,6 +979,33 @@ The following deprecated props have been removed from the `Drawer` component:
  />
 ```
 
+#### Drawer deprecated classes removed
+
+Use the [drawer-classes codemod](https://github.com/mui/material-ui/tree/HEAD/packages/mui-codemod#drawer-classes) below to migrate the code as described in the following section:
+
+```bash
+npx @mui/codemod@latest deprecations/drawer-classes <path>
+```
+
+The following deprecated classes have been removed:
+
+- `paperAnchorLeft` — combine `.MuiDrawer-anchorLeft` and `.MuiDrawer-paper` instead
+- `paperAnchorRight` — combine `.MuiDrawer-anchorRight` and `.MuiDrawer-paper` instead
+- `paperAnchorTop` — combine `.MuiDrawer-anchorTop` and `.MuiDrawer-paper` instead
+- `paperAnchorBottom` — combine `.MuiDrawer-anchorBottom` and `.MuiDrawer-paper` instead
+- `paperAnchorDockedLeft` — combine `.MuiDrawer-anchorLeft`, `.MuiDrawer-docked`, and `.MuiDrawer-paper` instead
+- `paperAnchorDockedRight` — combine `.MuiDrawer-anchorRight`, `.MuiDrawer-docked`, and `.MuiDrawer-paper` instead
+- `paperAnchorDockedTop` — combine `.MuiDrawer-anchorTop`, `.MuiDrawer-docked`, and `.MuiDrawer-paper` instead
+- `paperAnchorDockedBottom` — combine `.MuiDrawer-anchorBottom`, `.MuiDrawer-docked`, and `.MuiDrawer-paper` instead
+
+```diff
+-.MuiDrawer-paperAnchorLeft
++.MuiDrawer-anchorLeft > .MuiDrawer-paper
+
+-.MuiDrawer-paperAnchorDockedLeft
++.MuiDrawer-anchorLeft.MuiDrawer-docked > .MuiDrawer-paper
+```
+
 #### Divider deprecated props removed
 
 Use the [codemod](https://github.com/mui/material-ui/tree/HEAD/packages/mui-codemod#divider-props) below to migrate the code as described in the following sections:
@@ -995,6 +1022,17 @@ Use `sx={{ opacity : "0.6" }}` (or any opacity):
 -  light
 +  sx={{ opacity: 0.6 }}
  />
+```
+
+#### Divider deprecated classes removed
+
+The following deprecated class has been removed:
+
+- `withChildrenVertical` — combine the `.MuiDivider-withChildren` and `.MuiDivider-vertical` classes instead
+
+```diff
+-.MuiDivider-withChildrenVertical
++.MuiDivider-withChildren.MuiDivider-vertical
 ```
 
 #### ImageListItemBar deprecated CSS classes removed
@@ -1028,6 +1066,115 @@ The following deprecated prop has been removed:
  <FormControlLabel
 -  componentsProps={{ typography: { fontWeight: 'bold' } }}
 +  slotProps={{ typography: { fontWeight: 'bold' } }}
+ />
+```
+
+#### FilledInput deprecated props removed
+
+Use the [filled-input-props codemod](https://github.com/mui/material-ui/tree/HEAD/packages/mui-codemod#filled-input-props) below to migrate the code as described in the following section:
+
+```bash
+npx @mui/codemod@latest deprecations/filled-input-props <path>
+```
+
+The following deprecated `FilledInput` props have been removed:
+
+- `components` → use `slots` instead
+- `componentsProps` → use `slotProps` instead
+
+```diff
+ <FilledInput
+-  components={{ Root: CustomRoot, Input: CustomInput }}
+-  componentsProps={{ root: { id: 'root' }, input: { id: 'input' } }}
++  slots={{ root: CustomRoot, input: CustomInput }}
++  slotProps={{ root: { id: 'root' }, input: { id: 'input' } }}
+ />
+```
+
+#### Input deprecated props removed
+
+Use the [input-props codemod](https://github.com/mui/material-ui/tree/HEAD/packages/mui-codemod#input-props) below to migrate the code as described in the following section:
+
+```bash
+npx @mui/codemod@latest deprecations/input-props <path>
+```
+
+The following deprecated `Input` props have been removed:
+
+- `components` → use `slots` instead
+- `componentsProps` → use `slotProps` instead
+
+```diff
+ <Input
+-  components={{ Root: CustomRoot, Input: CustomInput }}
+-  componentsProps={{ root: { id: 'root' }, input: { id: 'input' } }}
++  slots={{ root: CustomRoot, input: CustomInput }}
++  slotProps={{ root: { id: 'root' }, input: { id: 'input' } }}
+ />
+```
+
+#### InputBase deprecated CSS classes removed
+
+Use the [input-base-classes codemod](https://github.com/mui/material-ui/tree/HEAD/packages/mui-codemod#input-base-classes) below to migrate the code as described in the following section:
+
+```bash
+npx @mui/codemod@latest deprecations/input-base-classes <path>
+```
+
+The following deprecated `InputBase` CSS classes have been removed:
+
+- `inputSizeSmall` → use `.MuiInputBase-sizeSmall > .MuiInputBase-input`
+- `inputMultiline` → use `.MuiInputBase-multiline > .MuiInputBase-input`
+- `inputAdornedStart` → use `.MuiInputBase-adornedStart > .MuiInputBase-input`
+- `inputAdornedEnd` → use `.MuiInputBase-adornedEnd > .MuiInputBase-input`
+- `inputHiddenLabel` → use `.MuiInputBase-hiddenLabel > .MuiInputBase-input`
+
+If you were using these deprecated class names as `styleOverrides` keys in your theme, use the `root` slot with combined class selectors instead:
+
+```diff
+ import { inputBaseClasses } from '@mui/material/InputBase';
+
+ const theme = createTheme({
+   components: {
+     MuiInputBase: {
+       styleOverrides: {
+-        inputSizeSmall: { padding: 1 },
+-        inputMultiline: { resize: 'none' },
+-        inputAdornedStart: { paddingLeft: 0 },
+-        inputAdornedEnd: { paddingRight: 0 },
+-        inputHiddenLabel: { paddingTop: 8 },
++        root: {
++          [`&.${inputBaseClasses.sizeSmall} > .${inputBaseClasses.input}`]: { padding: 1 },
++          [`&.${inputBaseClasses.multiline} > .${inputBaseClasses.input}`]: { resize: 'none' },
++          [`&.${inputBaseClasses.adornedStart} > .${inputBaseClasses.input}`]: { paddingLeft: 0 },
++          [`&.${inputBaseClasses.adornedEnd} > .${inputBaseClasses.input}`]: { paddingRight: 0 },
++          [`&.${inputBaseClasses.hiddenLabel} > .${inputBaseClasses.input}`]: { paddingTop: 8 },
++        },
+       },
+     },
+   },
+ });
+```
+
+#### InputBase deprecated props removed
+
+Use the [input-base-props codemod](https://github.com/mui/material-ui/tree/HEAD/packages/mui-codemod#input-base-props) below to migrate the code as described in the following section:
+
+```bash
+npx @mui/codemod@latest deprecations/input-base-props <path>
+```
+
+The following deprecated `InputBase` props have been removed:
+
+- `components` → use `slots` instead
+- `componentsProps` → use `slotProps` instead
+
+```diff
+ <InputBase
+-  components={{ Root: CustomRoot, Input: CustomInput }}
+-  componentsProps={{ root: { id: 'root' }, input: { id: 'input' } }}
++  slots={{ root: CustomRoot, input: CustomInput }}
++  slotProps={{ root: { id: 'root' }, input: { id: 'input' } }}
  />
 ```
 
@@ -1155,6 +1302,28 @@ The following deprecated props have been removed:
  />
 ```
 
+#### OutlinedInput deprecated props removed
+
+Use the [outlined-input-props codemod](https://github.com/mui/material-ui/tree/HEAD/packages/mui-codemod#outlined-input-props) below to migrate the code as described in the following section:
+
+```bash
+npx @mui/codemod@latest deprecations/outlined-input-props <path>
+```
+
+The following deprecated `OutlinedInput` props have been removed:
+
+- `components` → use `slots` instead
+- `componentsProps` → use `slotProps` instead
+
+```diff
+ <OutlinedInput
+-  components={{ Root: CustomRoot, Input: CustomInput }}
+-  componentsProps={{ root: { id: 'root' }, input: { id: 'input' } }}
++  slots={{ root: CustomRoot, input: CustomInput }}
++  slotProps={{ root: { id: 'root' }, input: { id: 'input' } }}
+ />
+```
+
 #### PaginationItem deprecated props removed
 
 Use the [pagination-item-props codemod](https://github.com/mui/material-ui/tree/HEAD/packages/mui-codemod#pagination-item-props) below to migrate the code as described in the following section:
@@ -1182,6 +1351,29 @@ The following deprecated props have been removed:
 +    next: MyNextIcon,
 +  }}
  />
+```
+
+#### PaginationItem deprecated classes removed
+
+Use the [pagination-item-classes codemod](https://github.com/mui/material-ui/tree/HEAD/packages/mui-codemod#pagination-item-classes) below to migrate the code as described in the following section:
+
+```bash
+npx @mui/codemod@latest deprecations/pagination-item-classes <path>
+```
+
+The following deprecated classes have been removed:
+
+- `textPrimary` — combine the `.MuiPaginationItem-text` and `.MuiPaginationItem-colorPrimary` classes instead
+- `textSecondary` — combine the `.MuiPaginationItem-text` and `.MuiPaginationItem-colorSecondary` classes instead
+- `outlinedPrimary` — combine the `.MuiPaginationItem-outlined` and `.MuiPaginationItem-colorPrimary` classes instead
+- `outlinedSecondary` — combine the `.MuiPaginationItem-outlined` and `.MuiPaginationItem-colorSecondary` classes instead
+
+```diff
+-.MuiPaginationItem-textPrimary
++.MuiPaginationItem-text.MuiPaginationItem-colorPrimary
+
+-.MuiPaginationItem-outlinedPrimary
++.MuiPaginationItem-outlined.MuiPaginationItem-colorPrimary
 ```
 
 #### Popper deprecated props removed
@@ -1290,6 +1482,35 @@ The following deprecated props have been removed from the `Slider` component:
 +  slots={{ track: CustomTrack }}
 +  slotProps={{ track: { testid: 'test-id' } }}
  />
+```
+
+#### Slider deprecated classes removed
+
+Use the [slider-classes codemod](https://github.com/mui/material-ui/tree/HEAD/packages/mui-codemod#slider-classes) below to migrate the code as described in the following section:
+
+```bash
+npx @mui/codemod@latest deprecations/slider-classes <path>
+```
+
+The following deprecated classes have been removed:
+
+- `thumbColorPrimary` — use `.MuiSlider-colorPrimary > .MuiSlider-thumb` instead
+- `thumbColorSecondary` — use `.MuiSlider-colorSecondary > .MuiSlider-thumb` instead
+- `thumbColorError` — use `.MuiSlider-colorError > .MuiSlider-thumb` instead
+- `thumbColorInfo` — use `.MuiSlider-colorInfo > .MuiSlider-thumb` instead
+- `thumbColorSuccess` — use `.MuiSlider-colorSuccess > .MuiSlider-thumb` instead
+- `thumbColorWarning` — use `.MuiSlider-colorWarning > .MuiSlider-thumb` instead
+- `thumbSizeSmall` — use `.MuiSlider-sizeSmall > .MuiSlider-thumb` instead
+
+```diff
+-.MuiSlider-thumbColorPrimary
++.MuiSlider-colorPrimary > .MuiSlider-thumb
+
+-.MuiSlider-thumbColorSecondary
++.MuiSlider-colorSecondary > .MuiSlider-thumb
+
+-.MuiSlider-thumbSizeSmall
++.MuiSlider-sizeSmall > .MuiSlider-thumb
 ```
 
 #### Snackbar deprecated props removed
@@ -1742,6 +1963,38 @@ The following deprecated props have been removed:
  />
 ```
 
+#### Tab deprecated classes removed
+
+Use the [tab-classes codemod](https://github.com/mui/material-ui/tree/HEAD/packages/mui-codemod#tab-classes) below to migrate the code as described in the following section:
+
+```bash
+npx @mui/codemod@latest deprecations/tab-classes <path>
+```
+
+The following deprecated class has been removed:
+
+- `iconWrapper` — use the `icon` class instead
+
+```diff
+-.MuiTab-iconWrapper
++.MuiTab-icon
+```
+
+#### Tabs deprecated classes removed
+
+The following deprecated classes have been removed:
+
+- `flexContainer` — use the `list` class instead
+- `flexContainerVertical` — combine the `list` and `vertical` classes instead
+
+```diff
+-.MuiTabs-flexContainer
++.MuiTabs-list
+
+-.MuiTabs-flexContainerVertical
++.MuiTabs-list.MuiTabs-vertical
+```
+
 #### ToggleButtonGroup deprecated CSS classes removed
 
 Use the [toggle-button-group-classes codemod](https://github.com/mui/material-ui/tree/HEAD/packages/mui-codemod#toggle-button-group-classes) below to migrate the code as described in the following section:
@@ -1869,6 +2122,27 @@ The following deprecated props have been removed from the `Tooltip` component:
 +    transition: { timeout: 500 },
 +    arrow: { className: 'arrow' },
 +  }}
+ />
+```
+
+#### CardHeader deprecated props removed
+
+Use the [card-header-props codemod](https://github.com/mui/material-ui/tree/HEAD/packages/mui-codemod#card-header-props) below to migrate the code as described in the following section:
+
+```bash
+npx @mui/codemod@latest deprecations/card-header-props <path>
+```
+
+The following deprecated props have been removed from the `CardHeader` component:
+
+- `titleTypographyProps` → use `slotProps.title`
+- `subheaderTypographyProps` → use `slotProps.subheader`
+
+```diff
+ <CardHeader
+-  titleTypographyProps={{ className: 'my-title' }}
+-  subheaderTypographyProps={{ className: 'my-subheader' }}
++  slotProps={{ title: { className: 'my-title' }, subheader: { className: 'my-subheader' } }}
  />
 ```
 

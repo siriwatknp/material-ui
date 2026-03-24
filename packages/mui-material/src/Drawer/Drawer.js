@@ -34,11 +34,7 @@ const useUtilityClasses = (ownerState) => {
     root: ['root', `anchor${capitalize(anchor)}`],
     docked: [(variant === 'permanent' || variant === 'persistent') && 'docked'],
     modal: ['modal'],
-    paper: [
-      'paper',
-      `paperAnchor${capitalize(anchor)}`,
-      variant !== 'temporary' && `paperAnchorDocked${capitalize(anchor)}`,
-    ],
+    paper: ['paper'],
   };
 
   return composeClasses(slots, getDrawerUtilityClass, classes);
@@ -68,14 +64,7 @@ const DrawerPaper = styled(Paper, {
   name: 'MuiDrawer',
   slot: 'Paper',
   overridesResolver: (props, styles) => {
-    const { ownerState } = props;
-
-    return [
-      styles.paper,
-      styles[`paperAnchor${capitalize(ownerState.anchor)}`],
-      ownerState.variant !== 'temporary' &&
-        styles[`paperAnchorDocked${capitalize(ownerState.anchor)}`],
-    ];
+    return [styles.paper];
   },
 })(
   memoTheme(({ theme }) => ({
