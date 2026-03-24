@@ -10,18 +10,6 @@ import capitalize from '../utils/capitalize';
 import createSimplePaletteValueFilter from '../utils/createSimplePaletteValueFilter';
 import { getTypographyUtilityClass } from './typographyClasses';
 
-const v6Colors = {
-  primary: true,
-  secondary: true,
-  error: true,
-  info: true,
-  success: true,
-  warning: true,
-  textPrimary: true,
-  textSecondary: true,
-  textDisabled: true,
-};
-
 const useUtilityClasses = (ownerState) => {
   const { align, gutterBottom, noWrap, variant, classes } = ownerState;
 
@@ -128,14 +116,10 @@ const defaultVariantMapping = {
 };
 
 const Typography = React.forwardRef(function Typography(inProps, ref) {
-  const { color, ...themeProps } = useDefaultProps({ props: inProps, name: 'MuiTypography' });
-  const isSxColor = !v6Colors[color];
-  const props = {
-    ...themeProps,
-    ...(isSxColor && { color }),
-  };
+  const props = useDefaultProps({ props: inProps, name: 'MuiTypography' });
 
   const {
+    color,
     align = 'inherit',
     className,
     component,
