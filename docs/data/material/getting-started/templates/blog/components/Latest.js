@@ -223,7 +223,7 @@ export default function Latest() {
                   sx={{ fontSize: '1rem' }}
                 />
               </TitleTypography>
-              <StyledTypography variant="body2" color="text.secondary" gutterBottom>
+              <StyledTypography variant="body2" gutterBottom sx={{ color: 'text.secondary' }}>
                 {article.description}
               </StyledTypography>
 
