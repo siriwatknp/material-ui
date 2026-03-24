@@ -1602,7 +1602,7 @@ describe.skipIf(!supportsTouch())('<Slider />', () => {
       const root = document.querySelector(`.${classes.root}`);
       const thumb = document.querySelector(`.${classes.thumb}`);
       expect(root).to.have.class(classes.sizeSmall);
-      expect(thumb).to.have.class(classes.thumb);
+      expect(thumb).not.to.equal(null);
     });
   });
 
