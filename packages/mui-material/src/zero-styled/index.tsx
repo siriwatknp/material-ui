@@ -1,4 +1,5 @@
 import { Interpolation } from '@mui/system';
+import { extendSxProp } from '@mui/system/styleFunctionSx';
 import { Theme } from '../styles/createTheme';
 import useTheme from '../styles/useTheme';
 import GlobalStyles, { GlobalStylesProps } from '../GlobalStyles';
@@ -20,6 +21,11 @@ export function globalCss(styles: Interpolation<{ theme: Theme }>) {
       />
     );
   };
+}
+
+// eslint-disable-next-line @typescript-eslint/naming-convention
+export function internal_createExtendSxProp() {
+  return extendSxProp;
 }
 
 export { useTheme };
