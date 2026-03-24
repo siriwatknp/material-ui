@@ -998,6 +998,33 @@ The following deprecated props have been removed from the `Drawer` component:
  />
 ```
 
+#### Drawer deprecated classes removed
+
+Use the [drawer-classes codemod](https://github.com/mui/material-ui/tree/HEAD/packages/mui-codemod#drawer-classes) below to migrate the code as described in the following section:
+
+```bash
+npx @mui/codemod@latest deprecations/drawer-classes <path>
+```
+
+The following deprecated classes have been removed:
+
+- `paperAnchorLeft` — combine `.MuiDrawer-anchorLeft` and `.MuiDrawer-paper` instead
+- `paperAnchorRight` — combine `.MuiDrawer-anchorRight` and `.MuiDrawer-paper` instead
+- `paperAnchorTop` — combine `.MuiDrawer-anchorTop` and `.MuiDrawer-paper` instead
+- `paperAnchorBottom` — combine `.MuiDrawer-anchorBottom` and `.MuiDrawer-paper` instead
+- `paperAnchorDockedLeft` — combine `.MuiDrawer-anchorLeft`, `.MuiDrawer-docked`, and `.MuiDrawer-paper` instead
+- `paperAnchorDockedRight` — combine `.MuiDrawer-anchorRight`, `.MuiDrawer-docked`, and `.MuiDrawer-paper` instead
+- `paperAnchorDockedTop` — combine `.MuiDrawer-anchorTop`, `.MuiDrawer-docked`, and `.MuiDrawer-paper` instead
+- `paperAnchorDockedBottom` — combine `.MuiDrawer-anchorBottom`, `.MuiDrawer-docked`, and `.MuiDrawer-paper` instead
+
+```diff
+-.MuiDrawer-paperAnchorLeft
++.MuiDrawer-anchorLeft > .MuiDrawer-paper
+
+-.MuiDrawer-paperAnchorDockedLeft
++.MuiDrawer-anchorLeft.MuiDrawer-docked > .MuiDrawer-paper
+```
+
 #### Divider deprecated props removed
 
 Use the [codemod](https://github.com/mui/material-ui/tree/HEAD/packages/mui-codemod#divider-props) below to migrate the code as described in the following sections:
