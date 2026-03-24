@@ -1065,6 +1065,61 @@ The following deprecated prop has been removed:
  />
 ```
 
+#### LinearProgress deprecated CSS classes removed
+
+Use the [linear-progress-classes codemod](https://github.com/mui/material-ui/tree/HEAD/packages/mui-codemod#linear-progress-classes) below to migrate the code as described in the following section:
+
+```bash
+npx @mui/codemod@latest deprecations/linear-progress-classes <path>
+```
+
+The following deprecated `LinearProgress` CSS classes have been removed:
+
+- `bar1Buffer` → use `.MuiLinearProgress-buffer > .MuiLinearProgress-bar1`
+- `bar1Determinate` → use `.MuiLinearProgress-determinate > .MuiLinearProgress-bar1`
+- `bar1Indeterminate` → use `.MuiLinearProgress-indeterminate > .MuiLinearProgress-bar1`
+- `bar2Buffer` → use `.MuiLinearProgress-buffer > .MuiLinearProgress-bar2`
+- `bar2Indeterminate` → use `.MuiLinearProgress-indeterminate > .MuiLinearProgress-bar2`
+- `barColorPrimary` → use `.MuiLinearProgress-colorPrimary > .MuiLinearProgress-bar`
+- `barColorSecondary` → use `.MuiLinearProgress-colorSecondary > .MuiLinearProgress-bar`
+- `dashedColorPrimary` → use `.MuiLinearProgress-colorPrimary > .MuiLinearProgress-dashed`
+- `dashedColorSecondary` → use `.MuiLinearProgress-colorSecondary > .MuiLinearProgress-dashed`
+
+If you were using these deprecated class names as `styleOverrides` keys in your theme, use the `variants` array in the appropriate slot override instead:
+
+```diff
+ const theme = createTheme({
+   components: {
+     MuiLinearProgress: {
+       styleOverrides: {
+-        bar1Determinate: { transition: 'none' },
+-        bar1Indeterminate: { width: 'auto' },
+-        bar1Buffer: { zIndex: 1 },
+-        barColorPrimary: { backgroundColor: 'red' },
+-        dashedColorPrimary: { backgroundSize: '10px 10px' },
++        bar1: {
++          variants: [
++            { props: { variant: 'determinate' }, style: { transition: 'none' } },
++            { props: { variant: 'indeterminate' }, style: { width: 'auto' } },
++            { props: { variant: 'buffer' }, style: { zIndex: 1 } },
++          ],
++        },
++        bar: {
++          variants: [
++            { props: { color: 'primary' }, style: { backgroundColor: 'red' } },
++          ],
++        },
++        dashed: {
++          variants: [
++            { props: { color: 'primary' }, style: { backgroundSize: '10px 10px' } },
++          ],
++        },
+       },
+     },
+   },
+ });
+```
+
 #### ListItem deprecated props removed
 
 Use the [list-item-props codemod](https://github.com/mui/material-ui/tree/HEAD/packages/mui-codemod#list-item-props) below to migrate the code as described in the following section:
@@ -1204,6 +1259,49 @@ The following deprecated `Radio` props have been removed:
 -  inputRef={ref}
 +  slotProps={{ input: { 'aria-label': 'Radio', ref } }}
  />
+```
+
+#### Select deprecated CSS classes removed
+
+Use the [select-classes codemod](https://github.com/mui/material-ui/tree/HEAD/packages/mui-codemod#select-classes) below to migrate the code as described in the following section:
+
+```bash
+npx @mui/codemod@latest deprecations/select-classes <path>
+```
+
+The following deprecated `Select` CSS classes have been removed:
+
+- `iconFilled` → use `.MuiSelect-filled ~ .MuiSelect-icon`
+- `iconOutlined` → use `.MuiSelect-outlined ~ .MuiSelect-icon`
+- `iconStandard` → use `.MuiSelect-standard ~ .MuiSelect-icon`
+
+If you were using these deprecated class names as `styleOverrides` in your theme, use sibling selectors in the `root` override instead:
+
+```diff
+ import { selectClasses } from '@mui/material/Select';
+
+ const theme = createTheme({
+   components: {
+     MuiSelect: {
+       styleOverrides: {
+         root: {
+-          [`& .${selectClasses.iconFilled}`]: {
++          [`& .${selectClasses.filled} ~ .${selectClasses.icon}`]: {
+             color: 'red',
+           },
+-          [`& .${selectClasses.iconOutlined}`]: {
++          [`& .${selectClasses.outlined} ~ .${selectClasses.icon}`]: {
+             color: 'red',
+           },
+-          [`& .${selectClasses.iconStandard}`]: {
++          [`& .${selectClasses.standard} ~ .${selectClasses.icon}`]: {
+             color: 'red',
+           },
+         },
+       },
+     },
+   },
+ });
 ```
 
 #### Slider deprecated props removed
@@ -1411,6 +1509,12 @@ If you were using these deprecated class names as `styleOverrides` keys in your 
 
 #### SpeedDial deprecated props removed
 
+Use the [speed-dial-props codemod](https://github.com/mui/material-ui/tree/HEAD/packages/mui-codemod#speed-dial-props) below to migrate the code as described in the following section:
+
+```bash
+npx @mui/codemod@latest deprecations/speed-dial-props <path>
+```
+
 The deprecated `SpeedDial` props have been removed.
 Use the `slots` and `slotProps` props instead:
 
@@ -1424,6 +1528,12 @@ Use the `slots` and `slotProps` props instead:
 ```
 
 #### SpeedDialAction deprecated props removed
+
+Use the [speed-dial-action-props codemod](https://github.com/mui/material-ui/tree/HEAD/packages/mui-codemod#speed-dial-action-props) below to migrate the code as described in the following section:
+
+```bash
+npx @mui/codemod@latest deprecations/speed-dial-action-props <path>
+```
 
 The deprecated `SpeedDialAction` props have been removed.
 Use the `slotProps` prop instead:
@@ -1446,6 +1556,12 @@ Use the `slotProps` prop instead:
 ```
 
 #### Menu deprecated props removed
+
+Use the [menu-props codemod](https://github.com/mui/material-ui/tree/HEAD/packages/mui-codemod#menu-props) below to migrate the code as described in the following section:
+
+```bash
+npx @mui/codemod@latest deprecations/menu-props <path>
+```
 
 The following deprecated props have been removed:
 
@@ -1529,6 +1645,12 @@ The following deprecated props have been removed from the `Modal` component:
 ```
 
 #### Popover deprecated props removed
+
+Use the [popover-props codemod](https://github.com/mui/material-ui/tree/HEAD/packages/mui-codemod#popover-props) below to migrate the code as described in the following section:
+
+```bash
+npx @mui/codemod@latest deprecations/popover-props <path>
+```
 
 The following deprecated props have been removed:
 
