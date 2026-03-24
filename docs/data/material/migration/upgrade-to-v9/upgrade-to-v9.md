@@ -1203,6 +1203,29 @@ The following deprecated props have been removed:
  />
 ```
 
+#### PaginationItem deprecated classes removed
+
+Use the [pagination-item-classes codemod](https://github.com/mui/material-ui/tree/HEAD/packages/mui-codemod#pagination-item-classes) below to migrate the code as described in the following section:
+
+```bash
+npx @mui/codemod@latest deprecations/pagination-item-classes <path>
+```
+
+The following deprecated classes have been removed:
+
+- `textPrimary` — combine the `.MuiPaginationItem-text` and `.MuiPaginationItem-colorPrimary` classes instead
+- `textSecondary` — combine the `.MuiPaginationItem-text` and `.MuiPaginationItem-colorSecondary` classes instead
+- `outlinedPrimary` — combine the `.MuiPaginationItem-outlined` and `.MuiPaginationItem-colorPrimary` classes instead
+- `outlinedSecondary` — combine the `.MuiPaginationItem-outlined` and `.MuiPaginationItem-colorSecondary` classes instead
+
+```diff
+-.MuiPaginationItem-textPrimary
++.MuiPaginationItem-text.MuiPaginationItem-colorPrimary
+
+-.MuiPaginationItem-outlinedPrimary
++.MuiPaginationItem-outlined.MuiPaginationItem-colorPrimary
+```
+
 #### Popper deprecated props removed
 
 Use the [popper-props codemod](https://github.com/mui/material-ui/tree/HEAD/packages/mui-codemod#popper-props) below to migrate the code as described in the following section:
