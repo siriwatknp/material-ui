@@ -232,9 +232,7 @@ export const SliderTrack = styled('span', {
 export const SliderThumb = styled('span', {
   name: 'MuiSlider',
   slot: 'Thumb',
-  overridesResolver: (props, styles) => {
-    return [styles.thumb];
-  },
+  overridesResolver: (props, styles) => styles.thumb,
 })(
   memoTheme(({ theme }) => ({
     position: 'absolute',

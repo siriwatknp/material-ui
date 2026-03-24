@@ -1321,23 +1321,23 @@ npx @mui/codemod@latest deprecations/slider-classes <path>
 
 The following deprecated classes have been removed:
 
-- `thumbColorPrimary` — combine the `.MuiSlider-thumb` and `.MuiSlider-colorPrimary` classes instead
-- `thumbColorSecondary` — combine the `.MuiSlider-thumb` and `.MuiSlider-colorSecondary` classes instead
-- `thumbColorError` — combine the `.MuiSlider-thumb` and `.MuiSlider-colorError` classes instead
-- `thumbColorInfo` — combine the `.MuiSlider-thumb` and `.MuiSlider-colorInfo` classes instead
-- `thumbColorSuccess` — combine the `.MuiSlider-thumb` and `.MuiSlider-colorSuccess` classes instead
-- `thumbColorWarning` — combine the `.MuiSlider-thumb` and `.MuiSlider-colorWarning` classes instead
-- `thumbSizeSmall` — combine the `.MuiSlider-thumb` and `.MuiSlider-sizeSmall` classes instead
+- `thumbColorPrimary` — use `.MuiSlider-colorPrimary > .MuiSlider-thumb` instead
+- `thumbColorSecondary` — use `.MuiSlider-colorSecondary > .MuiSlider-thumb` instead
+- `thumbColorError` — use `.MuiSlider-colorError > .MuiSlider-thumb` instead
+- `thumbColorInfo` — use `.MuiSlider-colorInfo > .MuiSlider-thumb` instead
+- `thumbColorSuccess` — use `.MuiSlider-colorSuccess > .MuiSlider-thumb` instead
+- `thumbColorWarning` — use `.MuiSlider-colorWarning > .MuiSlider-thumb` instead
+- `thumbSizeSmall` — use `.MuiSlider-sizeSmall > .MuiSlider-thumb` instead
 
 ```diff
 -.MuiSlider-thumbColorPrimary
-+.MuiSlider-thumb.MuiSlider-colorPrimary
++.MuiSlider-colorPrimary > .MuiSlider-thumb
 
 -.MuiSlider-thumbColorSecondary
-+.MuiSlider-thumb.MuiSlider-colorSecondary
++.MuiSlider-colorSecondary > .MuiSlider-thumb
 
 -.MuiSlider-thumbSizeSmall
-+.MuiSlider-thumb.MuiSlider-sizeSmall
++.MuiSlider-sizeSmall > .MuiSlider-thumb
 ```
 
 #### Snackbar deprecated props removed
