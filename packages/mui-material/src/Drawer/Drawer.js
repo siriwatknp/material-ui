@@ -64,8 +64,6 @@ const DrawerPaper = styled(Paper, {
   name: 'MuiDrawer',
   slot: 'Paper',
   overridesResolver: (props, styles) => {
-    const { ownerState } = props;
-
     return [styles.paper];
   },
 })(
