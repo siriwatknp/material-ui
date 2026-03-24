@@ -1311,6 +1311,35 @@ The following deprecated props have been removed from the `Slider` component:
  />
 ```
 
+#### Slider deprecated classes removed
+
+Use the [slider-classes codemod](https://github.com/mui/material-ui/tree/HEAD/packages/mui-codemod#slider-classes) below to migrate the code as described in the following section:
+
+```bash
+npx @mui/codemod@latest deprecations/slider-classes <path>
+```
+
+The following deprecated classes have been removed:
+
+- `thumbColorPrimary` — combine the `.MuiSlider-thumb` and `.MuiSlider-colorPrimary` classes instead
+- `thumbColorSecondary` — combine the `.MuiSlider-thumb` and `.MuiSlider-colorSecondary` classes instead
+- `thumbColorError` — combine the `.MuiSlider-thumb` and `.MuiSlider-colorError` classes instead
+- `thumbColorInfo` — combine the `.MuiSlider-thumb` and `.MuiSlider-colorInfo` classes instead
+- `thumbColorSuccess` — combine the `.MuiSlider-thumb` and `.MuiSlider-colorSuccess` classes instead
+- `thumbColorWarning` — combine the `.MuiSlider-thumb` and `.MuiSlider-colorWarning` classes instead
+- `thumbSizeSmall` — combine the `.MuiSlider-thumb` and `.MuiSlider-sizeSmall` classes instead
+
+```diff
+-.MuiSlider-thumbColorPrimary
++.MuiSlider-thumb.MuiSlider-colorPrimary
+
+-.MuiSlider-thumbColorSecondary
++.MuiSlider-thumb.MuiSlider-colorSecondary
+
+-.MuiSlider-thumbSizeSmall
++.MuiSlider-thumb.MuiSlider-sizeSmall
+```
+
 #### Snackbar deprecated props removed
 
 Use the [snackbar-props codemod](https://github.com/mui/material-ui/tree/HEAD/packages/mui-codemod#snackbar-props) below to migrate the code as described in the following section:

@@ -1593,16 +1593,13 @@ describe.skipIf(!supportsTouch())('<Slider />', () => {
       const root = document.querySelector(`.${classes.root}`);
       const thumb = document.querySelector(`.${classes.thumb}`);
       expect(root).not.to.have.class(classes.sizeSmall);
-      expect(thumb).not.to.have.class(classes.thumbSizeSmall);
     });
 
     it('should render small slider', () => {
       render(<Slider size="small" />);
 
       const root = document.querySelector(`.${classes.root}`);
-      const thumb = document.querySelector(`.${classes.thumb}`);
       expect(root).to.have.class(classes.sizeSmall);
-      expect(thumb).to.have.class(classes.thumbSizeSmall);
     });
   });
 
