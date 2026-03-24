@@ -1761,6 +1761,38 @@ The following deprecated props have been removed:
  />
 ```
 
+#### Tab deprecated classes removed
+
+Use the [tab-classes codemod](https://github.com/mui/material-ui/tree/HEAD/packages/mui-codemod#tab-classes) below to migrate the code as described in the following section:
+
+```bash
+npx @mui/codemod@latest deprecations/tab-classes <path>
+```
+
+The following deprecated class has been removed:
+
+- `iconWrapper` — use the `icon` class instead
+
+```diff
+-.MuiTab-iconWrapper
++.MuiTab-icon
+```
+
+#### Tabs deprecated classes removed
+
+The following deprecated classes have been removed:
+
+- `flexContainer` — use the `list` class instead
+- `flexContainerVertical` — combine the `list` and `vertical` classes instead
+
+```diff
+-.MuiTabs-flexContainer
++.MuiTabs-list
+
+-.MuiTabs-flexContainerVertical
++.MuiTabs-list.MuiTabs-vertical
+```
+
 #### ToggleButtonGroup deprecated CSS classes removed
 
 Use the [toggle-button-group-classes codemod](https://github.com/mui/material-ui/tree/HEAD/packages/mui-codemod#toggle-button-group-classes) below to migrate the code as described in the following section:
