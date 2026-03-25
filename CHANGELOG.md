@@ -37,7 +37,7 @@ A big thanks to the 8 contributors who made this release possible.
 
 #### Changes
 
-- [internal] perf: sx (#44254) @romgrk
+- [system] Improve performance when using sx prop (#44254) @romgrk
 
 ### `@mui/codemod@9.0.0-beta.0`
 
@@ -52,7 +52,7 @@ A big thanks to the 8 contributors who made this release possible.
 
 - Update browserslistrc (#48085) @silviuaavram
 - [code-infra] Prevent major version updates of bundler/framework packages in bundling fixtures (#48062) @Copilot
-- [code-infra][icons-material] Avoid material utils barrel in createSvg… (#48029) @anchmelev
+- [code-infra][icons-material] Avoid material utils barrel in createSvgIcon (#48029) @anchmelev
 - [docs-infra] Migrate more leaf components to mui-docs (#48018) @brijeshb42
 
 All contributors of this release in alphabetical order: @anchmelev, @brijeshb42, @Copilot, @mj12albert, @romgrk, @silviuaavram, @siriwatknp, @ZeeshanTamboli
