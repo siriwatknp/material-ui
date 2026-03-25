@@ -160,8 +160,8 @@ export default function removeSystemProps(file, api, options) {
       val.value === 'inherit' ||
       val.value?.includes('.') ||
       val.value === 'divider' ||
-      val.value.startsWith('#') ||
-      val.value.match(/\(.*\)/),
+      val.value?.startsWith('#') ||
+      val.value?.match(/\(.*\)/),
   };
   const customReplacement = {
     Typography: typographyColorMatcher,
@@ -175,8 +175,8 @@ export default function removeSystemProps(file, api, options) {
         key !== 'color' ||
         val.value?.includes('.') ||
         val.value === 'divider' ||
-        val.value.startsWith('#') ||
-        val.value.match(/\(.*\)/),
+        val.value?.startsWith('#') ||
+        val.value?.match(/\(.*\)/),
     },
   };
   const elementReplacement = {};

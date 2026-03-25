@@ -59,3 +59,7 @@ function Copyright(props) {
 
 <TimelineOppositeContent color="text.secondary">09:30 am</TimelineOppositeContent>;
 <TimelineContent color="inherit">Eat</TimelineContent>;
+
+// Dynamic color values (expression, not string literal)
+<Typography color={dynamicColor} mb={2}>Dynamic</Typography>;
+<Link color={linkColor} href="#">Dynamic Link</Link>;
