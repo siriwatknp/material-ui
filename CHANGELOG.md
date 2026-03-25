@@ -10,6 +10,8 @@ A big thanks to the 8 contributors who made this release possible.
 
 ### `@mui/material@9.0.0-beta.0`
 
+#### Breaking Changes
+
 - [linear-progress] Remove deprecated CSS classes (#48068) @mj12albert
 - [list-item, list-item-text] Remove deprecated props (#48042) @siriwatknp
 - [button-group] Remove deprecated classes (#48043) @siriwatknp
@@ -21,7 +23,6 @@ A big thanks to the 8 contributors who made this release possible.
 - [drawer] Remove deprecated CSS classes (#48077) @siriwatknp
 - [image-list-item-bar] Remove deprecated CSS classes (#48064) @siriwatknp
 - [inputs] Remove deprecated props & classes (#48071) @mj12albert
-- [internal] perf: sx (#44254) @romgrk
 - [material-ui] Remove unnecessary overridesResolvers from styled components (#48082) @ZeeshanTamboli
 - [material-ui][system] Remove deprecated system props from Box, Stack, Typography (#48072) @siriwatknp
 - [pagination-item] Remove deprecated CSS classes (#48076) @siriwatknp
@@ -33,6 +34,10 @@ A big thanks to the 8 contributors who made this release possible.
 - [tabs][tab] Remove deprecated CSS classes (#48078) @siriwatknp
 - [table-pagination][table-sort-label] Remove deprecated props and classes (#48060) @siriwatknp
 - [toggle-button-group] Remove deprecated classes (#48061) @siriwatknp
+
+#### Changes
+
+- [internal] perf: sx (#44254) @romgrk
 
 ### `@mui/codemod@9.0.0-beta.0`
 
