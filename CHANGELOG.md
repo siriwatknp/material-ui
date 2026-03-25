@@ -45,10 +45,12 @@ A big thanks to the 8 contributors who made this release possible.
 
 ### Docs
 
+- Mention all breaking changes in changelog (#48091) @silviuaavram
 - Fix link to upgrade-to-v9 docs in release CHANGELOG (#48081) @ZeeshanTamboli
 
 ### Core
 
+- Update browserslistrc (#48085) @silviuaavram
 - [code-infra] Prevent major version updates of bundler/framework packages in bundling fixtures (#48062) @Copilot
 - [code-infra][icons-material] Avoid material utils barrel in createSvg… (#48029) @anchmelev
 - [docs-infra] Migrate more leaf components to mui-docs (#48018) @brijeshb42
