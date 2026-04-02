@@ -51,7 +51,7 @@ describe('<Button />', () => {
     testDeepOverrides: { slotName: 'startIcon', slotClassName: classes.startIcon },
     testVariantProps: { variant: 'contained', fullWidth: true },
     testStateOverrides: { prop: 'size', value: 'small', styleKey: 'sizeSmall' },
-    skip: ['componentsProp'],
+    skip: ['componentProp'],
     enableAxe: true,
   }));
 
