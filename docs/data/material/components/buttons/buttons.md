@@ -21,6 +21,10 @@ Buttons communicate actions that users can take. They are typically placed throu
 
 {{"component": "@mui/docs/ComponentLinkHeader"}}
 
+## Accessibility compliance
+
+{{"component": "modules/components/ComponentAccessibilityStatus.js"}}
+
 ## Basic button
 
 The `Button` comes with three variants: text (default), contained, and outlined.
