@@ -115,7 +115,7 @@ export default defineConfig({
       dependencies: {
         react: 'latest',
         // #npm-tag-reference
-        '@mui/material': 'next',
+        '@mui/material': 'latest',
         'react-dom': 'latest',
         '@emotion/react': 'latest',
         '@emotion/styled': 'latest',
@@ -260,7 +260,7 @@ export default defineConfig({
       dependencies: {
         react: 'latest',
         // #npm-tag-reference
-        '@mui/material': 'next',
+        '@mui/material': 'latest',
         'react-dom': 'latest',
         '@emotion/react': 'latest',
         '@emotion/styled': 'latest',

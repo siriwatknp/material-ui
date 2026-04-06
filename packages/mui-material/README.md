@@ -15,12 +15,12 @@ Install the package in your project directory with:
 <!-- #npm-tag-reference -->
 
 ```bash
-npm install @mui/material@next @emotion/react @emotion/styled
+npm install @mui/material @emotion/react @emotion/styled
 ```
 
 ## Documentation
 
-Visit [https://next.mui.com/material-ui/](https://next.mui.com/material-ui/) to view the full documentation.
+Visit [https://mui.com/material-ui/](https://mui.com/material-ui/) to view the full documentation.
 
 ## Questions
 
