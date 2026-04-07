@@ -19,11 +19,6 @@ For more details, check out the [upgrade guide](https://mui.com/material-ui/migr
 - [transitions] Performance improvements & misc fixes (#48151) @mj12albert
 - Remove unnecessary overridesResolvers from styled components (#48204) @sai6855
 
-### Docs
-
-- Reorder upgrade-to-v9 doc sections (#48216) @mj12albert
-- Wide docs layout - follow up (#48159) @noraleonte
-
 ### Core
 
 - [code-infra] Setup workflow to publish internal packages (#47952) @brijeshb42
