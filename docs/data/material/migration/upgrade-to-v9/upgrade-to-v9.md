@@ -284,6 +284,10 @@ The `StepButton` has:
 - The `aria-setsize` added. The value is the total number of steps.
 - The `aria-posinset` added. The value is the index of the step inside the list, 1-based.
 
+### Slider
+
+The `Slider` component uses pointer events instead of mouse events. Previously `onMouseDown={(event) => event.preventDefault()}` will cancel a drag from starting, now `onPointerDown` must be used instead.
+
 ### Tabs
 
 The `tabindex` attribute for each tab will be changed on Arrow Key or Home / End navigation. Previously, keyboard navigation moved DOM focus without updating `tabindex` on the focused `Tab`. Now, we move DOM focus and also add the `tabindex="0"` to the focused `Tab`. Other tabs will have `tabindex="-1"` to keep only one focusable `Tab` at a time.

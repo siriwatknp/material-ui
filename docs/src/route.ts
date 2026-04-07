@@ -48,6 +48,8 @@ const ROUTES = {
   chartsOverview: '/x/react-charts/',
   // Tree View doc pages
   treeViewOverview: '/x/react-tree-view/',
+  // Scheduler doc pages
+  schedulerOverview: '/x/react-scheduler/',
   // Toolpad pages
   toolpadLandingPage: '/toolpad/',
   toolpadStudioLandingPage: '/toolpad/studio/',
