@@ -17,7 +17,6 @@ import {
 } from '@mui/x-tree-view/TreeItem';
 import { TreeItemIcon } from '@mui/x-tree-view/TreeItemIcon';
 import { TreeItemProvider } from '@mui/x-tree-view/TreeItemProvider';
-import { TreeViewDefaultItemModelProperties } from '@mui/x-tree-view/models';
 import { useTheme } from '@mui/material/styles';
 
 type Color = 'blue' | 'green';
@@ -26,9 +25,10 @@ type ExtendedTreeItemProps = {
   color?: Color;
   id: string;
   label: string;
+  children?: ExtendedTreeItemProps[];
 };
 
-const ITEMS: TreeViewDefaultItemModelProperties<ExtendedTreeItemProps>[] = [
+const ITEMS: ExtendedTreeItemProps[] = [
   {
     id: '1',
     label: 'Website',
@@ -142,20 +142,22 @@ const CustomTreeItem = React.forwardRef(function CustomTreeItem(
     publicAPI,
   } = useTreeItem({ id, itemId, children, label, disabled, rootRef: ref });
 
+  const contentProps = getContentProps({
+    className: 'content',
+    'data-expanded': status.expanded,
+    'data-selected': status.selected,
+    'data-focused': status.focused,
+    'data-disabled': status.disabled
+  }) as object;
+
   const item = publicAPI.getItem(itemId);
   const color = item?.color;
   return (
     <TreeItemProvider id={id} itemId={itemId}>
       <TreeItemRoot {...getRootProps(other)}>
         <TreeItemContent
-          {...getContentProps({
-            className: clsx('content', {
-              expanded: status.expanded,
-              selected: status.selected,
-              focused: status.focused,
-              disabled: status.disabled,
-            }),
-          })}
+          status={status}
+          {...contentProps}
         >
           {status.expandable && (
             <TreeItemIconContainer {...getIconContainerProps()}>
