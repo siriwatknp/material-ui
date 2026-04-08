@@ -25,7 +25,7 @@ import {
 } from '@mui/x-tree-view/TreeItem';
 import { TreeItemIcon } from '@mui/x-tree-view/TreeItemIcon';
 import { TreeItemProvider } from '@mui/x-tree-view/TreeItemProvider';
-import { TreeViewBaseItem } from '@mui/x-tree-view/models';
+import { TreeViewDefaultItemModelProperties } from '@mui/x-tree-view/models';
 
 type FileType = 'image' | 'pdf' | 'video' | 'folder';
 
@@ -35,7 +35,7 @@ type ExtendedTreeItemProps = {
   label: string;
 };
 
-const ITEMS: TreeViewBaseItem<ExtendedTreeItemProps>[] = [
+const ITEMS: TreeViewDefaultItemModelProperties<ExtendedTreeItemProps>[] = [
   {
     id: '1',
     label: 'Drive',

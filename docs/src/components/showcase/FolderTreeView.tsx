@@ -20,7 +20,7 @@ import {
 import { useTreeItem, UseTreeItemParameters } from '@mui/x-tree-view/useTreeItem';
 import { TreeItemIcon } from '@mui/x-tree-view/TreeItemIcon';
 import { TreeItemProvider } from '@mui/x-tree-view/TreeItemProvider';
-import { TreeViewBaseItem } from '@mui/x-tree-view/models';
+import { TreeViewDefaultItemModelProperties } from '@mui/x-tree-view/models';
 
 type ExtendedTreeItemProps = {
   id: string;
@@ -28,7 +28,7 @@ type ExtendedTreeItemProps = {
   color?: 'primary' | 'default';
 };
 
-const ITEMS: TreeViewBaseItem<ExtendedTreeItemProps>[] = [
+const ITEMS: TreeViewDefaultItemModelProperties<ExtendedTreeItemProps>[] = [
   {
     id: '1',
     label: 'src',
