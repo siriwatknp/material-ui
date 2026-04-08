@@ -1,5 +1,6 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
+import clsx from 'clsx';
 import { animated, useSpring } from '@react-spring/web';
 
 import Box from '@mui/material/Box';
@@ -136,21 +137,22 @@ const CustomTreeItem = React.forwardRef(function CustomTreeItem(props, ref) {
     publicAPI,
   } = useTreeItem({ id, itemId, children, label, disabled, rootRef: ref });
 
-  const contentProps = getContentProps({
-    className: clsx('content', {
-      expanded: status.expanded,
-      selected: status.selected,
-      focused: status.focused,
-      disabled: status.disabled,
-    }),
-  });
-
   const item = publicAPI.getItem(itemId);
   const color = item?.color;
   return (
     <TreeItemProvider id={id} itemId={itemId}>
       <TreeItemRoot {...getRootProps(other)}>
-        <TreeItemContent status={status} {...contentProps}>
+        <TreeItemContent
+          status={status}
+          {...getContentProps({
+            className: clsx('content', {
+              expanded: status.expanded,
+              selected: status.selected,
+              focused: status.focused,
+              disabled: status.disabled,
+            }),
+          })}
+        >
           {status.expandable && (
             <TreeItemIconContainer {...getIconContainerProps()}>
               <TreeItemIcon status={status} />
