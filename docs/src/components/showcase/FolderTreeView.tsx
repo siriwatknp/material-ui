@@ -26,9 +26,10 @@ type ExtendedTreeItemProps = {
   id: string;
   label: string;
   color?: 'primary' | 'default';
+  children?: ExtendedTreeItemProps[];
 };
 
-const ITEMS: TreeViewDefaultItemModelProperties<ExtendedTreeItemProps>[] = [
+const ITEMS: ExtendedTreeItemProps[] = [
   {
     id: '1',
     label: 'src',
@@ -186,6 +187,7 @@ const CustomTreeItem = React.forwardRef(function CustomTreeItem(
     <TreeItemProvider id={id} itemId={itemId}>
       <StyledTreeItemRoot {...getRootProps(other)}>
         <CustomTreeItemContent
+          status={status}
           {...getContentProps({
             className: clsx('content', {
               'Mui-expanded': status.expanded,
