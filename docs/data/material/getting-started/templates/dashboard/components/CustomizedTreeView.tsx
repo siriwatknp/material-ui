@@ -142,11 +142,12 @@ const CustomTreeItem = React.forwardRef(function CustomTreeItem(
   } = useTreeItem({ id, itemId, children, label, disabled, rootRef: ref });
 
   const contentProps = getContentProps({
-    className: 'content',
-    'data-expanded': status.expanded,
-    'data-selected': status.selected,
-    'data-focused': status.focused,
-    'data-disabled': status.disabled
+    className: clsx('content', {
+      expanded: status.expanded,
+      selected: status.selected,
+      focused: status.focused,
+      disabled: status.disabled,
+    }),
   }) as object;
 
   const item = publicAPI.getItem(itemId);
@@ -154,10 +155,7 @@ const CustomTreeItem = React.forwardRef(function CustomTreeItem(
   return (
     <TreeItemProvider id={id} itemId={itemId}>
       <TreeItemRoot {...getRootProps(other)}>
-        <TreeItemContent
-          status={status}
-          {...contentProps}
-        >
+        <TreeItemContent status={status} {...contentProps}>
           {status.expandable && (
             <TreeItemIconContainer {...getIconContainerProps()}>
               <TreeItemIcon status={status} />

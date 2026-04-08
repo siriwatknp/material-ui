@@ -1,6 +1,5 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import clsx from 'clsx';
 import { animated, useSpring } from '@react-spring/web';
 
 import Box from '@mui/material/Box';
@@ -18,7 +17,6 @@ import {
 } from '@mui/x-tree-view/TreeItem';
 import { TreeItemIcon } from '@mui/x-tree-view/TreeItemIcon';
 import { TreeItemProvider } from '@mui/x-tree-view/TreeItemProvider';
-
 import { useTheme } from '@mui/material/styles';
 
 const ITEMS = [
@@ -138,21 +136,21 @@ const CustomTreeItem = React.forwardRef(function CustomTreeItem(props, ref) {
     publicAPI,
   } = useTreeItem({ id, itemId, children, label, disabled, rootRef: ref });
 
+  const contentProps = getContentProps({
+    className: clsx('content', {
+      expanded: status.expanded,
+      selected: status.selected,
+      focused: status.focused,
+      disabled: status.disabled,
+    }),
+  });
+
   const item = publicAPI.getItem(itemId);
   const color = item?.color;
   return (
     <TreeItemProvider id={id} itemId={itemId}>
       <TreeItemRoot {...getRootProps(other)}>
-        <TreeItemContent
-          {...getContentProps({
-            className: clsx('content', {
-              expanded: status.expanded,
-              selected: status.selected,
-              focused: status.focused,
-              disabled: status.disabled,
-            }),
-          })}
-        >
+        <TreeItemContent status={status} {...contentProps}>
           {status.expandable && (
             <TreeItemIconContainer {...getIconContainerProps()}>
               <TreeItemIcon status={status} />
