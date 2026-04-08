@@ -20,7 +20,6 @@ import {
 import { useTreeItem, UseTreeItemParameters } from '@mui/x-tree-view/useTreeItem';
 import { TreeItemIcon } from '@mui/x-tree-view/TreeItemIcon';
 import { TreeItemProvider } from '@mui/x-tree-view/TreeItemProvider';
-import { TreeViewDefaultItemModelProperties } from '@mui/x-tree-view/models';
 
 type ExtendedTreeItemProps = {
   id: string;
