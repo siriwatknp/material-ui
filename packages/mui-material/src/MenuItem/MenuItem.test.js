@@ -2,6 +2,7 @@ import { expect } from 'chai';
 import { spy } from 'sinon';
 import { act, createRenderer, fireEvent, screen, supportsTouch } from '@mui/internal-test-utils';
 import MenuItem, { menuItemClasses as classes } from '@mui/material/MenuItem';
+import MenuList from '@mui/material/MenuList';
 import ButtonBase from '@mui/material/ButtonBase';
 import ListContext from '../List/ListContext';
 import describeConformance from '../../test/describeConformance';
@@ -49,6 +50,17 @@ describe('<MenuItem />', () => {
     render(<MenuItem role="option" aria-selected={false} />);
 
     expect(screen.queryByRole('option')).not.to.equal(null);
+  });
+
+  it('does not pass classes.root to ButtonBase classes', () => {
+    render(
+      <MenuList>
+        <MenuItem classes={{ root: 'my-root-class' }}>Item</MenuItem>
+      </MenuList>,
+    );
+    const menuitem = screen.getByRole('menuitem');
+    const classList = menuitem.className.split(' ');
+    expect(classList.filter((c) => c === 'my-root-class')).to.have.length(1);
   });
 
   describe('event callbacks', () => {
