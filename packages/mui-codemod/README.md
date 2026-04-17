@@ -2546,7 +2546,7 @@ Compared to the v6 codemod, the v9 version also handles:
 ```
 
 You can also pass `--jsx` to specify JSX element names directly, bypassing import detection.
-This is useful for projects using auto-import plugins (e.g. `unplugin-auto-import`) where MUI components are available without explicit import statements:
+This is useful for projects using auto-import plugins (for example `unplugin-auto-import`) where MUI components are available without explicit import statements:
 
 ```bash
 npx @mui/codemod@latest v9.0.0/system-props <path> -- --jsx=Box,Typography,Stack,Link,Grid,DialogContentText
