@@ -43,6 +43,17 @@ describe('@mui/codemod', () => {
       expect(actual).to.equal(expected, 'The transformed version should be correct');
     });
 
+    it('transforms props for jsx option (auto-imported components)', () => {
+      const actual = transform(
+        { source: read('./test-cases/system-props-jsx.actual.js') },
+        { jscodeshift },
+        { jsx: 'Box,Typography,Stack,Link' },
+      );
+
+      const expected = read('./test-cases/system-props-jsx.expected.js');
+      expect(actual).to.equal(expected, 'The transformed version should be correct');
+    });
+
     it('does not transform similarly named packages', () => {
       const actual = transform(
         { source: read('./test-cases/system-props-package-name-similar.actual.js') },

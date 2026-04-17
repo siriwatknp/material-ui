@@ -180,6 +180,19 @@ export default function removeSystemProps(file, api, options) {
     },
   };
   const elementReplacement = {};
+
+  if (options.jsx) {
+    options.jsx.split(',').forEach((name) => {
+      const trimmed = name.trim();
+      if (components.includes(trimmed)) {
+        deprecatedElements.push(trimmed);
+        if (customReplacement[trimmed]) {
+          elementReplacement[trimmed] = customReplacement[trimmed];
+        }
+      }
+    });
+  }
+
   const packageName = options.packageName;
   const importSources = ['@mui'];
 
