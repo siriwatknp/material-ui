@@ -10,10 +10,10 @@ import CalendarMonthRoundedIcon from '@mui/icons-material/CalendarMonthRounded';
 import AccountTreeRounded from '@mui/icons-material/AccountTreeRounded';
 import BarChartRounded from '@mui/icons-material/BarChartRounded';
 import FileUploadRounded from '@mui/icons-material/FileUploadRounded';
-import PendingActionsRounded from '@mui/icons-material/PendingActions';
 import FormatSizeRoundedIcon from '@mui/icons-material/FormatSizeRounded';
 import ViewTimelineIcon from '@mui/icons-material/ViewTimeline';
-import AssistantIcon from '@mui/icons-material/Assistant';
+import EventNoteRoundedIcon from '@mui/icons-material/EventNoteRounded';
+import ForumRoundedIcon from '@mui/icons-material/ForumRounded';
 import { alpha } from '@mui/material/styles';
 import { ROUTES } from '@mui/internal-core-docs/constants';
 import { Link } from '@mui/internal-core-docs/Link';
@@ -143,9 +143,9 @@ export default function XRoadmap() {
               </Typography>
               {renderList(
                 <React.Fragment>
-                  <PendingActionsRounded sx={{ fontSize: 16 }} />
+                  <EventNoteRoundedIcon sx={{ fontSize: 16 }} />
                   Scheduler
-                  <AssistantIcon sx={{ fontSize: 16 }} />
+                  <ForumRoundedIcon sx={{ fontSize: 16 }} />
                   Chat
                 </React.Fragment>,
               )}
