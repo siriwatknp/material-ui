@@ -138,7 +138,7 @@ export default function XRoadmap() {
                 variant="body2"
                 sx={{ fontWeight: 'bold', color: 'text.primary' }}
               >
-                Alpha
+                Preview
                 <RoadmapStatusDot color="warning.main" />
               </Typography>
               {renderList(
