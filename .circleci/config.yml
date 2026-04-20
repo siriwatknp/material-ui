@@ -136,12 +136,6 @@ jobs:
           command: |
             pnpm extract-error-codes
             git add -A && git diff --exit-code --staged
-      - run:
-          name: Generate the accessibility compliance data
-          command: pnpm docs:a11y
-      - run:
-          name: '`pnpm docs:a11y` changes committed?'
-          command: git add -A && git diff --exit-code --staged
   test_types:
     <<: *default-job
     resource_class: 'medium+'
@@ -239,6 +233,12 @@ jobs:
           environment:
             VITEST_BROWSERS: 'firefox'
           command: pnpm test:browser --no-isolate --no-file-parallelism
+      - run:
+          name: Generate the accessibility compliance data
+          command: pnpm docs:a11y
+      - run:
+          name: '`pnpm docs:a11y` changes committed?'
+          command: git add -A && git diff --exit-code --staged
       - store_test_results:
           path: test-results
   test_e2e:
