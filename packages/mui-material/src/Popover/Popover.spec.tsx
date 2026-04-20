@@ -22,6 +22,8 @@ function Test() {
         }}
       />
       ;
+      <Popover open disableAutoFocus />;
+      <Popover open slotProps={{ paper: paperProps }} />
     </React.Fragment>
   );
 }

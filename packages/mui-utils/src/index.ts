@@ -5,7 +5,9 @@ export { default as elementAcceptingRef } from './elementAcceptingRef';
 export { default as elementTypeAcceptingRef } from './elementTypeAcceptingRef';
 export { default as exactProp } from './exactProp';
 export { default as formatMuiErrorMessage } from './formatMuiErrorMessage';
+export { default as unstable_contains } from './contains';
 export { default as unstable_getActiveElement } from './getActiveElement';
+export { default as unstable_getEventTarget } from './getEventTarget';
 export { default as getDisplayName } from './getDisplayName';
 export { default as HTMLElementType } from './HTMLElementType';
 export { default as ponyfillGlobal } from './ponyfillGlobal';
@@ -15,6 +17,7 @@ export { default as unstable_createChainedFunction } from './createChainedFuncti
 export { default as unstable_debounce } from './debounce';
 export { default as unstable_deprecatedPropType } from './deprecatedPropType';
 export { default as unstable_fastDeepAssign } from './fastDeepAssign';
+export { default as unstable_fastObjectShallowCompare } from './fastObjectShallowCompare';
 export { default as unstable_isObjectEmpty } from './isObjectEmpty';
 export { default as unstable_isMuiElement } from './isMuiElement';
 export { default as unstable_ownerDocument } from './ownerDocument';
@@ -51,5 +54,4 @@ export { default as unstable_resolveComponentProps } from './resolveComponentPro
 export { default as unstable_extractEventHandlers } from './extractEventHandlers';
 export { default as unstable_getReactNodeRef } from './getReactNodeRef';
 export { default as unstable_getReactElementRef } from './getReactElementRef';
-export { default as unstable_useRovingTabIndex } from './useRovingTabIndex';
 export * from './types';

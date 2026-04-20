@@ -19,7 +19,11 @@ import tabsClasses, { getTabsUtilityClass } from './tabsClasses';
 import ownerWindow from '../utils/ownerWindow';
 import isLayoutSupported from '../utils/isLayoutSupported';
 import useSlot from '../utils/useSlot';
-import { ownerDocument, useForkRef, getActiveElement, useRovingTabIndex } from '../utils';
+import contains from '../utils/contains';
+import getActiveElement from '../utils/getActiveElement';
+import ownerDocument from '../utils/ownerDocument';
+import useForkRef from '../utils/useForkRef';
+import { RovingTabIndexContext, useRovingTabIndexRoot } from '../utils/useRovingTabIndex';
 
 const useUtilityClasses = (ownerState) => {
   const {
@@ -309,6 +313,10 @@ const Tabs = React.forwardRef(function Tabs(inProps, ref) {
   const [displayStartScroll, setDisplayStartScroll] = React.useState(false);
   const [displayEndScroll, setDisplayEndScroll] = React.useState(false);
   const [updateScrollObserver, setUpdateScrollObserver] = React.useState(false);
+  const selectedValue = value === false ? null : value;
+  // Tracks whether DOM focus is currently inside the tab list. When it is, roving focus
+  // should follow in-list keyboard movement instead of snapping back to `selectedValue`.
+  const [isFocusWithinList, setIsFocusWithinList] = React.useState(false);
 
   const [scrollerStyle, setScrollerStyle] = React.useState({
     overflow: 'hidden',
@@ -714,6 +722,12 @@ const Tabs = React.forwardRef(function Tabs(inProps, ref) {
   });
 
   const indicator = <IndicatorSlot {...indicatorSlotProps} />;
+  const rovingContainer = useRovingTabIndexRoot({
+    activeItemId: isFocusWithinList ? undefined : selectedValue,
+    orientation,
+    isRtl,
+  });
+  const rovingContainerProps = rovingContainer.getContainerProps();
 
   const validChildren = React.Children.toArray(childrenProp)
     .filter(React.isValidElement)
@@ -736,19 +750,8 @@ const Tabs = React.forwardRef(function Tabs(inProps, ref) {
       return { child, index, childValue };
     });
 
-  const focusableIndex = valueToIndex.get(value);
-
-  const { getContainerProps, getItemProps } = useRovingTabIndex({
-    focusableIndex,
-    orientation,
-    isRtl,
-  });
-  const rovingTabIndexContainerProps = getContainerProps();
-
-  const children = validChildren.map(({ child, index, childValue }) => {
+  const children = validChildren.map(({ child, childValue }) => {
     const selected = childValue === value;
-
-    const rovingTabIndexItemProps = getItemProps(index, child.ref);
 
     return React.cloneElement(child, {
       fullWidth: variant === 'fullWidth',
@@ -758,8 +761,6 @@ const Tabs = React.forwardRef(function Tabs(inProps, ref) {
       onChange,
       textColor,
       value: childValue,
-      ref: rovingTabIndexItemProps.ref,
-      tabIndex: child.props.tabIndex ?? rovingTabIndexItemProps.tabIndex,
     });
   });
 
@@ -793,7 +794,7 @@ const Tabs = React.forwardRef(function Tabs(inProps, ref) {
     },
   });
 
-  const mergedRef = useForkRef(rovingTabIndexContainerProps.ref, tabListRef);
+  const mergedRef = useForkRef(rovingContainerProps.ref, tabListRef);
 
   const handleKeyDown = (event) => {
     const list = tabListRef.current;
@@ -806,7 +807,7 @@ const Tabs = React.forwardRef(function Tabs(inProps, ref) {
       return;
     }
 
-    rovingTabIndexContainerProps.onKeyDown(event);
+    rovingContainerProps.onKeyDown(event);
   };
 
   const [ListSlot, listSlotProps] = useSlot('list', {
@@ -817,12 +818,20 @@ const Tabs = React.forwardRef(function Tabs(inProps, ref) {
     ownerState,
     getSlotProps: (handlers) => ({
       ...handlers,
+      onBlur: (event) => {
+        if (!contains(event.currentTarget, event.relatedTarget)) {
+          setIsFocusWithinList(false);
+        }
+
+        handlers.onBlur?.(event);
+      },
       onKeyDown: (event) => {
         handleKeyDown(event);
         handlers.onKeyDown?.(event);
       },
       onFocus: (event) => {
-        rovingTabIndexContainerProps.onFocus(event);
+        setIsFocusWithinList(true);
+        rovingContainerProps.onFocus(event);
         handlers.onFocus?.(event);
       },
     }),
@@ -841,7 +850,9 @@ const Tabs = React.forwardRef(function Tabs(inProps, ref) {
           role="tablist"
           {...listSlotProps}
         >
-          {children}
+          <RovingTabIndexContext.Provider value={rovingContainer}>
+            {children}
+          </RovingTabIndexContext.Provider>
         </ListSlot>
         {mounted && indicator}
       </ScrollerSlot>
