@@ -158,6 +158,12 @@ importers:
       '@vitest/coverage-v8':
         specifier: ^4.0.13
         version: 4.0.13(@vitest/browser@4.0.13(msw@2.7.3(@types/node@20.19.37)(typescript@5.9.3))(vite@7.3.1(@types/node@20.19.37)(jiti@2.6.1)(lightningcss@1.32.0)(terser@5.39.0)(tsx@4.21.0)(yaml@2.8.0))(vitest@4.0.13))(vitest@4.0.13)
+      axe-core:
+        specifier: 4.11.1
+        version: 4.11.1
+      babel-loader:
+        specifier: 10.1.1
+        version: 10.1.1(@babel/core@7.29.0)
       babel-plugin-istanbul:
         specifier: 7.0.1
         version: 7.0.1
@@ -5769,6 +5775,19 @@ packages:
       react-native-b4a: '*'
     peerDependenciesMeta:
       react-native-b4a:
+        optional: true
+
+  babel-loader@10.1.1:
+    resolution: {integrity: sha512-JwKSzk2kjIe7mgPK+/lyZ2QAaJcpahNAdM+hgR2HI8D0OJVkdj8Rl6J3kaLYki9pwF7P2iWnD8qVv80Lq1ABtg==}
+    engines: {node: ^18.20.0 || ^20.10.0 || >=22.0.0}
+    peerDependencies:
+      '@babel/core': 7.29.0
+      '@rspack/core': ^1.0.0 || ^2.0.0-0
+      webpack: '>=5.61.0'
+    peerDependenciesMeta:
+      '@rspack/core':
+        optional: true
+      webpack:
         optional: true
 
   babel-merge@3.0.0:
@@ -15875,6 +15894,11 @@ snapshots:
   axobject-query@4.1.0: {}
 
   b4a@1.7.3: {}
+
+  babel-loader@10.1.1(@babel/core@7.29.0):
+    dependencies:
+      '@babel/core': 7.29.0
+      find-up: 5.0.0
 
   babel-merge@3.0.0(@babel/core@7.29.0):
     dependencies:
