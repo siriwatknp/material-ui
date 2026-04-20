@@ -1,5 +1,6 @@
 import * as fs from 'node:fs';
 import * as path from 'node:path';
+import chalk from 'chalk';
 import type { Reporter, TestCase, TestModule, TestSuite } from 'vitest/node';
 import type { A11yMeta } from './axe';
 
@@ -81,9 +82,22 @@ export default class A11yReporter implements Reporter {
     }
 
     fs.writeFileSync(OUT, `${JSON.stringify(output, null, 2)}\n`);
+
+    const names = Object.keys(output);
+    const pass = names.filter((n) => output[n].failed === 0);
+    const partial = names.filter((n) => output[n].failed > 0);
     // eslint-disable-next-line no-console
     console.log(
-      `[a11yReporter] wrote ${Object.keys(output).length} components -> ${path.relative(process.cwd(), OUT)}`,
+      [
+        '',
+        chalk.bold(
+          `a11y results (${names.length} components) -> ${path.relative(process.cwd(), OUT)}`,
+        ),
+        '',
+        `  ✅ Pass (${pass.length}):     ${pass.join(', ') || '—'}`,
+        `  ⚠️  Partial (${partial.length}):  ${partial.join(', ') || '—'}`,
+        '',
+      ].join('\n'),
     );
   }
 }

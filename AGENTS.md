@@ -160,7 +160,7 @@ Axe-core a11y coverage for `@mui/material` lives in `packages/mui-material/test/
 - Per-component scenario files under `test/a11y/scenarios/{Component}.a11y.tsx` using `describeA11y`
 - A single aggregated test `test/a11y/a11y.browser.test.tsx` walks every scenario in one browser session
 - Results aggregate into `test/a11y/a11y-results.json` via a Vitest reporter; the docs page `ComponentAccessibilityStatus.js` renders that JSON
-- `describeConformance({ enableAxe: true })` adds a JSDOM a11y check for the unit test suite
+- `describeConformance({ enableAxe: true })` adds a jsdom a11y check for the unit test suite
 
 Add a new component by creating a scenario file:
 
