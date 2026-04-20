@@ -13,8 +13,9 @@ axe.configure({
   ],
 });
 
-const JSDOM_INCOMPATIBLE_RULES = ['color-contrast', 'link-in-text-block'];
 export const VISUAL_RULES = ['color-contrast', 'link-in-text-block'];
+
+const JSDOM_INCOMPATIBLE_RULES = [...VISUAL_RULES];
 
 const WCAG_TAGS = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'];
 
