@@ -16,7 +16,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Typography from '@mui/material/Typography';
 // eslint-disable-next-line import/no-relative-packages -- data lives outside the docs package
-import a11yResults from '../../../../packages/mui-material/test/a11y-results.json';
+import a11yResults from '../../../../packages/mui-material/test/a11y/a11y-results.json';
 
 const AA_TAGS = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'];
 const AAA_TAGS = ['wcag2aaa'];
@@ -40,8 +40,8 @@ function groupRulesByLevel(data) {
   }
 
   return {
-    aa: { label: 'WCAG 2.x AA', rules: buildRules(AA_TAGS) },
-    aaa: { label: 'WCAG 2.x AAA', rules: buildRules(AAA_TAGS) },
+    aa: { label: 'WCAG 2.2 AA', rules: buildRules(AA_TAGS) },
+    aaa: { label: 'WCAG 2.2 AAA', rules: buildRules(AAA_TAGS) },
   };
 }
 

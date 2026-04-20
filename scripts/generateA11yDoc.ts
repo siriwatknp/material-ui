@@ -6,7 +6,7 @@ import chalk from 'chalk';
 const SCRIPT_DIR = path.dirname(url.fileURLToPath(import.meta.url));
 const A11Y_RESULTS_PATH = path.resolve(
   SCRIPT_DIR,
-  '../packages/mui-material/test/a11y-results.json',
+  '../packages/mui-material/test/a11y/a11y-results.json',
 );
 
 interface A11yResult {

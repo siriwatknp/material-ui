@@ -153,6 +153,36 @@ describe('Button', () => {
 });
 ```
 
+### Accessibility Testing
+
+Axe-core a11y coverage for `@mui/material` lives in `packages/mui-material/test/a11y/`:
+
+- Per-component scenario files under `test/a11y/scenarios/{Component}.a11y.tsx` using `describeA11y`
+- A single aggregated test `test/a11y/a11y.browser.test.tsx` walks every scenario in one browser session
+- Results aggregate into `test/a11y/a11y-results.json` via a Vitest reporter; the docs page `ComponentAccessibilityStatus.js` renders that JSON
+- `describeConformance({ enableAxe: true })` adds a JSDOM a11y check for the unit test suite
+
+Add a new component by creating a scenario file:
+
+```tsx
+// packages/mui-material/test/a11y/scenarios/Alert.a11y.tsx
+import Alert from '@mui/material/Alert';
+import { describeA11y } from '../axe';
+
+export default describeA11y('Alert', {
+  scenarios: [
+    { id: 'severity:info', render: () => <Alert severity="info">Info</Alert> },
+    {
+      id: 'severity:warning',
+      skipAssert: true, // known color-contrast issue
+      render: () => <Alert severity="warning">Warn</Alert>,
+    },
+  ],
+});
+```
+
+Then register it in `test/a11y/a11y.browser.test.tsx` and run `pnpm docs:a11y` to refresh `a11y-results.json`.
+
 ### Imports
 
 Use one-level deep imports to avoid bundling entire packages:
