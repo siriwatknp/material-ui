@@ -8,7 +8,7 @@ import {
   WCAG_TAGS,
   GLOBAL_DISABLED_RULES,
 } from '../../packages/mui-material/test/a11y/axe.ts';
-import { COMPONENTS } from '../../packages/mui-material/test/a11y/config.ts';
+import { COMPONENTS } from '../../packages/mui-material/test/a11y/a11yConfig.ts';
 /* eslint-enable import/no-relative-packages, import/extensions */
 
 const currentDirectory = url.fileURLToPath(new URL('.', import.meta.url));
