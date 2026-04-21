@@ -14,7 +14,7 @@ import { COMPONENTS } from '../../packages/mui-material/test/a11y/config.ts';
 const currentDirectory = path.dirname(url.fileURLToPath(import.meta.url));
 const AXE_SCRIPT = path.resolve(currentDirectory, '../../node_modules/axe-core/axe.min.js');
 
-const ENROLLED = COMPONENTS.filter((entry) => entry.status === 'enabled');
+const ENROLLED = COMPONENTS;
 
 async function main() {
   const baseUrl = 'http://localhost:5001';
