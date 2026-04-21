@@ -6,7 +6,6 @@
   },
   "exclude": [
     "test/typescript/moduleAugmentation",
-    "src/types/OverridableComponentAugmentation.ts",
-    "test/a11y/a11yReporter.ts"
+    "src/types/OverridableComponentAugmentation.ts"
   ]
 }

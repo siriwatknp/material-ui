@@ -2,14 +2,8 @@ import * as url from 'url';
 import * as path from 'path';
 import * as fs from 'node:fs/promises';
 import { chromium } from '@playwright/test';
-/* eslint-disable import/no-relative-packages, import/extensions -- test helpers live inside @mui/material but aren't published entries */
-import {
-  recordA11y,
-  WCAG_TAGS,
-  GLOBAL_DISABLED_RULES,
-} from '../../packages/mui-material/test/a11y/axe.ts';
-import { COMPONENTS } from '../../packages/mui-material/test/a11y/a11yConfig.ts';
-/* eslint-enable import/no-relative-packages, import/extensions */
+import { recordA11y, WCAG_TAGS, GLOBAL_DISABLED_RULES } from './a11y/axe';
+import { COMPONENTS } from './a11y/a11yConfig';
 
 const currentDirectory = url.fileURLToPath(new URL('.', import.meta.url));
 const AXE_SCRIPT = path.resolve(currentDirectory, '../../node_modules/axe-core/axe.min.js');
