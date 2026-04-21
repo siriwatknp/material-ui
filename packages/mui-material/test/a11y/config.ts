@@ -12,8 +12,8 @@
  *
  * Enroll a component by flipping `'pending'` → `'enabled'`. If `demos` is
  * omitted, the test auto-discovers every VRT-exposed demo for this slug.
- * Explicit `demos` narrows that set. `skipRules` records known violations
- * without failing CI — use it to track issues that need follow-up.
+ * Explicit `demos` narrows that set. `skipAssertions` records known
+ * violations without failing CI — use it to track issues that need follow-up.
  *
  * See AGENTS.md → "Accessibility Testing" for the full workflow.
  */
@@ -32,10 +32,11 @@ export interface ComponentA11yConfig {
    */
   demos?: string[];
   /**
-   * Axe rule ids whose violations are recorded but not asserted on.
-   * Used to track known issues without failing CI.
+   * Axe rule ids whose violations are recorded but not asserted on. The rule
+   * still runs; only the test-failing assertion is suppressed. Used to track
+   * known issues without failing CI.
    */
-  skipRules?: string[];
+  skipAssertions?: string[];
 }
 
 // Components whose demos currently trip `color-contrast` (labels/icons near
@@ -45,16 +46,15 @@ export interface ComponentA11yConfig {
 const PARTIAL_SKIP = ['color-contrast'];
 
 export const COMPONENTS: ComponentA11yConfig[] = [
-  { component: 'Accordion', slug: 'accordion', status: 'enabled', skipRules: PARTIAL_SKIP },
-  { component: 'Alert', slug: 'alert', status: 'enabled', skipRules: PARTIAL_SKIP },
-  { component: 'AppBar', slug: 'app-bar', status: 'enabled', skipRules: PARTIAL_SKIP },
-  { component: 'Autocomplete', slug: 'autocomplete', status: 'enabled', skipRules: PARTIAL_SKIP },
-  { component: 'Avatar', slug: 'avatars', status: 'enabled', skipRules: PARTIAL_SKIP },
+  { component: 'Accordion', slug: 'accordion', status: 'enabled', skipAssertions: PARTIAL_SKIP },
+  { component: 'Alert', slug: 'alert', status: 'enabled', skipAssertions: PARTIAL_SKIP },
+  { component: 'AppBar', slug: 'app-bar', status: 'enabled', skipAssertions: PARTIAL_SKIP },
+  { component: 'Autocomplete', slug: 'autocomplete', status: 'enabled', skipAssertions: PARTIAL_SKIP },
+  { component: 'Avatar', slug: 'avatars', status: 'enabled', skipAssertions: PARTIAL_SKIP },
   { component: 'Backdrop', slug: 'backdrop', status: 'pending' }, // VRT: needs interaction
   { component: 'Badge', slug: 'badges', status: 'enabled' },
   { component: 'BottomNavigation', slug: 'bottom-navigation', status: 'enabled' },
-  { component: 'Box', slug: 'box', status: 'enabled' },
-  { component: 'Breadcrumbs', slug: 'breadcrumbs', status: 'enabled', skipRules: PARTIAL_SKIP },
+  { component: 'Breadcrumbs', slug: 'breadcrumbs', status: 'enabled', skipAssertions: PARTIAL_SKIP },
   {
     component: 'Button',
     slug: 'buttons',
@@ -68,48 +68,48 @@ export const COMPONENTS: ComponentA11yConfig[] = [
     status: 'enabled',
     demos: ['BasicCard', 'OutlinedCard'],
   },
-  { component: 'Checkbox', slug: 'checkboxes', status: 'enabled', skipRules: PARTIAL_SKIP },
-  { component: 'Chip', slug: 'chips', status: 'enabled', skipRules: PARTIAL_SKIP },
+  { component: 'Checkbox', slug: 'checkboxes', status: 'enabled', skipAssertions: PARTIAL_SKIP },
+  { component: 'Chip', slug: 'chips', status: 'enabled', skipAssertions: PARTIAL_SKIP },
   { component: 'ClickAwayListener', slug: 'click-away-listener', status: 'pending' }, // VRT: needs interaction
   { component: 'Container', slug: 'container', status: 'pending' }, // VRT: can't see the impact
   { component: 'CssBaseline', slug: 'css-baseline', status: 'pending' }, // no demos
   { component: 'Dialog', slug: 'dialogs', status: 'pending' }, // VRT: needs interaction
-  { component: 'Divider', slug: 'dividers', status: 'enabled', skipRules: PARTIAL_SKIP },
-  { component: 'Drawer', slug: 'drawers', status: 'enabled', skipRules: PARTIAL_SKIP },
+  { component: 'Divider', slug: 'dividers', status: 'enabled', skipAssertions: PARTIAL_SKIP },
+  { component: 'Drawer', slug: 'drawers', status: 'enabled', skipAssertions: PARTIAL_SKIP },
   { component: 'Fab', slug: 'floating-action-button', status: 'enabled' },
   { component: 'Grid', slug: 'grid', status: 'enabled' },
   { component: 'Icon', slug: 'icons', status: 'enabled' },
   { component: 'ImageList', slug: 'image-list', status: 'pending' }, // VRT: images don't load
   { component: 'Link', slug: 'links', status: 'enabled' },
-  { component: 'List', slug: 'lists', status: 'enabled', skipRules: PARTIAL_SKIP },
+  { component: 'List', slug: 'lists', status: 'enabled', skipAssertions: PARTIAL_SKIP },
   { component: 'Masonry', slug: 'masonry', status: 'enabled' },
   { component: 'Menu', slug: 'menus', status: 'pending' }, // VRT: needs interaction
   { component: 'Menubar', slug: 'menubar', status: 'enabled' },
-  { component: 'Modal', slug: 'modal', status: 'enabled', skipRules: PARTIAL_SKIP },
+  { component: 'Modal', slug: 'modal', status: 'enabled', skipAssertions: PARTIAL_SKIP },
   { component: 'NoSsr', slug: 'no-ssr', status: 'enabled' },
-  { component: 'NumberField', slug: 'number-field', status: 'enabled', skipRules: PARTIAL_SKIP },
-  { component: 'Pagination', slug: 'pagination', status: 'enabled', skipRules: PARTIAL_SKIP },
-  { component: 'Paper', slug: 'paper', status: 'enabled', skipRules: PARTIAL_SKIP },
+  { component: 'NumberField', slug: 'number-field', status: 'enabled', skipAssertions: PARTIAL_SKIP },
+  { component: 'Pagination', slug: 'pagination', status: 'enabled', skipAssertions: PARTIAL_SKIP },
+  { component: 'Paper', slug: 'paper', status: 'enabled', skipAssertions: PARTIAL_SKIP },
   { component: 'Popover', slug: 'popover', status: 'enabled' },
   { component: 'Popper', slug: 'popper', status: 'pending' }, // VRT: needs interaction
   { component: 'Portal', slug: 'portal', status: 'enabled' },
   { component: 'Progress', slug: 'progress', status: 'pending' }, // VRT: flaky
-  { component: 'Radio', slug: 'radio-buttons', status: 'enabled', skipRules: PARTIAL_SKIP },
+  { component: 'Radio', slug: 'radio-buttons', status: 'enabled', skipAssertions: PARTIAL_SKIP },
   { component: 'Rating', slug: 'rating', status: 'enabled' },
-  { component: 'Select', slug: 'selects', status: 'enabled', skipRules: PARTIAL_SKIP },
+  { component: 'Select', slug: 'selects', status: 'enabled', skipAssertions: PARTIAL_SKIP },
   { component: 'Skeleton', slug: 'skeleton', status: 'enabled' },
-  { component: 'Slider', slug: 'slider', status: 'enabled', skipRules: PARTIAL_SKIP },
-  { component: 'Snackbar', slug: 'snackbars', status: 'enabled', skipRules: PARTIAL_SKIP },
+  { component: 'Slider', slug: 'slider', status: 'enabled', skipAssertions: PARTIAL_SKIP },
+  { component: 'Snackbar', slug: 'snackbars', status: 'enabled', skipAssertions: PARTIAL_SKIP },
   { component: 'SpeedDial', slug: 'speed-dial', status: 'pending' }, // VRT: needs interaction
-  { component: 'Stack', slug: 'stack', status: 'enabled', skipRules: PARTIAL_SKIP },
-  { component: 'Stepper', slug: 'steppers', status: 'enabled', skipRules: PARTIAL_SKIP },
-  { component: 'Switch', slug: 'switches', status: 'enabled', skipRules: PARTIAL_SKIP },
-  { component: 'Table', slug: 'table', status: 'enabled', skipRules: PARTIAL_SKIP },
-  { component: 'Tabs', slug: 'tabs', status: 'enabled', skipRules: PARTIAL_SKIP },
-  { component: 'TextField', slug: 'text-fields', status: 'enabled', skipRules: PARTIAL_SKIP },
+  { component: 'Stack', slug: 'stack', status: 'enabled', skipAssertions: PARTIAL_SKIP },
+  { component: 'Stepper', slug: 'steppers', status: 'enabled', skipAssertions: PARTIAL_SKIP },
+  { component: 'Switch', slug: 'switches', status: 'enabled', skipAssertions: PARTIAL_SKIP },
+  { component: 'Table', slug: 'table', status: 'enabled', skipAssertions: PARTIAL_SKIP },
+  { component: 'Tabs', slug: 'tabs', status: 'enabled', skipAssertions: PARTIAL_SKIP },
+  { component: 'TextField', slug: 'text-fields', status: 'enabled', skipAssertions: PARTIAL_SKIP },
   { component: 'TextareaAutosize', slug: 'textarea-autosize', status: 'pending' }, // superseded by regression
   { component: 'Timeline', slug: 'timeline', status: 'enabled' },
-  { component: 'ToggleButton', slug: 'toggle-button', status: 'enabled', skipRules: PARTIAL_SKIP },
+  { component: 'ToggleButton', slug: 'toggle-button', status: 'enabled', skipAssertions: PARTIAL_SKIP },
   { component: 'Tooltip', slug: 'tooltips', status: 'pending' }, // VRT: needs interaction
   { component: 'Typography', slug: 'typography', status: 'enabled' },
 ];

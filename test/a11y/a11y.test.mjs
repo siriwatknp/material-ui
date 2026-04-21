@@ -88,7 +88,7 @@ async function main() {
       await browser.close();
     });
 
-    for (const { component, slug, demos: configured, skipRules } of ENROLLED) {
+    for (const { component, slug, demos: configured, skipAssertions } of ENROLLED) {
       const demos = configured ?? demosBySlug.get(slug) ?? [];
       if (demos.length === 0) {
         continue;
@@ -101,7 +101,7 @@ async function main() {
           // eslint-disable-next-line vitest/valid-title
           it(demoName, async (ctx) => {
             const results = await renderAndAudit(route);
-            recordA11y(ctx, results, { component, demo: demoName, skipRules });
+            recordA11y(ctx, results, { component, demo: demoName, skipAssertions });
           });
         }
       });

@@ -51,21 +51,26 @@ function formatResults(results: AxeResults['violations']) {
 interface RecordA11yOptions {
   component: string;
   demo: string;
-  /** Rules whose violations are recorded but not asserted (track known issues without failing CI). */
-  skipRules?: string[];
+  /**
+   * Rule ids whose violations are recorded but not asserted on. The rule
+   * still runs and still lands in the results JSON — only the test-failing
+   * assertion is suppressed.
+   */
+  skipAssertions?: string[];
 }
 
 /**
  * Node-side recorder for axe results produced inside a Playwright page.
  *
  * Extracts a structured summary onto `ctx.task.meta.a11y` (the reporter
- * aggregates these into `a11y-results.json`), then asserts on visual
- * rules (`color-contrast`, `link-in-text-block`) unless listed in `skipRules`.
+ * aggregates these into the per-component results JSON), then asserts on
+ * visual rules (`color-contrast`, `link-in-text-block`) unless listed in
+ * `skipAssertions`.
  */
 export function recordA11y(
   ctx: TestContext,
   results: AxeResults,
-  { component, demo, skipRules = [] }: RecordA11yOptions,
+  { component, demo, skipAssertions = [] }: RecordA11yOptions,
 ): void {
   const collectedRules = new Set<string>();
   const testedRules = new Map<string, Set<string>>();
@@ -96,7 +101,7 @@ export function recordA11y(
   };
   (ctx.task.meta as { a11y?: A11yMeta }).a11y = meta;
 
-  const skip = new Set(skipRules);
+  const skip = new Set(skipAssertions);
   const visualViolations = results.violations.filter(
     (v) => VISUAL_RULES.includes(v.id) && !skip.has(v.id),
   );
