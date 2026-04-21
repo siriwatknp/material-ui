@@ -220,3 +220,7 @@ However:
 ```
 
 This has the advantage of supporting any element, for instance, a link `<a>` element.
+
+## Accessibility compliance
+
+{{"component": "modules/components/ComponentAccessibilityStatus.js"}}
