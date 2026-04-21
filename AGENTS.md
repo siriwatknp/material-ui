@@ -160,7 +160,7 @@ Automated axe-core coverage runs against the real docs demos in Chromium.
 - `packages/mui-material/test/a11y/config.ts` — rollout roster. Every component listed with `status: 'enabled' | 'pending'`. Tests run only enabled entries.
 - `test/a11y/a11y.test.mjs` — Vitest + imperative Playwright. Launches Chromium, hits the VRT Vite preview server at `:5001`, navigates each enabled demo, and runs `axe.run` on the rendered `[data-testid="testcase"]` element.
 - `packages/mui-material/test/a11y/axe.ts` — `recordA11y` records per-demo results onto `ctx.task.meta.a11y` and asserts visual rules (`color-contrast`, `link-in-text-block`) unless listed in `skipRules`.
-- `packages/mui-material/test/a11y/a11yReporter.ts` — Vitest reporter that aggregates `task.meta.a11y` into `a11y-results.json` (per-component aggregates + per-demo breakdown).
+- `packages/mui-material/test/a11y/a11yReporter.ts` — Vitest reporter that aggregates `task.meta.a11y` into one JSON per component at `packages/mui-material/test/a11y/results/{Component}.json` (per-component aggregates + per-demo breakdown). One file per component so downstream docs consumers can import only what they need.
 
 Enroll a component: flip `status` from `'pending'` to `'enabled'` in `config.ts` and add its `demos` list.
 
@@ -175,7 +175,7 @@ Enroll a component: flip `status` from `'pending'` to `'enabled'` in `config.ts`
 },
 ```
 
-Then run `pnpm docs:a11y` to refresh `a11y-results.json`. CI enforces it is up to date via a git-diff check.
+Then run `pnpm docs:a11y` to refresh `packages/mui-material/test/a11y/results/`. CI enforces the directory is up to date via a git-diff check.
 
 During development, `pnpm docs:a11y:dev` uses the Vite dev server (no build step).
 

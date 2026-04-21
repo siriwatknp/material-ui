@@ -1,0 +1,86 @@
+{
+  "passed": 9,
+  "failed": 0,
+  "total": 9,
+  "passedRules": [
+    "aria-allowed-attr",
+    "aria-conditional-attr",
+    "aria-prohibited-attr",
+    "aria-valid-attr",
+    "aria-valid-attr-value",
+    "button-name",
+    "color-contrast",
+    "nested-interactive",
+    "target-size"
+  ],
+  "failedRules": {},
+  "testedRules": {
+    "wcag2a": [
+      "aria-allowed-attr",
+      "aria-conditional-attr",
+      "aria-prohibited-attr",
+      "aria-valid-attr-value",
+      "aria-valid-attr",
+      "button-name",
+      "nested-interactive"
+    ],
+    "wcag2aa": ["color-contrast"],
+    "wcag22aa": ["target-size"]
+  },
+  "demos": {
+    "BasicButtons": {
+      "passedRules": [
+        "aria-allowed-attr",
+        "aria-conditional-attr",
+        "aria-prohibited-attr",
+        "aria-valid-attr",
+        "aria-valid-attr-value",
+        "button-name",
+        "color-contrast",
+        "nested-interactive",
+        "target-size"
+      ],
+      "failedRules": [],
+      "testedRules": {
+        "wcag2a": [
+          "aria-allowed-attr",
+          "aria-conditional-attr",
+          "aria-prohibited-attr",
+          "aria-valid-attr-value",
+          "aria-valid-attr",
+          "button-name",
+          "nested-interactive"
+        ],
+        "wcag2aa": ["color-contrast"],
+        "wcag22aa": ["target-size"]
+      }
+    },
+    "ColorButtons": {
+      "passedRules": [
+        "aria-allowed-attr",
+        "aria-conditional-attr",
+        "aria-prohibited-attr",
+        "aria-valid-attr",
+        "aria-valid-attr-value",
+        "button-name",
+        "color-contrast",
+        "nested-interactive",
+        "target-size"
+      ],
+      "failedRules": [],
+      "testedRules": {
+        "wcag2a": [
+          "aria-allowed-attr",
+          "aria-conditional-attr",
+          "aria-prohibited-attr",
+          "aria-valid-attr-value",
+          "aria-valid-attr",
+          "button-name",
+          "nested-interactive"
+        ],
+        "wcag2aa": ["color-contrast"],
+        "wcag22aa": ["target-size"]
+      }
+    }
+  }
+}

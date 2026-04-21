@@ -4,7 +4,7 @@ import chalk from 'chalk';
 import type { Reporter, TestCase, TestModule, TestSuite } from 'vitest/node';
 import type { A11yMeta } from './axe';
 
-const OUT = path.resolve(__dirname, 'a11y-results.json');
+const OUT_DIR = path.resolve(__dirname, 'results');
 
 interface DemoResult {
   passedRules: string[];
@@ -96,22 +96,27 @@ export default class A11yReporter implements Reporter {
       return;
     }
 
-    const output: Record<string, ComponentResult> = {};
-    for (const component of [...byComponent.keys()].sort()) {
-      output[component] = aggregate(byComponent.get(component)!);
+    fs.mkdirSync(OUT_DIR, { recursive: true });
+
+    const names = [...byComponent.keys()].sort();
+    const results: Record<string, ComponentResult> = {};
+    for (const component of names) {
+      const result = aggregate(byComponent.get(component)!);
+      results[component] = result;
+      fs.writeFileSync(
+        path.join(OUT_DIR, `${component}.json`),
+        `${JSON.stringify(result, null, 2)}\n`,
+      );
     }
 
-    fs.writeFileSync(OUT, `${JSON.stringify(output, null, 2)}\n`);
-
-    const names = Object.keys(output);
-    const pass = names.filter((n) => output[n].failed === 0);
-    const partial = names.filter((n) => output[n].failed > 0);
+    const pass = names.filter((n) => results[n].failed === 0);
+    const partial = names.filter((n) => results[n].failed > 0);
     // eslint-disable-next-line no-console
     console.log(
       [
         '',
         chalk.bold(
-          `a11y results (${names.length} components) -> ${path.relative(process.cwd(), OUT)}`,
+          `a11y results (${names.length} components) -> ${path.relative(process.cwd(), OUT_DIR)}/`,
         ),
         '',
         `  ✅ Pass (${pass.length}):     ${pass.join(', ') || '—'}`,
