@@ -173,7 +173,7 @@ Enroll a component: uncomment its `TODO` line in `a11yConfig.ts` into a real ent
 },
 ```
 
-Then run `pnpm docs:a11y` (wraps `pnpm test:regressions` with a pre-rim + prettier pass) to refresh `test/regressions/a11y/results/`. CI enforces the directory is up to date via a git-diff check.
+Then run `pnpm test:regressions` to refresh `test/regressions/a11y/results/` (axe runs inline with the screenshot loop; the Vitest reporter writes per-component JSONs). CI enforces the directory is up to date via a git-diff check.
 
 ### Imports
 

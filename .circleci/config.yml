@@ -272,9 +272,9 @@ jobs:
           react-version: << parameters.react-version >>
       - run:
           name: Run visual regression tests
-          command: xvfb-run pnpm docs:a11y
+          command: xvfb-run pnpm test:regressions
       - run:
-          name: '`pnpm docs:a11y` changes committed?'
+          name: A11y results committed?
           command: git add -A && git diff --exit-code --staged
       - run:
           name: Build packages for fixtures
