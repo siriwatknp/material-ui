@@ -2,30 +2,19 @@ import * as path from 'node:path';
 import * as url from 'node:url';
 import * as fs from 'node:fs/promises';
 import { chromium } from '@playwright/test';
-/* eslint-disable import/no-relative-packages -- test helper lives inside @mui/material but isn't a published entry */
+/* eslint-disable import/no-relative-packages -- test helpers live inside @mui/material but aren't published entries */
 import {
   recordA11y,
   WCAG_TAGS,
   GLOBAL_DISABLED_RULES,
 } from '../../packages/mui-material/test/a11y/axe.ts';
+import { COMPONENTS } from '../../packages/mui-material/test/a11y/config.ts';
 /* eslint-enable import/no-relative-packages */
 
 const currentDirectory = path.dirname(url.fileURLToPath(import.meta.url));
 const AXE_SCRIPT = path.resolve(currentDirectory, '../../node_modules/axe-core/axe.min.js');
 
-/**
- * Grouped enrollment: { ComponentName: { demos: [<suite>/<DemoFile>, ...] } }
- *
- * POC scope — see AGENTS.md for how to enroll more components.
- */
-const ENROLLED = {
-  Button: {
-    demos: ['buttons/BasicButtons', 'buttons/ColorButtons'],
-  },
-  Card: {
-    demos: ['cards/BasicCard', 'cards/OutlinedCard'],
-  },
-};
+const ENROLLED = COMPONENTS.filter((entry) => entry.status === 'enabled');
 
 async function main() {
   const baseUrl = 'http://localhost:5001';
@@ -80,22 +69,16 @@ async function main() {
       await browser.close();
     });
 
-    for (const [component, config] of Object.entries(ENROLLED)) {
+    for (const { component, slug, demos = [], skipRules } of ENROLLED) {
       // eslint-disable-next-line vitest/valid-title
       describe(component, () => {
-        for (const entry of config.demos) {
-          const spec = typeof entry === 'string' ? { demo: entry } : entry;
-          const demoName = spec.demo.split('/').pop();
-          const route = `/docs-components-${spec.demo}`;
+        for (const demoName of demos) {
+          const route = `/docs-components-${slug}/${demoName}`;
 
           // eslint-disable-next-line vitest/valid-title
           it(demoName, async (ctx) => {
             const results = await renderAndAudit(route);
-            recordA11y(ctx, results, {
-              component,
-              demo: demoName,
-              skipRules: spec.skipRules,
-            });
+            recordA11y(ctx, results, { component, demo: demoName, skipRules });
           });
         }
       });

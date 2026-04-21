@@ -157,30 +157,25 @@ describe('Button', () => {
 
 Automated axe-core coverage runs against the real docs demos in Chromium.
 
-- `test/a11y/a11y.test.mjs` — Vitest + imperative Playwright. Launches Chromium, hits the VRT Vite preview server at `:5001`, navigates each enrolled demo, and runs `axe.run` on the rendered `[data-testid="testcase"]` element.
+- `packages/mui-material/test/a11y/config.ts` — rollout roster. Every component listed with `status: 'enabled' | 'pending'`. Tests run only enabled entries.
+- `test/a11y/a11y.test.mjs` — Vitest + imperative Playwright. Launches Chromium, hits the VRT Vite preview server at `:5001`, navigates each enabled demo, and runs `axe.run` on the rendered `[data-testid="testcase"]` element.
 - `packages/mui-material/test/a11y/axe.ts` — `recordA11y` records per-demo results onto `ctx.task.meta.a11y` and asserts visual rules (`color-contrast`, `link-in-text-block`) unless listed in `skipRules`.
-- `packages/mui-material/test/a11y/a11yReporter.ts` — Vitest reporter that aggregates `task.meta.a11y` into `a11y-results.json` (both per-component aggregates and a per-demo breakdown).
-- `ComponentAccessibilityStatus.js` — reads the JSON and renders the "Accessibility compliance" accordion on a docs page.
+- `packages/mui-material/test/a11y/a11yReporter.ts` — Vitest reporter that aggregates `task.meta.a11y` into `a11y-results.json` (per-component aggregates + per-demo breakdown).
 
-Enroll a new component by appending to the `ENROLLED` config in `test/a11y/a11y.test.mjs`:
+Enroll a component: flip `status` from `'pending'` to `'enabled'` in `config.ts` and add its `demos` list.
 
 ```ts
-const ENROLLED = {
-  Alert: {
-    demos: [
-      'alert/BasicAlerts',
-      // record but don't fail on a known rule
-      { demo: 'alert/ColorAlerts', skipRules: ['color-contrast'] },
-    ],
-  },
-};
+// packages/mui-material/test/a11y/config.ts
+{
+  component: 'Alert',
+  slug: 'alert',
+  status: 'enabled',
+  demos: ['BasicAlerts', 'ColorAlerts'],
+  skipRules: ['color-contrast'], // record known issues without failing CI
+},
 ```
 
-Each entry is `{suite}/{DemoFileName}` (no extension) and maps to the VRT route `/docs-components-{suite}/{DemoFileName}`. Then:
-
-1. Add `## Accessibility compliance\n\n{{"component": "modules/components/ComponentAccessibilityStatus.js"}}` to the component's `.md` page.
-2. Run `pnpm docs:a11y` to refresh `a11y-results.json`.
-3. CI enforces `a11y-results.json` is up to date via a git-diff check.
+Then run `pnpm docs:a11y` to refresh `a11y-results.json`. CI enforces it is up to date via a git-diff check.
 
 During development, `pnpm docs:a11y:dev` uses the Vite dev server (no build step).
 
