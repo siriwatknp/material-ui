@@ -25,12 +25,7 @@
   ],
   "failedRules": {
     "list": ["AlignItemsList"],
-    "color-contrast": [
-      "AlignItemsList",
-      "CheckboxListSecondary",
-      "CustomizedList",
-      "VirtualizedList"
-    ],
+    "color-contrast": ["AlignItemsList", "CheckboxListSecondary", "CustomizedList"],
     "scrollable-region-focusable": ["PinnedSubheaderList"],
     "aria-required-children": ["VirtualizedList"]
   },
@@ -543,11 +538,12 @@
         "aria-valid-attr",
         "aria-valid-attr-value",
         "avoid-inline-spacing",
+        "color-contrast",
         "nested-interactive",
         "scrollable-region-focusable",
         "target-size"
       ],
-      "failedRules": ["aria-required-children", "color-contrast"],
+      "failedRules": ["aria-required-children"],
       "testedRules": {
         "wcag2a": [
           "aria-allowed-attr",
