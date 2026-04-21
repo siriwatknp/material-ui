@@ -155,12 +155,11 @@ describe('Button', () => {
 
 ### Accessibility Testing
 
-Automated axe-core coverage runs against the real docs demos in Chromium.
+Automated axe-core coverage piggybacks on the visual-regression Playwright loop in `test/regressions/index.test.js`. Each screenshot render for an enrolled demo is followed by `axe.run` on the same rendered `[data-testid="testcase"]` element, so no separate browser session is spun up.
 
 - `packages/mui-material/test/a11y/config.ts` — test roster. Each entry maps a docs slug to a canonical component name; pending components live as `// TODO:` comments with the blocker noted inline.
-- `test/a11y/a11y.test.mjs` — Vitest + imperative Playwright. Launches Chromium, hits the VRT Vite preview server at `:5001`, navigates each enrolled demo, and runs `axe.run` on the rendered `[data-testid="testcase"]` element.
 - `packages/mui-material/test/a11y/axe.ts` — `recordA11y` records per-demo results onto `ctx.task.meta.a11y` and asserts visual rules (`color-contrast`, `link-in-text-block`) unless listed in `skipAssertions`.
-- `packages/mui-material/test/a11y/a11yReporter.ts` — Vitest reporter that aggregates `task.meta.a11y` into one JSON per component at `packages/mui-material/test/a11y/results/{Component}.json` (per-component aggregates + per-demo breakdown). One file per component so downstream docs consumers can import only what they need.
+- `packages/mui-material/test/a11y/a11yReporter.ts` — Vitest reporter (attached in `test/regressions/vitest.config.ts`) that aggregates `task.meta.a11y` into one JSON per component at `packages/mui-material/test/a11y/results/{Component}.json` (per-component aggregates + per-demo breakdown). One file per component so downstream docs consumers can import only what they need.
 
 Enroll a component: uncomment its `TODO` line in `config.ts` into a real entry (or add a new one).
 
@@ -174,9 +173,7 @@ Enroll a component: uncomment its `TODO` line in `config.ts` into a real entry (
 },
 ```
 
-Then run `pnpm docs:a11y` to refresh `packages/mui-material/test/a11y/results/`. CI enforces the directory is up to date via a git-diff check.
-
-During development, `pnpm docs:a11y:dev` uses the Vite dev server (no build step).
+Then run `pnpm docs:a11y` (wraps `pnpm test:regressions` with a pre-rim + prettier pass) to refresh `packages/mui-material/test/a11y/results/`. CI enforces the directory is up to date via a git-diff check.
 
 ### Imports
 

@@ -22,7 +22,6 @@
       "CustomMarks",
       "CustomizedSlider",
       "DiscreteSlider",
-      "DiscreteSliderLabel",
       "DiscreteSliderMarks",
       "DiscreteSliderSteps",
       "DiscreteSliderValues",
@@ -31,8 +30,6 @@
       "NonLinearSlider",
       "RangeSlider",
       "SliderSizes",
-      "TrackFalseSlider",
-      "TrackInvertedSlider",
       "VerticalSlider"
     ],
     "aria-valid-attr-value": ["DiscreteSliderSteps"]
@@ -220,12 +217,13 @@
         "aria-valid-attr",
         "aria-valid-attr-value",
         "avoid-inline-spacing",
+        "color-contrast",
         "form-field-multiple-labels",
         "label",
         "nested-interactive",
         "target-size"
       ],
-      "failedRules": ["color-contrast"],
+      "failedRules": [],
       "testedRules": {
         "wcag2a": [
           "aria-allowed-attr",
@@ -548,13 +546,14 @@
         "aria-valid-attr",
         "aria-valid-attr-value",
         "avoid-inline-spacing",
+        "color-contrast",
         "duplicate-id-aria",
         "form-field-multiple-labels",
         "label",
         "nested-interactive",
         "target-size"
       ],
-      "failedRules": ["color-contrast"],
+      "failedRules": [],
       "testedRules": {
         "wcag2a": [
           "aria-allowed-attr",
@@ -582,13 +581,14 @@
         "aria-valid-attr",
         "aria-valid-attr-value",
         "avoid-inline-spacing",
+        "color-contrast",
         "duplicate-id-aria",
         "form-field-multiple-labels",
         "label",
         "nested-interactive",
         "target-size"
       ],
-      "failedRules": ["color-contrast"],
+      "failedRules": [],
       "testedRules": {
         "wcag2a": [
           "aria-allowed-attr",

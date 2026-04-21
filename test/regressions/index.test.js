@@ -2,8 +2,17 @@ import * as url from 'url';
 import * as path from 'path';
 import * as fs from 'node:fs/promises';
 import { chromium } from '@playwright/test';
+/* eslint-disable import/no-relative-packages, import/extensions -- test helpers live inside @mui/material but aren't published entries */
+import {
+  recordA11y,
+  WCAG_TAGS,
+  GLOBAL_DISABLED_RULES,
+} from '../../packages/mui-material/test/a11y/axe.ts';
+import { COMPONENTS } from '../../packages/mui-material/test/a11y/config.ts';
+/* eslint-enable import/no-relative-packages, import/extensions */
 
 const currentDirectory = url.fileURLToPath(new URL('.', import.meta.url));
+const AXE_SCRIPT = path.resolve(currentDirectory, '../../node_modules/axe-core/axe.min.js');
 
 async function main() {
   const baseUrl = 'http://localhost:5001';
@@ -52,6 +61,33 @@ async function main() {
     return links.map((link) => link.href);
   });
   routes = routes.map((route) => route.replace(baseUrl, ''));
+
+  // Build a11y enrollment map: route -> { component, demo, skipAssertions }.
+  // Entries without explicit `demos` inherit every VRT-exposed demo for the slug.
+  const demosBySlug = new Map();
+  for (const route of routes) {
+    const match = route.match(/^\/docs-components-(.+?)\/(.+)$/);
+    if (!match) {
+      continue;
+    }
+    const [, slug, demoName] = match;
+    if (!demosBySlug.has(slug)) {
+      demosBySlug.set(slug, []);
+    }
+    demosBySlug.get(slug).push(demoName);
+  }
+  const a11yEnrollment = new Map();
+  for (const { component, slug, demos: configured, skipAssertions } of COMPONENTS) {
+    const demos = configured ?? demosBySlug.get(slug) ?? [];
+    for (const demoName of demos) {
+      a11yEnrollment.set(`/docs-components-${slug}/${demoName}`, {
+        component,
+        demo: demoName,
+        skipAssertions,
+      });
+    }
+  }
+  const axeSource = await fs.readFile(AXE_SCRIPT, 'utf8');
 
   /**
    * @param {string} route
@@ -107,7 +143,7 @@ async function main() {
     });
 
     routes.forEach((route) => {
-      it(`creates screenshots of ${route}`, async function test() {
+      it(`creates screenshots of ${route}`, async function test(ctx) {
         // With the playwright inspector we might want to call `page.pause` which would lead to a timeout.
         if (process.env.PWDEBUG) {
           this?.timeout?.(0);
@@ -122,6 +158,27 @@ async function main() {
           }
           default:
             break;
+        }
+
+        // Run axe before the screenshot so it observes the natural DOM —
+        // Playwright's `animations: 'disabled'` injects inline `!important`
+        // styles that otherwise perturb rule applicability.
+        const enrollment = a11yEnrollment.get(route);
+        if (enrollment) {
+          // Inject axe fresh each run — page.addScriptTag can leak between navigations.
+          await page.evaluate(axeSource);
+          const results = await page.evaluate(
+            async ({ element, disabledRules, tags }) => {
+              window.axe.configure({
+                rules: disabledRules.map((id) => ({ id, enabled: false })),
+              });
+              return window.axe.run(element, {
+                runOnly: { type: 'tag', values: tags },
+              });
+            },
+            { element: testcase, disabledRules: GLOBAL_DISABLED_RULES, tags: WCAG_TAGS },
+          );
+          recordA11y(ctx, results, enrollment);
         }
 
         await takeScreenshot({ testcase, route });

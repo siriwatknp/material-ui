@@ -233,12 +233,6 @@ jobs:
           environment:
             VITEST_BROWSERS: 'firefox'
           command: pnpm test:browser --no-isolate --no-file-parallelism
-      - run:
-          name: Generate the accessibility compliance data
-          command: pnpm docs:a11y
-      - run:
-          name: '`pnpm docs:a11y` changes committed?'
-          command: git add -A && git diff --exit-code --staged
       - store_test_results:
           path: test-results
   test_e2e:
@@ -278,7 +272,10 @@ jobs:
           react-version: << parameters.react-version >>
       - run:
           name: Run visual regression tests
-          command: xvfb-run pnpm test:regressions
+          command: xvfb-run pnpm docs:a11y
+      - run:
+          name: '`pnpm docs:a11y` changes committed?'
+          command: git add -A && git diff --exit-code --staged
       - run:
           name: Build packages for fixtures
           command: pnpm release:build

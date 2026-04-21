@@ -1,6 +1,6 @@
 {
-  "passed": 22,
-  "failed": 4,
+  "passed": 23,
+  "failed": 3,
   "total": 26,
   "passedRules": [
     "aria-allowed-attr",
@@ -18,6 +18,7 @@
     "aria-valid-attr-value",
     "avoid-inline-spacing",
     "button-name",
+    "color-contrast",
     "duplicate-id-aria",
     "form-field-multiple-labels",
     "label",
@@ -29,7 +30,6 @@
   "failedRules": {
     "aria-required-attr": ["ColumnGroupingTable", "StickyHeadTable"],
     "scrollable-region-focusable": ["ColumnGroupingTable", "StickyHeadTable"],
-    "color-contrast": ["ColumnGroupingTable"],
     "nested-interactive": ["EnhancedTable"]
   },
   "testedRules": {
@@ -166,13 +166,14 @@
         "aria-valid-attr-value",
         "avoid-inline-spacing",
         "button-name",
+        "color-contrast",
         "duplicate-id-aria",
         "nested-interactive",
         "target-size",
         "td-headers-attr",
         "th-has-data-cells"
       ],
-      "failedRules": ["aria-required-attr", "color-contrast", "scrollable-region-focusable"],
+      "failedRules": ["aria-required-attr", "scrollable-region-focusable"],
       "testedRules": {
         "wcag2a": [
           "aria-allowed-attr",
@@ -401,6 +402,7 @@
         "aria-valid-attr-value",
         "avoid-inline-spacing",
         "color-contrast",
+        "scrollable-region-focusable",
         "td-headers-attr",
         "th-has-data-cells"
       ],
@@ -412,6 +414,7 @@
           "aria-prohibited-attr",
           "aria-valid-attr-value",
           "aria-valid-attr",
+          "scrollable-region-focusable",
           "td-headers-attr",
           "th-has-data-cells"
         ],
