@@ -40,6 +40,25 @@ async function main() {
   await page.waitForSelector('[data-webfontloader="active"]', { state: 'attached' });
   const axeSource = await fs.readFile(AXE_SCRIPT, 'utf8');
 
+  // Scrape the VRT nav to discover every available /docs-components-{slug}/{demo}
+  // route, so config entries without an explicit `demos` list fall back to
+  // "every VRT-exposed demo for this slug".
+  const allRoutes = await page.$$eval('#tests a', (links) =>
+    links.map((l) => new URL(l.href).pathname),
+  );
+  const demosBySlug = new Map();
+  for (const route of allRoutes) {
+    const match = route.match(/^\/docs-components-(.+?)\/(.+)$/);
+    if (!match) {
+      continue;
+    }
+    const [, slug, demoName] = match;
+    if (!demosBySlug.has(slug)) {
+      demosBySlug.set(slug, []);
+    }
+    demosBySlug.get(slug).push(demoName);
+  }
+
   async function renderAndAudit(route) {
     await page.evaluate((_route) => {
       window.muiFixture.navigate(`${_route}#no-dev`);
@@ -69,7 +88,11 @@ async function main() {
       await browser.close();
     });
 
-    for (const { component, slug, demos = [], skipRules } of ENROLLED) {
+    for (const { component, slug, demos: configured, skipRules } of ENROLLED) {
+      const demos = configured ?? demosBySlug.get(slug) ?? [];
+      if (demos.length === 0) {
+        continue;
+      }
       // eslint-disable-next-line vitest/valid-title
       describe(component, () => {
         for (const demoName of demos) {

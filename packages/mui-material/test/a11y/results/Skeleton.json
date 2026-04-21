@@ -1,0 +1,91 @@
+{
+  "passed": 7,
+  "failed": 0,
+  "total": 7,
+  "passedRules": [
+    "aria-allowed-attr",
+    "aria-conditional-attr",
+    "aria-prohibited-attr",
+    "aria-valid-attr",
+    "aria-valid-attr-value",
+    "avoid-inline-spacing",
+    "color-contrast"
+  ],
+  "failedRules": {},
+  "testedRules": {
+    "wcag2a": [
+      "aria-allowed-attr",
+      "aria-conditional-attr",
+      "aria-prohibited-attr",
+      "aria-valid-attr-value",
+      "aria-valid-attr"
+    ],
+    "wcag21aa": ["avoid-inline-spacing"],
+    "wcag2aa": ["color-contrast"]
+  },
+  "demos": {
+    "SkeletonColor": {
+      "passedRules": [
+        "aria-allowed-attr",
+        "aria-conditional-attr",
+        "aria-prohibited-attr",
+        "aria-valid-attr",
+        "aria-valid-attr-value",
+        "avoid-inline-spacing"
+      ],
+      "failedRules": [],
+      "testedRules": {
+        "wcag2a": [
+          "aria-allowed-attr",
+          "aria-conditional-attr",
+          "aria-prohibited-attr",
+          "aria-valid-attr-value",
+          "aria-valid-attr"
+        ],
+        "wcag21aa": ["avoid-inline-spacing"]
+      }
+    },
+    "SkeletonTypography": {
+      "passedRules": [
+        "aria-allowed-attr",
+        "aria-conditional-attr",
+        "aria-prohibited-attr",
+        "aria-valid-attr",
+        "aria-valid-attr-value",
+        "color-contrast"
+      ],
+      "failedRules": [],
+      "testedRules": {
+        "wcag2a": [
+          "aria-allowed-attr",
+          "aria-conditional-attr",
+          "aria-prohibited-attr",
+          "aria-valid-attr-value",
+          "aria-valid-attr"
+        ],
+        "wcag2aa": ["color-contrast"]
+      }
+    },
+    "Variants": {
+      "passedRules": [
+        "aria-allowed-attr",
+        "aria-conditional-attr",
+        "aria-prohibited-attr",
+        "aria-valid-attr",
+        "aria-valid-attr-value",
+        "avoid-inline-spacing"
+      ],
+      "failedRules": [],
+      "testedRules": {
+        "wcag2a": [
+          "aria-allowed-attr",
+          "aria-conditional-attr",
+          "aria-prohibited-attr",
+          "aria-valid-attr-value",
+          "aria-valid-attr"
+        ],
+        "wcag21aa": ["avoid-inline-spacing"]
+      }
+    }
+  }
+}

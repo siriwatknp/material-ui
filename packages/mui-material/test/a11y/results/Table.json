@@ -1,0 +1,497 @@
+{
+  "passed": 22,
+  "failed": 4,
+  "total": 26,
+  "passedRules": [
+    "aria-allowed-attr",
+    "aria-command-name",
+    "aria-conditional-attr",
+    "aria-deprecated-role",
+    "aria-hidden-focus",
+    "aria-input-field-name",
+    "aria-prohibited-attr",
+    "aria-required-children",
+    "aria-required-parent",
+    "aria-roles",
+    "aria-toggle-field-name",
+    "aria-valid-attr",
+    "aria-valid-attr-value",
+    "avoid-inline-spacing",
+    "button-name",
+    "duplicate-id-aria",
+    "form-field-multiple-labels",
+    "label",
+    "select-name",
+    "target-size",
+    "td-headers-attr",
+    "th-has-data-cells"
+  ],
+  "failedRules": {
+    "aria-required-attr": ["ColumnGroupingTable", "StickyHeadTable"],
+    "scrollable-region-focusable": ["ColumnGroupingTable", "StickyHeadTable"],
+    "color-contrast": ["ColumnGroupingTable"],
+    "nested-interactive": ["EnhancedTable"]
+  },
+  "testedRules": {
+    "wcag2a": [
+      "aria-allowed-attr",
+      "aria-conditional-attr",
+      "aria-prohibited-attr",
+      "aria-valid-attr-value",
+      "aria-valid-attr",
+      "td-headers-attr",
+      "th-has-data-cells",
+      "aria-hidden-focus",
+      "button-name",
+      "nested-interactive",
+      "aria-deprecated-role",
+      "aria-input-field-name",
+      "aria-required-attr",
+      "aria-roles",
+      "aria-toggle-field-name",
+      "duplicate-id-aria",
+      "scrollable-region-focusable",
+      "form-field-multiple-labels",
+      "select-name",
+      "aria-required-children",
+      "aria-required-parent",
+      "label",
+      "aria-command-name"
+    ],
+    "wcag21aa": ["avoid-inline-spacing"],
+    "wcag2aa": ["color-contrast"],
+    "wcag22aa": ["target-size"]
+  },
+  "demos": {
+    "AccessibleTable": {
+      "passedRules": [
+        "aria-allowed-attr",
+        "aria-conditional-attr",
+        "aria-prohibited-attr",
+        "aria-valid-attr",
+        "aria-valid-attr-value",
+        "avoid-inline-spacing",
+        "color-contrast",
+        "td-headers-attr",
+        "th-has-data-cells"
+      ],
+      "failedRules": [],
+      "testedRules": {
+        "wcag2a": [
+          "aria-allowed-attr",
+          "aria-conditional-attr",
+          "aria-prohibited-attr",
+          "aria-valid-attr-value",
+          "aria-valid-attr",
+          "td-headers-attr",
+          "th-has-data-cells"
+        ],
+        "wcag21aa": ["avoid-inline-spacing"],
+        "wcag2aa": ["color-contrast"]
+      }
+    },
+    "BasicTable": {
+      "passedRules": [
+        "aria-allowed-attr",
+        "aria-conditional-attr",
+        "aria-prohibited-attr",
+        "aria-valid-attr",
+        "aria-valid-attr-value",
+        "avoid-inline-spacing",
+        "color-contrast",
+        "td-headers-attr",
+        "th-has-data-cells"
+      ],
+      "failedRules": [],
+      "testedRules": {
+        "wcag2a": [
+          "aria-allowed-attr",
+          "aria-conditional-attr",
+          "aria-prohibited-attr",
+          "aria-valid-attr-value",
+          "aria-valid-attr",
+          "td-headers-attr",
+          "th-has-data-cells"
+        ],
+        "wcag21aa": ["avoid-inline-spacing"],
+        "wcag2aa": ["color-contrast"]
+      }
+    },
+    "CollapsibleTable": {
+      "passedRules": [
+        "aria-allowed-attr",
+        "aria-conditional-attr",
+        "aria-hidden-focus",
+        "aria-prohibited-attr",
+        "aria-valid-attr",
+        "aria-valid-attr-value",
+        "avoid-inline-spacing",
+        "button-name",
+        "color-contrast",
+        "nested-interactive",
+        "target-size",
+        "td-headers-attr",
+        "th-has-data-cells"
+      ],
+      "failedRules": [],
+      "testedRules": {
+        "wcag2a": [
+          "aria-allowed-attr",
+          "aria-conditional-attr",
+          "aria-hidden-focus",
+          "aria-prohibited-attr",
+          "aria-valid-attr-value",
+          "aria-valid-attr",
+          "button-name",
+          "nested-interactive",
+          "td-headers-attr",
+          "th-has-data-cells"
+        ],
+        "wcag21aa": ["avoid-inline-spacing"],
+        "wcag2aa": ["color-contrast"],
+        "wcag22aa": ["target-size"]
+      }
+    },
+    "ColumnGroupingTable": {
+      "passedRules": [
+        "aria-allowed-attr",
+        "aria-conditional-attr",
+        "aria-deprecated-role",
+        "aria-hidden-focus",
+        "aria-input-field-name",
+        "aria-prohibited-attr",
+        "aria-roles",
+        "aria-toggle-field-name",
+        "aria-valid-attr",
+        "aria-valid-attr-value",
+        "avoid-inline-spacing",
+        "button-name",
+        "duplicate-id-aria",
+        "nested-interactive",
+        "target-size",
+        "td-headers-attr",
+        "th-has-data-cells"
+      ],
+      "failedRules": ["aria-required-attr", "color-contrast", "scrollable-region-focusable"],
+      "testedRules": {
+        "wcag2a": [
+          "aria-allowed-attr",
+          "aria-conditional-attr",
+          "aria-deprecated-role",
+          "aria-hidden-focus",
+          "aria-input-field-name",
+          "aria-prohibited-attr",
+          "aria-required-attr",
+          "aria-roles",
+          "aria-toggle-field-name",
+          "aria-valid-attr-value",
+          "aria-valid-attr",
+          "button-name",
+          "duplicate-id-aria",
+          "nested-interactive",
+          "td-headers-attr",
+          "th-has-data-cells",
+          "scrollable-region-focusable"
+        ],
+        "wcag21aa": ["avoid-inline-spacing"],
+        "wcag2aa": ["color-contrast"],
+        "wcag22aa": ["target-size"]
+      }
+    },
+    "CustomPaginationActionsTable": {
+      "passedRules": [
+        "aria-allowed-attr",
+        "aria-conditional-attr",
+        "aria-hidden-focus",
+        "aria-prohibited-attr",
+        "aria-valid-attr",
+        "aria-valid-attr-value",
+        "avoid-inline-spacing",
+        "button-name",
+        "color-contrast",
+        "form-field-multiple-labels",
+        "nested-interactive",
+        "select-name",
+        "target-size",
+        "td-headers-attr",
+        "th-has-data-cells"
+      ],
+      "failedRules": [],
+      "testedRules": {
+        "wcag2a": [
+          "aria-allowed-attr",
+          "aria-conditional-attr",
+          "aria-hidden-focus",
+          "aria-prohibited-attr",
+          "aria-valid-attr-value",
+          "aria-valid-attr",
+          "button-name",
+          "form-field-multiple-labels",
+          "nested-interactive",
+          "select-name",
+          "td-headers-attr",
+          "th-has-data-cells"
+        ],
+        "wcag21aa": ["avoid-inline-spacing"],
+        "wcag2aa": ["color-contrast"],
+        "wcag22aa": ["target-size"]
+      }
+    },
+    "CustomizedTables": {
+      "passedRules": [
+        "aria-allowed-attr",
+        "aria-conditional-attr",
+        "aria-prohibited-attr",
+        "aria-valid-attr",
+        "aria-valid-attr-value",
+        "avoid-inline-spacing",
+        "color-contrast",
+        "td-headers-attr",
+        "th-has-data-cells"
+      ],
+      "failedRules": [],
+      "testedRules": {
+        "wcag2a": [
+          "aria-allowed-attr",
+          "aria-conditional-attr",
+          "aria-prohibited-attr",
+          "aria-valid-attr-value",
+          "aria-valid-attr",
+          "td-headers-attr",
+          "th-has-data-cells"
+        ],
+        "wcag21aa": ["avoid-inline-spacing"],
+        "wcag2aa": ["color-contrast"]
+      }
+    },
+    "DataTable": {
+      "passedRules": [
+        "aria-allowed-attr",
+        "aria-conditional-attr",
+        "aria-deprecated-role",
+        "aria-hidden-focus",
+        "aria-input-field-name",
+        "aria-prohibited-attr",
+        "aria-required-attr",
+        "aria-required-children",
+        "aria-required-parent",
+        "aria-roles",
+        "aria-valid-attr",
+        "aria-valid-attr-value",
+        "avoid-inline-spacing",
+        "button-name",
+        "color-contrast",
+        "duplicate-id-aria",
+        "form-field-multiple-labels",
+        "label",
+        "nested-interactive",
+        "target-size"
+      ],
+      "failedRules": [],
+      "testedRules": {
+        "wcag2a": [
+          "aria-allowed-attr",
+          "aria-conditional-attr",
+          "aria-deprecated-role",
+          "aria-hidden-focus",
+          "aria-input-field-name",
+          "aria-prohibited-attr",
+          "aria-required-attr",
+          "aria-required-children",
+          "aria-required-parent",
+          "aria-roles",
+          "aria-valid-attr-value",
+          "aria-valid-attr",
+          "button-name",
+          "duplicate-id-aria",
+          "form-field-multiple-labels",
+          "label",
+          "nested-interactive"
+        ],
+        "wcag21aa": ["avoid-inline-spacing"],
+        "wcag2aa": ["color-contrast"],
+        "wcag22aa": ["target-size"]
+      }
+    },
+    "DenseTable": {
+      "passedRules": [
+        "aria-allowed-attr",
+        "aria-conditional-attr",
+        "aria-prohibited-attr",
+        "aria-valid-attr",
+        "aria-valid-attr-value",
+        "avoid-inline-spacing",
+        "color-contrast",
+        "td-headers-attr",
+        "th-has-data-cells"
+      ],
+      "failedRules": [],
+      "testedRules": {
+        "wcag2a": [
+          "aria-allowed-attr",
+          "aria-conditional-attr",
+          "aria-prohibited-attr",
+          "aria-valid-attr-value",
+          "aria-valid-attr",
+          "td-headers-attr",
+          "th-has-data-cells"
+        ],
+        "wcag21aa": ["avoid-inline-spacing"],
+        "wcag2aa": ["color-contrast"]
+      }
+    },
+    "EnhancedTable": {
+      "passedRules": [
+        "aria-allowed-attr",
+        "aria-command-name",
+        "aria-conditional-attr",
+        "aria-deprecated-role",
+        "aria-hidden-focus",
+        "aria-input-field-name",
+        "aria-prohibited-attr",
+        "aria-required-attr",
+        "aria-roles",
+        "aria-toggle-field-name",
+        "aria-valid-attr",
+        "aria-valid-attr-value",
+        "avoid-inline-spacing",
+        "button-name",
+        "color-contrast",
+        "duplicate-id-aria",
+        "form-field-multiple-labels",
+        "label",
+        "target-size",
+        "td-headers-attr",
+        "th-has-data-cells"
+      ],
+      "failedRules": ["nested-interactive"],
+      "testedRules": {
+        "wcag2a": [
+          "aria-allowed-attr",
+          "aria-command-name",
+          "aria-conditional-attr",
+          "aria-deprecated-role",
+          "aria-hidden-focus",
+          "aria-input-field-name",
+          "aria-prohibited-attr",
+          "aria-required-attr",
+          "aria-roles",
+          "aria-toggle-field-name",
+          "aria-valid-attr-value",
+          "aria-valid-attr",
+          "button-name",
+          "duplicate-id-aria",
+          "form-field-multiple-labels",
+          "label",
+          "nested-interactive",
+          "td-headers-attr",
+          "th-has-data-cells"
+        ],
+        "wcag21aa": ["avoid-inline-spacing"],
+        "wcag2aa": ["color-contrast"],
+        "wcag22aa": ["target-size"]
+      }
+    },
+    "ReactVirtualizedTable": {
+      "passedRules": [
+        "aria-allowed-attr",
+        "aria-conditional-attr",
+        "aria-prohibited-attr",
+        "aria-valid-attr",
+        "aria-valid-attr-value",
+        "avoid-inline-spacing",
+        "color-contrast",
+        "td-headers-attr",
+        "th-has-data-cells"
+      ],
+      "failedRules": [],
+      "testedRules": {
+        "wcag2a": [
+          "aria-allowed-attr",
+          "aria-conditional-attr",
+          "aria-prohibited-attr",
+          "aria-valid-attr-value",
+          "aria-valid-attr",
+          "td-headers-attr",
+          "th-has-data-cells"
+        ],
+        "wcag21aa": ["avoid-inline-spacing"],
+        "wcag2aa": ["color-contrast"]
+      }
+    },
+    "SpanningTable": {
+      "passedRules": [
+        "aria-allowed-attr",
+        "aria-conditional-attr",
+        "aria-prohibited-attr",
+        "aria-valid-attr",
+        "aria-valid-attr-value",
+        "avoid-inline-spacing",
+        "color-contrast",
+        "td-headers-attr",
+        "th-has-data-cells"
+      ],
+      "failedRules": [],
+      "testedRules": {
+        "wcag2a": [
+          "aria-allowed-attr",
+          "aria-conditional-attr",
+          "aria-prohibited-attr",
+          "aria-valid-attr-value",
+          "aria-valid-attr",
+          "td-headers-attr",
+          "th-has-data-cells"
+        ],
+        "wcag21aa": ["avoid-inline-spacing"],
+        "wcag2aa": ["color-contrast"]
+      }
+    },
+    "StickyHeadTable": {
+      "passedRules": [
+        "aria-allowed-attr",
+        "aria-conditional-attr",
+        "aria-deprecated-role",
+        "aria-hidden-focus",
+        "aria-input-field-name",
+        "aria-prohibited-attr",
+        "aria-roles",
+        "aria-toggle-field-name",
+        "aria-valid-attr",
+        "aria-valid-attr-value",
+        "avoid-inline-spacing",
+        "button-name",
+        "color-contrast",
+        "duplicate-id-aria",
+        "nested-interactive",
+        "target-size",
+        "td-headers-attr",
+        "th-has-data-cells"
+      ],
+      "failedRules": ["aria-required-attr", "scrollable-region-focusable"],
+      "testedRules": {
+        "wcag2a": [
+          "aria-allowed-attr",
+          "aria-conditional-attr",
+          "aria-deprecated-role",
+          "aria-hidden-focus",
+          "aria-input-field-name",
+          "aria-prohibited-attr",
+          "aria-required-attr",
+          "aria-roles",
+          "aria-toggle-field-name",
+          "aria-valid-attr-value",
+          "aria-valid-attr",
+          "button-name",
+          "duplicate-id-aria",
+          "nested-interactive",
+          "td-headers-attr",
+          "th-has-data-cells",
+          "scrollable-region-focusable"
+        ],
+        "wcag21aa": ["avoid-inline-spacing"],
+        "wcag2aa": ["color-contrast"],
+        "wcag22aa": ["target-size"]
+      }
+    }
+  }
+}
