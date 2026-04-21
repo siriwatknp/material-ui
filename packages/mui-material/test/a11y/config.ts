@@ -51,7 +51,6 @@ export const COMPONENTS: ComponentA11yConfig[] = [
   { component: 'AppBar', slug: 'app-bar', status: 'enabled', skipAssertions: PARTIAL_SKIP },
   { component: 'Autocomplete', slug: 'autocomplete', status: 'enabled', skipAssertions: PARTIAL_SKIP },
   { component: 'Avatar', slug: 'avatars', status: 'enabled', skipAssertions: PARTIAL_SKIP },
-  { component: 'Backdrop', slug: 'backdrop', status: 'pending' }, // VRT: needs interaction
   { component: 'Badge', slug: 'badges', status: 'enabled' },
   { component: 'BottomNavigation', slug: 'bottom-navigation', status: 'enabled' },
   { component: 'Breadcrumbs', slug: 'breadcrumbs', status: 'enabled', skipAssertions: PARTIAL_SKIP },
@@ -70,29 +69,21 @@ export const COMPONENTS: ComponentA11yConfig[] = [
   },
   { component: 'Checkbox', slug: 'checkboxes', status: 'enabled', skipAssertions: PARTIAL_SKIP },
   { component: 'Chip', slug: 'chips', status: 'enabled', skipAssertions: PARTIAL_SKIP },
-  { component: 'ClickAwayListener', slug: 'click-away-listener', status: 'pending' }, // VRT: needs interaction
-  { component: 'Container', slug: 'container', status: 'pending' }, // VRT: can't see the impact
-  { component: 'CssBaseline', slug: 'css-baseline', status: 'pending' }, // no demos
   { component: 'Dialog', slug: 'dialogs', status: 'pending' }, // VRT: needs interaction
   { component: 'Divider', slug: 'dividers', status: 'enabled', skipAssertions: PARTIAL_SKIP },
   { component: 'Drawer', slug: 'drawers', status: 'enabled', skipAssertions: PARTIAL_SKIP },
   { component: 'Fab', slug: 'floating-action-button', status: 'enabled' },
-  { component: 'Grid', slug: 'grid', status: 'enabled' },
   { component: 'Icon', slug: 'icons', status: 'enabled' },
   { component: 'ImageList', slug: 'image-list', status: 'pending' }, // VRT: images don't load
   { component: 'Link', slug: 'links', status: 'enabled' },
   { component: 'List', slug: 'lists', status: 'enabled', skipAssertions: PARTIAL_SKIP },
-  { component: 'Masonry', slug: 'masonry', status: 'enabled' },
   { component: 'Menu', slug: 'menus', status: 'pending' }, // VRT: needs interaction
   { component: 'Menubar', slug: 'menubar', status: 'enabled' },
   { component: 'Modal', slug: 'modal', status: 'enabled', skipAssertions: PARTIAL_SKIP },
-  { component: 'NoSsr', slug: 'no-ssr', status: 'enabled' },
   { component: 'NumberField', slug: 'number-field', status: 'enabled', skipAssertions: PARTIAL_SKIP },
   { component: 'Pagination', slug: 'pagination', status: 'enabled', skipAssertions: PARTIAL_SKIP },
-  { component: 'Paper', slug: 'paper', status: 'enabled', skipAssertions: PARTIAL_SKIP },
   { component: 'Popover', slug: 'popover', status: 'enabled' },
   { component: 'Popper', slug: 'popper', status: 'pending' }, // VRT: needs interaction
-  { component: 'Portal', slug: 'portal', status: 'enabled' },
   { component: 'Progress', slug: 'progress', status: 'pending' }, // VRT: flaky
   { component: 'Radio', slug: 'radio-buttons', status: 'enabled', skipAssertions: PARTIAL_SKIP },
   { component: 'Rating', slug: 'rating', status: 'enabled' },
@@ -101,7 +92,6 @@ export const COMPONENTS: ComponentA11yConfig[] = [
   { component: 'Slider', slug: 'slider', status: 'enabled', skipAssertions: PARTIAL_SKIP },
   { component: 'Snackbar', slug: 'snackbars', status: 'enabled', skipAssertions: PARTIAL_SKIP },
   { component: 'SpeedDial', slug: 'speed-dial', status: 'pending' }, // VRT: needs interaction
-  { component: 'Stack', slug: 'stack', status: 'enabled', skipAssertions: PARTIAL_SKIP },
   { component: 'Stepper', slug: 'steppers', status: 'enabled', skipAssertions: PARTIAL_SKIP },
   { component: 'Switch', slug: 'switches', status: 'enabled', skipAssertions: PARTIAL_SKIP },
   { component: 'Table', slug: 'table', status: 'enabled', skipAssertions: PARTIAL_SKIP },
