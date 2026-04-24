@@ -3,7 +3,7 @@ import * as path from 'path';
 import * as fs from 'node:fs/promises';
 import { chromium } from '@playwright/test';
 import { recordA11y, WCAG_TAGS, GLOBAL_DISABLED_RULES } from './a11y/axe';
-import { COMPONENTS } from './a11y/a11yConfig';
+import { resolveA11y, shouldScreenshot } from './demoMeta';
 
 const currentDirectory = url.fileURLToPath(new URL('.', import.meta.url));
 const AXE_SCRIPT = path.resolve(currentDirectory, '../../node_modules/axe-core/axe.min.js');
@@ -56,31 +56,6 @@ async function main() {
   });
   routes = routes.map((route) => route.replace(baseUrl, ''));
 
-  // Build a11y enrollment map: route -> { component, demo, skipAssertions }.
-  // Entries without explicit `demos` inherit every VRT-exposed demo for the slug.
-  const demosBySlug = new Map();
-  for (const route of routes) {
-    const match = route.match(/^\/docs-components-(.+?)\/(.+)$/);
-    if (!match) {
-      continue;
-    }
-    const [, slug, demoName] = match;
-    if (!demosBySlug.has(slug)) {
-      demosBySlug.set(slug, []);
-    }
-    demosBySlug.get(slug).push(demoName);
-  }
-  const a11yEnrollment = new Map();
-  for (const { component, slug, demos: configured, skipAssertions } of COMPONENTS) {
-    const demos = configured ?? demosBySlug.get(slug) ?? [];
-    for (const demoName of demos) {
-      a11yEnrollment.set(`/docs-components-${slug}/${demoName}`, {
-        component,
-        demo: demoName,
-        skipAssertions,
-      });
-    }
-  }
   const axeSource = await fs.readFile(AXE_SCRIPT, 'utf8');
 
   /**
@@ -137,7 +112,15 @@ async function main() {
     });
 
     routes.forEach((route) => {
-      it(`creates screenshots of ${route}`, async function test(ctx) {
+      // `demoMeta.ts` owns the per-tool gates so the two tools can disagree:
+      // a demo with screenshot off can still run axe, and vice versa.
+      const runScreenshot = shouldScreenshot(route);
+      const a11y = resolveA11y(route);
+      if (!runScreenshot && !a11y) {
+        return;
+      }
+
+      it(`${runScreenshot ? 'creates screenshots of' : 'runs a11y on'} ${route}`, async function test(ctx) {
         // With the playwright inspector we might want to call `page.pause` which would lead to a timeout.
         if (process.env.PWDEBUG) {
           this?.timeout?.(0);
@@ -154,11 +137,10 @@ async function main() {
             break;
         }
 
-        // Run axe before the screenshot so it observes the natural DOM —
-        // Playwright's `animations: 'disabled'` injects inline `!important`
-        // styles that otherwise perturb rule applicability.
-        const enrollment = a11yEnrollment.get(route);
-        if (enrollment) {
+        // Run axe before the screenshot (if any) so it observes the natural
+        // DOM — Playwright's `animations: 'disabled'` injects inline
+        // `!important` styles that otherwise perturb rule applicability.
+        if (a11y) {
           // Inject axe fresh each run — page.addScriptTag can leak between navigations.
           await page.evaluate(axeSource);
           const results = await page.evaluate(
@@ -172,10 +154,16 @@ async function main() {
             },
             { element: testcase, disabledRules: GLOBAL_DISABLED_RULES, tags: WCAG_TAGS },
           );
-          recordA11y(ctx, results, enrollment);
+          recordA11y(ctx, results, {
+            component: a11y.component,
+            demo: a11y.demoName,
+            skipAssertions: a11y.skipAssertions,
+          });
         }
 
-        await takeScreenshot({ testcase, route });
+        if (runScreenshot) {
+          await takeScreenshot({ testcase, route });
+        }
       });
     });
 

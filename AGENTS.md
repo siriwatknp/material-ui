@@ -155,25 +155,35 @@ describe('Button', () => {
 
 ### Accessibility Testing
 
-Automated axe-core coverage piggybacks on the visual-regression Playwright loop in `test/regressions/index.test.js`. Each screenshot render for an enrolled demo is followed by `axe.run` on the same rendered `[data-testid="testcase"]` element, so no separate browser session is spun up.
+Automated axe-core coverage runs inside the visual-regression Playwright loop in `test/regressions/index.test.js`. For each enrolled demo, `axe.run` runs on the rendered `[data-testid="testcase"]` element — no separate browser session is spun up. A11y can run independently of screenshots: a demo can be screenshot-excluded (flaky image, redundant) and still be audited by axe.
 
-- `test/regressions/a11y/a11yConfig.ts` — test roster. Each entry maps a docs slug to a canonical component name; pending components live as `// TODO:` comments with the blocker noted inline.
+- `test/regressions/demoMeta.ts` — single source of truth for per-tool enrollment. `SLUG_A11Y` maps a docs slug to its a11y config (component name, default `skipAssertions`, optional `demos` filter). `DEMO_META` holds per-tool screenshot/a11y overrides keyed by docs path — a demo-level key (`.../slug/DemoName`) targets one demo; a slug-level key (`.../slug`) applies to every demo in the slug, with demo-level entries winning when both exist. `shouldScreenshot(route)` and `resolveA11y(route)` are the resolvers the test runner uses.
 - `test/regressions/a11y/axe.ts` — `recordA11y` records per-demo results onto `ctx.task.meta.a11y` and asserts visual rules (`color-contrast`, `link-in-text-block`) unless listed in `skipAssertions`.
 - `test/regressions/a11y/a11yReporter.ts` — Vitest reporter (attached in `test/regressions/vitest.config.ts`) that aggregates `task.meta.a11y` into one JSON per component at `test/regressions/a11y/results/{Component}.json` (per-component aggregates + per-demo breakdown). One file per component so downstream docs consumers can import only what they need.
 
-Enroll a component: uncomment its `TODO` line in `a11yConfig.ts` into a real entry (or add a new one).
+Enroll a component: add an entry to `SLUG_A11Y` in `demoMeta.ts`.
 
 ```ts
-// test/regressions/a11y/a11yConfig.ts
-{
+// test/regressions/demoMeta.ts
+SLUG_A11Y.set('alert', {
   component: 'Alert',
-  slug: 'alert',
-  demos: ['BasicAlerts', 'ColorAlerts'],                // optional: defaults to every VRT demo
-  skipAssertions: ['color-contrast'],                   // optional: record known issues without failing CI
-},
+  demos: ['BasicAlerts', 'ColorAlerts'], // optional: defaults to every VRT demo in the slug
+  skipAssertions: ['color-contrast'], // optional: record known issues without failing CI
+});
 ```
 
-Then run `pnpm test:regressions` to refresh `test/regressions/a11y/results/` (axe runs inline with the screenshot loop; the Vitest reporter writes per-component JSONs). CI enforces the directory is up to date via a git-diff check.
+Enrol an interaction-heavy slug (screenshots can't run but a11y can): un-negate it in `index.jsx`, add it to `SLUG_A11Y`, and add a slug-level `noShot` entry in `DEMO_META` (key = `docs/data/material/components/{slug}`). Three lines, no per-demo enumeration.
+
+Override a specific demo in an otherwise-enrolled slug — use `DEMO_META` (e.g. "Redux isolation" can't render at all):
+
+```ts
+DEMO_META.set('docs/data/material/components/popover/AnchorPlayground', {
+  screenshot: { enabled: false },
+  a11y: { enabled: false },
+});
+```
+
+Then run `pnpm test:regressions` to refresh `test/regressions/a11y/results/`. CI enforces the directory is up to date via a git-diff check.
 
 ### Imports
 
