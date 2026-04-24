@@ -24,18 +24,29 @@
   ],
   "failedRules": {
     "color-contrast": [
+      "Asynchronous",
       "AutocompleteHint",
+      "CheckboxesTags",
       "ComboBox",
       "ControllableStates",
+      "CountrySelect",
       "CustomSingleValueRendering",
+      "DisabledOptions",
+      "Filter",
       "FixedTags",
+      "FreeSolo",
       "FreeSoloCreateOption",
       "FreeSoloCreateOptionDialog",
       "GloballyCustomizedOptions",
+      "GoogleMaps",
+      "Grouped",
+      "Highlights",
       "LimitTags",
+      "Playground",
       "RenderGroup",
       "Sizes",
-      "Tags"
+      "Tags",
+      "Virtualize"
     ]
   },
   "testedRules": {
@@ -61,6 +72,48 @@
     "wcag22aa": ["target-size"]
   },
   "demos": {
+    "Asynchronous": {
+      "passedRules": [
+        "aria-allowed-attr",
+        "aria-conditional-attr",
+        "aria-deprecated-role",
+        "aria-hidden-focus",
+        "aria-prohibited-attr",
+        "aria-required-attr",
+        "aria-roles",
+        "aria-valid-attr",
+        "aria-valid-attr-value",
+        "autocomplete-valid",
+        "button-name",
+        "duplicate-id-aria",
+        "form-field-multiple-labels",
+        "label",
+        "nested-interactive",
+        "target-size"
+      ],
+      "failedRules": ["color-contrast"],
+      "testedRules": {
+        "wcag2a": [
+          "aria-allowed-attr",
+          "aria-conditional-attr",
+          "aria-deprecated-role",
+          "aria-hidden-focus",
+          "aria-prohibited-attr",
+          "aria-required-attr",
+          "aria-roles",
+          "aria-valid-attr-value",
+          "aria-valid-attr",
+          "button-name",
+          "duplicate-id-aria",
+          "form-field-multiple-labels",
+          "label",
+          "nested-interactive"
+        ],
+        "wcag21aa": ["autocomplete-valid"],
+        "wcag2aa": ["color-contrast"],
+        "wcag22aa": ["target-size"]
+      }
+    },
     "AutocompleteHint": {
       "passedRules": [
         "aria-allowed-attr",
@@ -99,6 +152,49 @@
           "nested-interactive"
         ],
         "wcag21aa": ["autocomplete-valid"],
+        "wcag2aa": ["color-contrast"],
+        "wcag22aa": ["target-size"]
+      }
+    },
+    "CheckboxesTags": {
+      "passedRules": [
+        "aria-allowed-attr",
+        "aria-conditional-attr",
+        "aria-deprecated-role",
+        "aria-hidden-focus",
+        "aria-prohibited-attr",
+        "aria-required-attr",
+        "aria-roles",
+        "aria-valid-attr",
+        "aria-valid-attr-value",
+        "autocomplete-valid",
+        "avoid-inline-spacing",
+        "button-name",
+        "duplicate-id-aria",
+        "form-field-multiple-labels",
+        "label",
+        "nested-interactive",
+        "target-size"
+      ],
+      "failedRules": ["color-contrast"],
+      "testedRules": {
+        "wcag2a": [
+          "aria-allowed-attr",
+          "aria-conditional-attr",
+          "aria-deprecated-role",
+          "aria-hidden-focus",
+          "aria-prohibited-attr",
+          "aria-required-attr",
+          "aria-roles",
+          "aria-valid-attr-value",
+          "aria-valid-attr",
+          "button-name",
+          "duplicate-id-aria",
+          "form-field-multiple-labels",
+          "label",
+          "nested-interactive"
+        ],
+        "wcag21aa": ["autocomplete-valid", "avoid-inline-spacing"],
         "wcag2aa": ["color-contrast"],
         "wcag22aa": ["target-size"]
       }
@@ -146,6 +242,48 @@
       }
     },
     "ControllableStates": {
+      "passedRules": [
+        "aria-allowed-attr",
+        "aria-conditional-attr",
+        "aria-deprecated-role",
+        "aria-hidden-focus",
+        "aria-prohibited-attr",
+        "aria-required-attr",
+        "aria-roles",
+        "aria-valid-attr",
+        "aria-valid-attr-value",
+        "autocomplete-valid",
+        "button-name",
+        "duplicate-id-aria",
+        "form-field-multiple-labels",
+        "label",
+        "nested-interactive",
+        "target-size"
+      ],
+      "failedRules": ["color-contrast"],
+      "testedRules": {
+        "wcag2a": [
+          "aria-allowed-attr",
+          "aria-conditional-attr",
+          "aria-deprecated-role",
+          "aria-hidden-focus",
+          "aria-prohibited-attr",
+          "aria-required-attr",
+          "aria-roles",
+          "aria-valid-attr-value",
+          "aria-valid-attr",
+          "button-name",
+          "duplicate-id-aria",
+          "form-field-multiple-labels",
+          "label",
+          "nested-interactive"
+        ],
+        "wcag21aa": ["autocomplete-valid"],
+        "wcag2aa": ["color-contrast"],
+        "wcag22aa": ["target-size"]
+      }
+    },
+    "CountrySelect": {
       "passedRules": [
         "aria-allowed-attr",
         "aria-conditional-attr",
@@ -303,6 +441,90 @@
         "wcag22aa": ["target-size"]
       }
     },
+    "DisabledOptions": {
+      "passedRules": [
+        "aria-allowed-attr",
+        "aria-conditional-attr",
+        "aria-deprecated-role",
+        "aria-hidden-focus",
+        "aria-prohibited-attr",
+        "aria-required-attr",
+        "aria-roles",
+        "aria-valid-attr",
+        "aria-valid-attr-value",
+        "autocomplete-valid",
+        "button-name",
+        "duplicate-id-aria",
+        "form-field-multiple-labels",
+        "label",
+        "nested-interactive",
+        "target-size"
+      ],
+      "failedRules": ["color-contrast"],
+      "testedRules": {
+        "wcag2a": [
+          "aria-allowed-attr",
+          "aria-conditional-attr",
+          "aria-deprecated-role",
+          "aria-hidden-focus",
+          "aria-prohibited-attr",
+          "aria-required-attr",
+          "aria-roles",
+          "aria-valid-attr-value",
+          "aria-valid-attr",
+          "button-name",
+          "duplicate-id-aria",
+          "form-field-multiple-labels",
+          "label",
+          "nested-interactive"
+        ],
+        "wcag21aa": ["autocomplete-valid"],
+        "wcag2aa": ["color-contrast"],
+        "wcag22aa": ["target-size"]
+      }
+    },
+    "Filter": {
+      "passedRules": [
+        "aria-allowed-attr",
+        "aria-conditional-attr",
+        "aria-deprecated-role",
+        "aria-hidden-focus",
+        "aria-prohibited-attr",
+        "aria-required-attr",
+        "aria-roles",
+        "aria-valid-attr",
+        "aria-valid-attr-value",
+        "autocomplete-valid",
+        "button-name",
+        "duplicate-id-aria",
+        "form-field-multiple-labels",
+        "label",
+        "nested-interactive",
+        "target-size"
+      ],
+      "failedRules": ["color-contrast"],
+      "testedRules": {
+        "wcag2a": [
+          "aria-allowed-attr",
+          "aria-conditional-attr",
+          "aria-deprecated-role",
+          "aria-hidden-focus",
+          "aria-prohibited-attr",
+          "aria-required-attr",
+          "aria-roles",
+          "aria-valid-attr-value",
+          "aria-valid-attr",
+          "button-name",
+          "duplicate-id-aria",
+          "form-field-multiple-labels",
+          "label",
+          "nested-interactive"
+        ],
+        "wcag21aa": ["autocomplete-valid"],
+        "wcag2aa": ["color-contrast"],
+        "wcag22aa": ["target-size"]
+      }
+    },
     "FixedTags": {
       "passedRules": [
         "aria-allowed-attr",
@@ -344,6 +566,44 @@
           "nested-interactive"
         ],
         "wcag21aa": ["autocomplete-valid", "avoid-inline-spacing"],
+        "wcag2aa": ["color-contrast"],
+        "wcag22aa": ["target-size"]
+      }
+    },
+    "FreeSolo": {
+      "passedRules": [
+        "aria-allowed-attr",
+        "aria-conditional-attr",
+        "aria-deprecated-role",
+        "aria-hidden-focus",
+        "aria-prohibited-attr",
+        "aria-required-attr",
+        "aria-roles",
+        "aria-valid-attr",
+        "aria-valid-attr-value",
+        "autocomplete-valid",
+        "duplicate-id-aria",
+        "form-field-multiple-labels",
+        "label",
+        "target-size"
+      ],
+      "failedRules": ["color-contrast"],
+      "testedRules": {
+        "wcag2a": [
+          "aria-allowed-attr",
+          "aria-conditional-attr",
+          "aria-deprecated-role",
+          "aria-hidden-focus",
+          "aria-prohibited-attr",
+          "aria-required-attr",
+          "aria-roles",
+          "aria-valid-attr-value",
+          "aria-valid-attr",
+          "duplicate-id-aria",
+          "form-field-multiple-labels",
+          "label"
+        ],
+        "wcag21aa": ["autocomplete-valid"],
         "wcag2aa": ["color-contrast"],
         "wcag22aa": ["target-size"]
       }
@@ -495,6 +755,132 @@
         "wcag22aa": ["target-size"]
       }
     },
+    "GoogleMaps": {
+      "passedRules": [
+        "aria-allowed-attr",
+        "aria-conditional-attr",
+        "aria-deprecated-role",
+        "aria-hidden-focus",
+        "aria-prohibited-attr",
+        "aria-required-attr",
+        "aria-roles",
+        "aria-valid-attr",
+        "aria-valid-attr-value",
+        "autocomplete-valid",
+        "button-name",
+        "duplicate-id-aria",
+        "form-field-multiple-labels",
+        "label",
+        "nested-interactive",
+        "target-size"
+      ],
+      "failedRules": ["color-contrast"],
+      "testedRules": {
+        "wcag2a": [
+          "aria-allowed-attr",
+          "aria-conditional-attr",
+          "aria-deprecated-role",
+          "aria-hidden-focus",
+          "aria-prohibited-attr",
+          "aria-required-attr",
+          "aria-roles",
+          "aria-valid-attr-value",
+          "aria-valid-attr",
+          "button-name",
+          "duplicate-id-aria",
+          "form-field-multiple-labels",
+          "label",
+          "nested-interactive"
+        ],
+        "wcag21aa": ["autocomplete-valid"],
+        "wcag2aa": ["color-contrast"],
+        "wcag22aa": ["target-size"]
+      }
+    },
+    "Grouped": {
+      "passedRules": [
+        "aria-allowed-attr",
+        "aria-conditional-attr",
+        "aria-deprecated-role",
+        "aria-hidden-focus",
+        "aria-prohibited-attr",
+        "aria-required-attr",
+        "aria-roles",
+        "aria-valid-attr",
+        "aria-valid-attr-value",
+        "autocomplete-valid",
+        "button-name",
+        "duplicate-id-aria",
+        "form-field-multiple-labels",
+        "label",
+        "nested-interactive",
+        "target-size"
+      ],
+      "failedRules": ["color-contrast"],
+      "testedRules": {
+        "wcag2a": [
+          "aria-allowed-attr",
+          "aria-conditional-attr",
+          "aria-deprecated-role",
+          "aria-hidden-focus",
+          "aria-prohibited-attr",
+          "aria-required-attr",
+          "aria-roles",
+          "aria-valid-attr-value",
+          "aria-valid-attr",
+          "button-name",
+          "duplicate-id-aria",
+          "form-field-multiple-labels",
+          "label",
+          "nested-interactive"
+        ],
+        "wcag21aa": ["autocomplete-valid"],
+        "wcag2aa": ["color-contrast"],
+        "wcag22aa": ["target-size"]
+      }
+    },
+    "Highlights": {
+      "passedRules": [
+        "aria-allowed-attr",
+        "aria-conditional-attr",
+        "aria-deprecated-role",
+        "aria-hidden-focus",
+        "aria-prohibited-attr",
+        "aria-required-attr",
+        "aria-roles",
+        "aria-valid-attr",
+        "aria-valid-attr-value",
+        "autocomplete-valid",
+        "button-name",
+        "duplicate-id-aria",
+        "form-field-multiple-labels",
+        "label",
+        "nested-interactive",
+        "target-size"
+      ],
+      "failedRules": ["color-contrast"],
+      "testedRules": {
+        "wcag2a": [
+          "aria-allowed-attr",
+          "aria-conditional-attr",
+          "aria-deprecated-role",
+          "aria-hidden-focus",
+          "aria-prohibited-attr",
+          "aria-required-attr",
+          "aria-roles",
+          "aria-valid-attr-value",
+          "aria-valid-attr",
+          "button-name",
+          "duplicate-id-aria",
+          "form-field-multiple-labels",
+          "label",
+          "nested-interactive"
+        ],
+        "wcag21aa": ["autocomplete-valid"],
+        "wcag2aa": ["color-contrast"],
+        "wcag22aa": ["target-size"]
+      }
+    },
     "LimitTags": {
       "passedRules": [
         "aria-allowed-attr",
@@ -520,6 +906,48 @@
         "wcag2a": [
           "aria-allowed-attr",
           "aria-command-name",
+          "aria-conditional-attr",
+          "aria-deprecated-role",
+          "aria-hidden-focus",
+          "aria-prohibited-attr",
+          "aria-required-attr",
+          "aria-roles",
+          "aria-valid-attr-value",
+          "aria-valid-attr",
+          "button-name",
+          "duplicate-id-aria",
+          "form-field-multiple-labels",
+          "label",
+          "nested-interactive"
+        ],
+        "wcag21aa": ["autocomplete-valid"],
+        "wcag2aa": ["color-contrast"],
+        "wcag22aa": ["target-size"]
+      }
+    },
+    "Playground": {
+      "passedRules": [
+        "aria-allowed-attr",
+        "aria-conditional-attr",
+        "aria-deprecated-role",
+        "aria-hidden-focus",
+        "aria-prohibited-attr",
+        "aria-required-attr",
+        "aria-roles",
+        "aria-valid-attr",
+        "aria-valid-attr-value",
+        "autocomplete-valid",
+        "button-name",
+        "duplicate-id-aria",
+        "form-field-multiple-labels",
+        "label",
+        "nested-interactive",
+        "target-size"
+      ],
+      "failedRules": ["color-contrast"],
+      "testedRules": {
+        "wcag2a": [
+          "aria-allowed-attr",
           "aria-conditional-attr",
           "aria-deprecated-role",
           "aria-hidden-focus",
@@ -650,6 +1078,85 @@
         "wcag2a": [
           "aria-allowed-attr",
           "aria-command-name",
+          "aria-conditional-attr",
+          "aria-deprecated-role",
+          "aria-hidden-focus",
+          "aria-prohibited-attr",
+          "aria-required-attr",
+          "aria-roles",
+          "aria-valid-attr-value",
+          "aria-valid-attr",
+          "button-name",
+          "duplicate-id-aria",
+          "form-field-multiple-labels",
+          "label",
+          "nested-interactive"
+        ],
+        "wcag21aa": ["autocomplete-valid"],
+        "wcag2aa": ["color-contrast"],
+        "wcag22aa": ["target-size"]
+      }
+    },
+    "UseAutocomplete": {
+      "passedRules": [
+        "aria-allowed-attr",
+        "aria-conditional-attr",
+        "aria-deprecated-role",
+        "aria-prohibited-attr",
+        "aria-required-attr",
+        "aria-roles",
+        "aria-valid-attr",
+        "aria-valid-attr-value",
+        "autocomplete-valid",
+        "color-contrast",
+        "duplicate-id-aria",
+        "form-field-multiple-labels",
+        "label",
+        "target-size"
+      ],
+      "failedRules": [],
+      "testedRules": {
+        "wcag2a": [
+          "aria-allowed-attr",
+          "aria-conditional-attr",
+          "aria-deprecated-role",
+          "aria-prohibited-attr",
+          "aria-required-attr",
+          "aria-roles",
+          "aria-valid-attr-value",
+          "aria-valid-attr",
+          "duplicate-id-aria",
+          "form-field-multiple-labels",
+          "label"
+        ],
+        "wcag21aa": ["autocomplete-valid"],
+        "wcag2aa": ["color-contrast"],
+        "wcag22aa": ["target-size"]
+      }
+    },
+    "Virtualize": {
+      "passedRules": [
+        "aria-allowed-attr",
+        "aria-conditional-attr",
+        "aria-deprecated-role",
+        "aria-hidden-focus",
+        "aria-prohibited-attr",
+        "aria-required-attr",
+        "aria-roles",
+        "aria-valid-attr",
+        "aria-valid-attr-value",
+        "autocomplete-valid",
+        "button-name",
+        "duplicate-id-aria",
+        "form-field-multiple-labels",
+        "label",
+        "nested-interactive",
+        "target-size"
+      ],
+      "failedRules": ["color-contrast"],
+      "testedRules": {
+        "wcag2a": [
+          "aria-allowed-attr",
           "aria-conditional-attr",
           "aria-deprecated-role",
           "aria-hidden-focus",

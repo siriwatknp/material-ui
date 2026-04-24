@@ -38,8 +38,8 @@
       "aria-valid-attr-value",
       "aria-valid-attr",
       "button-name",
-      "duplicate-id-aria",
       "nested-interactive",
+      "duplicate-id-aria",
       "aria-hidden-focus",
       "link-name",
       "scrollable-region-focusable"
@@ -49,6 +49,84 @@
     "wcag22aa": ["target-size"]
   },
   "demos": {
+    "AccessibleTabs1": {
+      "passedRules": [
+        "aria-allowed-attr",
+        "aria-conditional-attr",
+        "aria-deprecated-role",
+        "aria-prohibited-attr",
+        "aria-required-attr",
+        "aria-required-children",
+        "aria-required-parent",
+        "aria-roles",
+        "aria-valid-attr",
+        "aria-valid-attr-value",
+        "avoid-inline-spacing",
+        "button-name",
+        "color-contrast",
+        "nested-interactive",
+        "target-size"
+      ],
+      "failedRules": [],
+      "testedRules": {
+        "wcag2a": [
+          "aria-allowed-attr",
+          "aria-conditional-attr",
+          "aria-deprecated-role",
+          "aria-prohibited-attr",
+          "aria-required-attr",
+          "aria-required-children",
+          "aria-required-parent",
+          "aria-roles",
+          "aria-valid-attr-value",
+          "aria-valid-attr",
+          "button-name",
+          "nested-interactive"
+        ],
+        "wcag21aa": ["avoid-inline-spacing"],
+        "wcag2aa": ["color-contrast"],
+        "wcag22aa": ["target-size"]
+      }
+    },
+    "AccessibleTabs2": {
+      "passedRules": [
+        "aria-allowed-attr",
+        "aria-conditional-attr",
+        "aria-deprecated-role",
+        "aria-prohibited-attr",
+        "aria-required-attr",
+        "aria-required-children",
+        "aria-required-parent",
+        "aria-roles",
+        "aria-valid-attr",
+        "aria-valid-attr-value",
+        "avoid-inline-spacing",
+        "button-name",
+        "color-contrast",
+        "nested-interactive",
+        "target-size"
+      ],
+      "failedRules": [],
+      "testedRules": {
+        "wcag2a": [
+          "aria-allowed-attr",
+          "aria-conditional-attr",
+          "aria-deprecated-role",
+          "aria-prohibited-attr",
+          "aria-required-attr",
+          "aria-required-children",
+          "aria-required-parent",
+          "aria-roles",
+          "aria-valid-attr-value",
+          "aria-valid-attr",
+          "button-name",
+          "nested-interactive"
+        ],
+        "wcag21aa": ["avoid-inline-spacing"],
+        "wcag2aa": ["color-contrast"],
+        "wcag22aa": ["target-size"]
+      }
+    },
     "BasicTabs": {
       "passedRules": [
         "aria-allowed-attr",

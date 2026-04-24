@@ -41,6 +41,60 @@
     "wcag21aa": ["avoid-inline-spacing"]
   },
   "demos": {
+    "BasicModal": {
+      "passedRules": [
+        "aria-allowed-attr",
+        "aria-conditional-attr",
+        "aria-prohibited-attr",
+        "aria-valid-attr",
+        "aria-valid-attr-value",
+        "button-name",
+        "color-contrast",
+        "nested-interactive",
+        "target-size"
+      ],
+      "failedRules": [],
+      "testedRules": {
+        "wcag2a": [
+          "aria-allowed-attr",
+          "aria-conditional-attr",
+          "aria-prohibited-attr",
+          "aria-valid-attr-value",
+          "aria-valid-attr",
+          "button-name",
+          "nested-interactive"
+        ],
+        "wcag2aa": ["color-contrast"],
+        "wcag22aa": ["target-size"]
+      }
+    },
+    "KeepMountedModal": {
+      "passedRules": [
+        "aria-allowed-attr",
+        "aria-conditional-attr",
+        "aria-prohibited-attr",
+        "aria-valid-attr",
+        "aria-valid-attr-value",
+        "button-name",
+        "color-contrast",
+        "nested-interactive",
+        "target-size"
+      ],
+      "failedRules": [],
+      "testedRules": {
+        "wcag2a": [
+          "aria-allowed-attr",
+          "aria-conditional-attr",
+          "aria-prohibited-attr",
+          "aria-valid-attr-value",
+          "aria-valid-attr",
+          "button-name",
+          "nested-interactive"
+        ],
+        "wcag2aa": ["color-contrast"],
+        "wcag22aa": ["target-size"]
+      }
+    },
     "NestedModal": {
       "passedRules": [
         "aria-allowed-attr",
@@ -98,6 +152,60 @@
         ],
         "wcag21aa": ["avoid-inline-spacing"],
         "wcag2aa": ["color-contrast"]
+      }
+    },
+    "SpringModal": {
+      "passedRules": [
+        "aria-allowed-attr",
+        "aria-conditional-attr",
+        "aria-prohibited-attr",
+        "aria-valid-attr",
+        "aria-valid-attr-value",
+        "button-name",
+        "color-contrast",
+        "nested-interactive",
+        "target-size"
+      ],
+      "failedRules": [],
+      "testedRules": {
+        "wcag2a": [
+          "aria-allowed-attr",
+          "aria-conditional-attr",
+          "aria-prohibited-attr",
+          "aria-valid-attr-value",
+          "aria-valid-attr",
+          "button-name",
+          "nested-interactive"
+        ],
+        "wcag2aa": ["color-contrast"],
+        "wcag22aa": ["target-size"]
+      }
+    },
+    "TransitionsModal": {
+      "passedRules": [
+        "aria-allowed-attr",
+        "aria-conditional-attr",
+        "aria-prohibited-attr",
+        "aria-valid-attr",
+        "aria-valid-attr-value",
+        "button-name",
+        "color-contrast",
+        "nested-interactive",
+        "target-size"
+      ],
+      "failedRules": [],
+      "testedRules": {
+        "wcag2a": [
+          "aria-allowed-attr",
+          "aria-conditional-attr",
+          "aria-prohibited-attr",
+          "aria-valid-attr-value",
+          "aria-valid-attr",
+          "button-name",
+          "nested-interactive"
+        ],
+        "wcag2aa": ["color-contrast"],
+        "wcag22aa": ["target-size"]
       }
     }
   }

@@ -1,16 +1,21 @@
 {
-  "passed": 10,
+  "passed": 15,
   "failed": 0,
-  "total": 10,
+  "total": 15,
   "passedRules": [
     "aria-allowed-attr",
     "aria-conditional-attr",
+    "aria-deprecated-role",
     "aria-hidden-focus",
     "aria-prohibited-attr",
+    "aria-required-attr",
+    "aria-roles",
     "aria-valid-attr",
     "aria-valid-attr-value",
     "button-name",
     "color-contrast",
+    "form-field-multiple-labels",
+    "label",
     "nested-interactive",
     "target-size"
   ],
@@ -24,7 +29,12 @@
       "aria-valid-attr-value",
       "aria-valid-attr",
       "button-name",
-      "nested-interactive"
+      "nested-interactive",
+      "aria-deprecated-role",
+      "aria-required-attr",
+      "aria-roles",
+      "form-field-multiple-labels",
+      "label"
     ],
     "wcag2aa": ["color-contrast"],
     "wcag22aa": ["target-size"]
@@ -99,6 +109,45 @@
           "aria-valid-attr-value",
           "aria-valid-attr"
         ]
+      }
+    },
+    "BadgeVisibility": {
+      "passedRules": [
+        "aria-allowed-attr",
+        "aria-conditional-attr",
+        "aria-deprecated-role",
+        "aria-hidden-focus",
+        "aria-prohibited-attr",
+        "aria-required-attr",
+        "aria-roles",
+        "aria-valid-attr",
+        "aria-valid-attr-value",
+        "button-name",
+        "color-contrast",
+        "form-field-multiple-labels",
+        "label",
+        "nested-interactive",
+        "target-size"
+      ],
+      "failedRules": [],
+      "testedRules": {
+        "wcag2a": [
+          "aria-allowed-attr",
+          "aria-conditional-attr",
+          "aria-deprecated-role",
+          "aria-hidden-focus",
+          "aria-prohibited-attr",
+          "aria-required-attr",
+          "aria-roles",
+          "aria-valid-attr-value",
+          "aria-valid-attr",
+          "button-name",
+          "form-field-multiple-labels",
+          "label",
+          "nested-interactive"
+        ],
+        "wcag2aa": ["color-contrast"],
+        "wcag22aa": ["target-size"]
       }
     },
     "ColorBadge": {

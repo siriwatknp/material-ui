@@ -1,6 +1,6 @@
 {
-  "passed": 16,
-  "failed": 4,
+  "passed": 15,
+  "failed": 5,
   "total": 20,
   "passedRules": [
     "aria-allowed-attr",
@@ -8,7 +8,6 @@
     "aria-conditional-attr",
     "aria-deprecated-role",
     "aria-hidden-focus",
-    "aria-prohibited-attr",
     "aria-required-attr",
     "aria-roles",
     "aria-valid-attr",
@@ -30,20 +29,21 @@
       "ResponsiveAppBar",
       "SearchAppBar"
     ],
-    "aria-valid-attr-value": ["PrimarySearchAppBar"]
+    "aria-prohibited-attr": ["MenuAppBar"],
+    "aria-valid-attr-value": ["MenuAppBar", "PrimarySearchAppBar"]
   },
   "testedRules": {
     "wcag2a": [
       "aria-allowed-attr",
-      "aria-command-name",
       "aria-conditional-attr",
-      "aria-deprecated-role",
       "aria-hidden-focus",
       "aria-prohibited-attr",
-      "aria-required-attr",
-      "aria-roles",
       "aria-valid-attr-value",
       "aria-valid-attr",
+      "aria-command-name",
+      "aria-deprecated-role",
+      "aria-required-attr",
+      "aria-roles",
       "button-name",
       "listitem",
       "nested-interactive",
@@ -57,6 +57,31 @@
     "wcag22aa": ["target-size"]
   },
   "demos": {
+    "BackToTop": {
+      "passedRules": [
+        "aria-allowed-attr",
+        "aria-conditional-attr",
+        "aria-hidden-focus",
+        "aria-prohibited-attr",
+        "aria-valid-attr",
+        "aria-valid-attr-value",
+        "avoid-inline-spacing",
+        "color-contrast"
+      ],
+      "failedRules": [],
+      "testedRules": {
+        "wcag2a": [
+          "aria-allowed-attr",
+          "aria-conditional-attr",
+          "aria-hidden-focus",
+          "aria-prohibited-attr",
+          "aria-valid-attr-value",
+          "aria-valid-attr"
+        ],
+        "wcag21aa": ["avoid-inline-spacing"],
+        "wcag2aa": ["color-contrast"]
+      }
+    },
     "BottomAppBar": {
       "passedRules": [
         "aria-allowed-attr",
@@ -190,6 +215,29 @@
         "wcag22aa": ["target-size"]
       }
     },
+    "ElevateAppBar": {
+      "passedRules": [
+        "aria-allowed-attr",
+        "aria-conditional-attr",
+        "aria-prohibited-attr",
+        "aria-valid-attr",
+        "aria-valid-attr-value",
+        "avoid-inline-spacing",
+        "color-contrast"
+      ],
+      "failedRules": [],
+      "testedRules": {
+        "wcag2a": [
+          "aria-allowed-attr",
+          "aria-conditional-attr",
+          "aria-prohibited-attr",
+          "aria-valid-attr-value",
+          "aria-valid-attr"
+        ],
+        "wcag21aa": ["avoid-inline-spacing"],
+        "wcag2aa": ["color-contrast"]
+      }
+    },
     "EnableColorOnDarkAppBar": {
       "passedRules": [
         "aria-allowed-attr",
@@ -218,6 +266,68 @@
         "wcag21aa": ["avoid-inline-spacing"],
         "wcag22aa": ["target-size"],
         "wcag2aa": ["color-contrast"]
+      }
+    },
+    "HideAppBar": {
+      "passedRules": [
+        "aria-allowed-attr",
+        "aria-conditional-attr",
+        "aria-prohibited-attr",
+        "aria-valid-attr",
+        "aria-valid-attr-value",
+        "avoid-inline-spacing",
+        "color-contrast"
+      ],
+      "failedRules": [],
+      "testedRules": {
+        "wcag2a": [
+          "aria-allowed-attr",
+          "aria-conditional-attr",
+          "aria-prohibited-attr",
+          "aria-valid-attr-value",
+          "aria-valid-attr"
+        ],
+        "wcag21aa": ["avoid-inline-spacing"],
+        "wcag2aa": ["color-contrast"]
+      }
+    },
+    "MenuAppBar": {
+      "passedRules": [
+        "aria-allowed-attr",
+        "aria-conditional-attr",
+        "aria-deprecated-role",
+        "aria-hidden-focus",
+        "aria-required-attr",
+        "aria-roles",
+        "aria-valid-attr",
+        "avoid-inline-spacing",
+        "button-name",
+        "color-contrast",
+        "form-field-multiple-labels",
+        "label",
+        "nested-interactive",
+        "target-size"
+      ],
+      "failedRules": ["aria-prohibited-attr", "aria-valid-attr-value"],
+      "testedRules": {
+        "wcag2a": [
+          "aria-allowed-attr",
+          "aria-conditional-attr",
+          "aria-deprecated-role",
+          "aria-hidden-focus",
+          "aria-prohibited-attr",
+          "aria-required-attr",
+          "aria-roles",
+          "aria-valid-attr-value",
+          "aria-valid-attr",
+          "button-name",
+          "form-field-multiple-labels",
+          "label",
+          "nested-interactive"
+        ],
+        "wcag21aa": ["avoid-inline-spacing"],
+        "wcag2aa": ["color-contrast"],
+        "wcag22aa": ["target-size"]
       }
     },
     "PrimarySearchAppBar": {
