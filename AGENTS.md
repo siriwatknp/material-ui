@@ -159,7 +159,7 @@ Automated axe-core coverage runs inside the visual-regression Playwright loop in
 
 - `test/regressions/demoMeta.ts` — single source of truth for per-tool enrollment. `SLUG_A11Y` maps a docs slug to its a11y config (component name, default `skipAssertions`, optional `demos` filter). `DEMO_META` holds per-tool screenshot/a11y overrides keyed by docs path — a demo-level key (`.../slug/DemoName`) targets one demo; a slug-level key (`.../slug`) applies to every demo in the slug, with demo-level entries winning when both exist. `shouldScreenshot(route)` and `resolveA11y(route)` are the resolvers the test runner uses.
 - `test/regressions/a11y/axe.ts` — `recordA11y` records per-demo results onto `ctx.task.meta.a11y` and asserts visual rules (`color-contrast`, `link-in-text-block`) unless listed in `skipAssertions`.
-- `test/regressions/a11y/a11yReporter.ts` — Vitest reporter (attached in `test/regressions/vitest.config.ts`) that aggregates `task.meta.a11y` into one JSON per component at `test/regressions/a11y/results/{Component}.json` (per-component aggregates + per-demo breakdown). One file per component so downstream docs consumers can import only what they need.
+- `test/regressions/a11y/a11yReporter.ts` — Vitest reporter (attached in `test/regressions/vitest.config.ts`) that aggregates `task.meta.a11y` into one JSON per component at `docs/data/material/a11y/{Component}.json` (per-component aggregates + per-demo breakdown). One file per component so downstream docs consumers can import only what they need.
 
 Enroll a component: add an entry to `SLUG_A11Y` in `demoMeta.ts`.
 
@@ -183,7 +183,7 @@ DEMO_META.set('docs/data/material/components/popover/AnchorPlayground', {
 });
 ```
 
-Then run `pnpm test:regressions` to refresh `test/regressions/a11y/results/`. CI enforces the directory is up to date via a git-diff check.
+Then run `pnpm test:regressions` to refresh `docs/data/material/a11y/`. CI enforces the directory is up to date via a git-diff check.
 
 ### Imports
 

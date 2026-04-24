@@ -4,7 +4,7 @@ import chalk from 'chalk';
 import type { Reporter, TestCase, TestModule, TestSuite } from 'vitest/node';
 import type { A11yMeta } from './axe';
 
-const OUT_DIR = path.resolve(__dirname, 'results');
+const OUT_DIR = path.resolve(__dirname, '../../../docs/data/material/a11y');
 
 interface DemoResult {
   passedRules: string[];
