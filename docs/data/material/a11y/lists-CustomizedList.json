@@ -1,0 +1,42 @@
+{
+  "slug": "lists",
+  "demo": "CustomizedList",
+  "passedRules": [
+    "aria-allowed-attr",
+    "aria-command-name",
+    "aria-conditional-attr",
+    "aria-deprecated-role",
+    "aria-hidden-focus",
+    "aria-prohibited-attr",
+    "aria-required-attr",
+    "aria-roles",
+    "aria-valid-attr",
+    "aria-valid-attr-value",
+    "avoid-inline-spacing",
+    "button-name",
+    "link-name",
+    "nested-interactive",
+    "target-size"
+  ],
+  "failedRules": ["color-contrast"],
+  "testedRules": {
+    "wcag2a": [
+      "aria-allowed-attr",
+      "aria-command-name",
+      "aria-conditional-attr",
+      "aria-deprecated-role",
+      "aria-hidden-focus",
+      "aria-prohibited-attr",
+      "aria-required-attr",
+      "aria-roles",
+      "aria-valid-attr-value",
+      "aria-valid-attr",
+      "button-name",
+      "link-name",
+      "nested-interactive"
+    ],
+    "wcag21aa": ["avoid-inline-spacing"],
+    "wcag22aa": ["target-size"],
+    "wcag2aa": ["color-contrast"]
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "slug": "checkboxes",
+  "demo": "CheckboxesGroup",
+  "passedRules": [
+    "aria-allowed-attr",
+    "aria-conditional-attr",
+    "aria-hidden-focus",
+    "aria-prohibited-attr",
+    "aria-valid-attr",
+    "aria-valid-attr-value",
+    "color-contrast",
+    "form-field-multiple-labels",
+    "label",
+    "nested-interactive",
+    "target-size"
+  ],
+  "failedRules": [],
+  "testedRules": {
+    "wcag2a": [
+      "aria-allowed-attr",
+      "aria-conditional-attr",
+      "aria-hidden-focus",
+      "aria-prohibited-attr",
+      "aria-valid-attr-value",
+      "aria-valid-attr",
+      "form-field-multiple-labels",
+      "label",
+      "nested-interactive"
+    ],
+    "wcag2aa": ["color-contrast"],
+    "wcag22aa": ["target-size"]
+  }
+}

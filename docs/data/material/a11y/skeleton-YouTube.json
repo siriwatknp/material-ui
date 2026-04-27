@@ -1,0 +1,29 @@
+{
+  "slug": "skeleton",
+  "demo": "YouTube",
+  "passedRules": [
+    "aria-allowed-attr",
+    "aria-conditional-attr",
+    "aria-prohibited-attr",
+    "aria-valid-attr",
+    "aria-valid-attr-value",
+    "avoid-inline-spacing",
+    "color-contrast",
+    "image-alt",
+    "nested-interactive"
+  ],
+  "failedRules": [],
+  "testedRules": {
+    "wcag2a": [
+      "aria-allowed-attr",
+      "aria-conditional-attr",
+      "aria-prohibited-attr",
+      "aria-valid-attr-value",
+      "aria-valid-attr",
+      "image-alt",
+      "nested-interactive"
+    ],
+    "wcag21aa": ["avoid-inline-spacing"],
+    "wcag2aa": ["color-contrast"]
+  }
+}

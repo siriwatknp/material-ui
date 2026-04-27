@@ -1,0 +1,37 @@
+{
+  "slug": "number-field",
+  "demo": "FieldDemo",
+  "passedRules": [
+    "aria-allowed-attr",
+    "aria-conditional-attr",
+    "aria-hidden-focus",
+    "aria-prohibited-attr",
+    "aria-valid-attr",
+    "autocomplete-valid",
+    "avoid-inline-spacing",
+    "button-name",
+    "duplicate-id-aria",
+    "form-field-multiple-labels",
+    "label",
+    "nested-interactive"
+  ],
+  "failedRules": ["aria-valid-attr-value", "color-contrast", "target-size"],
+  "testedRules": {
+    "wcag2a": [
+      "aria-allowed-attr",
+      "aria-conditional-attr",
+      "aria-hidden-focus",
+      "aria-prohibited-attr",
+      "aria-valid-attr-value",
+      "aria-valid-attr",
+      "button-name",
+      "duplicate-id-aria",
+      "form-field-multiple-labels",
+      "label",
+      "nested-interactive"
+    ],
+    "wcag21aa": ["autocomplete-valid", "avoid-inline-spacing"],
+    "wcag2aa": ["color-contrast"],
+    "wcag22aa": ["target-size"]
+  }
+}

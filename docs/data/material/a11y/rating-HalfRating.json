@@ -1,0 +1,43 @@
+{
+  "slug": "rating",
+  "demo": "HalfRating",
+  "passedRules": [
+    "aria-allowed-attr",
+    "aria-conditional-attr",
+    "aria-deprecated-role",
+    "aria-hidden-focus",
+    "aria-prohibited-attr",
+    "aria-required-attr",
+    "aria-roles",
+    "aria-valid-attr",
+    "aria-valid-attr-value",
+    "avoid-inline-spacing",
+    "duplicate-id-aria",
+    "form-field-multiple-labels",
+    "label",
+    "nested-interactive",
+    "role-img-alt",
+    "target-size"
+  ],
+  "failedRules": [],
+  "testedRules": {
+    "wcag2a": [
+      "aria-allowed-attr",
+      "aria-conditional-attr",
+      "aria-deprecated-role",
+      "aria-hidden-focus",
+      "aria-prohibited-attr",
+      "aria-required-attr",
+      "aria-roles",
+      "aria-valid-attr-value",
+      "aria-valid-attr",
+      "duplicate-id-aria",
+      "form-field-multiple-labels",
+      "label",
+      "nested-interactive",
+      "role-img-alt"
+    ],
+    "wcag21aa": ["avoid-inline-spacing"],
+    "wcag22aa": ["target-size"]
+  }
+}

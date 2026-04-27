@@ -1,0 +1,33 @@
+{
+  "slug": "app-bar",
+  "demo": "ButtonAppBar",
+  "passedRules": [
+    "aria-allowed-attr",
+    "aria-conditional-attr",
+    "aria-hidden-focus",
+    "aria-prohibited-attr",
+    "aria-valid-attr",
+    "aria-valid-attr-value",
+    "avoid-inline-spacing",
+    "button-name",
+    "color-contrast",
+    "nested-interactive",
+    "target-size"
+  ],
+  "failedRules": [],
+  "testedRules": {
+    "wcag2a": [
+      "aria-allowed-attr",
+      "aria-conditional-attr",
+      "aria-hidden-focus",
+      "aria-prohibited-attr",
+      "aria-valid-attr-value",
+      "aria-valid-attr",
+      "button-name",
+      "nested-interactive"
+    ],
+    "wcag21aa": ["avoid-inline-spacing"],
+    "wcag2aa": ["color-contrast"],
+    "wcag22aa": ["target-size"]
+  }
+}

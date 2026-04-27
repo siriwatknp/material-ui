@@ -1,0 +1,23 @@
+{
+  "slug": "typography",
+  "demo": "Types",
+  "passedRules": [
+    "aria-allowed-attr",
+    "aria-conditional-attr",
+    "aria-prohibited-attr",
+    "aria-valid-attr",
+    "aria-valid-attr-value",
+    "color-contrast"
+  ],
+  "failedRules": [],
+  "testedRules": {
+    "wcag2a": [
+      "aria-allowed-attr",
+      "aria-conditional-attr",
+      "aria-prohibited-attr",
+      "aria-valid-attr-value",
+      "aria-valid-attr"
+    ],
+    "wcag2aa": ["color-contrast"]
+  }
+}

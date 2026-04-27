@@ -1,0 +1,39 @@
+{
+  "slug": "autocomplete",
+  "demo": "UseAutocomplete",
+  "passedRules": [
+    "aria-allowed-attr",
+    "aria-conditional-attr",
+    "aria-deprecated-role",
+    "aria-prohibited-attr",
+    "aria-required-attr",
+    "aria-roles",
+    "aria-valid-attr",
+    "aria-valid-attr-value",
+    "autocomplete-valid",
+    "color-contrast",
+    "duplicate-id-aria",
+    "form-field-multiple-labels",
+    "label",
+    "target-size"
+  ],
+  "failedRules": [],
+  "testedRules": {
+    "wcag2a": [
+      "aria-allowed-attr",
+      "aria-conditional-attr",
+      "aria-deprecated-role",
+      "aria-prohibited-attr",
+      "aria-required-attr",
+      "aria-roles",
+      "aria-valid-attr-value",
+      "aria-valid-attr",
+      "duplicate-id-aria",
+      "form-field-multiple-labels",
+      "label"
+    ],
+    "wcag21aa": ["autocomplete-valid"],
+    "wcag2aa": ["color-contrast"],
+    "wcag22aa": ["target-size"]
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "slug": "table",
+  "demo": "ReactVirtualizedTable",
+  "passedRules": [
+    "aria-allowed-attr",
+    "aria-conditional-attr",
+    "aria-prohibited-attr",
+    "aria-valid-attr",
+    "aria-valid-attr-value",
+    "avoid-inline-spacing",
+    "color-contrast",
+    "scrollable-region-focusable",
+    "td-headers-attr",
+    "th-has-data-cells"
+  ],
+  "failedRules": [],
+  "testedRules": {
+    "wcag2a": [
+      "aria-allowed-attr",
+      "aria-conditional-attr",
+      "aria-prohibited-attr",
+      "aria-valid-attr-value",
+      "aria-valid-attr",
+      "scrollable-region-focusable",
+      "td-headers-attr",
+      "th-has-data-cells"
+    ],
+    "wcag21aa": ["avoid-inline-spacing"],
+    "wcag2aa": ["color-contrast"]
+  }
+}

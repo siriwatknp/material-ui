@@ -1,0 +1,29 @@
+{
+  "slug": "steppers",
+  "demo": "CustomizedSteppers",
+  "passedRules": [
+    "aria-allowed-attr",
+    "aria-conditional-attr",
+    "aria-hidden-focus",
+    "aria-prohibited-attr",
+    "aria-valid-attr",
+    "aria-valid-attr-value",
+    "color-contrast",
+    "list",
+    "listitem"
+  ],
+  "failedRules": [],
+  "testedRules": {
+    "wcag2a": [
+      "aria-allowed-attr",
+      "aria-conditional-attr",
+      "aria-hidden-focus",
+      "aria-prohibited-attr",
+      "aria-valid-attr-value",
+      "aria-valid-attr",
+      "list",
+      "listitem"
+    ],
+    "wcag2aa": ["color-contrast"]
+  }
+}

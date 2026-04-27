@@ -1,0 +1,41 @@
+{
+  "slug": "app-bar",
+  "demo": "MenuAppBar",
+  "passedRules": [
+    "aria-allowed-attr",
+    "aria-conditional-attr",
+    "aria-deprecated-role",
+    "aria-hidden-focus",
+    "aria-required-attr",
+    "aria-roles",
+    "aria-valid-attr",
+    "avoid-inline-spacing",
+    "button-name",
+    "color-contrast",
+    "form-field-multiple-labels",
+    "label",
+    "nested-interactive",
+    "target-size"
+  ],
+  "failedRules": ["aria-prohibited-attr", "aria-valid-attr-value"],
+  "testedRules": {
+    "wcag2a": [
+      "aria-allowed-attr",
+      "aria-conditional-attr",
+      "aria-deprecated-role",
+      "aria-hidden-focus",
+      "aria-prohibited-attr",
+      "aria-required-attr",
+      "aria-roles",
+      "aria-valid-attr-value",
+      "aria-valid-attr",
+      "button-name",
+      "form-field-multiple-labels",
+      "label",
+      "nested-interactive"
+    ],
+    "wcag21aa": ["avoid-inline-spacing"],
+    "wcag2aa": ["color-contrast"],
+    "wcag22aa": ["target-size"]
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "slug": "drawers",
+  "demo": "SwipeableEdgeDrawer",
+  "passedRules": [
+    "aria-allowed-attr",
+    "aria-conditional-attr",
+    "aria-prohibited-attr",
+    "aria-valid-attr",
+    "aria-valid-attr-value",
+    "avoid-inline-spacing",
+    "button-name",
+    "nested-interactive",
+    "target-size"
+  ],
+  "failedRules": ["color-contrast"],
+  "testedRules": {
+    "wcag2a": [
+      "aria-allowed-attr",
+      "aria-conditional-attr",
+      "aria-prohibited-attr",
+      "aria-valid-attr-value",
+      "aria-valid-attr",
+      "button-name",
+      "nested-interactive"
+    ],
+    "wcag21aa": ["avoid-inline-spacing"],
+    "wcag22aa": ["target-size"],
+    "wcag2aa": ["color-contrast"]
+  }
+}

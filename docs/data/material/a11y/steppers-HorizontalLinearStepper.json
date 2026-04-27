@@ -1,0 +1,33 @@
+{
+  "slug": "steppers",
+  "demo": "HorizontalLinearStepper",
+  "passedRules": [
+    "aria-allowed-attr",
+    "aria-conditional-attr",
+    "aria-hidden-focus",
+    "aria-prohibited-attr",
+    "aria-valid-attr",
+    "aria-valid-attr-value",
+    "button-name",
+    "listitem",
+    "nested-interactive",
+    "target-size"
+  ],
+  "failedRules": ["color-contrast", "list"],
+  "testedRules": {
+    "wcag2a": [
+      "aria-allowed-attr",
+      "aria-conditional-attr",
+      "aria-hidden-focus",
+      "aria-prohibited-attr",
+      "aria-valid-attr-value",
+      "aria-valid-attr",
+      "button-name",
+      "listitem",
+      "nested-interactive",
+      "list"
+    ],
+    "wcag2aa": ["color-contrast"],
+    "wcag22aa": ["target-size"]
+  }
+}

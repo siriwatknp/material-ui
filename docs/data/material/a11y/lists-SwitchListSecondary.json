@@ -1,0 +1,39 @@
+{
+  "slug": "lists",
+  "demo": "SwitchListSecondary",
+  "passedRules": [
+    "aria-allowed-attr",
+    "aria-conditional-attr",
+    "aria-hidden-focus",
+    "aria-prohibited-attr",
+    "aria-valid-attr",
+    "aria-valid-attr-value",
+    "color-contrast",
+    "duplicate-id-aria",
+    "form-field-multiple-labels",
+    "label",
+    "list",
+    "listitem",
+    "nested-interactive",
+    "target-size"
+  ],
+  "failedRules": [],
+  "testedRules": {
+    "wcag2a": [
+      "aria-allowed-attr",
+      "aria-conditional-attr",
+      "aria-hidden-focus",
+      "aria-prohibited-attr",
+      "aria-valid-attr-value",
+      "aria-valid-attr",
+      "duplicate-id-aria",
+      "form-field-multiple-labels",
+      "label",
+      "list",
+      "listitem",
+      "nested-interactive"
+    ],
+    "wcag2aa": ["color-contrast"],
+    "wcag22aa": ["target-size"]
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "slug": "steppers",
+  "demo": "HorizontalNonLinearStepper",
+  "passedRules": [
+    "aria-allowed-attr",
+    "aria-conditional-attr",
+    "aria-deprecated-role",
+    "aria-hidden-focus",
+    "aria-prohibited-attr",
+    "aria-required-attr",
+    "aria-required-children",
+    "aria-required-parent",
+    "aria-roles",
+    "aria-valid-attr",
+    "aria-valid-attr-value",
+    "button-name",
+    "duplicate-id-aria",
+    "nested-interactive",
+    "target-size"
+  ],
+  "failedRules": ["color-contrast"],
+  "testedRules": {
+    "wcag2a": [
+      "aria-allowed-attr",
+      "aria-conditional-attr",
+      "aria-deprecated-role",
+      "aria-hidden-focus",
+      "aria-prohibited-attr",
+      "aria-required-attr",
+      "aria-required-children",
+      "aria-required-parent",
+      "aria-roles",
+      "aria-valid-attr-value",
+      "aria-valid-attr",
+      "button-name",
+      "duplicate-id-aria",
+      "nested-interactive"
+    ],
+    "wcag2aa": ["color-contrast"],
+    "wcag22aa": ["target-size"]
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "slug": "toggle-button",
+  "demo": "ToggleButtonSizes",
+  "passedRules": [
+    "aria-allowed-attr",
+    "aria-conditional-attr",
+    "aria-deprecated-role",
+    "aria-hidden-focus",
+    "aria-prohibited-attr",
+    "aria-required-attr",
+    "aria-roles",
+    "aria-valid-attr",
+    "aria-valid-attr-value",
+    "nested-interactive",
+    "target-size"
+  ],
+  "failedRules": ["button-name"],
+  "testedRules": {
+    "wcag2a": [
+      "aria-allowed-attr",
+      "aria-conditional-attr",
+      "aria-deprecated-role",
+      "aria-hidden-focus",
+      "aria-prohibited-attr",
+      "aria-required-attr",
+      "aria-roles",
+      "aria-valid-attr-value",
+      "aria-valid-attr",
+      "nested-interactive",
+      "button-name"
+    ],
+    "wcag22aa": ["target-size"]
+  }
+}
