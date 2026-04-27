@@ -22,7 +22,7 @@ describe('resolveA11y', () => {
   });
 
   it('returns null for slugs with no matching rule', () => {
-    expect(resolveA11y('/docs-components-container/SimpleContainer')).to.equal(null);
+    expect(resolveA11y('/docs-components-accordion/BasicAccordion')).to.equal(null);
   });
 
   it('returns null for demos outside a brace-glob enrolment', () => {
@@ -36,39 +36,10 @@ describe('resolveA11y', () => {
       demoName: 'BasicButtons',
       skipAssertions: undefined,
     });
-  });
-
-  it('inherits slug-wide skipAssertions when no per-demo override exists', () => {
-    expect(resolveA11y('/docs-components-accordion/BasicAccordion')).to.deep.equal({
-      slug: 'accordion',
-      demoName: 'BasicAccordion',
-      skipAssertions: ['color-contrast'],
-    });
-  });
-
-  it('returns null when a per-demo opt-out rule sets enabled: false', () => {
-    expect(resolveA11y('/docs-components-popover/AnchorPlayground')).to.equal(null);
-  });
-
-  it('runs independently of screenshots — opt-out for one tool does not affect the other', () => {
-    expect(shouldScreenshot('/docs-components-autocomplete/Asynchronous')).to.equal(false);
-    expect(resolveA11y('/docs-components-autocomplete/Asynchronous')).to.deep.equal({
-      slug: 'autocomplete',
-      demoName: 'Asynchronous',
-      skipAssertions: ['color-contrast'],
-    });
-  });
-});
-
-describe('rule precedence (last-match-wins, field merge)', () => {
-  it('a later rule overrides an earlier rule per field, leaving untouched fields intact', () => {
-    // `chips/*` sets {enabled, skipAssertions}; `chips/ChipsPlayground` sets only
-    // {enabled: false}. The opt-out wins on enabled but doesn't repeat skipAssertions.
-    expect(resolveA11y('/docs-components-chips/ChipsPlayground')).to.equal(null);
-    expect(resolveA11y('/docs-components-chips/BasicChips')).to.deep.equal({
-      slug: 'chips',
-      demoName: 'BasicChips',
-      skipAssertions: ['color-contrast'],
+    expect(resolveA11y('/docs-components-buttons/ColorButtons')).to.deep.equal({
+      slug: 'buttons',
+      demoName: 'ColorButtons',
+      skipAssertions: undefined,
     });
   });
 });

@@ -155,37 +155,29 @@ describe('Button', () => {
 
 ### Accessibility Testing
 
-Automated axe-core coverage runs inside the visual-regression Playwright loop in `test/regressions/index.test.js`. For each enrolled demo, `axe.run` runs on the rendered `[data-testid="testcase"]` element — no separate browser session is spun up. A11y can run independently of screenshots: a demo can be screenshot-excluded (flaky image, redundant) and still be audited by axe.
+axe-core runs inside the visual-regression Playwright loop (`test/regressions/index.test.js`) — no separate browser session. Screenshots and a11y are independent: a demo can opt out of one and still run the other.
 
-- `test/regressions/demoMeta.ts` — two independent rule arrays, `SCREENSHOT_RULES` and `A11Y_RULES`, evaluated last-match-wins with field-merge against the docs path `docs/data/material/components/{slug}/{Demo}` (minimatch globs). Keeping screenshot and a11y in separate arrays means editing one tool can't stomp the other. `shouldScreenshot(route)` and `resolveA11y(route)` are the resolvers the test runner uses.
-- `test/regressions/a11y/axe.ts` — `recordA11y` records per-demo results onto `ctx.task.meta.a11y` and asserts visual rules (`color-contrast`, `link-in-text-block`) unless listed in `skipAssertions`.
-- `test/regressions/a11y/a11yReporter.ts` — Vitest reporter (attached in `test/regressions/vitest.config.ts`) that writes one file per demo at `docs/data/material/a11y/{slug}-{Demo}.json`. Files are slug-prefixed to prevent collisions when two components share a demo name (e.g. `switches-FormControlLabelPosition.json` vs `checkboxes-FormControlLabelPosition.json`). Downstream docs consumers can lazy-import a single demo's file.
+Key files:
 
-Enroll a component: add a slug-wide rule to `A11Y_RULES`.
+- `test/regressions/demoMeta.ts` — `SCREENSHOT_RULES` and `A11Y_RULES` arrays, matched last-wins with field-merge against `docs/data/material/components/{slug}/{Demo}` (minimatch globs).
+- `test/regressions/a11y/axe.ts` — asserts `color-contrast` and `link-in-text-block` unless listed in `skipAssertions`.
+- `test/regressions/a11y/a11yReporter.ts` — writes one JSON per demo to `docs/data/material/a11y/{slug}-{Demo}.json`.
+
+Enroll a component (slug-wide, or narrow with brace-glob):
 
 ```ts
 // test/regressions/demoMeta.ts
-{ test: 'docs/data/material/components/alert/*',
-  enabled: true,
-  skipAssertions: ['color-contrast'] }, // optional: record known issues without failing CI
-```
-
-Narrow enrolment to specific demos with a brace-glob (used today for `buttons` and `cards`):
-
-```ts
+{ test: 'docs/data/material/components/alert/*', enabled: true, skipAssertions: ['color-contrast'] },
 { test: 'docs/data/material/components/buttons/{BasicButtons,ColorButtons}', enabled: true },
 ```
 
-Enrol an interaction-heavy slug (screenshots can't run but a11y can): un-negate the slug in `index.jsx`, add the a11y rule above, and add a `SCREENSHOT_RULES` opt-out per demo. Screenshots and a11y are independent — a demo with screenshot off still runs axe.
-
-Override a specific demo in an otherwise-enrolled slug — append a per-demo opt-out _after_ the slug-wide rule (last-match-wins). Field merge means you only repeat what changes:
+Override a specific demo: append a per-demo rule _after_ the slug-wide rule (last-match-wins, field-merge):
 
 ```ts
-// keeps the slug-wide skipAssertions; only flips enabled to false for this demo.
 { test: 'docs/data/material/components/popover/AnchorPlayground', enabled: false }, // Redux isolation
 ```
 
-Then run `pnpm test:regressions` to refresh `docs/data/material/a11y/`. CI enforces the directory is up to date via a git-diff check.
+Run `pnpm test:regressions` to refresh `docs/data/material/a11y/`. CI fails if the directory is stale.
 
 ### Imports
 
