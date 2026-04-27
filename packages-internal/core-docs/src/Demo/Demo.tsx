@@ -379,6 +379,11 @@ export interface DemoProps {
     tsxCSS?: React.ComponentType | null;
     gaLabel?: string;
     relativeModules?: Record<string, Array<{ module: string; raw: string }>>;
+    /**
+     * Accessibility audit results for this demo. When provided, the toolbar
+     * surfaces a passed/failed pill that opens a per-rule breakdown.
+     */
+    a11y?: import('./DemoA11yButton').DemoA11yResult;
   };
   demoOptions: {
     demo: string;

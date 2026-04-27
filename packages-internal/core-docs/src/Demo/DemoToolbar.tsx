@@ -21,6 +21,7 @@ import { CODE_VARIANTS, stylingSolutionMapping } from '../constants';
 import { useSetCodeVariant } from '../codeVariant';
 import { useTranslate } from '../i18n';
 import { OpenInMUIChatButton } from './OpenInMUIChatButton';
+import { DemoA11yButton } from './DemoA11yButton';
 import { useDemoContext } from '../DemoContext';
 import * as codeSandbox from './sandbox/CodeSandbox';
 import * as stackBlitz from './sandbox/StackBlitz';
@@ -353,12 +354,14 @@ export function DemoToolbar(props: DemoToolbarProps) {
     React.useRef<HTMLButtonElement>(null),
     React.useRef<HTMLButtonElement>(null),
     React.useRef<HTMLButtonElement>(null),
+    React.useRef<HTMLButtonElement>(null),
   ];
   // if the code is not open we hide the language controls
   const isFocusableControl = React.useCallback(
     (index: number) => (codeOpen ? true : index !== 1 && index !== 2),
     [codeOpen],
   );
+
   const { getControlProps, toolbarProps } = useToolbar(controlRefs, {
     defaultActiveIndex: 0,
     isFocusableControl,
@@ -487,6 +490,7 @@ export function DemoToolbar(props: DemoToolbarProps) {
           >
             {showCodeLabel}
           </Button>
+          {demo.a11y ? <DemoA11yButton data={demo.a11y} {...getControlProps(4)} /> : null}
           {demoOptions.hideEditButton ? null : (
             <React.Fragment>
               <DemoTooltip title={t('stackblitz')} placement="bottom">
@@ -499,7 +503,7 @@ export function DemoToolbar(props: DemoToolbarProps) {
                       .createReactApp(demoData as unknown as SandboxDemoData, csb)
                       .openSandbox()
                   }
-                  {...getControlProps(4)}
+                  {...getControlProps(5)}
                   sx={{ borderRadius: 1 }}
                 >
                   <SvgIcon viewBox="0 0 19 28">
@@ -517,7 +521,7 @@ export function DemoToolbar(props: DemoToolbarProps) {
                       .createReactApp(demoData as unknown as SandboxDemoData, csb)
                       .openSandbox()
                   }
-                  {...getControlProps(5)}
+                  {...getControlProps(6)}
                   sx={{ borderRadius: 1 }}
                 >
                   <SvgIcon viewBox="0 0 1024 1024">
@@ -533,7 +537,7 @@ export function DemoToolbar(props: DemoToolbarProps) {
               data-ga-event-label={demo.gaLabel}
               data-ga-event-action="copy"
               onClick={copyButtonOnClick}
-              {...getControlProps(6)}
+              {...getControlProps(7)}
               sx={{ borderRadius: 1 }}
             >
               {copyIcon}
@@ -545,7 +549,7 @@ export function DemoToolbar(props: DemoToolbarProps) {
               data-ga-event-label={demo.gaLabel}
               data-ga-event-action="reset-focus"
               onClick={handleResetFocusClick}
-              {...getControlProps(7)}
+              {...getControlProps(8)}
               sx={{ borderRadius: 1 }}
             >
               <ResetFocusIcon />
@@ -558,7 +562,7 @@ export function DemoToolbar(props: DemoToolbarProps) {
               data-ga-event-label={demo.gaLabel}
               data-ga-event-action="reset"
               onClick={onResetDemoClick}
-              {...getControlProps(8)}
+              {...getControlProps(9)}
               sx={{ borderRadius: 1 }}
             >
               <RefreshRoundedIcon />
@@ -569,7 +573,7 @@ export function DemoToolbar(props: DemoToolbarProps) {
             aria-label={t('seeMore')}
             aria-owns={anchorEl ? 'demo-menu-more' : undefined}
             aria-haspopup="true"
-            {...getControlProps(9)}
+            {...getControlProps(10)}
             sx={{ borderRadius: 1 }}
           >
             <MoreVertIcon />

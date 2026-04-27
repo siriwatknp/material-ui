@@ -4,6 +4,30 @@ import { HighlightedCodeWithTabs } from '../HighlightedCodeWithTabs';
 import { MarkdownElement } from './MarkdownElement';
 import { Demo, type DemoProps } from '../Demo/Demo';
 import { DemoToolbar } from '../Demo/DemoToolbar';
+import type { DemoA11yResult } from '../Demo/DemoA11yButton';
+
+type DemoA11yEntry = Omit<DemoA11yResult, 'slug' | 'demo'>;
+type SlugA11yFile = Record<string, DemoA11yEntry>;
+
+declare const require: {
+  context(
+    path: string,
+    deep?: boolean,
+    filter?: RegExp,
+  ): {
+    keys(): string[];
+    (id: string): SlugA11yFile;
+  };
+};
+
+// Eager: every {slug}/{slug}.a11y.json under components/ is inlined into the
+// importing chunk. Synchronous lookup, no chunking, ~1KB per enrolled slug.
+const a11yContext = require.context('docs/data/material/components', true, /\.a11y\.json$/);
+
+function loadSlugA11y(slug: string): SlugA11yFile | undefined {
+  const key = `./${slug}/${slug}.a11y.json`;
+  return a11yContext.keys().includes(key) ? a11yContext(key) : undefined;
+}
 
 function noComponent(moduleID: string) {
   return function NoComponent() {
@@ -109,6 +133,14 @@ export function RichMarkdownElement(props: RichMarkdownElementProps) {
   splitLocationBySlash.pop();
   const fileNameWithLocation = `${splitLocationBySlash.join('/')}/${name}`;
 
+  const slugMatch = localizedDoc.location.match(/\/components\/([^/]+)\//);
+  const slug = slugMatch ? slugMatch[1] : undefined;
+  const demoName = name.replace(/\.\w+$/, '');
+  const slugFile = slug ? loadSlugA11y(slug) : undefined;
+  const entry = slugFile?.[demoName];
+  const a11y: DemoA11yResult | undefined =
+    entry && slug ? { slug, demo: demoName, ...entry } : undefined;
+
   return (
     <Demo
       demo={{
@@ -132,6 +164,7 @@ export function RichMarkdownElement(props: RichMarkdownElementProps) {
         tsxCSS: demoComponents[demo.moduleTSCSS] ?? null,
         gaLabel: fileNameWithLocation.replace(/^\/docs\/data\//, ''),
         relativeModules: demo.relativeModules,
+        a11y,
       }}
       disableAd={disableAd ?? false}
       demoOptions={renderedMarkdownOrDemo as DemoProps['demoOptions']}
