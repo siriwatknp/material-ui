@@ -179,6 +179,20 @@ Override a specific demo: append a per-demo rule _after_ the slug-wide rule (las
 
 Run `pnpm test:regressions` to refresh `docs/data/material/a11y/`. CI fails if the directory is stale.
 
+For local iteration, scope the run with vitest's `-t` test-name filter (matched against the `it()` strings, which contain the route). Non-matching tests are skipped — their bodies don't execute, so the browser never navigates to those routes.
+
+```bash
+# in one terminal
+pnpm test:regressions:server
+
+# in another — note no `--`, pnpm forwards args directly
+pnpm test:regressions:run -t '/docs-components-buttons/'              # one slug
+pnpm test:regressions:run -t '/docs-components-buttons/BasicButtons$' # one demo
+pnpm test:regressions:run -t '/docs-components-(buttons|chips)/'      # multiple slugs
+```
+
+Filtered runs only refresh the matched demos' JSON. Run the unfiltered `pnpm test:regressions` before pushing.
+
 ### Imports
 
 Use one-level deep imports to avoid bundling entire packages:
