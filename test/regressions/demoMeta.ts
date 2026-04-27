@@ -127,10 +127,10 @@ function getConfig<T extends { test: string }>(
   return merged as Partial<Omit<T, 'test'>>;
 }
 
-const ROUTE_RE = /^\/docs-components-([^/]+)\/(.+)$/;
+const ROUTE_REGEX = /^\/docs-components-([^/]+)\/(.+)$/;
 
 function parseRoute(route: string): { path: string; slug: string; demo: string } | null {
-  const match = route.match(ROUTE_RE);
+  const match = route.match(ROUTE_REGEX);
   if (!match) {
     return null;
   }
