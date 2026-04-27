@@ -10,7 +10,7 @@ export const WCAG_TAGS = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'
 export const GLOBAL_DISABLED_RULES = ['region', 'page-has-heading-one'];
 
 export interface A11yMeta {
-  component: string;
+  slug: string;
   demo: string;
   collectedRules: string[];
   testedRules: Record<string, string[]>;
@@ -49,7 +49,7 @@ function formatResults(results: AxeResults['violations']) {
 }
 
 interface RecordA11yOptions {
-  component: string;
+  slug: string;
   demo: string;
   /**
    * Rule ids whose violations are recorded but not asserted on. The rule
@@ -63,14 +63,13 @@ interface RecordA11yOptions {
  * Node-side recorder for axe results produced inside a Playwright page.
  *
  * Extracts a structured summary onto `ctx.task.meta.a11y` (the reporter
- * aggregates these into the per-component results JSON), then asserts on
- * visual rules (`color-contrast`, `link-in-text-block`) unless listed in
- * `skipAssertions`.
+ * writes one file per demo), then asserts on visual rules (`color-contrast`,
+ * `link-in-text-block`) unless listed in `skipAssertions`.
  */
 export function recordA11y(
   ctx: TestContext,
   results: AxeResults,
-  { component, demo, skipAssertions = [] }: RecordA11yOptions,
+  { slug, demo, skipAssertions = [] }: RecordA11yOptions,
 ): void {
   const collectedRules = new Set<string>();
   const testedRules = new Map<string, Set<string>>();
@@ -91,7 +90,7 @@ export function recordA11y(
   const violations = [...new Set([...results.violations, ...results.incomplete].map((v) => v.id))];
 
   const meta: A11yMeta = {
-    component,
+    slug,
     demo,
     collectedRules: [...collectedRules],
     testedRules: Object.fromEntries(
@@ -111,12 +110,12 @@ export function recordA11y(
 
   if (visualViolations.length > 0) {
     expect.fail(
-      `[${component}/${demo}] ${visualViolations.length} axe violation(s):\n\n${formatResults(visualViolations)}`,
+      `[${slug}/${demo}] ${visualViolations.length} axe violation(s):\n\n${formatResults(visualViolations)}`,
     );
   }
   if (visualIncomplete.length > 0) {
     expect.fail(
-      `[${component}/${demo}] ${visualIncomplete.length} axe incomplete (needs review):\n\n${formatResults(visualIncomplete)}`,
+      `[${slug}/${demo}] ${visualIncomplete.length} axe incomplete (needs review):\n\n${formatResults(visualIncomplete)}`,
     );
   }
 }

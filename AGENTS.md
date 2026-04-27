@@ -157,30 +157,32 @@ describe('Button', () => {
 
 Automated axe-core coverage runs inside the visual-regression Playwright loop in `test/regressions/index.test.js`. For each enrolled demo, `axe.run` runs on the rendered `[data-testid="testcase"]` element — no separate browser session is spun up. A11y can run independently of screenshots: a demo can be screenshot-excluded (flaky image, redundant) and still be audited by axe.
 
-- `test/regressions/demoMeta.ts` — single source of truth for per-tool enrollment. `SLUG_A11Y` maps a docs slug to its a11y config (component name, default `skipAssertions`, optional `demos` filter). `DEMO_META` holds per-tool screenshot/a11y overrides keyed by docs path — a demo-level key (`.../slug/DemoName`) targets one demo; a slug-level key (`.../slug`) applies to every demo in the slug, with demo-level entries winning when both exist. `shouldScreenshot(route)` and `resolveA11y(route)` are the resolvers the test runner uses.
+- `test/regressions/demoMeta.ts` — two independent rule arrays, `SCREENSHOT_RULES` and `A11Y_RULES`, evaluated last-match-wins with field-merge against the docs path `docs/data/material/components/{slug}/{Demo}` (minimatch globs). Keeping screenshot and a11y in separate arrays means editing one tool can't stomp the other. `shouldScreenshot(route)` and `resolveA11y(route)` are the resolvers the test runner uses.
 - `test/regressions/a11y/axe.ts` — `recordA11y` records per-demo results onto `ctx.task.meta.a11y` and asserts visual rules (`color-contrast`, `link-in-text-block`) unless listed in `skipAssertions`.
-- `test/regressions/a11y/a11yReporter.ts` — Vitest reporter (attached in `test/regressions/vitest.config.ts`) that aggregates `task.meta.a11y` into one JSON per component at `docs/data/material/a11y/{Component}.json` (per-component aggregates + per-demo breakdown). One file per component so downstream docs consumers can import only what they need.
+- `test/regressions/a11y/a11yReporter.ts` — Vitest reporter (attached in `test/regressions/vitest.config.ts`) that writes one file per demo at `docs/data/material/a11y/{slug}-{Demo}.json`. Files are slug-prefixed to prevent collisions when two components share a demo name (e.g. `switches-FormControlLabelPosition.json` vs `checkboxes-FormControlLabelPosition.json`). Downstream docs consumers can lazy-import a single demo's file.
 
-Enroll a component: add an entry to `SLUG_A11Y` in `demoMeta.ts`.
+Enroll a component: add a slug-wide rule to `A11Y_RULES`.
 
 ```ts
 // test/regressions/demoMeta.ts
-SLUG_A11Y.set('alert', {
-  component: 'Alert',
-  demos: ['BasicAlerts', 'ColorAlerts'], // optional: defaults to every VRT demo in the slug
-  skipAssertions: ['color-contrast'], // optional: record known issues without failing CI
-});
+{ test: 'docs/data/material/components/alert/*',
+  enabled: true,
+  skipAssertions: ['color-contrast'] }, // optional: record known issues without failing CI
 ```
 
-Enrol an interaction-heavy slug (screenshots can't run but a11y can): un-negate it in `index.jsx`, add it to `SLUG_A11Y`, and add a slug-level `noShot` entry in `DEMO_META` (key = `docs/data/material/components/{slug}`). Three lines, no per-demo enumeration.
-
-Override a specific demo in an otherwise-enrolled slug — use `DEMO_META` (e.g. "Redux isolation" can't render at all):
+Narrow enrolment to specific demos with a brace-glob (used today for `buttons` and `cards`):
 
 ```ts
-DEMO_META.set('docs/data/material/components/popover/AnchorPlayground', {
-  screenshot: { enabled: false },
-  a11y: { enabled: false },
-});
+{ test: 'docs/data/material/components/buttons/{BasicButtons,ColorButtons}', enabled: true },
+```
+
+Enrol an interaction-heavy slug (screenshots can't run but a11y can): un-negate the slug in `index.jsx`, add the a11y rule above, and add a `SCREENSHOT_RULES` opt-out per demo. Screenshots and a11y are independent — a demo with screenshot off still runs axe.
+
+Override a specific demo in an otherwise-enrolled slug — append a per-demo opt-out _after_ the slug-wide rule (last-match-wins). Field merge means you only repeat what changes:
+
+```ts
+// keeps the slug-wide skipAssertions; only flips enabled to false for this demo.
+{ test: 'docs/data/material/components/popover/AnchorPlayground', enabled: false }, // Redux isolation
 ```
 
 Then run `pnpm test:regressions` to refresh `docs/data/material/a11y/`. CI enforces the directory is up to date via a git-diff check.

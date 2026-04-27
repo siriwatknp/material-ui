@@ -6,20 +6,12 @@ import type { A11yMeta } from './axe';
 
 const OUT_DIR = path.resolve(__dirname, '../../../docs/data/material/a11y');
 
-interface DemoResult {
+interface DemoFile {
+  slug: string;
+  demo: string;
   passedRules: string[];
   failedRules: string[];
   testedRules: Record<string, string[]>;
-}
-
-interface ComponentResult {
-  passed: number;
-  failed: number;
-  total: number;
-  passedRules: string[];
-  failedRules: Record<string, string[]>;
-  testedRules: Record<string, string[]>;
-  demos: Record<string, DemoResult>;
 }
 
 function* walkTests(node: TestModule | TestSuite): Generator<TestCase, undefined, void> {
@@ -32,91 +24,57 @@ function* walkTests(node: TestModule | TestSuite): Generator<TestCase, undefined
   }
 }
 
-function aggregate(entries: A11yMeta[]): ComponentResult {
-  const collected = new Set<string>();
-  const tested: Record<string, Set<string>> = {};
-  const failed = new Map<string, string[]>();
-  const demos: Record<string, DemoResult> = {};
-
-  for (const entry of entries) {
-    for (const rule of entry.collectedRules) {
-      collected.add(rule);
-    }
-    for (const [tag, ids] of Object.entries(entry.testedRules)) {
-      if (!tested[tag]) {
-        tested[tag] = new Set();
-      }
-      for (const id of ids) {
-        tested[tag].add(id);
-      }
-    }
-    for (const rule of entry.violations) {
-      const list = failed.get(rule) ?? [];
-      list.push(entry.demo);
-      failed.set(rule, list);
-    }
-
-    const violationSet = new Set(entry.violations);
-    demos[entry.demo] = {
-      passedRules: entry.collectedRules.filter((r) => !violationSet.has(r)).sort(),
-      failedRules: [...entry.violations].sort(),
-      testedRules: entry.testedRules,
-    };
-  }
-
-  const failedIds = new Set(failed.keys());
-  const passedRules = [...collected].filter((r) => !failedIds.has(r)).sort();
-
+function toFile(meta: A11yMeta): DemoFile {
+  const violations = new Set(meta.violations);
   return {
-    passed: passedRules.length,
-    failed: failedIds.size,
-    total: collected.size,
-    passedRules,
-    failedRules: Object.fromEntries(failed),
-    testedRules: Object.fromEntries(Object.entries(tested).map(([tag, ids]) => [tag, [...ids]])),
-    demos,
+    slug: meta.slug,
+    demo: meta.demo,
+    passedRules: meta.collectedRules.filter((r) => !violations.has(r)).sort(),
+    failedRules: [...meta.violations].sort(),
+    testedRules: meta.testedRules,
   };
 }
 
 export default class A11yReporter implements Reporter {
   onTestRunEnd(testModules: ReadonlyArray<TestModule>) {
-    const byComponent = new Map<string, A11yMeta[]>();
+    const entries: A11yMeta[] = [];
     for (const mod of testModules) {
       for (const test of walkTests(mod)) {
         const meta = (test.meta() as { a11y?: A11yMeta }).a11y;
         if (meta) {
-          const list = byComponent.get(meta.component) ?? [];
-          list.push(meta);
-          byComponent.set(meta.component, list);
+          entries.push(meta);
         }
       }
     }
 
-    if (byComponent.size === 0) {
+    if (entries.length === 0) {
       return;
     }
 
     fs.mkdirSync(OUT_DIR, { recursive: true });
 
-    const names = [...byComponent.keys()].sort();
-    const results: Record<string, ComponentResult> = {};
-    for (const component of names) {
-      const result = aggregate(byComponent.get(component)!);
-      results[component] = result;
+    for (const meta of entries) {
       fs.writeFileSync(
-        path.join(OUT_DIR, `${component}.json`),
-        `${JSON.stringify(result, null, 2)}\n`,
+        path.join(OUT_DIR, `${meta.slug}-${meta.demo}.json`),
+        `${JSON.stringify(toFile(meta), null, 2)}\n`,
       );
     }
 
-    const pass = names.filter((n) => results[n].failed === 0);
-    const partial = names.filter((n) => results[n].failed > 0);
+    const bySlug = new Map<string, A11yMeta[]>();
+    for (const meta of entries) {
+      const list = bySlug.get(meta.slug) ?? [];
+      list.push(meta);
+      bySlug.set(meta.slug, list);
+    }
+    const slugs = [...bySlug.keys()].sort();
+    const pass = slugs.filter((s) => bySlug.get(s)!.every((m) => m.violations.length === 0));
+    const partial = slugs.filter((s) => bySlug.get(s)!.some((m) => m.violations.length > 0));
     // eslint-disable-next-line no-console
     console.log(
       [
         '',
         chalk.bold(
-          `a11y results (${names.length} components) -> ${path.relative(process.cwd(), OUT_DIR)}/`,
+          `a11y results (${entries.length} demos, ${slugs.length} slugs) -> ${path.relative(process.cwd(), OUT_DIR)}/`,
         ),
         '',
         `  ✅ Pass (${pass.length}):     ${pass.join(', ') || '—'}`,

@@ -155,7 +155,7 @@ async function main() {
             { element: testcase, disabledRules: GLOBAL_DISABLED_RULES, tags: WCAG_TAGS },
           );
           recordA11y(ctx, results, {
-            component: a11y.component,
+            slug: a11y.slug,
             demo: a11y.demoName,
             skipAssertions: a11y.skipAssertions,
           });

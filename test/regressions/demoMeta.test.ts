@@ -1,43 +1,18 @@
-import { afterEach, describe, it } from 'vitest';
+import { describe, it } from 'vitest';
 import { expect } from 'chai';
-import { DEMO_META, SLUG_A11Y, resolveA11y, shouldScreenshot } from './demoMeta';
-import type { SlugA11y } from './demoMeta';
+import { A11Y_RULES, SCREENSHOT_RULES, resolveA11y, shouldScreenshot } from './demoMeta';
 
 describe('shouldScreenshot', () => {
   it('returns true for non-component routes (regression fixtures)', () => {
     expect(shouldScreenshot('/regression-Autocomplete/Virtualize')).to.equal(true);
   });
 
-  it('returns true by default for enrolled demos with no DEMO_META entry', () => {
+  it('returns true by default for demos with no matching rule', () => {
     expect(shouldScreenshot('/docs-components-accordion/BasicAccordion')).to.equal(true);
   });
 
-  it('honours a demo-level screenshot.enabled=false override', () => {
-    // autocomplete/Asynchronous is a `noShot` entry (Redundant screenshot).
+  it('honours an opt-out rule', () => {
     expect(shouldScreenshot('/docs-components-autocomplete/Asynchronous')).to.equal(false);
-  });
-
-  describe('slug-level screenshot override', () => {
-    const slugKey = 'docs/data/material/components/dialogs';
-    const demoKey = 'docs/data/material/components/dialogs/FormDialog';
-
-    afterEach(() => {
-      DEMO_META.delete(slugKey);
-      DEMO_META.delete(demoKey);
-    });
-
-    it('applies to every demo in the slug', () => {
-      DEMO_META.set(slugKey, { screenshot: { enabled: false } });
-      expect(shouldScreenshot('/docs-components-dialogs/AlertDialog')).to.equal(false);
-      expect(shouldScreenshot('/docs-components-dialogs/FormDialog')).to.equal(false);
-    });
-
-    it('is overridden by a demo-level entry when both exist', () => {
-      DEMO_META.set(slugKey, { screenshot: { enabled: false } });
-      DEMO_META.set(demoKey, { screenshot: { enabled: true } });
-      expect(shouldScreenshot('/docs-components-dialogs/AlertDialog')).to.equal(false);
-      expect(shouldScreenshot('/docs-components-dialogs/FormDialog')).to.equal(true);
-    });
   });
 });
 
@@ -46,97 +21,61 @@ describe('resolveA11y', () => {
     expect(resolveA11y('/regression-Rating/FocusVisibleRating')).to.equal(null);
   });
 
-  it('returns null for slugs absent from SLUG_A11Y', () => {
-    // `container` is glob-negated and not a11y-enrolled; absence is the same
-    // runtime signal we'd see if the route weren't in the bundle.
+  it('returns null for slugs with no matching rule', () => {
     expect(resolveA11y('/docs-components-container/SimpleContainer')).to.equal(null);
   });
 
-  it('returns null for demos not in the slug `demos` filter', () => {
-    // `buttons` enrolment is narrowed to ['BasicButtons', 'ColorButtons'].
+  it('returns null for demos outside a brace-glob enrolment', () => {
+    // `buttons` enrols only {BasicButtons,ColorButtons}.
     expect(resolveA11y('/docs-components-buttons/DisabledButtons')).to.equal(null);
   });
 
-  it('returns a config for demos inside a narrowed slug enrolment', () => {
+  it('returns config for a brace-glob enrolment', () => {
     expect(resolveA11y('/docs-components-buttons/BasicButtons')).to.deep.equal({
-      component: 'Button',
+      slug: 'buttons',
       demoName: 'BasicButtons',
       skipAssertions: undefined,
     });
   });
 
-  it('inherits slug-level skipAssertions when the demo has no override', () => {
+  it('inherits slug-wide skipAssertions when no per-demo override exists', () => {
     expect(resolveA11y('/docs-components-accordion/BasicAccordion')).to.deep.equal({
-      component: 'Accordion',
+      slug: 'accordion',
       demoName: 'BasicAccordion',
       skipAssertions: ['color-contrast'],
     });
   });
 
-  it('returns null when DEMO_META disables a11y per-demo (noTools)', () => {
-    // popover is enrolled; AnchorPlayground is noTools (Redux isolation).
+  it('returns null when a per-demo opt-out rule sets enabled: false', () => {
     expect(resolveA11y('/docs-components-popover/AnchorPlayground')).to.equal(null);
   });
 
-  it('runs independently of screenshots (separation of exclusions)', () => {
-    // The core migration promise: screenshot off does not drop a11y coverage.
+  it('runs independently of screenshots — opt-out for one tool does not affect the other', () => {
     expect(shouldScreenshot('/docs-components-autocomplete/Asynchronous')).to.equal(false);
     expect(resolveA11y('/docs-components-autocomplete/Asynchronous')).to.deep.equal({
-      component: 'Autocomplete',
+      slug: 'autocomplete',
       demoName: 'Asynchronous',
       skipAssertions: ['color-contrast'],
     });
   });
 });
 
-describe('future workflow: enabling a11y for `dialogs` (screenshot-off slug)', () => {
-  // Simulates the 3-line change documented in AGENTS.md:
-  //   1. Un-negate the slug in `index.jsx`        (out of this test's scope)
-  //   2. Add the slug to SLUG_A11Y
-  //   3. Add a slug-level `noShot` entry to DEMO_META
-  const slugKey = 'docs/data/material/components/dialogs';
-  const customKey = 'docs/data/material/components/dialogs/CustomizedDialogs';
-  const original: SlugA11y | undefined = SLUG_A11Y.get('dialogs');
-
-  afterEach(() => {
-    DEMO_META.delete(slugKey);
-    DEMO_META.delete(customKey);
-    if (original) {
-      SLUG_A11Y.set('dialogs', original);
-    } else {
-      SLUG_A11Y.delete('dialogs');
-    }
-  });
-
-  it('enables a11y on every dialog demo while every screenshot stays off', () => {
-    SLUG_A11Y.set('dialogs', { component: 'Dialog', skipAssertions: ['color-contrast'] });
-    DEMO_META.set(slugKey, { screenshot: { enabled: false } });
-
-    expect(shouldScreenshot('/docs-components-dialogs/AlertDialog')).to.equal(false);
-    expect(shouldScreenshot('/docs-components-dialogs/ScrollDialog')).to.equal(false);
-
-    expect(resolveA11y('/docs-components-dialogs/AlertDialog')).to.deep.equal({
-      component: 'Dialog',
-      demoName: 'AlertDialog',
-      skipAssertions: ['color-contrast'],
-    });
-    expect(resolveA11y('/docs-components-dialogs/ScrollDialog')).to.deep.equal({
-      component: 'Dialog',
-      demoName: 'ScrollDialog',
+describe('rule precedence (last-match-wins, field merge)', () => {
+  it('a later rule overrides an earlier rule per field, leaving untouched fields intact', () => {
+    // `chips/*` sets {enabled, skipAssertions}; `chips/ChipsPlayground` sets only
+    // {enabled: false}. The opt-out wins on enabled but doesn't repeat skipAssertions.
+    expect(resolveA11y('/docs-components-chips/ChipsPlayground')).to.equal(null);
+    expect(resolveA11y('/docs-components-chips/BasicChips')).to.deep.equal({
+      slug: 'chips',
+      demoName: 'BasicChips',
       skipAssertions: ['color-contrast'],
     });
   });
+});
 
-  it('supports per-demo a11y exceptions inside the enrolled slug', () => {
-    SLUG_A11Y.set('dialogs', { component: 'Dialog', skipAssertions: ['color-contrast'] });
-    DEMO_META.set(slugKey, { screenshot: { enabled: false } });
-    // Hypothetical: one dialog demo can't render standalone, skip a11y too.
-    DEMO_META.set(customKey, {
-      screenshot: { enabled: false },
-      a11y: { enabled: false },
-    });
-
-    expect(resolveA11y('/docs-components-dialogs/CustomizedDialogs')).to.equal(null);
-    expect(resolveA11y('/docs-components-dialogs/AlertDialog')).to.not.equal(null);
+describe('rule data sanity', () => {
+  it('rule arrays are non-empty (catches accidental import regression)', () => {
+    expect(SCREENSHOT_RULES.length).to.be.greaterThan(0);
+    expect(A11Y_RULES.length).to.be.greaterThan(0);
   });
 });
