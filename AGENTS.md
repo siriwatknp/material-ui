@@ -159,7 +159,7 @@ axe-core runs inside the visual-regression Playwright loop (`test/regressions/in
 
 Key files:
 
-- `test/regressions/demoMeta.ts` — `SCREENSHOT_RULES` and `A11Y_RULES` arrays, matched last-wins with field-merge against `docs/data/material/components/{slug}/{Demo}` (minimatch globs).
+- `test/regressions/demoMeta.ts` — `SCREENSHOT_RULES` and `A11Y_RULES` arrays, matched last-wins (no inheritance: overrides restate every field) against `docs/data/material/components/{slug}/{Demo}` (minimatch globs).
 - `test/regressions/a11y/axe.ts` — asserts `color-contrast` and `link-in-text-block` unless listed in `skipAssertions`.
 - `test/regressions/a11y/a11yReporter.ts` — writes one file per slug at `docs/data/material/components/{slug}/{slug}.a11y.json`, an object keyed by demo name.
 
@@ -171,7 +171,7 @@ Enroll a component (slug-wide, or narrow with brace-glob):
 { test: 'docs/data/material/components/buttons/{BasicButtons,ColorButtons}', enabled: true },
 ```
 
-Override a specific demo: append a per-demo rule _after_ the slug-wide rule (last-match-wins, field-merge):
+Override a specific demo: append a per-demo rule _after_ the slug-wide rule (last-match-wins; the override must restate every field it wants):
 
 ```ts
 { test: 'docs/data/material/components/popover/AnchorPlayground', enabled: false }, // Redux isolation

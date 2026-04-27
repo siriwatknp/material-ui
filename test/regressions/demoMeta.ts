@@ -1,8 +1,8 @@
 /**
  * Per-tool VRT configuration as two independent rule arrays — one for
  * screenshots, one for axe — so editing one tool can never stomp on the
- * other. Each list is evaluated last-match-wins, merging fields from every
- * matching rule, against the docs path
+ * other. Each list is evaluated last-match-wins (no inheritance: an override
+ * rule must restate every field it cares about) against the docs path
  * `docs/data/material/components/{slug}/{Demo}`.
  *
  * Whole-slug exclusions where *no* tool wants anything live in the
@@ -107,24 +107,20 @@ export const A11Y_RULES: A11yRule[] = [
 ];
 
 /**
- * Walk a rule list, merging fields from every matching rule (last write wins
- * per field). Returns the merged config minus the `test` key.
+ * Walk a rule list back-to-front, return the last matching rule (or undefined).
+ * Rules don't inherit from each other — every override must restate any field
+ * it cares about.
  */
 function getConfig<T extends { test: string }>(
   rules: ReadonlyArray<T>,
   pathStr: string,
-): Partial<Omit<T, 'test'>> {
-  const merged: Record<string, unknown> = {};
-  for (const rule of rules) {
-    if (minimatch(pathStr, rule.test)) {
-      for (const [key, value] of Object.entries(rule)) {
-        if (key !== 'test' && value !== undefined) {
-          merged[key] = value;
-        }
-      }
+): T | undefined {
+  for (let i = rules.length - 1; i >= 0; i -= 1) {
+    if (minimatch(pathStr, rules[i].test)) {
+      return rules[i];
     }
   }
-  return merged as Partial<Omit<T, 'test'>>;
+  return undefined;
 }
 
 const ROUTE_REGEX = /^\/docs-components-([^/]+)\/(.+)$/;
@@ -147,8 +143,7 @@ export function shouldScreenshot(route: string): boolean {
   if (!parsed) {
     return true;
   }
-  const config = getConfig(SCREENSHOT_RULES, parsed.path);
-  return config.enabled ?? true;
+  return getConfig(SCREENSHOT_RULES, parsed.path)?.enabled ?? true;
 }
 
 /**
@@ -165,7 +160,7 @@ export function resolveA11y(route: string): {
     return null;
   }
   const config = getConfig(A11Y_RULES, parsed.path);
-  if (config.enabled !== true) {
+  if (config?.enabled !== true) {
     return null;
   }
   return {
