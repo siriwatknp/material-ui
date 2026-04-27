@@ -161,7 +161,7 @@ Key files:
 
 - `test/regressions/demoMeta.ts` — `SCREENSHOT_RULES` and `A11Y_RULES` arrays, matched last-wins with field-merge against `docs/data/material/components/{slug}/{Demo}` (minimatch globs).
 - `test/regressions/a11y/axe.ts` — asserts `color-contrast` and `link-in-text-block` unless listed in `skipAssertions`.
-- `test/regressions/a11y/a11yReporter.ts` — writes one JSON per demo to `docs/data/material/a11y/{slug}-{Demo}.json`.
+- `test/regressions/a11y/a11yReporter.ts` — writes one file per slug at `docs/data/material/components/{slug}/{slug}.a11y.json`, an object keyed by demo name.
 
 Enroll a component (slug-wide, or narrow with brace-glob):
 
@@ -177,7 +177,7 @@ Override a specific demo: append a per-demo rule _after_ the slug-wide rule (las
 { test: 'docs/data/material/components/popover/AnchorPlayground', enabled: false }, // Redux isolation
 ```
 
-Run `pnpm test:regressions` to refresh `docs/data/material/a11y/`. CI fails if the directory is stale.
+Run `pnpm test:regressions` to refresh the `*.a11y.json` files. CI fails if any are stale.
 
 For local iteration, scope the run with vitest's `-t` test-name filter (matched against the `it()` strings, which contain the route). Non-matching tests are skipped — their bodies don't execute, so the browser never navigates to those routes.
 
@@ -191,7 +191,7 @@ pnpm test:regressions:run -t '/docs-components-buttons/BasicButtons$' # one demo
 pnpm test:regressions:run -t '/docs-components-(buttons|chips)/'      # multiple slugs
 ```
 
-Filtered runs only refresh the matched demos' JSON. Run the unfiltered `pnpm test:regressions` before pushing.
+Filtered runs only refresh the matched slugs' `*.a11y.json`. Run the unfiltered `pnpm test:regressions` before pushing.
 
 ### Imports
 
