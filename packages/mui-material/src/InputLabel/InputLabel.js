@@ -147,7 +147,7 @@ const InputLabelRoot = styled(FormLabel, {
           pointerEvents: 'none',
           // Resting Y is a generic seam; the sibling input owns its value (see
           // OutlinedInput's `:has` rule). Default is today's literal.
-          transform: 'translate(14px, var(--InputLabel-y, 16px)) scale(1)',
+          transform: 'translate(14px, var(--comp-labelY, 16px)) scale(1)',
           maxWidth: 'calc(100% - 24px)',
         },
       },
@@ -157,7 +157,7 @@ const InputLabelRoot = styled(FormLabel, {
           size: 'small',
         },
         style: {
-          transform: 'translate(14px, var(--InputLabel-y, 9px)) scale(1)',
+          transform: 'translate(14px, var(--comp-labelY, 9px)) scale(1)',
         },
       },
       {
