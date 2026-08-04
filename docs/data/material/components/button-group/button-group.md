@@ -25,6 +25,12 @@ All the standard button variants are supported.
 
 {{"demo": "VariantButtonGroup.js"}}
 
+## Icon buttons
+
+`IconButton` children are supported—they inherit the group's `variant`, `color`, and `size`, and are styled like a `Button`.
+
+{{"demo": "IconButtonGroup.js"}}
+
 ## Sizes and colors
 
 The `size` and `color` props can be used to control the appearance of the button group.

@@ -9,9 +9,75 @@ import { styled } from '../zero-styled';
 import memoTheme from '../utils/memoTheme';
 import createSimplePaletteValueFilter from '../utils/createSimplePaletteValueFilter';
 import { useDefaultProps } from '../DefaultPropsProvider';
+import iconButtonClasses, { getIconButtonUtilityClass } from '../IconButton/iconButtonClasses';
 import buttonGroupClasses, { getButtonGroupUtilityClass } from './buttonGroupClasses';
 import ButtonGroupContext from './ButtonGroupContext';
 import ButtonGroupButtonContext from './ButtonGroupButtonContext';
+
+// `IconButton` children are styled to look like `Button`s. The selector is one class more specific
+// than `IconButton`'s own styles, but less specific than the position (first/middle/last) styles.
+const iconButtonSelector = `& .${iconButtonClasses.root}`;
+const iconButtonColorSelector = (color) =>
+  `${iconButtonSelector}.${getIconButtonUtilityClass(`color${capitalize(color)}`)}`;
+// The color styles above set `borderColor`, so the divider between two buttons has to be hidden
+// at the same specificity.
+const iconButtonDividerSelector = `& .${buttonGroupClasses.firstButton}.${iconButtonClasses.root},& .${buttonGroupClasses.middleButton}.${iconButtonClasses.root}`;
+// The icon matches the size of a `Button` icon, and the padding makes the button as tall as a
+// `Button` of the same size, e.g. a medium `Button` is 36.5px tall: (36.5 - 20) / 2 = 8.25.
+const iconButtonMetrics = {
+  small: { padding: 6.375, fontSize: 18 },
+  medium: { padding: 8.25, fontSize: 20 },
+  large: { padding: 10.125, fontSize: 22 },
+};
+
+const iconButtonSizeStyles = (theme, borderWidth = 0) =>
+  Object.fromEntries(
+    Object.entries(iconButtonMetrics).map(([size, { padding, fontSize }]) => [
+      `${iconButtonSelector}.${getIconButtonUtilityClass(`size${capitalize(size)}`)}`,
+      {
+        padding: padding - borderWidth,
+        fontSize: theme.typography.pxToRem(fontSize),
+        // the icon does not inherit the font size, `Button` sizes its icons the same way
+        '& > *:nth-of-type(1)': {
+          fontSize: theme.typography.pxToRem(fontSize),
+        },
+      },
+    ]),
+  );
+
+const iconButtonColorStyles = (theme, getStyle) =>
+  Object.fromEntries(
+    Object.entries(theme.palette)
+      .filter(createSimplePaletteValueFilter())
+      .map(([color]) => [iconButtonColorSelector(color), getStyle(color)]),
+  );
+
+// Same values as the `Button` contained styles for `color="inherit"`.
+const getInheritContainedBg = (theme) => {
+  if (theme.vars) {
+    return theme.vars.palette.Button.inheritContainedBg;
+  }
+  return theme.palette.mode === 'light' ? theme.palette.grey[300] : theme.palette.grey[800];
+};
+
+const getInheritContainedHoverBg = (theme) => {
+  if (theme.vars) {
+    return theme.vars.palette.Button.inheritContainedHoverBg;
+  }
+  return theme.palette.mode === 'light' ? theme.palette.grey.A100 : theme.palette.grey[700];
+};
+
+// Must be declared after the color styles so that they win, and before the position styles so
+// that a disabled group still draws its dividers.
+const iconButtonStateStyles = (theme, disabledStyle) => ({
+  [`${iconButtonSelector}.${iconButtonClasses.disabled}`]: {
+    color: (theme.vars || theme).palette.action.disabled,
+    ...disabledStyle,
+  },
+  [`${iconButtonSelector}.${iconButtonClasses.loading}`]: {
+    color: 'transparent',
+  },
+});
 
 const overridesResolver = (props, styles) => {
   const { ownerState } = props;
@@ -88,6 +154,9 @@ const ButtonGroupRoot = styled('div', {
         props: { fullWidth: true },
         style: {
           width: '100%',
+          [iconButtonSelector]: {
+            flex: '1 1 auto',
+          },
         },
       },
       {
@@ -115,6 +184,99 @@ const ButtonGroupRoot = styled('div', {
             borderTopLeftRadius: 0,
             borderBottomLeftRadius: 0,
           },
+        },
+      },
+      {
+        props: { variant: 'text' },
+        style: {
+          ...iconButtonSizeStyles(theme),
+          ...iconButtonColorStyles(theme, (color) => ({
+            color: (theme.vars || theme).palette[color].main,
+            '@media (hover: hover)': {
+              '&:hover': {
+                backgroundColor: theme.alpha(
+                  (theme.vars || theme).palette[color].main,
+                  (theme.vars || theme).palette.action.hoverOpacity,
+                ),
+              },
+            },
+          })),
+          [`${iconButtonSelector}.${iconButtonClasses.colorInherit}`]: {
+            color: 'inherit',
+            '@media (hover: hover)': {
+              '&:hover': {
+                backgroundColor: theme.alpha(
+                  (theme.vars || theme).palette.text.primary,
+                  (theme.vars || theme).palette.action.hoverOpacity,
+                ),
+              },
+            },
+          },
+          ...iconButtonStateStyles(theme),
+        },
+      },
+      {
+        props: { variant: 'outlined' },
+        style: {
+          [iconButtonSelector]: {
+            border: '1px solid currentColor',
+          },
+          ...iconButtonSizeStyles(theme, 1),
+          ...iconButtonColorStyles(theme, (color) => ({
+            color: (theme.vars || theme).palette[color].main,
+            borderColor: theme.alpha((theme.vars || theme).palette[color].main, 0.5),
+            '@media (hover: hover)': {
+              '&:hover': {
+                borderColor: (theme.vars || theme).palette[color].main,
+                backgroundColor: theme.alpha(
+                  (theme.vars || theme).palette[color].main,
+                  (theme.vars || theme).palette.action.hoverOpacity,
+                ),
+              },
+            },
+          })),
+          [`${iconButtonSelector}.${iconButtonClasses.colorInherit}`]: {
+            color: 'inherit',
+            borderColor: 'currentColor',
+            '@media (hover: hover)': {
+              '&:hover': {
+                backgroundColor: theme.alpha(
+                  (theme.vars || theme).palette.text.primary,
+                  (theme.vars || theme).palette.action.hoverOpacity,
+                ),
+              },
+            },
+          },
+          ...iconButtonStateStyles(theme, {
+            border: `1px solid ${(theme.vars || theme).palette.action.disabledBackground}`,
+          }),
+        },
+      },
+      {
+        props: { variant: 'contained' },
+        style: {
+          ...iconButtonSizeStyles(theme),
+          ...iconButtonColorStyles(theme, (color) => ({
+            color: (theme.vars || theme).palette[color].contrastText,
+            backgroundColor: (theme.vars || theme).palette[color].main,
+            '@media (hover: hover)': {
+              '&:hover': {
+                backgroundColor: (theme.vars || theme).palette[color].dark,
+              },
+            },
+          })),
+          [`${iconButtonSelector}.${iconButtonClasses.colorInherit}`]: {
+            color: 'inherit',
+            backgroundColor: getInheritContainedBg(theme),
+            '@media (hover: hover)': {
+              '&:hover': {
+                backgroundColor: getInheritContainedHoverBg(theme),
+              },
+            },
+          },
+          ...iconButtonStateStyles(theme, {
+            backgroundColor: (theme.vars || theme).palette.action.disabledBackground,
+          }),
         },
       },
       {
@@ -172,6 +334,12 @@ const ButtonGroupRoot = styled('div', {
               borderRightColor: 'currentColor',
             },
           },
+          [iconButtonDividerSelector]: {
+            borderRightColor: 'transparent',
+            '&:hover': {
+              borderRightColor: 'currentColor',
+            },
+          },
           [`& .${buttonGroupClasses.lastButton},& .${buttonGroupClasses.middleButton}`]: {
             marginLeft: -1,
           },
@@ -181,6 +349,12 @@ const ButtonGroupRoot = styled('div', {
         props: { variant: 'outlined', orientation: 'vertical' },
         style: {
           [`& .${buttonGroupClasses.firstButton},& .${buttonGroupClasses.middleButton}`]: {
+            borderBottomColor: 'transparent',
+            '&:hover': {
+              borderBottomColor: 'currentColor',
+            },
+          },
+          [iconButtonDividerSelector]: {
             borderBottomColor: 'transparent',
             '&:hover': {
               borderBottomColor: 'currentColor',
@@ -226,6 +400,15 @@ const ButtonGroupRoot = styled('div', {
     ],
     [`& .${buttonGroupClasses.grouped}`]: {
       minWidth: 40,
+    },
+    [iconButtonSelector]: {
+      borderRadius: (theme.vars || theme).shape.borderRadius,
+      transition: theme.transitions.create(
+        ['background-color', 'box-shadow', 'border-color', 'color'],
+        {
+          duration: theme.transitions.duration.short,
+        },
+      ),
     },
   })),
 );

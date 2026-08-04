@@ -3,6 +3,7 @@ import { createRenderer, screen } from '@mui/internal-test-utils';
 import ButtonGroup, { buttonGroupClasses as classes } from '@mui/material/ButtonGroup';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import Button, { buttonClasses } from '@mui/material/Button';
+import IconButton, { iconButtonClasses } from '@mui/material/IconButton';
 import ButtonGroupContext from './ButtonGroupContext';
 import describeConformance from '../../test/describeConformance';
 import * as ripple from '../../test/ripple';
@@ -239,6 +240,59 @@ describe('<ButtonGroup />', () => {
     });
   });
 
+  describe('IconButton child', () => {
+    it('does not forward the props it does not support to the DOM', () => {
+      render(
+        <ButtonGroup fullWidth>
+          <IconButton>icon</IconButton>
+        </ButtonGroup>,
+      );
+
+      const button = screen.getByRole('button');
+      expect(button).not.to.have.attribute('fullwidth');
+      expect(button).not.to.have.attribute('variant');
+      expect(button).not.to.have.attribute('disableelevation');
+    });
+
+    it('inherits the group props it supports', () => {
+      render(
+        <ButtonGroup color="secondary" size="large" disabled>
+          <IconButton>icon</IconButton>
+        </ButtonGroup>,
+      );
+
+      const button = screen.getByRole('button');
+      expect(button).to.have.class(iconButtonClasses.colorSecondary);
+      expect(button).to.have.class(iconButtonClasses.sizeLarge);
+      expect(button).to.have.class(iconButtonClasses.disabled);
+    });
+
+    it('gives priority to its own props over the group props', () => {
+      render(
+        <ButtonGroup color="secondary" size="large">
+          <IconButton color="error" size="small">
+            icon
+          </IconButton>
+        </ButtonGroup>,
+      );
+
+      const button = screen.getByRole('button');
+      expect(button).to.have.class(iconButtonClasses.colorError);
+      expect(button).to.have.class(iconButtonClasses.sizeSmall);
+    });
+
+    it('merges classes.grouped with the IconButton className', () => {
+      render(
+        <ButtonGroup>
+          <IconButton className="foo-bar">icon</IconButton>
+        </ButtonGroup>,
+      );
+
+      expect(screen.getByRole('button')).to.have.class(classes.grouped);
+      expect(screen.getByRole('button')).to.have.class('foo-bar');
+    });
+  });
+
   describe('position classes', () => {
     it('correctly applies position classes to buttons', () => {
       render(
@@ -264,6 +318,22 @@ describe('<ButtonGroup />', () => {
       expect(lastButton).to.have.class(classes.lastButton);
       expect(lastButton).not.to.have.class(classes.middleButton);
       expect(lastButton).not.to.have.class(classes.firstButton);
+    });
+
+    it('correctly applies position classes to icon buttons', () => {
+      render(
+        <ButtonGroup>
+          <Button>Button 1</Button>
+          <IconButton>icon 1</IconButton>
+          <IconButton>icon 2</IconButton>
+        </ButtonGroup>,
+      );
+
+      const [, middleButton, lastButton] = screen.getAllByRole('button');
+
+      expect(middleButton).to.have.class(classes.grouped);
+      expect(middleButton).to.have.class(classes.middleButton);
+      expect(lastButton).to.have.class(classes.lastButton);
     });
 
     it('does not apply any position classes to a single button', () => {

@@ -1,0 +1,14 @@
+<ButtonGroup variant="outlined" aria-label="Icon button group">
+  <Button>Close issue</Button>
+  <IconButton aria-label="More options">
+    <ArrowDropDownIcon />
+  </IconButton>
+</ButtonGroup>
+<ButtonGroup variant="contained" aria-label="Pagination button group">
+  <IconButton aria-label="Previous page">
+    <ArrowLeftIcon />
+  </IconButton>
+  <IconButton aria-label="Next page">
+    <ArrowRightIcon />
+  </IconButton>
+</ButtonGroup>

@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import chainPropTypes from '@mui/utils/chainPropTypes';
 import composeClasses from '@mui/utils/composeClasses';
+import resolveProps from '@mui/utils/resolveProps';
 import { unstable_useId as useId } from '../utils';
 import { styled } from '../zero-styled';
 import memoTheme from '../utils/memoTheme';
@@ -13,6 +14,8 @@ import ButtonBase from '../ButtonBase';
 import CircularProgress from '../CircularProgress';
 import capitalize from '../utils/capitalize';
 import iconButtonClasses, { getIconButtonUtilityClass } from './iconButtonClasses';
+import ButtonGroupContext from '../ButtonGroup/ButtonGroupContext';
+import ButtonGroupButtonContext from '../ButtonGroup/ButtonGroupButtonContext';
 
 const useUtilityClasses = (ownerState) => {
   const { classes, disabled, color, edge, size, loading } = ownerState;
@@ -165,7 +168,22 @@ const IconButtonLoadingIndicator = styled('span', {
  * regarding the available icon options.
  */
 const IconButton = React.forwardRef(function IconButton(inProps, ref) {
-  const props = useDefaultProps({ props: inProps, name: 'MuiIconButton' });
+  const buttonGroupContext = React.useContext(ButtonGroupContext);
+  const buttonGroupButtonContextPositionClassName = React.useContext(ButtonGroupButtonContext);
+  // Only the props that `IconButton` supports are inherited from the group, the rest
+  // (`variant`, `fullWidth`, `disableElevation`) is applied through the group styles.
+  const contextProps = {
+    color: buttonGroupContext.color,
+    disabled: buttonGroupContext.disabled,
+    disableFocusRipple: buttonGroupContext.disableFocusRipple,
+    disableRipple: buttonGroupContext.disableRipple,
+    size: buttonGroupContext.size,
+  };
+  // props priority: `inProps` > `contextProps` > `themeDefaultProps`
+  const props = useDefaultProps({
+    props: resolveProps(contextProps, inProps),
+    name: 'MuiIconButton',
+  });
   const {
     edge = false,
     children,
@@ -201,7 +219,12 @@ const IconButton = React.forwardRef(function IconButton(inProps, ref) {
   return (
     <IconButtonRoot
       id={loading ? loadingId : idProp}
-      className={clsx(classes.root, className)}
+      className={clsx(
+        buttonGroupContext.className,
+        classes.root,
+        className,
+        buttonGroupButtonContextPositionClassName,
+      )}
       centerRipple
       internalNativeButton
       focusRipple={!disableFocusRipple}
