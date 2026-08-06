@@ -161,8 +161,10 @@ const ButtonGroupRoot = styled('div', {
           },
         },
       },
-      // Next to a `Button` the icon button takes the width of that button's height, the group
-      // stretches it to the same height which makes it square. On its own it keeps its own size.
+      // Next to a `Button` the icon button follows the size of that button. Horizontally it takes
+      // the button height as its width and the group stretches it to the same height, which makes
+      // it square. Vertically the width is already stretched, so only the height is set. On its
+      // own it keeps the size it has outside of the group.
       {
         props: { size: 'small', orientation: 'horizontal' },
         style: {
@@ -190,6 +192,39 @@ const ButtonGroupRoot = styled('div', {
         style: {
           [`&:has(.${buttonClasses.root}) .${iconButtonClasses.root}`]: {
             width: 42.25,
+            flex: '0 0 auto',
+            padding: 0,
+            boxSizing: 'border-box',
+          },
+        },
+      },
+      {
+        props: { size: 'small', orientation: 'vertical' },
+        style: {
+          [`&:has(.${buttonClasses.root}) .${iconButtonClasses.root}`]: {
+            height: 30.75,
+            flex: '0 0 auto',
+            padding: 0,
+            boxSizing: 'border-box',
+          },
+        },
+      },
+      {
+        props: { size: 'medium', orientation: 'vertical' },
+        style: {
+          [`&:has(.${buttonClasses.root}) .${iconButtonClasses.root}`]: {
+            height: 36.5,
+            flex: '0 0 auto',
+            padding: 0,
+            boxSizing: 'border-box',
+          },
+        },
+      },
+      {
+        props: { size: 'large', orientation: 'vertical' },
+        style: {
+          [`&:has(.${buttonClasses.root}) .${iconButtonClasses.root}`]: {
+            height: 42.25,
             flex: '0 0 auto',
             padding: 0,
             boxSizing: 'border-box',
