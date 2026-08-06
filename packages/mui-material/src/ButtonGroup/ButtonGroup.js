@@ -9,47 +9,22 @@ import { styled } from '../zero-styled';
 import memoTheme from '../utils/memoTheme';
 import createSimplePaletteValueFilter from '../utils/createSimplePaletteValueFilter';
 import { useDefaultProps } from '../DefaultPropsProvider';
+import buttonClasses from '../Button/buttonClasses';
 import iconButtonClasses, { getIconButtonUtilityClass } from '../IconButton/iconButtonClasses';
 import buttonGroupClasses, { getButtonGroupUtilityClass } from './buttonGroupClasses';
 import ButtonGroupContext from './ButtonGroupContext';
 import ButtonGroupButtonContext from './ButtonGroupButtonContext';
 
-// `IconButton` children are styled to look like `Button`s. The selector is one class more specific
-// than `IconButton`'s own styles, but less specific than the position (first/middle/last) styles.
-const iconButtonSelector = `& .${iconButtonClasses.root}`;
-const iconButtonColorSelector = (color) =>
-  `${iconButtonSelector}.${getIconButtonUtilityClass(`color${capitalize(color)}`)}`;
-// The color styles above set `borderColor`, so the divider between two buttons has to be hidden
-// at the same specificity.
-const iconButtonDividerSelector = `& .${buttonGroupClasses.firstButton}.${iconButtonClasses.root},& .${buttonGroupClasses.middleButton}.${iconButtonClasses.root}`;
-// The icon matches the size of a `Button` icon, and the padding makes the button as tall as a
-// `Button` of the same size, e.g. a medium `Button` is 36.5px tall: (36.5 - 20) / 2 = 8.25.
-const iconButtonMetrics = {
-  small: { padding: 6.375, fontSize: 18 },
-  medium: { padding: 8.25, fontSize: 20 },
-  large: { padding: 10.125, fontSize: 22 },
-};
-
-const iconButtonSizeStyles = (theme, borderWidth = 0) =>
-  Object.fromEntries(
-    Object.entries(iconButtonMetrics).map(([size, { padding, fontSize }]) => [
-      `${iconButtonSelector}.${getIconButtonUtilityClass(`size${capitalize(size)}`)}`,
-      {
-        padding: padding - borderWidth,
-        fontSize: theme.typography.pxToRem(fontSize),
-        // the icon does not inherit the font size, `Button` sizes its icons the same way
-        '& > *:nth-of-type(1)': {
-          fontSize: theme.typography.pxToRem(fontSize),
-        },
-      },
-    ]),
-  );
-
+// `IconButton` children are styled to look like `Button`s. The selectors are one class more
+// specific than `IconButton`'s own styles, but less specific than the position styles.
 const iconButtonColorStyles = (theme, getStyle) =>
   Object.fromEntries(
     Object.entries(theme.palette)
       .filter(createSimplePaletteValueFilter())
-      .map(([color]) => [iconButtonColorSelector(color), getStyle(color)]),
+      .map(([color]) => [
+        `& .${iconButtonClasses.root}.${getIconButtonUtilityClass(`color${capitalize(color)}`)}`,
+        getStyle(color),
+      ]),
   );
 
 // Same values as the `Button` contained styles for `color="inherit"`.
@@ -70,11 +45,11 @@ const getInheritContainedHoverBg = (theme) => {
 // Must be declared after the color styles so that they win, and before the position styles so
 // that a disabled group still draws its dividers.
 const iconButtonStateStyles = (theme, disabledStyle) => ({
-  [`${iconButtonSelector}.${iconButtonClasses.disabled}`]: {
+  [`& .${iconButtonClasses.root}.${iconButtonClasses.disabled}`]: {
     color: (theme.vars || theme).palette.action.disabled,
     ...disabledStyle,
   },
-  [`${iconButtonSelector}.${iconButtonClasses.loading}`]: {
+  [`& .${iconButtonClasses.root}.${iconButtonClasses.loading}`]: {
     color: 'transparent',
   },
 });
@@ -154,7 +129,7 @@ const ButtonGroupRoot = styled('div', {
         props: { fullWidth: true },
         style: {
           width: '100%',
-          [iconButtonSelector]: {
+          [`& .${iconButtonClasses.root}`]: {
             flex: '1 1 auto',
           },
         },
@@ -186,10 +161,44 @@ const ButtonGroupRoot = styled('div', {
           },
         },
       },
+      // Next to a `Button` the icon button takes the width of that button's height, the group
+      // stretches it to the same height which makes it square. On its own it keeps its own size.
+      {
+        props: { size: 'small', orientation: 'horizontal' },
+        style: {
+          [`&:has(.${buttonClasses.root}) .${iconButtonClasses.root}`]: {
+            width: 30.75,
+            flex: '0 0 auto',
+            padding: 0,
+            boxSizing: 'border-box',
+          },
+        },
+      },
+      {
+        props: { size: 'medium', orientation: 'horizontal' },
+        style: {
+          [`&:has(.${buttonClasses.root}) .${iconButtonClasses.root}`]: {
+            width: 36.5,
+            flex: '0 0 auto',
+            padding: 0,
+            boxSizing: 'border-box',
+          },
+        },
+      },
+      {
+        props: { size: 'large', orientation: 'horizontal' },
+        style: {
+          [`&:has(.${buttonClasses.root}) .${iconButtonClasses.root}`]: {
+            width: 42.25,
+            flex: '0 0 auto',
+            padding: 0,
+            boxSizing: 'border-box',
+          },
+        },
+      },
       {
         props: { variant: 'text' },
         style: {
-          ...iconButtonSizeStyles(theme),
           ...iconButtonColorStyles(theme, (color) => ({
             color: (theme.vars || theme).palette[color].main,
             '@media (hover: hover)': {
@@ -201,7 +210,7 @@ const ButtonGroupRoot = styled('div', {
               },
             },
           })),
-          [`${iconButtonSelector}.${iconButtonClasses.colorInherit}`]: {
+          [`& .${iconButtonClasses.root}.${iconButtonClasses.colorInherit}`]: {
             color: 'inherit',
             '@media (hover: hover)': {
               '&:hover': {
@@ -218,10 +227,9 @@ const ButtonGroupRoot = styled('div', {
       {
         props: { variant: 'outlined' },
         style: {
-          [iconButtonSelector]: {
+          [`& .${iconButtonClasses.root}`]: {
             border: '1px solid currentColor',
           },
-          ...iconButtonSizeStyles(theme, 1),
           ...iconButtonColorStyles(theme, (color) => ({
             color: (theme.vars || theme).palette[color].main,
             borderColor: theme.alpha((theme.vars || theme).palette[color].main, 0.5),
@@ -235,7 +243,7 @@ const ButtonGroupRoot = styled('div', {
               },
             },
           })),
-          [`${iconButtonSelector}.${iconButtonClasses.colorInherit}`]: {
+          [`& .${iconButtonClasses.root}.${iconButtonClasses.colorInherit}`]: {
             color: 'inherit',
             borderColor: 'currentColor',
             '@media (hover: hover)': {
@@ -255,7 +263,6 @@ const ButtonGroupRoot = styled('div', {
       {
         props: { variant: 'contained' },
         style: {
-          ...iconButtonSizeStyles(theme),
           ...iconButtonColorStyles(theme, (color) => ({
             color: (theme.vars || theme).palette[color].contrastText,
             backgroundColor: (theme.vars || theme).palette[color].main,
@@ -265,7 +272,7 @@ const ButtonGroupRoot = styled('div', {
               },
             },
           })),
-          [`${iconButtonSelector}.${iconButtonClasses.colorInherit}`]: {
+          [`& .${iconButtonClasses.root}.${iconButtonClasses.colorInherit}`]: {
             color: 'inherit',
             backgroundColor: getInheritContainedBg(theme),
             '@media (hover: hover)': {
@@ -334,12 +341,13 @@ const ButtonGroupRoot = styled('div', {
               borderRightColor: 'currentColor',
             },
           },
-          [iconButtonDividerSelector]: {
-            borderRightColor: 'transparent',
-            '&:hover': {
-              borderRightColor: 'currentColor',
+          [`& .${buttonGroupClasses.firstButton}.${iconButtonClasses.root},& .${buttonGroupClasses.middleButton}.${iconButtonClasses.root}`]:
+            {
+              borderRightColor: 'transparent',
+              '&:hover': {
+                borderRightColor: 'currentColor',
+              },
             },
-          },
           [`& .${buttonGroupClasses.lastButton},& .${buttonGroupClasses.middleButton}`]: {
             marginLeft: -1,
           },
@@ -354,12 +362,13 @@ const ButtonGroupRoot = styled('div', {
               borderBottomColor: 'currentColor',
             },
           },
-          [iconButtonDividerSelector]: {
-            borderBottomColor: 'transparent',
-            '&:hover': {
-              borderBottomColor: 'currentColor',
+          [`& .${buttonGroupClasses.firstButton}.${iconButtonClasses.root},& .${buttonGroupClasses.middleButton}.${iconButtonClasses.root}`]:
+            {
+              borderBottomColor: 'transparent',
+              '&:hover': {
+                borderBottomColor: 'currentColor',
+              },
             },
-          },
           [`& .${buttonGroupClasses.lastButton},& .${buttonGroupClasses.middleButton}`]: {
             marginTop: -1,
           },
@@ -401,7 +410,11 @@ const ButtonGroupRoot = styled('div', {
     [`& .${buttonGroupClasses.grouped}`]: {
       minWidth: 40,
     },
-    [iconButtonSelector]: {
+    // the grouped min-width is meant for text buttons, it would make an icon wider than tall
+    [`& .${buttonGroupClasses.grouped}.${iconButtonClasses.root}`]: {
+      minWidth: 0,
+    },
+    [`& .${iconButtonClasses.root}`]: {
       borderRadius: (theme.vars || theme).shape.borderRadius,
       transition: theme.transitions.create(
         ['background-color', 'box-shadow', 'border-color', 'color'],

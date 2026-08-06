@@ -54,7 +54,7 @@ export default function ButtonGroupIconButton() {
         </Section>
       ))}
 
-      <Section title="Icon-only groups (height must match the text groups above)">
+      <Section title="Icon-only groups (keep their own size, next to a Button-only group)">
         {variants.map((variant) => (
           <Stack key={variant} direction="row" spacing={2} sx={{ mb: 2, alignItems: 'flex-start' }}>
             {sizes.map((size) => (

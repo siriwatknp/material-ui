@@ -27,7 +27,8 @@ All the standard button variants are supported.
 
 ## Icon buttons
 
-`IconButton` children are supported—they inherit the group's `variant`, `color`, and `size`, and are styled like a `Button`.
+`IconButton` children are supported—they inherit the group's `variant` and `color`.
+Next to a `Button` they are square and as tall as it, on their own they keep the size they have outside of the group.
 
 {{"demo": "IconButtonGroup.js"}}
 
