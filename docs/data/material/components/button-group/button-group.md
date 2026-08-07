@@ -25,13 +25,6 @@ All the standard button variants are supported.
 
 {{"demo": "VariantButtonGroup.js"}}
 
-## Icon buttons
-
-`IconButton` children are supported—they inherit the group's `variant` and `color`.
-Next to a `Button` they are square and as tall as it, on their own they keep the size they have outside of the group.
-
-{{"demo": "IconButtonGroup.js"}}
-
 ## Sizes and colors
 
 The `size` and `color` props can be used to control the appearance of the button group.
@@ -49,6 +42,15 @@ The button group can be displayed vertically using the `orientation` prop.
 `ButtonGroup` can also be used to create a split button. The dropdown can change the button action (as in this example) or be used to immediately trigger a related action.
 
 {{"demo": "SplitButton.js"}}
+
+:::info
+Starting from v9.4.0, `IconButton` can be used as a split button too.
+:::
+
+An `IconButton` inherits the group's `variant` and `color`.
+Next to a `Button` it is square and as tall as it, while a group of icon buttons keeps the size they have outside of the group.
+
+{{"demo": "IconButtonGroup.js"}}
 
 ## Disabled elevation
 
