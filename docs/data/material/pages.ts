@@ -308,6 +308,10 @@ const pages: MuiPage[] = [
         title: 'Upgrade to Grid v2',
       },
       {
+        pathname: '/material-ui/migration/upgrade-to-menu-v2',
+        title: 'Upgrade to Menu v2',
+      },
+      {
         pathname: '/material-ui/migration/pickers-migration',
         title: 'Migration from @material-ui/pickers',
       },
