@@ -9,6 +9,7 @@ import { styled } from '../zero-styled';
 import memoTheme from '../utils/memoTheme';
 import createSimplePaletteValueFilter from '../utils/createSimplePaletteValueFilter';
 import { useDefaultProps } from '../DefaultPropsProvider';
+import { getTransitionStyles } from '../transitions/utils';
 import buttonClasses from '../Button/buttonClasses';
 import iconButtonClasses, { getIconButtonUtilityClass } from '../IconButton/iconButtonClasses';
 import buttonGroupClasses, { getButtonGroupUtilityClass } from './buttonGroupClasses';
@@ -462,12 +463,9 @@ const ButtonGroupRoot = styled('div', {
       },
       [`& .${iconButtonClasses.root}`]: {
         borderRadius: (theme.vars || theme).shape.borderRadius,
-        transition: theme.transitions.create(
-          ['background-color', 'box-shadow', 'border-color', 'color'],
-          {
-            duration: theme.transitions.duration.short,
-          },
-        ),
+        ...getTransitionStyles(theme, ['background-color', 'box-shadow', 'border-color', 'color'], {
+          duration: theme.transitions.duration.short,
+        }),
       },
     };
   }),
@@ -513,8 +511,8 @@ const ButtonGroup = React.forwardRef(function ButtonGroup(inProps, ref) {
       color,
       disabled,
       disableElevation,
-      disableFocusRipple,
-      disableRipple,
+      disableFocusRipple: props.disableFocusRipple,
+      disableRipple: props.disableRipple,
       fullWidth,
       size,
       variant,
@@ -523,8 +521,8 @@ const ButtonGroup = React.forwardRef(function ButtonGroup(inProps, ref) {
       color,
       disabled,
       disableElevation,
-      disableFocusRipple,
-      disableRipple,
+      props.disableFocusRipple,
+      props.disableRipple,
       fullWidth,
       size,
       variant,

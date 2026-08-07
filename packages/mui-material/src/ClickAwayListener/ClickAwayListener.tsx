@@ -24,11 +24,7 @@ function clickedRootScrollbar(event: MouseEvent, doc: Document) {
 }
 
 type ClickAwayMouseEventHandler =
-  | 'onClick'
-  | 'onMouseDown'
-  | 'onMouseUp'
-  | 'onPointerDown'
-  | 'onPointerUp';
+  'onClick' | 'onMouseDown' | 'onMouseUp' | 'onPointerDown' | 'onPointerUp';
 type ClickAwayTouchEventHandler = 'onTouchStart' | 'onTouchEnd';
 
 export interface ClickAwayListenerProps {
@@ -86,7 +82,7 @@ function ClickAwayListener(props: ClickAwayListenerProps): React.JSX.Element {
 
   React.useEffect(() => {
     // Ensure that this component is not "activated" synchronously.
-    // https://github.com/facebook/react/issues/20074
+    // https://github.com/react/react/issues/20074
     setTimeout(() => {
       activatedRef.current = true;
     }, 0);
@@ -111,7 +107,7 @@ function ClickAwayListener(props: ClickAwayListenerProps): React.JSX.Element {
 
     const doc = ownerDocument(nodeRef.current);
 
-    // 1. IE11 support, which trigger the handleClickAway even after the unbind
+    // 1. IE 11 support, which trigger the handleClickAway even after the unbind
     // 2. The child might render null.
     // 3. Behave like a blur listener.
     if (
