@@ -1,0 +1,42 @@
+import * as React from 'react';
+import PropTypes from 'prop-types';
+import ListItemText from '@mui/material/ListItemText';
+import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
+import Menu2 from '@mui/material/Unstable_Menu2';
+import Menu2Item from '@mui/material/Unstable_Menu2Item';
+import Menu2Separator from '@mui/material/Unstable_Menu2Separator';
+import Menu2Submenu from '@mui/material/Unstable_Menu2Submenu';
+
+function SubmenuLabel({ children }) {
+  return (
+    <React.Fragment>
+      <ListItemText>{children}</ListItemText>
+      <KeyboardArrowRightIcon fontSize="small" sx={{ color: 'action.active' }} />
+    </React.Fragment>
+  );
+}
+
+SubmenuLabel.propTypes = {
+  children: PropTypes.node,
+};
+
+export default function SubmenuMenu2() {
+  return (
+    <Menu2 trigger="File">
+      <Menu2Item>New file</Menu2Item>
+      <Menu2Item>Open recent</Menu2Item>
+      <Menu2Separator />
+      <Menu2Submenu trigger={<SubmenuLabel>Share</SubmenuLabel>}>
+        <Menu2Item>Invite people</Menu2Item>
+        <Menu2Item>Copy link</Menu2Item>
+        <Menu2Submenu trigger={<SubmenuLabel>Export as</SubmenuLabel>}>
+          <Menu2Item>PDF document</Menu2Item>
+          <Menu2Item>EPUB publication</Menu2Item>
+          <Menu2Item>Markdown</Menu2Item>
+        </Menu2Submenu>
+      </Menu2Submenu>
+      <Menu2Separator />
+      <Menu2Item>Print</Menu2Item>
+    </Menu2>
+  );
+}
