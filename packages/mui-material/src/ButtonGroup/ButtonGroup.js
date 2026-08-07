@@ -138,9 +138,6 @@ const ButtonGroupRoot = styled('div', {
           style: {
             [`&:has(.${buttonClasses.root}) .${iconButtonClasses.root}`]: {
               width: 30.75,
-              flex: '0 0 auto',
-              padding: 0,
-              boxSizing: 'border-box',
             },
           },
         },
@@ -149,9 +146,6 @@ const ButtonGroupRoot = styled('div', {
           style: {
             [`&:has(.${buttonClasses.root}) .${iconButtonClasses.root}`]: {
               width: 36.5,
-              flex: '0 0 auto',
-              padding: 0,
-              boxSizing: 'border-box',
             },
           },
         },
@@ -160,9 +154,6 @@ const ButtonGroupRoot = styled('div', {
           style: {
             [`&:has(.${buttonClasses.root}) .${iconButtonClasses.root}`]: {
               width: 42.25,
-              flex: '0 0 auto',
-              padding: 0,
-              boxSizing: 'border-box',
             },
           },
         },
@@ -171,9 +162,6 @@ const ButtonGroupRoot = styled('div', {
           style: {
             [`&:has(.${buttonClasses.root}) .${iconButtonClasses.root}`]: {
               height: 30.75,
-              flex: '0 0 auto',
-              padding: 0,
-              boxSizing: 'border-box',
             },
           },
         },
@@ -182,9 +170,6 @@ const ButtonGroupRoot = styled('div', {
           style: {
             [`&:has(.${buttonClasses.root}) .${iconButtonClasses.root}`]: {
               height: 36.5,
-              flex: '0 0 auto',
-              padding: 0,
-              boxSizing: 'border-box',
             },
           },
         },
@@ -193,9 +178,6 @@ const ButtonGroupRoot = styled('div', {
           style: {
             [`&:has(.${buttonClasses.root}) .${iconButtonClasses.root}`]: {
               height: 42.25,
-              flex: '0 0 auto',
-              padding: 0,
-              boxSizing: 'border-box',
             },
           },
         },
@@ -460,6 +442,12 @@ const ButtonGroupRoot = styled('div', {
       // the grouped min-width is meant for text buttons, it would make an icon wider than tall
       [`& .${buttonGroupClasses.grouped}.${iconButtonClasses.root}`]: {
         minWidth: 0,
+      },
+      // the size variants below set the width, the padding would add to it
+      [`&:has(.${buttonClasses.root}) .${iconButtonClasses.root}`]: {
+        padding: 0,
+        // the fullWidth styles stretch the icon button out of shape
+        flex: '0 0 auto',
       },
       [`& .${iconButtonClasses.root}`]: {
         borderRadius: (theme.vars || theme).shape.borderRadius,
