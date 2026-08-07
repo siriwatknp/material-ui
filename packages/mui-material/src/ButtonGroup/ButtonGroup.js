@@ -15,45 +15,6 @@ import buttonGroupClasses, { getButtonGroupUtilityClass } from './buttonGroupCla
 import ButtonGroupContext from './ButtonGroupContext';
 import ButtonGroupButtonContext from './ButtonGroupButtonContext';
 
-// `IconButton` children are styled to look like `Button`s. The selectors are one class more
-// specific than `IconButton`'s own styles, but less specific than the position styles.
-const iconButtonColorStyles = (theme, getStyle) =>
-  Object.fromEntries(
-    Object.entries(theme.palette)
-      .filter(createSimplePaletteValueFilter())
-      .map(([color]) => [
-        `& .${iconButtonClasses.root}.${getIconButtonUtilityClass(`color${capitalize(color)}`)}`,
-        getStyle(color),
-      ]),
-  );
-
-// Same values as the `Button` contained styles for `color="inherit"`.
-const getInheritContainedBg = (theme) => {
-  if (theme.vars) {
-    return theme.vars.palette.Button.inheritContainedBg;
-  }
-  return theme.palette.mode === 'light' ? theme.palette.grey[300] : theme.palette.grey[800];
-};
-
-const getInheritContainedHoverBg = (theme) => {
-  if (theme.vars) {
-    return theme.vars.palette.Button.inheritContainedHoverBg;
-  }
-  return theme.palette.mode === 'light' ? theme.palette.grey.A100 : theme.palette.grey[700];
-};
-
-// Must be declared after the color styles so that they win, and before the position styles so
-// that a disabled group still draws its dividers.
-const iconButtonStateStyles = (theme, disabledStyle) => ({
-  [`& .${iconButtonClasses.root}.${iconButtonClasses.disabled}`]: {
-    color: (theme.vars || theme).palette.action.disabled,
-    ...disabledStyle,
-  },
-  [`& .${iconButtonClasses.root}.${iconButtonClasses.loading}`]: {
-    color: 'transparent',
-  },
-});
-
 const overridesResolver = (props, styles) => {
   const { ownerState } = props;
 
@@ -103,362 +64,413 @@ const ButtonGroupRoot = styled('div', {
   slot: 'Root',
   overridesResolver,
 })(
-  memoTheme(({ theme }) => ({
-    display: 'inline-flex',
-    borderRadius: (theme.vars || theme).shape.borderRadius,
-    variants: [
-      {
-        props: { variant: 'contained' },
-        style: {
-          boxShadow: (theme.vars || theme).shadows[2],
-          [`& .${buttonGroupClasses.grouped}`]: {
-            boxShadow: 'none',
-            '&:hover': {
+  memoTheme(({ theme }) => {
+    const inheritContainedBackgroundColor =
+      theme.palette.mode === 'light' ? theme.palette.grey[300] : theme.palette.grey[800];
+    const inheritContainedHoverBackgroundColor =
+      theme.palette.mode === 'light' ? theme.palette.grey.A100 : theme.palette.grey[700];
+
+    return {
+      display: 'inline-flex',
+      borderRadius: (theme.vars || theme).shape.borderRadius,
+      variants: [
+        {
+          props: { variant: 'contained' },
+          style: {
+            boxShadow: (theme.vars || theme).shadows[2],
+            [`& .${buttonGroupClasses.grouped}`]: {
               boxShadow: 'none',
-            },
-          },
-        },
-      },
-      {
-        props: { disableElevation: true },
-        style: {
-          boxShadow: 'none',
-        },
-      },
-      {
-        props: { fullWidth: true },
-        style: {
-          width: '100%',
-          [`& .${iconButtonClasses.root}`]: {
-            flex: '1 1 auto',
-          },
-        },
-      },
-      {
-        props: { orientation: 'vertical' },
-        style: {
-          flexDirection: 'column',
-          [`& .${buttonGroupClasses.lastButton},& .${buttonGroupClasses.middleButton}`]: {
-            borderTopRightRadius: 0,
-            borderTopLeftRadius: 0,
-          },
-          [`& .${buttonGroupClasses.firstButton},& .${buttonGroupClasses.middleButton}`]: {
-            borderBottomRightRadius: 0,
-            borderBottomLeftRadius: 0,
-          },
-        },
-      },
-      {
-        props: { orientation: 'horizontal' },
-        style: {
-          [`& .${buttonGroupClasses.firstButton},& .${buttonGroupClasses.middleButton}`]: {
-            borderTopRightRadius: 0,
-            borderBottomRightRadius: 0,
-          },
-          [`& .${buttonGroupClasses.lastButton},& .${buttonGroupClasses.middleButton}`]: {
-            borderTopLeftRadius: 0,
-            borderBottomLeftRadius: 0,
-          },
-        },
-      },
-      // Next to a `Button` the icon button follows the size of that button. Horizontally it takes
-      // the button height as its width and the group stretches it to the same height, which makes
-      // it square. Vertically the width is already stretched, so only the height is set. On its
-      // own it keeps the size it has outside of the group.
-      {
-        props: { size: 'small', orientation: 'horizontal' },
-        style: {
-          [`&:has(.${buttonClasses.root}) .${iconButtonClasses.root}`]: {
-            width: 30.75,
-            flex: '0 0 auto',
-            padding: 0,
-            boxSizing: 'border-box',
-          },
-        },
-      },
-      {
-        props: { size: 'medium', orientation: 'horizontal' },
-        style: {
-          [`&:has(.${buttonClasses.root}) .${iconButtonClasses.root}`]: {
-            width: 36.5,
-            flex: '0 0 auto',
-            padding: 0,
-            boxSizing: 'border-box',
-          },
-        },
-      },
-      {
-        props: { size: 'large', orientation: 'horizontal' },
-        style: {
-          [`&:has(.${buttonClasses.root}) .${iconButtonClasses.root}`]: {
-            width: 42.25,
-            flex: '0 0 auto',
-            padding: 0,
-            boxSizing: 'border-box',
-          },
-        },
-      },
-      {
-        props: { size: 'small', orientation: 'vertical' },
-        style: {
-          [`&:has(.${buttonClasses.root}) .${iconButtonClasses.root}`]: {
-            height: 30.75,
-            flex: '0 0 auto',
-            padding: 0,
-            boxSizing: 'border-box',
-          },
-        },
-      },
-      {
-        props: { size: 'medium', orientation: 'vertical' },
-        style: {
-          [`&:has(.${buttonClasses.root}) .${iconButtonClasses.root}`]: {
-            height: 36.5,
-            flex: '0 0 auto',
-            padding: 0,
-            boxSizing: 'border-box',
-          },
-        },
-      },
-      {
-        props: { size: 'large', orientation: 'vertical' },
-        style: {
-          [`&:has(.${buttonClasses.root}) .${iconButtonClasses.root}`]: {
-            height: 42.25,
-            flex: '0 0 auto',
-            padding: 0,
-            boxSizing: 'border-box',
-          },
-        },
-      },
-      {
-        props: { variant: 'text' },
-        style: {
-          ...iconButtonColorStyles(theme, (color) => ({
-            color: (theme.vars || theme).palette[color].main,
-            '@media (hover: hover)': {
               '&:hover': {
-                backgroundColor: theme.alpha(
-                  (theme.vars || theme).palette[color].main,
-                  (theme.vars || theme).palette.action.hoverOpacity,
-                ),
+                boxShadow: 'none',
               },
-            },
-          })),
-          [`& .${iconButtonClasses.root}.${iconButtonClasses.colorInherit}`]: {
-            color: 'inherit',
-            '@media (hover: hover)': {
-              '&:hover': {
-                backgroundColor: theme.alpha(
-                  (theme.vars || theme).palette.text.primary,
-                  (theme.vars || theme).palette.action.hoverOpacity,
-                ),
-              },
-            },
-          },
-          ...iconButtonStateStyles(theme),
-        },
-      },
-      {
-        props: { variant: 'outlined' },
-        style: {
-          [`& .${iconButtonClasses.root}`]: {
-            border: '1px solid currentColor',
-          },
-          ...iconButtonColorStyles(theme, (color) => ({
-            color: (theme.vars || theme).palette[color].main,
-            borderColor: theme.alpha((theme.vars || theme).palette[color].main, 0.5),
-            '@media (hover: hover)': {
-              '&:hover': {
-                borderColor: (theme.vars || theme).palette[color].main,
-                backgroundColor: theme.alpha(
-                  (theme.vars || theme).palette[color].main,
-                  (theme.vars || theme).palette.action.hoverOpacity,
-                ),
-              },
-            },
-          })),
-          [`& .${iconButtonClasses.root}.${iconButtonClasses.colorInherit}`]: {
-            color: 'inherit',
-            borderColor: 'currentColor',
-            '@media (hover: hover)': {
-              '&:hover': {
-                backgroundColor: theme.alpha(
-                  (theme.vars || theme).palette.text.primary,
-                  (theme.vars || theme).palette.action.hoverOpacity,
-                ),
-              },
-            },
-          },
-          ...iconButtonStateStyles(theme, {
-            border: `1px solid ${(theme.vars || theme).palette.action.disabledBackground}`,
-          }),
-        },
-      },
-      {
-        props: { variant: 'contained' },
-        style: {
-          ...iconButtonColorStyles(theme, (color) => ({
-            color: (theme.vars || theme).palette[color].contrastText,
-            backgroundColor: (theme.vars || theme).palette[color].main,
-            '@media (hover: hover)': {
-              '&:hover': {
-                backgroundColor: (theme.vars || theme).palette[color].dark,
-              },
-            },
-          })),
-          [`& .${iconButtonClasses.root}.${iconButtonClasses.colorInherit}`]: {
-            color: 'inherit',
-            backgroundColor: getInheritContainedBg(theme),
-            '@media (hover: hover)': {
-              '&:hover': {
-                backgroundColor: getInheritContainedHoverBg(theme),
-              },
-            },
-          },
-          ...iconButtonStateStyles(theme, {
-            backgroundColor: (theme.vars || theme).palette.action.disabledBackground,
-          }),
-        },
-      },
-      {
-        props: { variant: 'text', orientation: 'horizontal' },
-        style: {
-          [`& .${buttonGroupClasses.firstButton},& .${buttonGroupClasses.middleButton}`]: {
-            borderRight: theme.vars
-              ? `1px solid ${theme.alpha(theme.vars.palette.common.onBackground, 0.23)}`
-              : `1px solid ${
-                  theme.palette.mode === 'light'
-                    ? 'rgba(0, 0, 0, 0.23)'
-                    : 'rgba(255, 255, 255, 0.23)'
-                }`,
-            [`&.${buttonGroupClasses.disabled}`]: {
-              borderRight: `1px solid ${(theme.vars || theme).palette.action.disabled}`,
             },
           },
         },
-      },
-      {
-        props: { variant: 'text', orientation: 'vertical' },
-        style: {
-          [`& .${buttonGroupClasses.firstButton},& .${buttonGroupClasses.middleButton}`]: {
-            borderBottom: theme.vars
-              ? `1px solid ${theme.alpha(theme.vars.palette.common.onBackground, 0.23)}`
-              : `1px solid ${
-                  theme.palette.mode === 'light'
-                    ? 'rgba(0, 0, 0, 0.23)'
-                    : 'rgba(255, 255, 255, 0.23)'
-                }`,
-            [`&.${buttonGroupClasses.disabled}`]: {
-              borderBottom: `1px solid ${(theme.vars || theme).palette.action.disabled}`,
+        {
+          props: { disableElevation: true },
+          style: {
+            boxShadow: 'none',
+          },
+        },
+        {
+          props: { fullWidth: true },
+          style: {
+            width: '100%',
+            [`& .${iconButtonClasses.root}`]: {
+              flex: '1 1 auto',
             },
           },
         },
-      },
-      ...Object.entries(theme.palette)
-        .filter(createSimplePaletteValueFilter())
-        .flatMap(([color]) => [
-          {
-            props: { variant: 'text', color },
-            style: {
-              [`& .${buttonGroupClasses.firstButton},& .${buttonGroupClasses.middleButton}`]: {
-                borderColor: theme.alpha((theme.vars || theme).palette[color].main, 0.5),
+        {
+          props: { orientation: 'vertical' },
+          style: {
+            flexDirection: 'column',
+            [`& .${buttonGroupClasses.lastButton},& .${buttonGroupClasses.middleButton}`]: {
+              borderTopRightRadius: 0,
+              borderTopLeftRadius: 0,
+            },
+            [`& .${buttonGroupClasses.firstButton},& .${buttonGroupClasses.middleButton}`]: {
+              borderBottomRightRadius: 0,
+              borderBottomLeftRadius: 0,
+            },
+          },
+        },
+        {
+          props: { orientation: 'horizontal' },
+          style: {
+            [`& .${buttonGroupClasses.firstButton},& .${buttonGroupClasses.middleButton}`]: {
+              borderTopRightRadius: 0,
+              borderBottomRightRadius: 0,
+            },
+            [`& .${buttonGroupClasses.lastButton},& .${buttonGroupClasses.middleButton}`]: {
+              borderTopLeftRadius: 0,
+              borderBottomLeftRadius: 0,
+            },
+          },
+        },
+        // Next to a `Button` the icon button follows the size of that button. Horizontally it takes
+        // the button height as its width and the group stretches it to the same height, which makes
+        // it square. Vertically the width is already stretched, so only the height is set. On its
+        // own it keeps the size it has outside of the group.
+        {
+          props: { size: 'small', orientation: 'horizontal' },
+          style: {
+            [`&:has(.${buttonClasses.root}) .${iconButtonClasses.root}`]: {
+              width: 30.75,
+              flex: '0 0 auto',
+              padding: 0,
+              boxSizing: 'border-box',
+            },
+          },
+        },
+        {
+          props: { size: 'medium', orientation: 'horizontal' },
+          style: {
+            [`&:has(.${buttonClasses.root}) .${iconButtonClasses.root}`]: {
+              width: 36.5,
+              flex: '0 0 auto',
+              padding: 0,
+              boxSizing: 'border-box',
+            },
+          },
+        },
+        {
+          props: { size: 'large', orientation: 'horizontal' },
+          style: {
+            [`&:has(.${buttonClasses.root}) .${iconButtonClasses.root}`]: {
+              width: 42.25,
+              flex: '0 0 auto',
+              padding: 0,
+              boxSizing: 'border-box',
+            },
+          },
+        },
+        {
+          props: { size: 'small', orientation: 'vertical' },
+          style: {
+            [`&:has(.${buttonClasses.root}) .${iconButtonClasses.root}`]: {
+              height: 30.75,
+              flex: '0 0 auto',
+              padding: 0,
+              boxSizing: 'border-box',
+            },
+          },
+        },
+        {
+          props: { size: 'medium', orientation: 'vertical' },
+          style: {
+            [`&:has(.${buttonClasses.root}) .${iconButtonClasses.root}`]: {
+              height: 36.5,
+              flex: '0 0 auto',
+              padding: 0,
+              boxSizing: 'border-box',
+            },
+          },
+        },
+        {
+          props: { size: 'large', orientation: 'vertical' },
+          style: {
+            [`&:has(.${buttonClasses.root}) .${iconButtonClasses.root}`]: {
+              height: 42.25,
+              flex: '0 0 auto',
+              padding: 0,
+              boxSizing: 'border-box',
+            },
+          },
+        },
+        {
+          props: { variant: 'text' },
+          style: {
+            ...Object.fromEntries(
+              Object.entries(theme.palette)
+                .filter(createSimplePaletteValueFilter())
+                .map(([color]) => [
+                  `& .${iconButtonClasses.root}.${getIconButtonUtilityClass(`color${capitalize(color)}`)}`,
+                  {
+                    color: (theme.vars || theme).palette[color].main,
+                    '@media (hover: hover)': {
+                      '&:hover': {
+                        backgroundColor: theme.alpha(
+                          (theme.vars || theme).palette[color].main,
+                          (theme.vars || theme).palette.action.hoverOpacity,
+                        ),
+                      },
+                    },
+                  },
+                ]),
+            ),
+            [`& .${iconButtonClasses.root}.${iconButtonClasses.colorInherit}`]: {
+              color: 'inherit',
+              '@media (hover: hover)': {
+                '&:hover': {
+                  backgroundColor: theme.alpha(
+                    (theme.vars || theme).palette.text.primary,
+                    (theme.vars || theme).palette.action.hoverOpacity,
+                  ),
+                },
+              },
+            },
+            // declared after the color styles so that they win, and before the position styles so
+            // that a disabled group still draws its dividers
+            [`& .${iconButtonClasses.root}.${iconButtonClasses.disabled}`]: {
+              color: (theme.vars || theme).palette.action.disabled,
+            },
+            [`& .${iconButtonClasses.root}.${iconButtonClasses.loading}`]: {
+              color: 'transparent',
+            },
+          },
+        },
+        {
+          props: { variant: 'outlined' },
+          style: {
+            [`& .${iconButtonClasses.root}`]: {
+              border: '1px solid currentColor',
+            },
+            ...Object.fromEntries(
+              Object.entries(theme.palette)
+                .filter(createSimplePaletteValueFilter())
+                .map(([color]) => [
+                  `& .${iconButtonClasses.root}.${getIconButtonUtilityClass(`color${capitalize(color)}`)}`,
+                  {
+                    color: (theme.vars || theme).palette[color].main,
+                    borderColor: theme.alpha((theme.vars || theme).palette[color].main, 0.5),
+                    '@media (hover: hover)': {
+                      '&:hover': {
+                        borderColor: (theme.vars || theme).palette[color].main,
+                        backgroundColor: theme.alpha(
+                          (theme.vars || theme).palette[color].main,
+                          (theme.vars || theme).palette.action.hoverOpacity,
+                        ),
+                      },
+                    },
+                  },
+                ]),
+            ),
+            [`& .${iconButtonClasses.root}.${iconButtonClasses.colorInherit}`]: {
+              color: 'inherit',
+              borderColor: 'currentColor',
+              '@media (hover: hover)': {
+                '&:hover': {
+                  backgroundColor: theme.alpha(
+                    (theme.vars || theme).palette.text.primary,
+                    (theme.vars || theme).palette.action.hoverOpacity,
+                  ),
+                },
+              },
+            },
+            // declared after the color styles so that they win, and before the position styles so
+            // that a disabled group still draws its dividers
+            [`& .${iconButtonClasses.root}.${iconButtonClasses.disabled}`]: {
+              color: (theme.vars || theme).palette.action.disabled,
+              border: `1px solid ${(theme.vars || theme).palette.action.disabledBackground}`,
+            },
+            [`& .${iconButtonClasses.root}.${iconButtonClasses.loading}`]: {
+              color: 'transparent',
+            },
+          },
+        },
+        {
+          props: { variant: 'contained' },
+          style: {
+            ...Object.fromEntries(
+              Object.entries(theme.palette)
+                .filter(createSimplePaletteValueFilter())
+                .map(([color]) => [
+                  `& .${iconButtonClasses.root}.${getIconButtonUtilityClass(`color${capitalize(color)}`)}`,
+                  {
+                    color: (theme.vars || theme).palette[color].contrastText,
+                    backgroundColor: (theme.vars || theme).palette[color].main,
+                    '@media (hover: hover)': {
+                      '&:hover': {
+                        backgroundColor: (theme.vars || theme).palette[color].dark,
+                      },
+                    },
+                  },
+                ]),
+            ),
+            [`& .${iconButtonClasses.root}.${iconButtonClasses.colorInherit}`]: {
+              color: 'inherit',
+              backgroundColor: theme.vars
+                ? theme.vars.palette.Button.inheritContainedBg
+                : inheritContainedBackgroundColor,
+              '@media (hover: hover)': {
+                '&:hover': {
+                  backgroundColor: theme.vars
+                    ? theme.vars.palette.Button.inheritContainedHoverBg
+                    : inheritContainedHoverBackgroundColor,
+                },
+              },
+            },
+            // declared after the color styles so that they win, and before the position styles so
+            // that a disabled group still draws its dividers
+            [`& .${iconButtonClasses.root}.${iconButtonClasses.disabled}`]: {
+              color: (theme.vars || theme).palette.action.disabled,
+              backgroundColor: (theme.vars || theme).palette.action.disabledBackground,
+            },
+            [`& .${iconButtonClasses.root}.${iconButtonClasses.loading}`]: {
+              color: 'transparent',
+            },
+          },
+        },
+        {
+          props: { variant: 'text', orientation: 'horizontal' },
+          style: {
+            [`& .${buttonGroupClasses.firstButton},& .${buttonGroupClasses.middleButton}`]: {
+              borderRight: theme.vars
+                ? `1px solid ${theme.alpha(theme.vars.palette.common.onBackground, 0.23)}`
+                : `1px solid ${
+                    theme.palette.mode === 'light'
+                      ? 'rgba(0, 0, 0, 0.23)'
+                      : 'rgba(255, 255, 255, 0.23)'
+                  }`,
+              [`&.${buttonGroupClasses.disabled}`]: {
+                borderRight: `1px solid ${(theme.vars || theme).palette.action.disabled}`,
               },
             },
           },
-        ]),
-      {
-        props: { variant: 'outlined', orientation: 'horizontal' },
-        style: {
-          [`& .${buttonGroupClasses.firstButton},& .${buttonGroupClasses.middleButton}`]: {
-            borderRightColor: 'transparent',
-            '&:hover': {
-              borderRightColor: 'currentColor',
+        },
+        {
+          props: { variant: 'text', orientation: 'vertical' },
+          style: {
+            [`& .${buttonGroupClasses.firstButton},& .${buttonGroupClasses.middleButton}`]: {
+              borderBottom: theme.vars
+                ? `1px solid ${theme.alpha(theme.vars.palette.common.onBackground, 0.23)}`
+                : `1px solid ${
+                    theme.palette.mode === 'light'
+                      ? 'rgba(0, 0, 0, 0.23)'
+                      : 'rgba(255, 255, 255, 0.23)'
+                  }`,
+              [`&.${buttonGroupClasses.disabled}`]: {
+                borderBottom: `1px solid ${(theme.vars || theme).palette.action.disabled}`,
+              },
             },
           },
-          [`& .${buttonGroupClasses.firstButton}.${iconButtonClasses.root},& .${buttonGroupClasses.middleButton}.${iconButtonClasses.root}`]:
+        },
+        ...Object.entries(theme.palette)
+          .filter(createSimplePaletteValueFilter())
+          .flatMap(([color]) => [
             {
+              props: { variant: 'text', color },
+              style: {
+                [`& .${buttonGroupClasses.firstButton},& .${buttonGroupClasses.middleButton}`]: {
+                  borderColor: theme.alpha((theme.vars || theme).palette[color].main, 0.5),
+                },
+              },
+            },
+          ]),
+        {
+          props: { variant: 'outlined', orientation: 'horizontal' },
+          style: {
+            [`& .${buttonGroupClasses.firstButton},& .${buttonGroupClasses.middleButton}`]: {
               borderRightColor: 'transparent',
               '&:hover': {
                 borderRightColor: 'currentColor',
               },
             },
-          [`& .${buttonGroupClasses.lastButton},& .${buttonGroupClasses.middleButton}`]: {
-            marginLeft: -1,
-          },
-        },
-      },
-      {
-        props: { variant: 'outlined', orientation: 'vertical' },
-        style: {
-          [`& .${buttonGroupClasses.firstButton},& .${buttonGroupClasses.middleButton}`]: {
-            borderBottomColor: 'transparent',
-            '&:hover': {
-              borderBottomColor: 'currentColor',
+            [`& .${buttonGroupClasses.firstButton}.${iconButtonClasses.root},& .${buttonGroupClasses.middleButton}.${iconButtonClasses.root}`]:
+              {
+                borderRightColor: 'transparent',
+                '&:hover': {
+                  borderRightColor: 'currentColor',
+                },
+              },
+            [`& .${buttonGroupClasses.lastButton},& .${buttonGroupClasses.middleButton}`]: {
+              marginLeft: -1,
             },
           },
-          [`& .${buttonGroupClasses.firstButton}.${iconButtonClasses.root},& .${buttonGroupClasses.middleButton}.${iconButtonClasses.root}`]:
-            {
+        },
+        {
+          props: { variant: 'outlined', orientation: 'vertical' },
+          style: {
+            [`& .${buttonGroupClasses.firstButton},& .${buttonGroupClasses.middleButton}`]: {
               borderBottomColor: 'transparent',
               '&:hover': {
                 borderBottomColor: 'currentColor',
               },
             },
-          [`& .${buttonGroupClasses.lastButton},& .${buttonGroupClasses.middleButton}`]: {
-            marginTop: -1,
-          },
-        },
-      },
-      {
-        props: { variant: 'contained', orientation: 'horizontal' },
-        style: {
-          [`& .${buttonGroupClasses.firstButton},& .${buttonGroupClasses.middleButton}`]: {
-            borderRight: `1px solid ${(theme.vars || theme).palette.grey[400]}`,
-            [`&.${buttonGroupClasses.disabled}`]: {
-              borderRight: `1px solid ${(theme.vars || theme).palette.action.disabled}`,
+            [`& .${buttonGroupClasses.firstButton}.${iconButtonClasses.root},& .${buttonGroupClasses.middleButton}.${iconButtonClasses.root}`]:
+              {
+                borderBottomColor: 'transparent',
+                '&:hover': {
+                  borderBottomColor: 'currentColor',
+                },
+              },
+            [`& .${buttonGroupClasses.lastButton},& .${buttonGroupClasses.middleButton}`]: {
+              marginTop: -1,
             },
           },
         },
-      },
-      {
-        props: { variant: 'contained', orientation: 'vertical' },
-        style: {
-          [`& .${buttonGroupClasses.firstButton},& .${buttonGroupClasses.middleButton}`]: {
-            borderBottom: `1px solid ${(theme.vars || theme).palette.grey[400]}`,
-            [`&.${buttonGroupClasses.disabled}`]: {
-              borderBottom: `1px solid ${(theme.vars || theme).palette.action.disabled}`,
-            },
-          },
-        },
-      },
-      ...Object.entries(theme.palette)
-        .filter(createSimplePaletteValueFilter(['dark']))
-        .map(([color]) => ({
-          props: { variant: 'contained', color },
+        {
+          props: { variant: 'contained', orientation: 'horizontal' },
           style: {
             [`& .${buttonGroupClasses.firstButton},& .${buttonGroupClasses.middleButton}`]: {
-              borderColor: (theme.vars || theme).palette[color].dark,
+              borderRight: `1px solid ${(theme.vars || theme).palette.grey[400]}`,
+              [`&.${buttonGroupClasses.disabled}`]: {
+                borderRight: `1px solid ${(theme.vars || theme).palette.action.disabled}`,
+              },
             },
           },
-        })),
-    ],
-    [`& .${buttonGroupClasses.grouped}`]: {
-      minWidth: 40,
-    },
-    // the grouped min-width is meant for text buttons, it would make an icon wider than tall
-    [`& .${buttonGroupClasses.grouped}.${iconButtonClasses.root}`]: {
-      minWidth: 0,
-    },
-    [`& .${iconButtonClasses.root}`]: {
-      borderRadius: (theme.vars || theme).shape.borderRadius,
-      transition: theme.transitions.create(
-        ['background-color', 'box-shadow', 'border-color', 'color'],
-        {
-          duration: theme.transitions.duration.short,
         },
-      ),
-    },
-  })),
+        {
+          props: { variant: 'contained', orientation: 'vertical' },
+          style: {
+            [`& .${buttonGroupClasses.firstButton},& .${buttonGroupClasses.middleButton}`]: {
+              borderBottom: `1px solid ${(theme.vars || theme).palette.grey[400]}`,
+              [`&.${buttonGroupClasses.disabled}`]: {
+                borderBottom: `1px solid ${(theme.vars || theme).palette.action.disabled}`,
+              },
+            },
+          },
+        },
+        ...Object.entries(theme.palette)
+          .filter(createSimplePaletteValueFilter(['dark']))
+          .map(([color]) => ({
+            props: { variant: 'contained', color },
+            style: {
+              [`& .${buttonGroupClasses.firstButton},& .${buttonGroupClasses.middleButton}`]: {
+                borderColor: (theme.vars || theme).palette[color].dark,
+              },
+            },
+          })),
+      ],
+      [`& .${buttonGroupClasses.grouped}`]: {
+        minWidth: 40,
+      },
+      // the grouped min-width is meant for text buttons, it would make an icon wider than tall
+      [`& .${buttonGroupClasses.grouped}.${iconButtonClasses.root}`]: {
+        minWidth: 0,
+      },
+      [`& .${iconButtonClasses.root}`]: {
+        borderRadius: (theme.vars || theme).shape.borderRadius,
+        transition: theme.transitions.create(
+          ['background-color', 'box-shadow', 'border-color', 'color'],
+          {
+            duration: theme.transitions.duration.short,
+          },
+        ),
+      },
+    };
+  }),
 );
 
 const ButtonGroup = React.forwardRef(function ButtonGroup(inProps, ref) {
