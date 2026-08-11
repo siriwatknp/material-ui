@@ -158,6 +158,7 @@ The default animation is close to `Grow` but not identical. The classic Menu pas
 | Menu                                                               | Menu v2                                 | Notes                                                             |
 | :----------------------------------------------------------------- | :-------------------------------------- | :---------------------------------------------------------------- |
 | `dense`, `disableGutters`, `divider`, `disabled`                   | Same                                    | Unchanged.                                                        |
+| `disableRipple`                                                    | Same                                    | The item root is a `ButtonBase`, so items ripple as before.       |
 | `selected`                                                         | Same, but visual only                   | Use checkbox or radio items for real selection state.             |
 | `<Divider />` between items                                        | `Menu2Separator`                        | Controls its own margins.                                         |
 | `ListSubheader`                                                    | `Menu2Group` + `Menu2GroupLabel`        | Adds the correct ARIA relationship.                               |

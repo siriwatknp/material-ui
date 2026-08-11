@@ -130,6 +130,8 @@ Use the `dense` prop on items to reduce padding and text size.
 
 {{"demo": "DenseMenu2.js"}}
 
+Items also accept `disableGutters`, `divider`, `selected`, and `disabled`, the same as the current `MenuItem`. They ripple on click like the rest of Material UI; pass `disableRipple` to turn that off.
+
 ## Checkbox and radio items
 
 `Menu2CheckboxItem` renders `role="menuitemcheckbox"` with `aria-checked` and its own indicator—there's no separate indicator component to add.
