@@ -1,4 +1,5 @@
 import * as React from 'react';
+import Button from '@mui/material/Button';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Typography from '@mui/material/Typography';
@@ -20,7 +21,10 @@ function Shortcut({ children }: { children: React.ReactNode }) {
 
 export default function IconMenu2() {
   return (
-    <Menu2 trigger="Edit" slotProps={{ paper: { sx: { width: 320 } } }}>
+    <Menu2
+      trigger={<Button>Edit</Button>}
+      slotProps={{ paper: { sx: { width: 320 } } }}
+    >
       <Menu2Item>
         <ListItemIcon>
           <ContentCut fontSize="small" />

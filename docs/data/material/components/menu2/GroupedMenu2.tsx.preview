@@ -1,4 +1,4 @@
-<Menu2 trigger="Insert">
+<Menu2 trigger={<Button>Insert</Button>}>
   <Menu2Group>
     <Menu2GroupLabel>Media</Menu2GroupLabel>
     <Menu2Item>Image</Menu2Item>

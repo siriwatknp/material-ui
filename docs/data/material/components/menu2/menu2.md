@@ -70,44 +70,44 @@ Pass the element that opens the menu to the `trigger` prop, and the items as chi
 
 {{"demo": "BasicMenu2.js"}}
 
-`trigger` accepts either content or an element. Content renders inside the default trigger, which is a [Button](/material-ui/react-button/):
+`trigger` takes an element, and the trigger behavior is merged into it—so the element keeps whatever component you passed. There's no default trigger, which means the menu never renders a button you didn't ask for:
 
 ```jsx
-<Menu2 trigger="Dashboard">
+<Menu2 trigger={<Button>Dashboard</Button>}>
 ```
-
-An element is used as-is, with the trigger behavior merged into it, so you keep your own component:
 
 ```jsx
 <Menu2 trigger={<IconButton aria-label="More actions"><MoreVertIcon /></IconButton>}>
 ```
 
-To configure the default trigger instead of replacing it, use `slotProps.trigger`—it takes Button props:
+Two rules follow from the trigger being your element:
 
-```jsx
-<Menu2
-  trigger="Dashboard"
-  slotProps={{ trigger: { variant: 'contained', endIcon: <KeyboardArrowDownIcon /> } }}
->
-```
+- **A wrapper must forward props and ref** to the element it renders, the way [Tooltip](/material-ui/react-tooltip/) does. The trigger behavior is merged through props, so a component that drops them opens nothing.
+- **Declare `nativeButton={false}`** when the element isn't a native `<button>`, so the keyboard behavior stays correct.
 
 Selecting an item closes the menu. Set `closeOnClick={false}` on an item to keep it open.
 
 ## Submenu
 
-Nest a `Menu2Submenu` anywhere in the item list. Its `trigger` prop is the label of the item that opens it, and its children are the submenu's own items—the same shape as the root menu, one level down.
+Nest a `Menu2Submenu` anywhere in the item list. Its `trigger` is the item that opens it, and its children are the submenu's own items—the same shape as the root menu, one level down.
 
 Submenus open on hover after a short delay as well as on click, flip when they run out of room, and can nest to any depth. Escape closes the innermost submenu and returns focus to its trigger.
 
 {{"demo": "SubmenuMenu2.js"}}
 
-Unlike the root menu, a submenu's `trigger` takes content rather than an element: a submenu trigger is already a menu item, so passing a `Menu2Item` would nest an item inside an item. Use `slots.trigger` to swap the component.
+A submenu trigger is a menu item, so pass a `Menu2Item` rather than a button:
 
-Hover behavior is configured on the trigger slot:
+```jsx
+<Menu2Submenu trigger={<Menu2Item>Share</Menu2Item>}>
+```
+
+The submenu keeps that item from closing the menu, so you don't need to set `closeOnClick` yourself.
+
+Hover behavior is configured through `slotProps.trigger`:
 
 ```jsx
 <Menu2Submenu
-  trigger="Share"
+  trigger={<Menu2Item>Share</Menu2Item>}
   slotProps={{ trigger: { openOnHover: true, delay: 100, closeDelay: 0 } }}
 >
 ```
@@ -217,9 +217,11 @@ A menu with no trigger has no element to return focus to when it closes. Always 
 
 {{"demo": "CustomizedMenu2.js"}}
 
-The slots are `portal`, `positioner`, `popup`, `paper`, `list`, `backdrop`, and `trigger`. `elevation` is a top-level prop that forwards to the `paper` slot, so the common case doesn't need `slotProps`.
+The slots are `portal`, `positioner`, `popup`, `paper`, `list`, and `backdrop`. `elevation` is a top-level prop that forwards to the `paper` slot, so the common case doesn't need `slotProps`.
 
-Theme-level customization uses two keys—`MuiMenu2` and `MuiMenu2Submenu`:
+The trigger isn't a slot, because you supply the element yourself—style it directly, or pass props to it through `slotProps.trigger`. It still carries a `.MuiMenu2Trigger-root` class, and a `.MuiMenu2Trigger-open` class while the menu is open.
+
+Theme-level customization uses two keys—`MuiMenu2`, with the slots `root`, `backdrop`, `paper`, and `list`, and `MuiMenu2Submenu`, with `root`, `paper`, and `list`. Each item has its own key, such as `MuiMenu2Item`:
 
 ```js
 const theme = createTheme({

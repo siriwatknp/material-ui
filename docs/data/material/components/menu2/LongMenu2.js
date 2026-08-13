@@ -1,4 +1,5 @@
 import * as React from 'react';
+import Button from '@mui/material/Button';
 import Menu2 from '@mui/material/Unstable_Menu2';
 import Menu2Item from '@mui/material/Unstable_Menu2Item';
 
@@ -40,7 +41,7 @@ const countries = [
 export default function LongMenu2() {
   return (
     <Menu2
-      trigger="Country"
+      trigger={<Button>Country</Button>}
       slotProps={{ paper: { sx: { maxHeight: 320, width: 240 } } }}
     >
       {countries.map((country) => (

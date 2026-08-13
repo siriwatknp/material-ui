@@ -22,7 +22,7 @@ Menu v2 provides the following improvements over Menu:
 - **Submenus** at any nesting depth, with correct keyboard, hover, and ARIA behavior. This was [the most requested Menu feature since 2018](https://github.com/mui/material-ui/issues/11723), and it isn't possible in the current Menu.
 - **Checkbox and radio items** with the right roles, `aria-checked`, and built-in indicators.
 - **Groups with labels**, connected with `aria-labelledby`.
-- **A built-in trigger** that handles `aria-haspopup`, `aria-expanded`, and `aria-controls` for you, so there's no anchor state to manage.
+- **A trigger prop** that handles `aria-haspopup`, `aria-expanded`, and `aria-controls` for you, so there's no anchor state to manage.
 - **Collision-aware positioning** that flips and follows the anchor automatically.
 - **Accessibility fixes** that the current Menu can't make without breaking existing behavior—see [Behavior changes](#behavior-changes).
 
@@ -80,20 +80,24 @@ The trigger is part of the component now, so the anchor state and the ARIA wirin
 ->
 -  <MenuItem onClick={() => setAnchorEl(null)}>Profile</MenuItem>
 -</Menu>
-+<Menu2 trigger="Dashboard">
++<Menu2 trigger={<Button>Dashboard</Button>}>
 +  <Menu2Item>Profile</Menu2Item>
 +</Menu2>
 ```
 
 Selecting an item closes the menu by default, so the `onClick={handleClose}` on every item is no longer needed. Set `closeOnClick={false}` on an item to keep the menu open.
 
-To keep your own trigger component, pass it as an element—the trigger behavior is merged into it:
+`trigger` takes an element, and the trigger behavior is merged into it, so you keep your own component:
 
 ```jsx
 <Menu2 trigger={<IconButton aria-label="More actions"><MoreVertIcon /></IconButton>}>
 ```
 
-To configure the default trigger instead of replacing it, use `slotProps.trigger`, which takes [Button](/material-ui/react-button/) props.
+There's no default trigger, so the element is always yours. Three things to watch:
+
+- A wrapper used as a trigger must forward props and ref to the element it renders, the way `Tooltip` does. The behavior is merged through props, so a component that drops them opens nothing.
+- Pass `nativeButton={false}` when the element isn't a native `<button>`.
+- A submenu `trigger` is a menu item, so pass a `Menu2Item`. The submenu keeps it from closing the menu, so you don't set `closeOnClick` yourself.
 
 If you'd rather keep the controlled pattern, omit `trigger` and pass `open`, `onOpenChange`, and `anchor`. See [Controlled menu](/material-ui/react-menu2/#controlled-menu).
 
@@ -146,7 +150,7 @@ Menu v2 animates with CSS rather than a transition component. The default matche
 | `onTransitionEnter` / `onTransitionExited` / `closeAfterTransition` | `onOpenChangeComplete` + `keepMounted`               |
 
 ```jsx
-<Menu2 trigger="Options" slotProps={{ popup: { sx: { transition: 'none' } } }}>
+<Menu2 trigger={<Button>Options</Button>} slotProps={{ popup: { sx: { transition: 'none' } } }}>
 ```
 
 :::info
@@ -175,7 +179,9 @@ Composed list primitives still work inside items, so `ListItemIcon`, `ListItemTe
 
 ### 7. Update the theme keys
 
-Menu v2 registers two theme keys, `MuiMenu2` and `MuiMenu2Submenu`, each with `root`, `trigger`, `paper`, and `list` slots (`MuiMenu2` also has `backdrop`). The items have their own keys, such as `MuiMenu2Item`.
+Menu v2 registers two theme keys. `MuiMenu2` has the slots `root`, `backdrop`, `paper`, and `list`. `MuiMenu2Submenu` has `root`, `paper`, and `list`. The items have their own keys, such as `MuiMenu2Item`.
+
+The trigger has no theme slot, because you supply the element—theme its own component instead, or style the `.MuiMenu2Trigger-root` class.
 
 ```diff
  const theme = createTheme({
@@ -198,7 +204,7 @@ Menu v2 registers two theme keys, `MuiMenu2` and `MuiMenu2Submenu`, each with `r
 
 Every element keeps its own class hook, so `sx` and `styleOverrides` can still reach each node—for example `.MuiMenu2Item-root`.
 
-The slots are `portal`, `positioner`, `popup`, `paper`, `list`, `backdrop`, and `trigger`. There's no `transition` slot. `elevation` remains a top-level prop that forwards to the `paper` slot, default 8.
+The slots are `portal`, `positioner`, `popup`, `paper`, `list`, and `backdrop`. There's no `transition` slot, and no `trigger` slot. `elevation` remains a top-level prop that forwards to the `paper` slot, default 8.
 
 ### 8. Check the removed props
 

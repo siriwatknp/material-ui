@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { alpha, styled } from '@mui/material/styles';
+import Button from '@mui/material/Button';
 import ArchiveIcon from '@mui/icons-material/Archive';
 import EditIcon from '@mui/icons-material/Edit';
 import FileCopyIcon from '@mui/icons-material/FileCopy';
@@ -35,14 +36,15 @@ const StyledMenu2 = styled((props) => (
 export default function CustomizedMenu2() {
   return (
     <StyledMenu2
-      trigger="Options"
-      slotProps={{
-        trigger: {
-          variant: 'contained',
-          disableElevation: true,
-          endIcon: <KeyboardArrowDownIcon />,
-        },
-      }}
+      trigger={
+        <Button
+          variant="contained"
+          disableElevation
+          endIcon={<KeyboardArrowDownIcon />}
+        >
+          Options
+        </Button>
+      }
     >
       <Menu2Item>
         <EditIcon />
