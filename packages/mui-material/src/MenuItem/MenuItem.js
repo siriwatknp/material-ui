@@ -5,10 +5,9 @@ import clsx from 'clsx';
 import composeClasses from '@mui/utils/composeClasses';
 import rootShouldForwardProp from '../styles/rootShouldForwardProp';
 import { styled } from '../zero-styled';
-import memoTheme from '../utils/memoTheme';
 import { useDefaultProps } from '../DefaultPropsProvider';
+import MenuItemBase from './MenuItemBase';
 import ListContext from '../List/ListContext';
-import ButtonBase from '../ButtonBase';
 import useEnhancedEffect from '../utils/useEnhancedEffect';
 import focusWithVisible from '../utils/focusWithVisible';
 import useForkRef from '../utils/useForkRef';
@@ -16,10 +15,18 @@ import useId from '../utils/useId';
 import { useRovingTabIndexItem } from '../utils/useRovingTabIndex';
 import { useMenuListContext } from '../MenuList/MenuListContext';
 import { useSelectFocusSource } from '../Select/utils';
-import menuItemClasses, { getMenuItemUtilityClass } from './menuItemClasses';
-import { getMenuItemRootStyles, menuItemOverridesResolver } from './menuItemStyles';
+import { getMenuItemUtilityClass } from './menuItemClasses';
 
-export const overridesResolver = menuItemOverridesResolver;
+export const overridesResolver = (props, styles) => {
+  const { ownerState } = props;
+
+  return [
+    styles.root,
+    ownerState.dense && styles.dense,
+    ownerState.divider && styles.divider,
+    !ownerState.disableGutters && styles.gutters,
+  ];
+};
 
 const useUtilityClasses = (ownerState) => {
   const { disabled, dense, divider, disableGutters, selected, classes } = ownerState;
@@ -42,12 +49,15 @@ const useUtilityClasses = (ownerState) => {
   };
 };
 
-const MenuItemRoot = styled(ButtonBase, {
-  shouldForwardProp: (prop) => rootShouldForwardProp(prop) || prop === 'classes',
+const MenuItemRoot = styled(MenuItemBase, {
+  // The shared base reads `ownerState` for its variants; the default root
+  // filter would strip it before the base sees it.
+  shouldForwardProp: (prop) =>
+    rootShouldForwardProp(prop) || prop === 'classes' || prop === 'ownerState',
   name: 'MuiMenuItem',
   slot: 'Root',
   overridesResolver,
-})(memoTheme(({ theme }) => getMenuItemRootStyles(theme, menuItemClasses)));
+})({});
 
 const MenuItem = React.forwardRef(function MenuItem(inProps, ref) {
   const props = useDefaultProps({ props: inProps, name: 'MuiMenuItem' });

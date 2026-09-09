@@ -10,10 +10,9 @@ import { mergeProps } from '@base-ui/react/merge-props';
 import mergeSlotProps from '../utils/mergeSlotProps';
 import ListContext from '../List/ListContext';
 import { styled } from '../zero-styled';
-import memoTheme from '../utils/memoTheme';
-import ButtonBase from '../ButtonBase';
+import rootShouldForwardProp from '../styles/rootShouldForwardProp';
 import { useDefaultProps } from '../DefaultPropsProvider';
-import { getMenu2ItemStyles } from '../Unstable_Menu2/menu2SharedStyles';
+import Menu2ItemBase from '../Unstable_Menu2/Menu2ItemBase';
 import Menu2RadioItemIndicator, {
   Menu2RadioItemIndicatorProps,
 } from '../Unstable_Menu2RadioItemIndicator';
@@ -35,7 +34,6 @@ import {
 } from '../Unstable_Menu2/menu2ItemShared';
 import {
   getMenu2RadioItemUtilityClass,
-  menu2RadioItemClasses,
   Menu2RadioItemClasses,
 } from '../Unstable_Menu2/menu2Classes';
 
@@ -127,13 +125,14 @@ export type Menu2RadioItemProps<
   component?: React.ElementType | undefined;
 };
 
-const Menu2RadioItemRoot = styled(ButtonBase, {
+const Menu2RadioItemRoot = styled(Menu2ItemBase, {
   name: 'MuiMenu2RadioItem',
   slot: 'Root',
   overridesResolver: menu2ItemOverridesResolver,
-})<{ ownerState: Menu2RadioItemOwnerState }>(
-  memoTheme(({ theme }) => getMenu2ItemStyles(theme, menu2RadioItemClasses)),
-);
+  // The shared base reads `ownerState` for its variants; the default root
+  // filter would strip it before the base sees it.
+  shouldForwardProp: (prop: string) => rootShouldForwardProp(prop) || prop === 'ownerState',
+})<{ ownerState: Menu2RadioItemOwnerState }>({});
 
 interface Menu2RadioItemRootSlotProps extends Pick<
   Menu2RadioItemProps,

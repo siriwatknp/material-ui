@@ -7,10 +7,9 @@ import { Menu as BaseMenu } from '@base-ui/react/menu';
 import mergeSlotProps from '../utils/mergeSlotProps';
 import ListContext from '../List/ListContext';
 import { styled } from '../zero-styled';
-import memoTheme from '../utils/memoTheme';
-import ButtonBase from '../ButtonBase';
+import rootShouldForwardProp from '../styles/rootShouldForwardProp';
 import { useDefaultProps } from '../DefaultPropsProvider';
-import { getMenu2ItemStyles } from '../Unstable_Menu2/menu2SharedStyles';
+import Menu2ItemBase from '../Unstable_Menu2/Menu2ItemBase';
 import {
   getMenu2ItemOwnerState,
   Menu2ItemBaseProps,
@@ -26,11 +25,7 @@ import {
   Menu2RootSlotProps,
   suppressButtonBaseKeyboardActivation,
 } from '../Unstable_Menu2/menu2Utils';
-import {
-  getMenu2ItemUtilityClass,
-  menu2ItemClasses,
-  Menu2ItemClasses,
-} from '../Unstable_Menu2/menu2Classes';
+import { getMenu2ItemUtilityClass, Menu2ItemClasses } from '../Unstable_Menu2/menu2Classes';
 
 export interface Menu2ItemSlots {
   /**
@@ -97,13 +92,14 @@ export type Menu2ItemProps<
   component?: React.ElementType | undefined;
 };
 
-const Menu2ItemRoot = styled(ButtonBase, {
+const Menu2ItemRoot = styled(Menu2ItemBase, {
   name: 'MuiMenu2Item',
   slot: 'Root',
   overridesResolver: menu2ItemOverridesResolver,
-})<{ ownerState: Menu2ItemOwnerState }>(
-  memoTheme(({ theme }) => getMenu2ItemStyles(theme, menu2ItemClasses)),
-);
+  // The shared base reads `ownerState` for its variants; the default root
+  // filter would strip it before the base sees it.
+  shouldForwardProp: (prop: string) => rootShouldForwardProp(prop) || prop === 'ownerState',
+})<{ ownerState: Menu2ItemOwnerState }>({});
 
 /**
  *

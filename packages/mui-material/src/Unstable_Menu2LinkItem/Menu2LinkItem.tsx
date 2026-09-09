@@ -7,10 +7,9 @@ import { Menu as BaseMenu } from '@base-ui/react/menu';
 import mergeSlotProps from '../utils/mergeSlotProps';
 import ListContext from '../List/ListContext';
 import { styled } from '../zero-styled';
-import memoTheme from '../utils/memoTheme';
-import ButtonBase from '../ButtonBase';
+import rootShouldForwardProp from '../styles/rootShouldForwardProp';
 import { useDefaultProps } from '../DefaultPropsProvider';
-import { getMenu2ItemStyles } from '../Unstable_Menu2/menu2SharedStyles';
+import Menu2ItemBase from '../Unstable_Menu2/Menu2ItemBase';
 import {
   getMenu2RootRender,
   Menu2RootSlotProps,
@@ -27,7 +26,6 @@ import {
 } from '../Unstable_Menu2/menu2ItemShared';
 import {
   getMenu2LinkItemUtilityClass,
-  menu2LinkItemClasses,
   Menu2LinkItemClasses,
 } from '../Unstable_Menu2/menu2Classes';
 
@@ -95,13 +93,14 @@ export type Menu2LinkItemProps<
   component?: React.ElementType | undefined;
 };
 
-const Menu2LinkItemRoot = styled(ButtonBase, {
+const Menu2LinkItemRoot = styled(Menu2ItemBase, {
   name: 'MuiMenu2LinkItem',
   slot: 'Root',
   overridesResolver: menu2ItemOverridesResolver,
-})<{ ownerState: Menu2ItemOwnerState }>(
-  memoTheme(({ theme }) => getMenu2ItemStyles(theme, menu2LinkItemClasses)),
-);
+  // The shared base reads `ownerState` for its variants; the default root
+  // filter would strip it before the base sees it.
+  shouldForwardProp: (prop: string) => rootShouldForwardProp(prop) || prop === 'ownerState',
+})<{ ownerState: Menu2ItemOwnerState }>({});
 
 /**
  *
