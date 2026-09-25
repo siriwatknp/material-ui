@@ -16,26 +16,6 @@ import {
   type ThemeOptions,
 } from '@mui/material/styles';
 
-// `createTheme` only runs the default scheme and the built-in `light`/`dark` keys through
-// `createPalette`, so every custom scheme has to arrive complete via `createColorScheme`.
-const colorSchemes = {
-  'blue-light-high': createColorScheme({
-    palette: { mode: 'light', primary: { main: '#0b57d0' } },
-  }),
-  'blue-dark-high': createColorScheme({
-    palette: { mode: 'dark', primary: { main: '#a8c7fa' } },
-  }),
-  'gray-light-high': createColorScheme({
-    palette: { mode: 'light', primary: { main: '#3c4043' } },
-  }),
-  'gray-dark-high': createColorScheme({
-    palette: { mode: 'dark', primary: { main: '#dadce0' } },
-  }),
-  'gray-light-low': createColorScheme({
-    palette: { mode: 'light', primary: { main: '#9aa0a6' } },
-  }),
-};
-
 const DEFAULT_LIGHT = 'blue-light-high' as SupportedColorScheme;
 const DEFAULT_DARK = 'blue-dark-high' as SupportedColorScheme;
 
@@ -54,12 +34,37 @@ const theme = createTheme({
   cssVariables: { colorSchemeSelector: 'data-color-scheme' },
   // Decides which scheme is written to `:root`, nothing else.
   defaultColorScheme: DEFAULT_LIGHT,
-  colorSchemes: colorSchemes as ThemeOptions['colorSchemes'],
+  // `createTheme` only runs the default scheme and the built-in `light`/`dark` keys through
+  // `createPalette`, so every custom scheme has to arrive complete via `createColorScheme`.
+  colorSchemes: {
+    'blue-light-high': createColorScheme({
+      palette: { mode: 'light', primary: { main: '#0b57d0' } },
+    }),
+    'blue-dark-high': createColorScheme({
+      palette: { mode: 'dark', primary: { main: '#a8c7fa' } },
+    }),
+    'gray-light-high': createColorScheme({
+      palette: { mode: 'light', primary: { main: '#3c4043' } },
+    }),
+    'gray-dark-high': createColorScheme({
+      palette: { mode: 'dark', primary: { main: '#dadce0' } },
+    }),
+    'gray-light-low': createColorScheme({
+      palette: { mode: 'light', primary: { main: '#9aa0a6' } },
+    }),
+  } as ThemeOptions['colorSchemes'],
 });
 
 function Playground() {
-  const { mode, setMode, colorScheme, setColorScheme, lightColorScheme, darkColorScheme } =
-    useColorScheme();
+  const {
+    mode,
+    setMode,
+    colorScheme,
+    setColorScheme,
+    lightColorScheme,
+    darkColorScheme,
+    allColorSchemes,
+  } = useColorScheme();
 
   // The provider seeds its state with `light`/`dark`, which do not exist here, so the default has
   // to be mapped onto both slots. `InitColorSchemeScript` below does the same for the first paint.
@@ -109,7 +114,7 @@ function Playground() {
         value={colorScheme ?? null}
         onChange={(event, value) => value && setColorScheme(value)}
       >
-        {Object.keys(colorSchemes).map((scheme) => (
+        {allColorSchemes.map((scheme) => (
           <ToggleButton key={scheme} value={scheme}>
             {scheme}
           </ToggleButton>
