@@ -105,6 +105,21 @@ export default function createCssVarsProvider(options) {
         : colorSchemes[restThemeProp.defaultColorScheme]?.palette?.mode ||
           restThemeProp.palette?.mode;
 
+    const requestedMode = props.defaultMode;
+    React.useEffect(() => {
+      if (process.env.NODE_ENV !== 'production') {
+        if (requestedMode && defaultMode !== requestedMode) {
+          console.warn(
+            [
+              `MUI: The \`defaultMode="${requestedMode}"\` prop was ignored and resolved to \`${defaultMode}\` instead.`,
+              `Each mode defaults to the \`${defaultLightColorScheme}\` and \`${defaultDarkColorScheme}\` color schemes, and \`theme.colorSchemes\` is missing at least one of them.`,
+              'Define both to support every mode.',
+            ].join('\n'),
+          );
+        }
+      }
+    }, [requestedMode, defaultMode, defaultLightColorScheme, defaultDarkColorScheme]);
+
     // 1. Get the data about the `mode`, `colorScheme`, and setter functions.
     const {
       mode: stateMode,
@@ -193,6 +208,20 @@ export default function createCssVarsProvider(options) {
     // 5.1 Updates the selector value to use the current color scheme which tells CSS to use the proper stylesheet.
     const colorSchemeSelector = restThemeProp.colorSchemeSelector;
     useEnhancedEffect(() => {
+      if (process.env.NODE_ENV !== 'production') {
+        // `joinedColorSchemes` is empty when the theme has no color schemes at all, which is a
+        // valid way to use CSS theme variables without a palette.
+        if (joinedColorSchemes && colorScheme && !colorSchemes[colorScheme]) {
+          console.error(
+            [
+              `MUI: The color scheme \`${colorScheme}\` does not exist in \`theme.colorSchemes\`.`,
+              `Available color schemes: ${allColorSchemes.join(', ')}.`,
+              `Each mode defaults to the \`${defaultLightColorScheme}\` and \`${defaultDarkColorScheme}\` color schemes, so define both,`,
+              'or map the modes to your own schemes with `setColorScheme({ light: ..., dark: ... })`.',
+            ].join('\n'),
+          );
+        }
+      }
       if (
         colorScheme &&
         colorSchemeNode &&
@@ -233,7 +262,16 @@ export default function createCssVarsProvider(options) {
           }
         }
       }
-    }, [colorScheme, colorSchemeSelector, colorSchemeNode, allColorSchemes]);
+    }, [
+      colorScheme,
+      colorSchemeSelector,
+      colorSchemeNode,
+      allColorSchemes,
+      colorSchemes,
+      joinedColorSchemes,
+      defaultLightColorScheme,
+      defaultDarkColorScheme,
+    ]);
 
     // 5.2 Remove the CSS transition when color scheme changes to create instant experience.
     // credit: https://github.com/pacocoursey/next-themes/blob/b5c2bad50de2d61ad7b52a9c5cdc801a78507d7a/index.tsx#L313
