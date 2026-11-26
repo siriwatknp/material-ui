@@ -73,10 +73,7 @@ function MixedMenu({ direction, dark }: MixedMenuProps) {
             <Menu2RadioGroup defaultValue="list">
               <Menu2RadioItem value="list">List view</Menu2RadioItem>
               <Menu2RadioItem value="grid">Grid view</Menu2RadioItem>
-              <Menu2RadioItem
-                value="wide"
-                slotProps={{ indicator: { children: wideIndicator, sx: { inlineSize: 56 } } }}
-              >
+              <Menu2RadioItem value="wide" slotProps={{ indicator: { children: wideIndicator } }}>
                 <Typography variant="inherit" noWrap>
                   Keep this wide radio indicator at its full size
                 </Typography>
@@ -96,7 +93,7 @@ function MixedMenu({ direction, dark }: MixedMenuProps) {
             </Menu2CheckboxItem>
             <Menu2CheckboxItem
               defaultChecked
-              slotProps={{ indicator: { children: wideIndicator, sx: { inlineSize: 56 } } }}
+              slotProps={{ indicator: { children: wideIndicator } }}
             >
               <Typography variant="inherit" noWrap>
                 Keep this wide custom indicator at its full size
@@ -119,7 +116,7 @@ function MixedMenu({ direction, dark }: MixedMenuProps) {
   return menu;
 }
 
-const wideIconColumn = { marginInlineEnd: 36 };
+const wideIconColumn = { minWidth: 56 };
 
 function WideIconColumnMenu({ direction }: Pick<MixedMenuProps, 'direction'>) {
   const [anchor, setAnchor] = React.useState<HTMLDivElement | null>(null);

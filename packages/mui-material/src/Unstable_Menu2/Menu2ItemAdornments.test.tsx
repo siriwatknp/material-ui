@@ -234,8 +234,8 @@ describe('Menu2 item adornments', () => {
               const adorned = getAdornments('Cut', part).start[0].getBoundingClientRect();
               const inset = getAdornments('Paste', part).start[0].getBoundingClientRect();
 
-              expect(adorned.width).to.equal(20);
-              expect(inset.width).to.equal(20);
+              expect(adorned.width).to.equal(36);
+              expect(inset.width).to.equal(36);
               expect(inset.right).to.equal(adorned.right);
             });
 

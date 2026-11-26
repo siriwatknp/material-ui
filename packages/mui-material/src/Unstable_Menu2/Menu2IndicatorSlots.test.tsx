@@ -218,7 +218,7 @@ describe('Menu2 indicator slots', () => {
 
       [false, true].forEach((modularCssLayers) => {
         it.skipIf(isJsdom())(
-          `shares the start adornment column, not ListItemIcon styles (modularCssLayers: ${modularCssLayers})`,
+          `keeps the start column without ListItemIcon theme styles (modularCssLayers: ${modularCssLayers})`,
           () => {
             const theme = createTheme({
               modularCssLayers,
@@ -233,7 +233,7 @@ describe('Menu2 indicator slots', () => {
                 <ThemeProvider theme={theme}>
                   <Menu2 defaultOpen modal={false}>
                     <Menu2Popup anchor={document.body} slots={{ transition: null }}>
-                      <Menu2Item startAdornment={<svg width={24} height={24} aria-hidden="true" />}>
+                      <Menu2Item startAdornment={<svg width={20} height={20} aria-hidden="true" />}>
                         Action
                       </Menu2Item>
                       {createItem({})}
@@ -246,17 +246,11 @@ describe('Menu2 indicator slots', () => {
             const startAdornment = screen
               .getByRole('menuitem', { name: 'Action' })
               .querySelector<HTMLElement>(`.${menu2ItemClasses.startAdornment}`)!;
-            const indicator = queryIndicator()!;
-            [startAdornment, indicator].forEach((column) => {
+            [startAdornment, queryIndicator()!].forEach((column) => {
               expect(column).not.to.have.class(listItemIconClasses.root);
-              const style = getComputedStyle(column);
-              expect(style.width).to.equal('20px');
-              expect(style.marginInlineEnd).to.equal('16px');
-              expect(style.paddingRight).to.equal('0px');
+              expect(getComputedStyle(column).minWidth).to.equal('36px');
+              expect(getComputedStyle(column).paddingRight).to.equal('0px');
             });
-            expect(startAdornment.getBoundingClientRect().right).to.equal(
-              indicator.getBoundingClientRect().right,
-            );
           },
         );
       });

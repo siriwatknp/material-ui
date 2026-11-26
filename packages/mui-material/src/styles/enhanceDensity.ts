@@ -422,15 +422,22 @@ function emitComponentDensity<T extends EnhanceableTheme>(enhanced: DensityEnhan
   const menu2TextStart = `calc(${spacing('xSmall')} + ${menu2Column})`;
   // A root variant, not the gutters slot, so a user root padding override still wins.
   addStyleOverride(enhanced.components, 'MuiMenu2Item', 'root', {
-    '--_menu2IconSize': iconSize,
-    '--_menu2IconGap': spacing('xSmall'),
     minHeight: menuItemHeight,
     paddingBlock: spacing('xxSmall'),
     [smUp]: { minHeight: menuItemHeight },
     variants: [{ props: { disableGutters: false }, style: { paddingInline: spacing('xSmall') } }],
   });
+  addStyleOverride(enhanced.components, 'MuiMenu2Item', 'startAdornment', {
+    minWidth: menu2Column,
+  });
   addStyleOverride(enhanced.components, 'MuiMenu2Item', 'endAdornment', {
     paddingLeft: spacing('medium'),
+  });
+  addStyleOverride(enhanced.components, 'MuiMenu2CheckboxItem', 'indicator', {
+    minWidth: menu2Column,
+  });
+  addStyleOverride(enhanced.components, 'MuiMenu2RadioItem', 'indicator', {
+    minWidth: menu2Column,
   });
   addStyleOverride(enhanced.components, 'MuiMenu2SubmenuTrigger', 'indicator', {
     paddingLeft: spacing('xSmall'),

@@ -487,8 +487,8 @@ const CONTROLS: Record<string, Spec> = {
   Menu2CheckboxItem: {
     render: () => openMenu2(<Menu2CheckboxItem>Bold</Menu2CheckboxItem>),
     selector: '.MuiMenu2CheckboxItem-indicator',
-    axis: 'width',
-    height: (density) => density.iconSize,
+    axis: 'minWidth',
+    height: (density) => density.iconSize + density.step.xSmall,
   },
   Menu2RadioItem: {
     render: () =>
@@ -498,8 +498,8 @@ const CONTROLS: Record<string, Spec> = {
         </Menu2RadioGroup>,
       ),
     selector: '.MuiMenu2RadioItem-indicator',
-    axis: 'width',
-    height: (density) => density.iconSize,
+    axis: 'minWidth',
+    height: (density) => density.iconSize + density.step.xSmall,
   },
 };
 

@@ -297,11 +297,9 @@ describe.skipIf(isJsdom())('Menu2 shared styled bases', () => {
             const indicator = getIndicator(role, true);
             const styles = getComputedStyle(indicator);
             expect(indicator).to.have.attribute('data-checked');
-            if (source === 'default') {
-              expect(styles.width).to.equal('20px');
-            } else {
-              expect(styles.minWidth).to.equal(`${source === 'sx' ? 51 : 41 + index * 4}px`);
-            }
+            expect(styles.minWidth).to.equal(
+              source === 'default' ? '36px' : `${source === 'sx' ? 51 : 41 + index * 4}px`,
+            );
             const expectedColors = {
               default: 'rgb(25, 118, 210)',
               theme: ['rgb(1, 2, 3)', 'rgb(4, 5, 6)'][index],
