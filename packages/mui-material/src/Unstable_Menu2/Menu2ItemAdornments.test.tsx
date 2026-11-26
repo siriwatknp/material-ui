@@ -4,7 +4,6 @@ import { createRenderer, isJsdom, screen } from '@mui/internal-test-utils';
 import { StyledEngineProvider } from '@mui/styled-engine';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import type { Theme } from '@mui/material/styles';
-import { listItemIconClasses } from '@mui/material/ListItemIcon';
 import Menu2 from '@mui/material/Unstable_Menu2';
 import Menu2Popup from '@mui/material/Unstable_Menu2Popup';
 import Menu2Item, { menu2ItemClasses } from '@mui/material/Unstable_Menu2Item';
@@ -155,7 +154,6 @@ describe('Menu2 item adornments', () => {
         const { item, start, end } = getAdornments('Cut ⌘X', part);
 
         expect(start).to.have.length(1);
-        expect(start[0]).to.have.class(listItemIconClasses.root);
         expect(start[0].tagName).to.equal('SPAN');
         expect(end).to.have.length(1);
         expect(end[0].tagName).to.equal('SPAN');
@@ -236,8 +234,8 @@ describe('Menu2 item adornments', () => {
               const adorned = getAdornments('Cut', part).start[0].getBoundingClientRect();
               const inset = getAdornments('Paste', part).start[0].getBoundingClientRect();
 
-              expect(adorned.width).to.equal(36);
-              expect(inset.width).to.equal(36);
+              expect(adorned.width).to.equal(20);
+              expect(inset.width).to.equal(20);
               expect(inset.right).to.equal(adorned.right);
             });
 

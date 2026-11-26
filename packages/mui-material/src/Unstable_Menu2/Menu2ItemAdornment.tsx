@@ -1,28 +1,30 @@
 'use client';
-import * as React from 'react';
-import type { ListItemIconProps } from '../ListItemIcon';
-import ListItemIcon from '../ListItemIcon';
 import { styled } from '../zero-styled';
 import memoTheme from '../utils/memoTheme';
 
-// A span stays valid inside a native button.
-const StartAdornment = React.forwardRef<HTMLDivElement, ListItemIconProps>(
-  function StartAdornment(props, ref) {
-    const iconProps = { ...props, as: 'span' };
-    return <ListItemIcon {...iconProps} ref={ref} />;
-  },
-);
+export const menu2StartColumnStyles = {
+  display: 'inline-flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  flexShrink: 0,
+  inlineSize: 'var(--_menu2IconSize, 1.25em)',
+  blockSize: '1lh',
+  marginInlineEnd: 'var(--_menu2IconGap, 16px)',
+  '& > *': { flexShrink: 0 },
+} as const;
 
 /**
  * @ignore - internal component.
  */
-export const Menu2ItemStartAdornment = styled(StartAdornment, {
+export const Menu2ItemStartAdornment = styled('span', {
   name: 'MuiMenu2Item',
   slot: 'startAdornment',
-})({
-  alignItems: 'center',
-  minWidth: 36,
-});
+})(
+  memoTheme(({ theme }) => ({
+    ...menu2StartColumnStyles,
+    color: (theme.vars || theme).palette.action.active,
+  })),
+);
 
 /**
  * @ignore - internal component.

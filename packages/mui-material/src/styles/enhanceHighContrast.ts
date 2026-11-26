@@ -480,6 +480,14 @@ export default function enhanceHighContrast<
           menu2ItemOverrides(menu2ItemClasses, hcTokens),
         ],
         // Shared by all item parts. Active roots opt out of forced colors.
+        startAdornment: [
+          c?.MuiMenu2Item?.styleOverrides?.startAdornment,
+          {
+            [HCM]: {
+              color: 'inherit',
+            },
+          },
+        ],
         endAdornment: [
           c?.MuiMenu2Item?.styleOverrides?.endAdornment,
           {

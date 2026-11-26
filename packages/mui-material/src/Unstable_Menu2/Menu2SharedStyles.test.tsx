@@ -202,7 +202,7 @@ describe.skipIf(isJsdom())('Menu2 shared styled bases', () => {
         });
       });
 
-      it('applies ListItemIcon theme colors according to the CSS layer order', () => {
+      it('ignores ListItemIcon theme overrides on the indicators', () => {
         const iconColor = 'rgb(123, 45, 67)';
         const theme = createTheme({
           modularCssLayers,
@@ -234,12 +234,8 @@ describe.skipIf(isJsdom())('Menu2 shared styled bases', () => {
         );
 
         (['menuitemcheckbox', 'menuitemradio'] as const).forEach((role) => {
-          expect(getComputedStyle(getIndicator(role, true)).color).to.equal(
-            modularCssLayers ? iconColor : 'rgb(25, 118, 210)',
-          );
-          expect(getComputedStyle(getIndicator(role, false)).color).to.equal(
-            modularCssLayers ? iconColor : 'rgba(0, 0, 0, 0.6)',
-          );
+          expect(getComputedStyle(getIndicator(role, true)).color).to.equal('rgb(25, 118, 210)');
+          expect(getComputedStyle(getIndicator(role, false)).color).to.equal('rgba(0, 0, 0, 0.6)');
         });
       });
 
@@ -301,9 +297,11 @@ describe.skipIf(isJsdom())('Menu2 shared styled bases', () => {
             const indicator = getIndicator(role, true);
             const styles = getComputedStyle(indicator);
             expect(indicator).to.have.attribute('data-checked');
-            expect(styles.minWidth).to.equal(
-              source === 'default' ? '36px' : `${source === 'sx' ? 51 : 41 + index * 4}px`,
-            );
+            if (source === 'default') {
+              expect(styles.width).to.equal('20px');
+            } else {
+              expect(styles.minWidth).to.equal(`${source === 'sx' ? 51 : 41 + index * 4}px`);
+            }
             const expectedColors = {
               default: 'rgb(25, 118, 210)',
               theme: ['rgb(1, 2, 3)', 'rgb(4, 5, 6)'][index],

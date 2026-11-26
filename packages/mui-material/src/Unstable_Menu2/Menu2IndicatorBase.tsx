@@ -1,26 +1,11 @@
 'use client';
 import * as React from 'react';
 import clsx from 'clsx';
-import type { ListItemIconProps } from '../ListItemIcon';
-import ListItemIcon from '../ListItemIcon';
 import { styled } from '../zero-styled';
 import memoTheme from '../utils/memoTheme';
 import type { SlotProps } from '../utils/types';
 import type { Menu2SlotRender } from './menu2Utils';
-
-interface IndicatorProps extends ListItemIconProps {
-  component?: React.ElementType | undefined;
-}
-
-// Pass the element override through ListItemIcon, not through styled(), so its
-// classes and theme styles also apply when the indicator uses another element.
-const Indicator = React.forwardRef<HTMLDivElement, IndicatorProps>(function Indicator(
-  { component = 'span', ...props },
-  ref,
-) {
-  const iconProps = { ...props, as: component };
-  return <ListItemIcon {...iconProps} ref={ref} />;
-});
+import { menu2StartColumnStyles } from './Menu2ItemAdornment';
 
 // Merge the icon classes and default to the small size, as Checkbox and Radio do.
 export function getMenu2IndicatorIcon(icon: React.ReactNode, className: string) {
@@ -39,12 +24,10 @@ export function getMenu2IndicatorIcon(icon: React.ReactNode, className: string) 
 /**
  * @ignore - internal component.
  */
-const Menu2IndicatorBase = styled(Indicator, { slot: 'root' })(
+const Menu2IndicatorBase = styled('span', { slot: 'root' })(
   memoTheme(({ theme }) => ({
-    alignItems: 'center',
-    // Match the start adornment column, so labels align across item kinds.
-    minWidth: 36,
-    // Match Checkbox and Radio colors, not the color of a decorative ListItemIcon.
+    ...menu2StartColumnStyles,
+    // Match Checkbox and Radio colors.
     color: (theme.vars || theme).palette.text.secondary,
     '&[data-checked]': {
       color: (theme.vars || theme).palette.primary.main,

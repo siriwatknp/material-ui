@@ -139,8 +139,6 @@ function Menu2CheckboxItemRootSlot(props: Menu2CheckboxItemRootSlotProps) {
                 ),
             },
             slots?.indicator ? undefined : indicatorRender,
-            // The indicator passes `component` to ListItemIcon, so its styles stay.
-            'component',
           )}
         />
       }

@@ -139,8 +139,6 @@ function Menu2RadioItemRootSlot(props: Menu2RadioItemRootSlotProps) {
                 ),
             },
             slots?.indicator ? undefined : indicatorRender,
-            // The indicator passes `component` to ListItemIcon, so its styles stay.
-            'component',
           )}
         />
       }

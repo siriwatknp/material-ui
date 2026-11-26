@@ -5,7 +5,7 @@ import { describe, expect, it } from 'vitest';
 import { createRenderer, isJsdom, screen, waitFor } from '@mui/internal-test-utils';
 import { StyledEngineProvider } from '@mui/styled-engine';
 import { createTheme, styled, ThemeProvider } from '@mui/material/styles';
-import ListItemIcon, { listItemIconClasses } from '@mui/material/ListItemIcon';
+import { listItemIconClasses } from '@mui/material/ListItemIcon';
 import SvgIcon, { svgIconClasses } from '@mui/material/SvgIcon';
 import type { Menu2CheckboxItemSlotProps } from '@mui/material/Unstable_Menu2CheckboxItem';
 import Menu2CheckboxItem, {
@@ -19,7 +19,7 @@ import Menu2RadioItem, {
   menu2RadioItemClasses,
   menu2RadioItemIndicatorClasses,
 } from '@mui/material/Unstable_Menu2RadioItem';
-import Menu2Item from '@mui/material/Unstable_Menu2Item';
+import Menu2Item, { menu2ItemClasses } from '@mui/material/Unstable_Menu2Item';
 import Menu2 from './Menu2';
 
 interface IndicatorState {
@@ -156,9 +156,6 @@ describe('Menu2 indicator slots', () => {
           const target = screen.getByTitle('Indicator title');
           expect(ref.current).to.equal(target);
           expect(target.tagName).to.equal(indicator === 'i' ? 'I' : 'SPAN');
-          if (slotName === 'default') {
-            expect(target).to.have.class(listItemIconClasses.root);
-          }
           [
             classes.root,
             classes.checked,
@@ -188,7 +185,6 @@ describe('Menu2 indicator slots', () => {
         renderItem({ indicatorProps: { render: <i /> } });
         const indicator = queryIndicator()!;
         expect(indicator.tagName).to.equal('I');
-        expect(indicator).to.have.class(listItemIconClasses.root);
         expect(indicator).to.have.attribute('aria-hidden', 'true');
       });
 
@@ -202,7 +198,6 @@ describe('Menu2 indicator slots', () => {
         });
         const indicator = queryIndicator()!;
         expect(indicator.tagName).to.equal('I');
-        expect(indicator).to.have.class(listItemIconClasses.root);
         expect(indicator).to.have.attribute('data-render-checked', 'false');
         expect(ref.current).to.equal(indicator);
 
@@ -223,20 +218,13 @@ describe('Menu2 indicator slots', () => {
 
       [false, true].forEach((modularCssLayers) => {
         it.skipIf(isJsdom())(
-          `shares ListItemIcon styling (modularCssLayers: ${modularCssLayers})`,
+          `shares the start adornment column, not ListItemIcon styles (modularCssLayers: ${modularCssLayers})`,
           () => {
-            const iconColumnStyles = { [`& .${listItemIconClasses.root}`]: { minWidth: 48 } };
             const theme = createTheme({
               modularCssLayers,
               components: {
                 MuiListItemIcon: {
-                  styleOverrides: { root: { paddingRight: 11 } },
-                },
-                MuiMenu2Item: {
-                  styleOverrides: { root: iconColumnStyles },
-                },
-                [name]: {
-                  styleOverrides: { root: iconColumnStyles },
+                  styleOverrides: { root: { minWidth: 48, paddingRight: 11 } },
                 },
               },
             });
@@ -245,10 +233,7 @@ describe('Menu2 indicator slots', () => {
                 <ThemeProvider theme={theme}>
                   <Menu2 defaultOpen modal={false}>
                     <Menu2Popup anchor={document.body} slots={{ transition: null }}>
-                      <Menu2Item>
-                        <ListItemIcon>
-                          <svg width={20} height={20} aria-hidden="true" />
-                        </ListItemIcon>
+                      <Menu2Item startAdornment={<svg width={24} height={24} aria-hidden="true" />}>
                         Action
                       </Menu2Item>
                       {createItem({})}
@@ -258,14 +243,20 @@ describe('Menu2 indicator slots', () => {
               </StyledEngineProvider>,
             );
 
-            const decorativeIcon = screen
+            const startAdornment = screen
               .getByRole('menuitem', { name: 'Action' })
-              .querySelector(`.${listItemIconClasses.root}`)!;
-            [decorativeIcon, queryIndicator()!].forEach((icon) => {
-              expect(icon).to.have.class(listItemIconClasses.root);
-              expect(getComputedStyle(icon).minWidth).to.equal('48px');
-              expect(getComputedStyle(icon).paddingRight).to.equal('11px');
+              .querySelector<HTMLElement>(`.${menu2ItemClasses.startAdornment}`)!;
+            const indicator = queryIndicator()!;
+            [startAdornment, indicator].forEach((column) => {
+              expect(column).not.to.have.class(listItemIconClasses.root);
+              const style = getComputedStyle(column);
+              expect(style.width).to.equal('20px');
+              expect(style.marginInlineEnd).to.equal('16px');
+              expect(style.paddingRight).to.equal('0px');
             });
+            expect(startAdornment.getBoundingClientRect().right).to.equal(
+              indicator.getBoundingClientRect().right,
+            );
           },
         );
       });

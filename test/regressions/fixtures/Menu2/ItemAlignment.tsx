@@ -8,7 +8,6 @@ import { StyleSheetManager } from 'styled-components';
 import rtlPlugin from '@mui/stylis-plugin-rtl';
 import FormatPaintIcon from '@mui/icons-material/FormatPaint';
 import Box from '@mui/material/Box';
-import { listItemIconClasses } from '@mui/material/ListItemIcon';
 import Typography from '@mui/material/Typography';
 import Menu2 from '@mui/material/Unstable_Menu2';
 import Menu2CheckboxItem from '@mui/material/Unstable_Menu2CheckboxItem';
@@ -74,7 +73,10 @@ function MixedMenu({ direction, dark }: MixedMenuProps) {
             <Menu2RadioGroup defaultValue="list">
               <Menu2RadioItem value="list">List view</Menu2RadioItem>
               <Menu2RadioItem value="grid">Grid view</Menu2RadioItem>
-              <Menu2RadioItem value="wide" slotProps={{ indicator: { children: wideIndicator } }}>
+              <Menu2RadioItem
+                value="wide"
+                slotProps={{ indicator: { children: wideIndicator, sx: { inlineSize: 56 } } }}
+              >
                 <Typography variant="inherit" noWrap>
                   Keep this wide radio indicator at its full size
                 </Typography>
@@ -94,7 +96,7 @@ function MixedMenu({ direction, dark }: MixedMenuProps) {
             </Menu2CheckboxItem>
             <Menu2CheckboxItem
               defaultChecked
-              slotProps={{ indicator: { children: wideIndicator } }}
+              slotProps={{ indicator: { children: wideIndicator, sx: { inlineSize: 56 } } }}
             >
               <Typography variant="inherit" noWrap>
                 Keep this wide custom indicator at its full size
@@ -117,7 +119,7 @@ function MixedMenu({ direction, dark }: MixedMenuProps) {
   return menu;
 }
 
-const wideIconColumnStyles = { [`& .${listItemIconClasses.root}`]: { minWidth: 56 } };
+const wideIconColumn = { marginInlineEnd: 36 };
 
 function WideIconColumnMenu({ direction }: Pick<MixedMenuProps, 'direction'>) {
   const [anchor, setAnchor] = React.useState<HTMLDivElement | null>(null);
@@ -127,10 +129,9 @@ function WideIconColumnMenu({ direction }: Pick<MixedMenuProps, 'direction'>) {
       createTheme({
         direction,
         components: {
-          MuiMenu2Item: { styleOverrides: { root: wideIconColumnStyles } },
-          MuiMenu2CheckboxItem: { styleOverrides: { root: wideIconColumnStyles } },
-          MuiMenu2RadioItem: { styleOverrides: { root: wideIconColumnStyles } },
-          MuiMenu2SubmenuTrigger: { styleOverrides: { root: wideIconColumnStyles } },
+          MuiMenu2Item: { styleOverrides: { startAdornment: wideIconColumn } },
+          MuiMenu2CheckboxItem: { styleOverrides: { indicator: wideIconColumn } },
+          MuiMenu2RadioItem: { styleOverrides: { indicator: wideIconColumn } },
         },
       }),
     [direction],

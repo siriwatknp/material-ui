@@ -412,7 +412,9 @@ The separator state contains `orientation`, which is `"horizontal"` or `"vertica
 `MuiMenu2Item.styleOverrides` applies to the default styled item roots, including link, checkbox, and radio items and submenu triggers.
 It also applies to their `startAdornment` and `endAdornment` slots.
 The `divider`, `gutters`, and `inset` overrides apply when the corresponding state matches.
-The start adornment uses `ListItemIcon`, so `MuiListItemIcon` colors and selectors also apply to it.
+The start adornment sits in a fixed column, 1.25em wide (20px at the default font size), with a 16px gap after it.
+Its content is centered in the column, so icons and avatars of different sizes share one center line and the labels stay aligned.
+Content wider than the column overflows it on both sides, so give wide content, such as a badge, a wider column.
 Use `styleOverrides.startAdornment` to change its column width.
 The `indicator` slot of checkbox and radio items, and inset group labels and separators, use fixed offsets for the default width.
 Change these offsets too.
@@ -495,8 +497,8 @@ If `slotProps.indicator.children` is neither `null` nor `undefined`, it replaces
 Slot callbacks receive the live checked, disabled, and highlighted state.
 A replacement must forward the supplied props and ref, including the state classes in `className`.
 
-The default indicators use `ListItemIcon`, so its selectors also affect indicators.
-With modular CSS layers, `MuiListItemIcon` theme overrides take precedence over default indicator colors.
+The default indicators use the same column as the start adornment.
+`MuiListItemIcon` theme overrides do not apply to them.
 Use `MuiMenu2CheckboxItem.styleOverrides.indicator` or `MuiMenu2RadioItem.styleOverrides.indicator` for the container, and `styleOverrides.indicatorIcon` for the icon.
 The indicator and the icon have no separate theme keys.
 The internal indicator components are not exported, but their owning items export `menu2CheckboxItemIndicatorClasses` and `menu2RadioItemIndicatorClasses` for CSS selectors.
